@@ -1,75 +1,75 @@
 <template>
-<div id="sidebar"></div>
+  <div id="sidebar"></div>
 </template>
 
 <script>
 export default {
-  props: ['mapObj', 'templateVars'],
-  data () {
+  props: ["mapObj", "templateVars"],
+  data() {
     return {
       sidebar: undefined
-    }
+    };
   },
   computed: {
-    showOrHideSidebar () {
-      return this.$store.state.sidebarVisibility
+    showOrHideSidebar() {
+      return this.$store.state.sidebarVisibility;
     },
-    sidebarContent () {
-      return this.$store.state.sidebarContent
+    sidebarContent() {
+      return this.$store.state.sidebarContent;
     }
   },
   watch: {
-    showOrHideSidebar () {
+    showOrHideSidebar() {
       // If necessary, create the sidebar control.
       // This should be done here instead of during the
       // created/mounted cycle because the map and other
       // objects may not be fully instantiated yet.
       if (undefined === this.sidebar) {
-        this.sidebar = this.$L.control.sidebar('sidebar', {
-          position: 'left',
+        this.sidebar = this.$L.control.sidebar("sidebar", {
+          position: "left",
           autoPan: false
-        })
-        this.mapObj.addControl(this.sidebar)
+        });
+        this.mapObj.addControl(this.sidebar);
 
         // Wire in the event to watch for closing the sidebar
-        this.sidebar.on('hidden', () => {
-          this.$store.commit('hideSidebar')
-        })
+        this.sidebar.on("hidden", () => {
+          this.$store.commit("hideSidebar");
+        });
       }
 
       // Populate sidebar content if showing it
       if (this.showOrHideSidebar === true) {
-        var content = '<h3>' + this.sidebarContent.title + '</h3>'
+        var content = "<h3>" + this.sidebarContent.title + "</h3>";
         if (this.sidebarContent.legend !== false) {
           content = content.concat(
             '<img id="legend" src="' +
-            process.env.VUE_APP_GEOSERVER_WMS_URL +
-            '?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=' +
-            this.sidebarContent.name +
-            '" onerror="this.style.display=\'none\'" />'
-          )
+              process.env.VUE_APP_GEOSERVER_WMS_URL +
+              "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=" +
+              this.sidebarContent.name +
+              '" onerror="this.style.display=\'none\'" />'
+          );
         }
-        var abstractContent
-        if (typeof this.sidebarContent.abstract === 'function') {
-          abstractContent = this.sidebarContent.abstract(this.templateVars)
+        var abstractContent;
+        if (typeof this.sidebarContent.abstract === "function") {
+          abstractContent = this.sidebarContent.abstract(this.templateVars);
         } else {
-          abstractContent = this.sidebarContent.abstract
+          abstractContent = this.sidebarContent.abstract;
         }
-        this.sidebar.setContent(content + abstractContent).show()
+        this.sidebar.setContent(content + abstractContent).show();
       } else {
         // Or, clear the content if hiding it.
-        this.sidebar.setContent('').hide()
+        this.sidebar.setContent("").hide();
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
 @import url("../../node_modules/leaflet-sidebar/src/L.Control.Sidebar.css");
 
 #sidebar {
-  font-family: 'Lato';
+  font-family: "Lato";
   font-size: 150%;
   z-index: 500;
 
