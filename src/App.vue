@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Alaska Wildfires: Past, Present &amp; Future</h1>
+    <FireMap></FireMap>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FireMap from "@/components/FireMap.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    FireMap
   }
-}
+};
 </script>
 
 <style>
