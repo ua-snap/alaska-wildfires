@@ -23,11 +23,6 @@
             :text="button.text"
           ></layer-menu-button-item>
         </div>
-
-        <layer-menu-button-item
-          :callback="showSplash"
-          text="About this map"
-        ></layer-menu-button-item>
       </div>
     </div>
   </div>
@@ -55,9 +50,6 @@ export default {
   methods: {
     toggleLayerMenu() {
       this.$store.commit("toggleLayerMenu");
-    },
-    showSplash() {
-      this.$store.commit("showSplash");
     },
     toggleDualMaps() {
       this.$store.commit("toggleDualMaps");
