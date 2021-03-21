@@ -16,6 +16,13 @@
   </div>
 </template>
 
+<style scoped lang="scss">
+// Styles for the main page belong here!
+.map--wrapper {
+  position: relative;
+}
+</style>
+
 <script>
 // For Leaflet, whose constructors are often lowercase
 /* eslint new-cap: "off" */
@@ -680,13 +687,8 @@ export default {
 </script>
 
 <style lang="scss">
-// Not scoped, for editing tour / leaflet styles
-span.fire-tour-info {
-  display: inline-block;
-  padding: 0 0.1ex;
-  color: #333;
-  font-weight: bold;
-}
+// *** Design/content folks: don't edit these please!
+// Not scoped, for editing tour / leaflet styles, or things in sidebar.
 
 .leaflet-popup-content {
   z-index: 1000;
@@ -878,8 +880,3 @@ table.alaska-wildfires-legend.big-fire-years {
 }
 </style>
 
-<style scoped lang="scss">
-.map--wrapper {
-  position: relative;
-}
-</style>
