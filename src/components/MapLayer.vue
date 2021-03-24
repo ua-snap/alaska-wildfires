@@ -1,56 +1,15 @@
 <template>
-  <div
-    :id="id"
-    class="layer"
-    :class="{ nodata: nodata }"
-    data-toggle="buttons"
-    :data-balloon="nodataMessage"
-    data-balloon-pos="right"
-  >
+  <div :id="id" class="layer" data-toggle="buttons">
     <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
-
-    <!-- Draggy handle -->
-    <span class="reorder"
-      ><svg width="16" height="16" viewBox="0 0 24 24">
-        <path
-          stroke="#888"
-          fill="#888"
-          d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"
-        /></svg
-    ></span>
-
-    <!-- Information about layer button -->
-    <a class="info" @click="showLayerInformation(id)">&#9432;</a>
-
-    <!-- Dual map controls -->
-    <a class="split-map-controls" v-if="dualMaps && !layer.local">
-      <a
-        class="left-right"
-        :class="{ visible: layer.visible }"
-        @click.prevent="toggleLayer(id)"
-      >
-        Left
-      </a>
-      &#47;
-      <a
-        class="left-right"
-        :class="{ visible: layer.secondVisible }"
-        @click.prevent="toggleLayer(id, 'second')"
-      >
-        Right
-      </a>
-    </a>
 
     <!-- Layer title! -->
     <span class="layer-title">
       <a @click.prevent="toggleLayer(id)">
-        <span v-if="layer.visible || (dualMaps && layer.secondVisible)"
-          >&#10003;</span
-        >
+        <span v-if="layer.visible">&#10003;</span>
         <span
           v-html="layer.title"
           :class="{
-            visible: layer.visible || (dualMaps && layer.secondVisible)
+            visible: layer.visible
           }"
         >
         </span>
@@ -58,7 +17,7 @@
     </span>
 
     <!-- If there is a custom layer configuration renderer, show here. -->
-    <span v-if="controls && (layer.visible || layer.secondVisible)">
+    <span v-if="controls && layer.visible">
       <keep-alive>
         <component
           v-bind:is="customConfigurationRenderer"
@@ -77,7 +36,7 @@ import _ from "lodash";
 
 export default {
   name: "MapLayer",
-  props: ["id", "nodata", "nodataMessage", "controls"],
+  props: ["id", "controls"],
   computed: {
     layer() {
       // Helper to return a layer from the ordered array of layers.
@@ -86,9 +45,6 @@ export default {
         layer => layer.id === this.id
       );
       return this.$store.state.layers[targetLayerIndex];
-    },
-    dualMaps() {
-      return this.$store.state.dualMaps;
     },
     customConfigurationRenderer() {
       // Right now, there's just the one custom renderer for
@@ -101,14 +57,10 @@ export default {
     }
   },
   methods: {
-    toggleLayer(name, mapPane) {
-      // If the layer has data, toggle on/off!
-      if (!this.nodata) {
-        this.$store.commit("toggleLayerVisibility", {
-          id: this.id,
-          mapPane: mapPane
-        });
-      }
+    toggleLayer() {
+      this.$store.commit("toggleLayerVisibility", {
+        id: this.id
+      });
     },
     showLayerInformation(layer) {
       this.$store.commit("showSidebar", {
@@ -140,15 +92,13 @@ export default {
     color: #888;
   }
 }
-.split-map-controls {
-  display: inline-block;
-  margin-left: 1ex;
-}
+
 .visible {
   font-weight: 900;
   text-shadow: #fc0 1px 0 10px;
   text-decoration: underline;
 }
+
 .layer-title {
   display: inline-block;
   padding-left: 1ex;
@@ -160,40 +110,12 @@ export default {
   }
 }
 
-a.info {
-  font-weight: 900;
-  border-radius: 50%;
-  display: inline-block;
-  padding: 0 5px;
-  margin: 0 -5px;
-  &:hover {
-    text-decoration: none;
-  }
-}
-
 .reorder {
   display: inline-block;
   position: relative;
   top: 2px;
   cursor: move;
   padding-right: 0.25ex;
-}
-
-.nodata {
-  a {
-    color: #888;
-  }
-  & a.layer-title {
-    cursor: not-allowed;
-    text-decoration: line-through;
-    &:hover,
-    &:focus {
-      text-decoration: line-through;
-    }
-  }
-  span.reorder {
-    visibility: hidden;
-  }
 }
 
 /* Used by DateScenarioSelector and MonthSelector */

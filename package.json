@@ -12,8 +12,6 @@
     "bulma": "^0.9.2",
     "core-js": "^3.6.5",
     "leaflet": "^1.7.1",
-    "leaflet-side-by-side": "github:ua-snap/leaflet-side-by-side#fix_multi_layer",
-    "leaflet-sidebar": "^0.2.4",
     "leaflet.heat": "^0.2.0",
     "moment": "^2.29.1",
     "proj4": "^2.7.0",
