@@ -1,7 +1,7 @@
 <template>
   <div id="mv-ak-fires">
     <div class="map--wrapper">
-      <layer-menu :buttons="buttons"></layer-menu>
+      <layer-menu></layer-menu>
       <mv-map
         ref="map"
         :base-layer-options="baseLayerOptions"
@@ -11,7 +11,6 @@
         :map-options="mapOptions"
         :local-layers="localLayers"
       ></mv-map>
-      <sidebar :mapObj="map"></sidebar>
     </div>
   </div>
 </template>
@@ -33,8 +32,6 @@ import moment from "moment";
 import store from "../store";
 import L from "leaflet";
 import p4l from "proj4leaflet"; // eslint-disable-line
-import leaflet_sidebar from "leaflet-sidebar"; // eslint-disable-line
-import leaflet_side_by_side from "leaflet-side-by-side"; // eslint-disable-line
 import leaflet_heat from "leaflet.heat"; // eslint-disable-line
 import "leaflet/dist/leaflet.css";
 import axios from "axios";
@@ -42,8 +39,6 @@ import axios from "axios";
 Object.defineProperty(Vue.prototype, "$L", { value: L });
 Object.defineProperty(Vue.prototype, "$axios", { value: axios });
 Object.defineProperty(Vue.prototype, "$moment", { value: moment });
-
-console.log(process.env)
 
 // Wire in two listeners that will keep track of open
 // HTTP requests.
@@ -68,7 +63,6 @@ Vue.prototype.$axios.interceptors.response.use(
   }
 );
 
-import Sidebar from "./Sidebar";
 import MvMap from "./Map";
 import LayerMenu from "./LayerMenu";
 
@@ -86,7 +80,6 @@ var offset = new Date().getTimezoneOffset();
 export default {
   name: "AK_Fires",
   components: {
-    Sidebar,
     MvMap,
     LayerMenu
   },
@@ -326,14 +319,6 @@ export default {
 
     fetchViirsData() {
       var processViirsData = data => {
-        if (data.features.length === 0) {
-          Vue.set(this.layers[2], "nodata", true);
-          Vue.set(
-            this.layers[2],
-            "nodataMessage",
-            "No hotspots have been recorded by VIIRS in the past 48 hours."
-          );
-        }
         let viirsPoints = this.getViirsMarkers(data);
         viirsLayerGroup.addLayer(viirsPoints);
       };
@@ -688,7 +673,7 @@ export default {
 
 <style lang="scss">
 // *** Design/content folks: don't edit these please!
-// Not scoped, for editing tour / leaflet styles, or things in sidebar.
+// Not scoped, for editing leaflet styles
 
 .leaflet-popup-content {
   z-index: 1000;

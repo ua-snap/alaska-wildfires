@@ -7,22 +7,6 @@
 <script>
 import _ from "lodash";
 
-var getFilteredLayers = (layers, propertyName) => {
-  return _.filter(layers, layer => {
-    return layer[propertyName];
-  });
-};
-
-// Helper to filter layers
-var getFilteredLayerObjects = (layers, layerObjs, propertyName) => {
-  let filteredLayers = getFilteredLayers(layers, propertyName);
-  return _.map(filteredLayers, layerProps => {
-    return _.find(layerObjs, layerObj => {
-      return layerObj.options.id === layerProps.id;
-    });
-  });
-};
-
 export default {
   name: "mv-map",
   props: [
@@ -38,16 +22,11 @@ export default {
     // Leaflet object
     map: undefined,
     // Object of Leaflet layer objects, keyed by layer ID.
-    layers: {},
-    // L.Control if side by side maps are active
-    sideBySideControl: undefined
+    layers: {}
   },
   computed: {
     layers() {
       return this.$store.state.layers;
-    },
-    dualMaps() {
-      return this.$store.state.dualMaps;
     },
     wmsLayerOptions() {
       return _.extend(
@@ -81,13 +60,7 @@ export default {
 
     this.addLayers();
   },
-  destroyed() {
-    this.$store.commit("resetState");
-  },
   watch: {
-    dualMaps() {
-      this.toggleSideBySideMap();
-    },
     // When layer visibility or order changes, re-render
     layers: {
       deep: true,
@@ -103,41 +76,6 @@ export default {
       return _.find(this.$options.leaflet.layers, layerObj => {
         return layerObj.options.id === id;
       });
-    },
-    // Enable/disable side-by-side map.
-    toggleSideBySideMap() {
-      if (this.dualMaps === true) {
-        this.$options.leaflet.sideBySideControl = this.$L.control
-          .sideBySide()
-          .addTo(this.$options.leaflet.map);
-        this.updateSideBySideMap();
-      } else {
-        // Only remove if it's already been added.
-        if (this.$options.leaflet.sideBySideControl) {
-          this.$options.leaflet.sideBySideControl.remove();
-        }
-      }
-      this.refreshLayers();
-    },
-    // Filter layers by left/right side of map visibility,
-    // Add or remove the split map control.
-    updateSideBySideMap() {
-      // Only set layers if we're in split map mode and the
-      // control is initialized.
-      if (this.dualMaps === true && this.$options.leaflet.sideBySideControl) {
-        let left = getFilteredLayerObjects(
-          this.layers,
-          this.$options.leaflet.layers,
-          "visible"
-        );
-        let right = getFilteredLayerObjects(
-          this.layers,
-          this.$options.leaflet.layers,
-          "secondVisible"
-        );
-        this.$options.leaflet.sideBySideControl.setLeftLayers(left);
-        this.$options.leaflet.sideBySideControl.setRightLayers(right);
-      }
     },
     // Instantiate the Leaflet layer objects
     addLayers() {
@@ -226,12 +164,9 @@ export default {
         // have the highest z-index
         this.$options.leaflet.layers[layer.id].setZIndex(100 - index);
 
-        // The layer is visible (added to Leaflet map) if:
-        // single map mode -- 'visible' flag set
-        // dual map mode -- 'visible' or 'secondVisible' flag set
-        let layerVisibility = this.dualMaps
-          ? layer.visible || layer.secondVisible // dual maps, either side...
-          : layer.visible; // single map, left side only.
+        // The layer is visible (added to Leaflet map) if the
+        // 'visible' flag is set
+        let layerVisibility = layer.visible;
 
         toggleLayerVisibility(
           layerVisibility,
@@ -239,8 +174,6 @@ export default {
           this.$options.leaflet.layers[layer.id]
         );
       });
-
-      this.updateSideBySideMap();
     },
     getBaseMapAndLayers() {
       // The _.cloneDeep is to ensure we aren't recycling
