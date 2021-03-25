@@ -1,19 +1,32 @@
 <template>
   <div id="app">
-    <section class="section">
-      <div class="container">
-        <h1 class="title is-1">Alaska Wildfires: Past, Present &amp; Future</h1>
-        <p>
+    <div class="banner">
+      University of Alaska Fairbanks • International Arctic Research Center
+    </div>
+    <div class="columns intro">
+      <div class="column is-half splash-image">
+        <img
+          src="@/assets/nenana-fire.jpg"
+          alt="Image of a wildfire near Nenana, Alaska"
+        />
+      </div>
+      <div class="column is-half title-column">
+        <h1 class="title is-1">Jackfruit Fire Study</h1>
+        <p class="poem">
           This map shows<br />
           where current fires are and how big they are,<br />
           recent hotspot and lightning strikes,<br />
           historical extent of fires in Alaska,<br />
-          and other layers relevant to fire in Alaska.
+          and other layers<br />
+          relevant<br />
+          to wildfire research in Alaska.
         </p>
       </div>
+    </div>
+    <hr>
+    <section class="section">
+      <FireMap></FireMap>
     </section>
-
-    <FireMap></FireMap>
 
     <section class="section">
       <div class="container">
@@ -67,7 +80,46 @@
   </div>
 </template>
 
-<style type="scss">
+<style scoped lang="scss">
+.banner {
+  text-transform: uppercase;
+  background-color: #545454;
+  padding: 0.3rem;
+  color: #efefef;
+  letter-spacing: 0.2rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.columns.intro {
+  margin-top: 0;
+
+  .column {
+
+    &.title-column {
+      background-color: rgb(232, 122, 57);
+      color: white;
+
+      h1 {
+        font-family: "Yellowtail";
+        color: white !important;
+        font-size: 4rem;
+      }
+    }
+    &.splash-image {
+      margin: 0;
+      padding: 0;
+
+      img {
+        min-height: 50vh;
+        height: 100%;
+        min-width: 100%;
+        width: 50vw;
+      }
+    }
+  }
+}
+
 .footer {
   box-shadow: inset 0 7px 9px -7px rgba(0, 0, 0, 0.4);
 
