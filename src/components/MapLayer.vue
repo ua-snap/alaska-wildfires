@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" class="layer" data-toggle="buttons">
+  <div :id="id" class="layer">
     <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
 
     <!-- Layer title! -->
@@ -62,11 +62,6 @@ export default {
         id: this.id
       });
     },
-    showLayerInformation(layer) {
-      this.$store.commit("showSidebar", {
-        layer: layer
-      });
-    },
     handleLayerConfigChange(data) {
       // Update defaults so when
       // the controls configuration changes,
@@ -110,20 +105,4 @@ export default {
   }
 }
 
-.reorder {
-  display: inline-block;
-  position: relative;
-  top: 2px;
-  cursor: move;
-  padding-right: 0.25ex;
-}
-
-/* Used by DateScenarioSelector and MonthSelector */
-::v-deep .layer--selector {
-  text-align: right;
-  select {
-    width: 7em;
-    font-size: 80%;
-  }
-}
 </style>

@@ -1,0 +1,26 @@
+<template>
+	<div>
+		<legend-item id="fires"></legend-item>
+		<legend-item id="viirs"></legend-item>
+		<legend-item id="postgis_lightning"></legend-item>
+		<legend-item id="alaska_wildfires"></legend-item>
+		<legend-item id="historical_fire_perimiters"></legend-item>
+		<legend-item id="gridded_lightning"></legend-item>
+		<legend-item
+			id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"
+		></legend-item>
+		<legend-item id="alaska_landcover_2015"></legend-item>
+	</div>
+</template>
+
+<script>
+import LegendItem from "./LegendItem";
+export default {
+	name: "LegendList",
+	components: {
+		"legend-item": LegendItem
+	}
+};
+</script>
+
+<style lang="scss" scoped></style>
