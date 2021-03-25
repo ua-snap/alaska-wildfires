@@ -2,7 +2,7 @@
   <div id="mv-ak-fires">
     <div class="columns">
       <div class="column is-one-quarter">
-        <layer-menu></layer-menu>
+        <layer-list></layer-list>
       </div>
       <div class="column">
         <mv-map
@@ -14,6 +14,7 @@
           :map-options="mapOptions"
           :local-layers="localLayers"
         ></mv-map>
+        <legend-list></legend-list>
       </div>
     </div>
   </div>
@@ -63,7 +64,8 @@ Vue.prototype.$axios.interceptors.response.use(
 );
 
 import MvMap from "./Map";
-import LayerMenu from "./LayerMenu";
+import LegendList from "./LegendList";
+import LayerList from "./LayerList";
 
 // Leaflet objects, keep these outside of the
 // scope of the Vue component for performance
@@ -80,7 +82,8 @@ export default {
   name: "AK_Fires",
   components: {
     MvMap,
-    LayerMenu
+    LayerList,
+    LegendList
   },
   computed: {
     crs() {
@@ -264,7 +267,7 @@ export default {
             <tr><td><div class="bf2019"></div></td><td>2019</td></tr>
           </table>
           <p>This layer shows the extent of the largest recent fire seasons, with total area burned greater than 1 million acres.</p>`,
-          id: "alaska_wildfires:big_fire_perimiters",
+          id: "alaska_wildfires",
           wmsLayerName: "alaska_wildfires:historical_fire_perimiters",
           styles: "alaska_wildfires:big_fire_years",
           title: "Recent large fire years",

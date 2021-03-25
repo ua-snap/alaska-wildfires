@@ -39,4 +39,6 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .layer--selector { margin-left: 1.25rem; }
+</style>

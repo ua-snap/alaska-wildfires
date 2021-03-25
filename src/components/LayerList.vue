@@ -1,46 +1,55 @@
 <template>
-  <div id="top_item">
-    <draggable v-model="layers" id="layer-list" class="layer-list">
-      <transition-group name="list-complete">
-        <div class="list-complete-item" v-for="layer in layers" :key="layer.id">
-          <map-layer
-            :id="layer.id"
-            :nodata="layer.nodata"
-            :nodataMessage="layer.nodataMessage"
-            :controls="layer.controls"
-          ></map-layer>
-        </div>
-      </transition-group>
-    </draggable>
+  <div>
+    <h2 class="title is-3">Turn on a map layer to see fire data.</h2>
+    <h3 class="subtitle is-4">Now</h3>
+
+    <ul>
+      <li>
+        <map-layer id="fires"></map-layer>
+      </li>
+      <li>
+        <map-layer id="viirs"></map-layer>
+      </li>
+      <li>
+        <map-layer id="postgis_lightning"></map-layer>
+      </li>
+    </ul>
+
+    <h3 class="subtitle is-4">Past + future</h3>
+
+    <ul>
+      <li>
+        <map-layer id="alaska_wildfires"></map-layer>
+      </li>
+      <li>
+        <map-layer id="historical_fire_perimiters"></map-layer>
+      </li>
+      <li>
+        <map-layer id="gridded_lightning" controls="months"></map-layer>
+      </li>
+      <li>
+        <map-layer id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"></map-layer>
+      </li>
+      <li>
+        <map-layer id="alaska_landcover_2015"></map-layer>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import MapLayer from "./MapLayer";
-import draggable from "vuedraggable";
 
 export default {
   name: "LayerList",
   components: {
-    "map-layer": MapLayer,
-    draggable
-  },
-  computed: {
-    layers: {
-      get() {
-        return this.$store.state.layers;
-      },
-      set(value) {
-        this.$store.commit("reorderLayers", value);
-      }
-    }
+    "map-layer": MapLayer
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.list-complete-enter,
-.list-complete-leave-active {
-  opacity: 0;
+h3.is-4 {
+  margin: 1rem 0 0.25rem;
 }
 </style>

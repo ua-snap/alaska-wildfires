@@ -23,7 +23,7 @@
         </p>
       </div>
     </div>
-    <hr>
+
     <section class="section">
       <FireMap></FireMap>
     </section>
@@ -99,7 +99,8 @@
     &.title-column {
       background-color: rgb(232, 122, 57);
       color: white;
-
+      text-align: center;
+      padding-top: 5rem;
       h1 {
         font-family: "Yellowtail";
         color: white !important;
@@ -109,7 +110,7 @@
     &.splash-image {
       margin: 0;
       padding: 0;
-
+      border-right: 0.2rem solid #fff;
       img {
         min-height: 50vh;
         height: 100%;
