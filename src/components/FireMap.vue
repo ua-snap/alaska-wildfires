@@ -1,26 +1,25 @@
 <template>
   <div id="mv-ak-fires">
-    <div class="map--wrapper">
-      <layer-menu></layer-menu>
-      <mv-map
-        ref="map"
-        :base-layer-options="baseLayerOptions"
-        :base-layer="baseLayer"
-        :place-layer="placeLayer"
-        :crs="crs"
-        :map-options="mapOptions"
-        :local-layers="localLayers"
-      ></mv-map>
+    <div class="columns">
+      <div class="column is-one-quarter">
+        <layer-menu></layer-menu>
+      </div>
+      <div class="column">
+        <mv-map
+          ref="map"
+          :base-layer-options="baseLayerOptions"
+          :base-layer="baseLayer"
+          :place-layer="placeLayer"
+          :crs="crs"
+          :map-options="mapOptions"
+          :local-layers="localLayers"
+        ></mv-map>
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-// Styles for the main page belong here!
-.map--wrapper {
-  position: relative;
-}
-</style>
+<style scoped lang="scss"></style>
 
 <script>
 // For Leaflet, whose constructors are often lowercase
@@ -159,7 +158,7 @@ export default {
         {
           id: "fires",
           wmsLayerName: "fires",
-          title: "2020 Wildfires",
+          title: "2021 Wildfires",
           local: true,
           legend: false,
           visible: true,
@@ -293,7 +292,7 @@ export default {
     viirsLayerGroup = this.$L.layerGroup();
 
     // Initialize the layers!
-    this.$store.commit('setLayers', this.layers)
+    this.$store.commit("setLayers", this.layers);
   },
   mounted() {
     this.fetchFireData();
@@ -864,4 +863,3 @@ table.alaska-wildfires-legend.big-fire-years {
   }
 }
 </style>
-
