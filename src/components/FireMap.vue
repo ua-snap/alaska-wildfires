@@ -30,6 +30,7 @@ import Vue from "vue";
 import moment from "moment";
 
 import store from "../store";
+import mapLayers from "../layers";
 import L from "leaflet";
 import p4l from "proj4leaflet"; // eslint-disable-line
 import leaflet_heat from "leaflet.heat"; // eslint-disable-line
@@ -123,23 +124,6 @@ export default {
         fires: fireLayerGroup,
         viirs: viirsLayerGroup
       };
-    },
-    // Custom buttons for menu
-    buttons() {
-      return [
-        {
-          text: "Daily Fire Tally",
-          glyphicon: "signal",
-          classes: "mobile-hidden",
-          id: "fire-graph",
-          callback: this.showFireGraph
-        },
-        {
-          text: "How clean is the air?",
-          id: "air-quality",
-          callback: this.openAQI
-        }
-      ];
     }
   },
   data() {
@@ -157,133 +141,7 @@ export default {
         version: "1.3",
         continuousWorld: true // needed for non-3857 projs
       },
-      layers: [
-        {
-          id: "fires",
-          wmsLayerName: "fires",
-          title: "2021 Wildfires",
-          local: true,
-          legend: false,
-          visible: true,
-          abstract:
-            '<img src="static/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="noopener" rel="external">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
-        },
-        {
-          id: "postgis_lightning",
-          wmsLayerName: "postgis_lightning",
-          title: "Lightning strikes, last 36 hours",
-          layerName: "alaska_wildfires:postgis_lightning",
-          legend: false,
-          abstract: `
-            <table class="alaska-wildfires-legend lightning">
-              <tr><td><div class="positive"><img src="/static/lightning-positive.svg"/></div></td><td>Positive</td></tr>
-              <tr><td><div class="negative"><img src="/static/lightning-negative.svg"/></div></td><td>Negative</td></tr>
-              <tr><td><div class="cloud2cloud">•</div></td><td>Cloud to cloud</td></tr>
-            </table>
-            <p>This layer shows the last 36 hours of lightning activity, with older lightning strikes fading out to be more opaque the older they are.  Both <href target="_blank" rel="noopener"  href="https://www.weather.gov/jetstream/positive">positive and negative lightning</a> strikes are shown.  Positive lightning is often stronger and may be more closely associated with wildfires, and is shown with a red outline.  Negative lightning is shown with a black outline.</p>`
-        },
-        {
-          id: "gridded_lightning",
-          wmsLayerName(params) {
-            var monthName = moment.months(params.month - 1);
-            return {
-              name: `alaska_wildfires:lightning-monthly-climatology`,
-              time: `2015-${params.month}-01T00:00:00Z`,
-              title: `Historical lightning strikes in ${monthName}`
-            };
-          },
-          controls: "months",
-          defaults: {
-            month: 5
-          },
-          legend: false,
-          abstract: `
-            <p>Average number of lightning strikes per pixel</p><div><img src="static/lightning-legend.png" style="height: 200px"/></div>
-            <p>This layer represents a 30 year (1986&ndash;2015) average of detected lightning strikes for the months of May, June, July, and August, our historical wildfire season. It was computed by averaging all strikes within a 20 x 20 km pixel for each month across 30 years. The data source was obtained from the <a href="https://fire.ak.blm.gov/predsvcs/maps.php" rel="noopener " target="_blank">Alaska Interagency Coordination Center</a>.</p>`
-        },
-        {
-          id: "viirs",
-          wmsLayerName: "viirs",
-          title: "Hotspots, last 48 hours",
-          local: true,
-          legend: false,
-          abstract: `<p>VIIRS, a <a href="https://ncc.nesdis.noaa.gov/VIIRS/" target="_blank" rel="noopener">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank" rel="noopener">Suomi satellite</a>, can see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>
-            <p>Because VIIRS picks up elevated temperatures, it can detect other phenomena which are not wildfire-related.  For example, the flare stacks at oil drilling facilities on the North Slope of Alaska frequently show up as hotspots with this instrument, even though there are no wildfires at that location.</p>
-            <p>This layer is shown as a heatmap, clustering individual VIIRS hotspot detections into a smooth visual gradient.  Greater density of hotspots translates into darker areas in the heatmap.</p>
-            `
-        },
-        {
-          abstract: `
-          <table class="alaska-wildfires-legend alaska-landcover-2015">
-            <tr><td><div class="l-1"></div></td><td>Temperate or sub-polar needleleaf forest</td></tr>
-            <tr><td><div class="l-2"></div></td><td>Sub-polar taiga needleleaf forest</td></tr>
-            <tr><td><div class="l-3"></div></td><td>Temperate or sub-polar broadleaf deciduous forest</td></tr>
-            <tr><td><div class="l-4"></div></td><td>Mixed forest</td></tr>
-            <tr><td><div class="l-5"></div></td><td>Temperate or sub-polar shrubland</td></tr>
-            <tr><td><div class="l-6"></div></td><td>Temperate or sub-polar grassland</td></tr>
-            <tr><td><div class="l-7"></div></td><td>Sub-polar or polar shrubland-lichen-moss</td></tr>
-            <tr><td><div class="l-8"></div></td><td>Sub-polar or polar grassland-lichen-moss</td></tr>
-            <tr><td><div class="l-9"></div></td><td>Sub-polar or polar barren-lichen-moss</td></tr>
-            <tr><td><div class="l-10"></div></td><td>Wetland</td></tr>
-            <tr><td><div class="l-11"></div></td><td>Cropland</td></tr>
-            <tr><td><div class="l-12"></div></td><td>Barren land</td></tr>
-            <tr><td><div class="l-13"></div></td><td>Urban and built-up</td></tr>
-            <tr><td><div class="l-14"></div></td><td>Water</td></tr>
-            <tr><td><div class="l-15"></div></td><td>Snow and ice</td></tr>
-          </table>
-          <p>This map of Alaskan land cover at a spatial resolution of 30 meters provides a view of the physical cover of Earth's surface based on 2015 Landsat satellite imagery.</p>
-
-          <p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2015. What land cover burns the most?</p>
-
-          <p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-30m-2015-landsat-and-rapideye" target="_blank" rel="noopener">Commission for Environmental Cooperation</a>.</p>`,
-          id: "alaska_landcover_2015",
-          wmsLayerName: "alaska_wildfires:alaska_landcover_2015",
-          title: "Land cover, 2015",
-          legend: false
-        },
-        {
-          abstract: `
-          <table class="alaska-wildfires-legend historical-fire-perimeters">
-            <tr><td><div class="h-40-69"></div></td><td>1940&mdash;1969</td></tr>
-            <tr><td><div class="h-70-99"></div></td><td>1970&mdash;1999</td></tr>
-            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2019</td></tr>
-          </table>
-          <p>This layer shows historical fire perimeters from 1940&mdash;2019. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank" rel="noopener">AICC</a>.</p>`,
-          id: "historical_fire_perimiters",
-          wmsLayerName: "historical_fire_perimiters",
-          styles: "historical_fire_polygon_buckets",
-          title: "Historical fire perimeters, 1940&mdash;2019",
-          legend: false
-        },
-        {
-          abstract: `
-          <table class="alaska-wildfires-legend big-fire-years">
-            <tr><td><div class="bf2004"></div></td><td>2004</td></tr>
-            <tr><td><div class="bf2005"></div></td><td>2005</td></tr>
-            <tr><td><div class="bf2009"></div></td><td>2009</td></tr>
-            <tr><td><div class="bf2010"></div></td><td>2010</td></tr>
-            <tr><td><div class="bf2013"></div></td><td>2013</td></tr>
-            <tr><td><div class="bf2015"></div></td><td>2015</td></tr>
-            <tr><td><div class="bf2019"></div></td><td>2019</td></tr>
-          </table>
-          <p>This layer shows the extent of the largest recent fire seasons, with total area burned greater than 1 million acres.</p>`,
-          id: "alaska_wildfires",
-          wmsLayerName: "alaska_wildfires:historical_fire_perimiters",
-          styles: "alaska_wildfires:big_fire_years",
-          title: "Recent large fire years",
-          legend: false
-        },
-        {
-          abstract: `
-          <p>This layer shows the results of a wildfire model, ALFRESCO, that shows the <a target="_blank" rel="noopener"  href="http://ckan.snap.uaf.edu/dataset/alfresco-model-outputs-relative-flammability">projected relative flammability</a>.  The darker red, the more likely that that area may burn in the future according to this model.  This layer includes data from the <a target="_blank" rel="noopener"  href="https://www.snap.uaf.edu/projects/iem">Integrated Ecosystem Management</a> project and assumes
-          <a target="_blank" rel="noopener"  href="https://link.springer.com/article/10.1007/s10584-011-0149-y">comparatively high greenhouse gas emissions (RCP8.5)</a>.</p><p>This is a different type of data from other kinds on this map.  Instead of being directly observed current or historical data, this layer shows the result of computer models that take many different things into consideration to give an estimate about how future climate conditions may impact flammability.  This information can be useful for communities and decision makers.  To find out more about this type of data, visit the <a href="https://www.snap.uaf.edu" target="_blank" rel="noopener">SNAP web site</a>.</p>`,
-          id: "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
-          wmsLayerName:
-            "alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
-          title: "Future flammability, 2000-2099",
-          legend: false
-        }
-      ],
+      layers: mapLayers,
       fireJson: null,
       viirsJson: null,
       map: undefined
@@ -305,13 +163,6 @@ export default {
     localStorage.clear();
   },
   methods: {
-    openAQI() {
-      window.open("https://fire.ak.blm.gov/predsvcs/airquality.php", "_blank");
-    },
-    showFireGraph() {
-      window.open("https://snap.uaf.edu/tools/daily-fire-tally", "_blank");
-    },
-
     // Helper function to format incoming UNIX timestamps
     // relative to brower's local time zone.  Returns Moment
     // object for formatting relevant in context.

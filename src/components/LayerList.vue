@@ -19,20 +19,21 @@
 
     <ul>
       <li>
-        <map-layer id="alaska_wildfires"></map-layer>
-      </li>
-      <li>
-        <map-layer id="historical_fire_perimiters"></map-layer>
+        <map-layer id="alaska_landcover_2015"></map-layer>
       </li>
       <li>
         <map-layer id="gridded_lightning" controls="months"></map-layer>
       </li>
       <li>
-        <map-layer id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"></map-layer>
+        <map-layer id="historical_fire_perimiters"></map-layer>
       </li>
       <li>
-        <map-layer id="alaska_landcover_2015"></map-layer>
+        <map-layer id="alaska_wildfires"></map-layer>
       </li>
+      <li>
+        <map-layer id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"></map-layer>
+      </li>
+      
     </ul>
   </div>
 </template>

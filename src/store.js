@@ -68,7 +68,6 @@ export default new Vuex.Store({
         restructuredlayers.push(layer);
       });
       state.layers = restructuredlayers;
-      console.log(state.layers);
     },
     /* Payload is an object with these properties:
     {
