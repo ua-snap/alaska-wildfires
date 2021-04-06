@@ -137,7 +137,8 @@ export default {
       };
 
       // Refresh map layer contents and visibility
-      _.each(layers, (layer, index) => {
+      // TODO 2021 it'd be nice to get rid of all this complexity.
+      _.each(layers, (layer) => {
         if (_.isFunction(layer.wmsLayerName)) {
           // Update layer parameters
           let layerObj = this.findLayerById(layer.id);
@@ -155,14 +156,13 @@ export default {
             }
 
             // This will re-request tiles in case any of the params
-            // are different.
+            // are different, i.e. WMS-time series.
             layerObj.setParams(newParams);
           }
         }
-
-        // Explicitly order the list so that topmost layers
-        // have the highest z-index
-        this.$options.leaflet.layers[layer.id].setZIndex(100 - index);
+        
+        // Explicitly order the list by specified z-index
+        this.$options.leaflet.layers[layer.id].setZIndex(layer.zindex);
 
         // The layer is visible (added to Leaflet map) if the
         // 'visible' flag is set

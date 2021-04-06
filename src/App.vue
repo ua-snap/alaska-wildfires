@@ -3,26 +3,14 @@
     <div class="banner">
       University of Alaska Fairbanks • International Arctic Research Center
     </div>
-    <div class="columns intro">
-      <div class="column is-half splash-image">
-        <img
-          src="@/assets/nenana-fire.jpg"
-          alt="Image of a wildfire near Nenana, Alaska"
-        />
-      </div>
-      <div class="column is-half title-column">
-        <h1 class="title is-1">Jackfruit Fire Study</h1>
-        <p class="poem">
-          This map shows<br />
-          where current fires are and how big they are,<br />
-          recent hotspot and lightning strikes,<br />
-          historical extent of fires in Alaska,<br />
-          and other layers<br />
-          relevant<br />
-          to wildfire research in Alaska.
-        </p>
-      </div>
-    </div>
+    <header>
+      <img src="@/assets/ak_shadowed.png" alt="" />
+      <h1>Alaska Wildfire Study</h1>
+      <h2>
+        See wildfire locations and sizes in relation to fire history, land cover
+        types, and more
+      </h2>
+    </header>
 
     <section class="section">
       <FireMap></FireMap>
@@ -91,33 +79,32 @@
   font-size: 0.8rem;
 }
 
-.columns.intro {
-  margin-top: 0;
+header {
+  padding-top: 3rem;
 
-  .column {
+  background-image: url("assets/nenana-fire-rev-cropt.jpg");
+  background-size: cover;
+  
+  text-align: center;
 
-    &.title-column {
-      background-color: rgb(232, 122, 57);
-      color: white;
-      text-align: center;
-      padding-top: 5rem;
-      h1 {
-        font-family: "Yellowtail";
-        color: white !important;
-        font-size: 4rem;
-      }
-    }
-    &.splash-image {
-      margin: 0;
-      padding: 0;
-      border-right: 0.2rem solid #fff;
-      img {
-        min-height: 50vh;
-        height: 100%;
-        min-width: 100%;
-        width: 50vw;
-      }
-    }
+  img {
+    max-width: 15rem;
+  }
+  h1 {
+    margin-top: -2rem;
+    padding: 0 0 1rem 0;
+    font-family: "Yellowtail";
+    color: white !important;
+    font-size: 6.75rem;
+    text-shadow: 3px 3px 3px #000;
+  }
+  h2 {
+    border-top: 0.25rem solid white;
+    background-color: rgb(39, 41, 26);
+    padding: .75rem;
+    color: white;
+    font-weight: 300;
+    font-size: 1.75rem;
   }
 }
 
