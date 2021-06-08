@@ -13,6 +13,9 @@
       <li>
         <map-layer id="postgis_lightning"></map-layer>
       </li>
+      <li>
+        <map-layer id="snow_cover_3338"></map-layer>
+      </li>
     </ul>
 
     <h3 class="subtitle is-4">Past + future</h3>
@@ -33,7 +36,6 @@
       <li>
         <map-layer id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"></map-layer>
       </li>
-      
     </ul>
   </div>
 </template>
