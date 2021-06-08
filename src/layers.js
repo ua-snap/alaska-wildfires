@@ -98,6 +98,16 @@ export default [
   },
   {
     abstract: `
+    <p>This is the Snow Cover layer updated on a daily basis.</p>`,
+    id: "snow_cover_3338",
+    wmsLayerName: "alaska_wildfires:snow_cover_3338",
+    styles: "alaska_wildfires:snow_cover",
+    zindex: 10,
+    title: "Snow Cover, 2021",
+    legend: false
+  },
+  {
+    abstract: `
           <table class="alaska-wildfires-legend big-fire-years">
             <tr><td><div class="bf2004"></div></td><td>2004</td></tr>
             <tr><td><div class="bf2005"></div></td><td>2005</td></tr>
