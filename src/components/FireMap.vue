@@ -685,6 +685,34 @@ table.alaska-wildfires-legend.alaska-landcover-2015 {
   }
 }
 
+table.spruce-adjective.smokey-bear {
+  td {
+    font-size: 10pt;
+    div {
+      height: 2em;
+      width: 2em;
+      border: none;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      &.sa-1 {
+        background-color: #2b83ba;
+      }
+      &.sa-2 {
+        background-color: #abdda4;
+      }
+      &.sa-3 {
+        background-color: #ffffbf;
+      }
+      &.sa-4 {
+        background-color: #fdae61;
+      }
+      &.sa-5 {
+        background-color: #d7191c;
+      }
+    }
+  }
+}
+
 table.alaska-wildfires-legend.big-fire-years {
   td {
     font-size: 12pt;
