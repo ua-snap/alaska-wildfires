@@ -108,6 +108,23 @@ export default [
   },
   {
     abstract: `
+    <table class="spruce-adjective smokey-bear">
+      <tr><td><div class="sa-1"></div></td><td>Low</td></tr>
+      <tr><td><div class="sa-2"></div></td><td>Medium</td></tr>
+      <tr><td><div class="sa-3"></div></td><td>High</td></tr>
+      <tr><td><div class="sa-4"></div></td><td>Very High</td></tr>
+      <tr><td><div class="sa-5"></div></td><td>Extreme</td></tr>
+    </table>
+    `,
+    id: "spruceadj_3338",
+    wmsLayerName: "alaska_wildfires:spruceadj_3338",
+    styles: "alaska_wildfires:spruce_adjective",
+    zindex: 10,
+    title: "Daily Fire Danger",
+    legend: false
+  },
+  {
+    abstract: `
           <table class="alaska-wildfires-legend big-fire-years">
             <tr><td><div class="bf2004"></div></td><td>2004</td></tr>
             <tr><td><div class="bf2005"></div></td><td>2005</td></tr>

@@ -14,6 +14,9 @@
         <map-layer id="postgis_lightning"></map-layer>
       </li>
       <li>
+        <map-layer id="spruceadj_3338"></map-layer>
+      </li>
+      <li>
         <map-layer id="snow_cover_3338"></map-layer>
       </li>
     </ul>

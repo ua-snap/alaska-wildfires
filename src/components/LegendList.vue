@@ -2,6 +2,7 @@
 	<div>
 		<legend-item id="fires"></legend-item>
 		<legend-item id="viirs"></legend-item>
+		<legend-item id="spruceadj_3338"></legend-item>
 		<legend-item id="postgis_lightning"></legend-item>
 		<legend-item id="alaska_wildfires"></legend-item>
 		<legend-item id="historical_fire_perimiters"></legend-item>
