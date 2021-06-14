@@ -98,12 +98,15 @@ export default [
   },
   {
     abstract: `
-    <p>This is the Snow Cover layer updated on a daily basis.</p>`,
+    <p>This layer is derived from the Interactive Multisensor Snow and Ice Mapping System (IMS)
+    which shows snow and ice coverage over the Northern Hemisphere at 1km resolution. For this
+    map, we have chosen to only show the snow coverage on the map to indicate potential for early
+    fire potential during spring in Alaska. For more information about this layer, visit the <a href="https://usicecenter.gov/Resources/ImsInfo">U.S. National Ice Center's website</a>. </p>`,
     id: "snow_cover_3338",
     wmsLayerName: "alaska_wildfires:snow_cover_3338",
     styles: "alaska_wildfires:snow_cover",
     zindex: 10,
-    title: "Snow Cover, 2021",
+    title: "Today's Snow Cover",
     legend: false
   },
   {
@@ -115,12 +118,15 @@ export default [
       <tr><td><div class="sa-4"></div></td><td>Very High</td></tr>
       <tr><td><div class="sa-5"></div></td><td>Extreme</td></tr>
     </table>
+    <p>Fire managers use these fire weather indexes to understand the environment that is developing over time.
+    These are used to assess the risk of forest fires for areas of the state of Alaska based on factors such
+    as recent precipitation and build up of trees / grass in the area.
     `,
     id: "spruceadj_3338",
     wmsLayerName: "alaska_wildfires:spruceadj_3338",
     styles: "alaska_wildfires:spruce_adjective",
     zindex: 10,
-    title: "Daily Fire Danger",
+    title: "Daily Fire Danger Ratings",
     legend: false
   },
   {
