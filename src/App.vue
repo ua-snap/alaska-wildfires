@@ -5,7 +5,7 @@
     </div>
     <header>
       <img src="@/assets/ak_shadowed.png" alt="" />
-      <h1>Alaska Wildfire Study</h1>
+      <h1>Alaska Wildfire Analysis</h1>
       <h2>
         See wildfire locations and sizes in relation to fire history, land cover
         types, and more
