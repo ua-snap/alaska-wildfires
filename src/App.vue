@@ -16,17 +16,6 @@
       <FireMap></FireMap>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <p class="is-size-5">
-          Sicilian pistachio pesto lemongrass parsley vegan tomato and basil
-          crumbled lentils veggie burgers bruschetta mediterranean chocolate
-          cookie salad grains soy milk coconut onion lemon red lentil soup
-          ginger lemongrass agave green tea lavender lemonade oranges second
-          course cherry cherries.
-        </p>
-      </div>
-    </section>
     <footer class="footer">
       <div class="container">
         <div class="columns">
@@ -38,11 +27,10 @@
               This tool was developed by the
               <a href="https://www.snap.uaf.edu/" title="👍"
                 >Scenarios Network for Alaska and Arctic Planning</a
-              >.
-            </p>
-
-            <p>
-              FIX THIS, add CASC credit, etc.
+              > in collaboration with the <a href="https://akcasc.org">Alaskan
+                Climate Adaptation Science Center</a>. SNAP is a research group
+                in the <a href="https://uaf-iarc.org/">International Arctic Research Center</a>
+                at the <a href="https://uaf.edu/uaf/">University of Alaska Fairbanks</a>.
             </p>
 
             <p>
