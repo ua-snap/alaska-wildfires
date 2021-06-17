@@ -628,6 +628,23 @@ table.alaska-wildfires-legend {
   }
 }
 
+table.alaska-wildfires-legend.active-fires {
+
+  td {
+    font-size: 12pt;
+    vertical-align: middle;
+
+    &.fire-text {
+      width: 15rem;
+    }
+
+    img {
+      width: 3em;
+      height: 3em;
+    }
+  }
+}
+
 table.alaska-wildfires-legend.alaska-landcover-2015 {
   td {
     font-size: 10pt;

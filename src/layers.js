@@ -8,7 +8,12 @@ export default [
     local: true,
     visible: true,
     legend: ``,
-    abstract: `<img src="@/assets/nenana-fire.jpg"/><p>This layer shows active and inactive fires for the 2021 season, with data pulled from the most recent available information from the <a href="https://fire.ak.blm.gov">Alaska Interagency Coordination Center</a> data services.  Small fires (an acre or less) are shown with a dot, and larger fires or fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires, even if large, may not have a mapped perimeter yet.  Inactive fires are shown in grey.</p>`
+    abstract: `<table class="alaska-wildfires-legend active-fires">
+    <tr><td><img src="images/fire-perimeter.png"/></td><td class="fire-text">Active Fire Perimeters</td></tr>
+    <tr><td><img src="images/large-fire.png"/></td><td class="fire-text">Large Fire</td></tr>
+    <tr><td><img src="images/small-fire.png"/></td><td class="fire-text">Small Fires</td></tr>
+    </table>
+    <p>This layer shows active and inactive fires for the 2021 season, with data pulled every half hour from the most recent available information from the <a href="https://fire.ak.blm.gov">Alaska Interagency Coordination Center</a> data services.  Small fires (an acre or less) are shown with a dot, and larger fires or fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires, even if large, may not have a mapped perimeter yet.  Inactive fires are shown in grey.</p>`
   },
   {
     id: "postgis_lightning",
@@ -19,8 +24,8 @@ export default [
     zindex: 20,
     abstract: `
             <table class="alaska-wildfires-legend lightning">
-              <tr><td><div class="positive"><img src="/static/lightning-positive.svg"/></div></td><td>Positive</td></tr>
-              <tr><td><div class="negative"><img src="/static/lightning-negative.svg"/></div></td><td>Negative</td></tr>
+              <tr><td><div class="positive"><img src="images/lightning-positive.svg"/></div></td><td>Positive</td></tr>
+              <tr><td><div class="negative"><img src="images/lightning-negative.svg"/></div></td><td>Negative</td></tr>
               <tr><td><div class="cloud2cloud">•</div></td><td>Cloud to cloud</td></tr>
             </table>
             <p>Lightning strikes are classified according to the type of charge released. Nearly 95% of lightning strikes carry a negative charge. Positively-charged strikes are rare but much more powerful, and can strike more than 20 miles away from a storm. This layer shows the last 36 hours of lightning activity; older lightning strikes fade over time. </p>`

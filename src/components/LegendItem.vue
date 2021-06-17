@@ -29,6 +29,7 @@ export default {
   display: none;
   &.visible {
     display: block;
+    padding-top: 1rem;
   }
 }
 </style>
