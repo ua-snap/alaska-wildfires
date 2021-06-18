@@ -47,7 +47,7 @@ export default [
     zindex: 15,
     legend: false,
     abstract: `
-            <p>Average number of lightning strikes per pixel</p><div><img src="static/lightning-legend.png" style="height: 200px"/></div>
+            <p>Average number of lightning strikes per pixel</p><div><img src="images/lightning-legend.png" style="height: 200px"/></div>
             <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km pixel for each month across 30 years (1986&ndash;2015). </p>`
   },
   {
