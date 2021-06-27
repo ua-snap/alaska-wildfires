@@ -1,7 +1,14 @@
 <template>
   <div :class="{ visible: layer.visible }" class="legend--item block">
     <h4 class="title is-5" v-html="layer.title"></h4>
-    <div v-html="layer.abstract"></div>
+    <div class="columns content">
+      <div class="column" v-bind:class="layer.legendClassOverride ? layer.legendClassOverride : 'is-one-fifth'">
+        <div v-html="layer.legend"></div>
+      </div>
+      <div class="column">
+        <div v-html="layer.abstract"></div>
+      </div>
+    </div>
   </div>
 </template>
 

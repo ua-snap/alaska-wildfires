@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2 class="title is-3">Turn on a map layer to see fire data.</h2>
     <h3 class="subtitle is-4">Now</h3>
 
     <ul>
@@ -32,9 +31,6 @@
       </li>
       <li>
         <map-layer id="historical_fire_perimiters"></map-layer>
-      </li>
-      <li>
-        <map-layer id="alaska_wildfires"></map-layer>
       </li>
       <li>
         <map-layer id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"></map-layer>

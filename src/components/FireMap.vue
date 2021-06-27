@@ -595,64 +595,77 @@ div.leaflet-marker-icon span {
   }
 }
 
-table.alaska-wildfires-legend.lightning {
-  td div {
-    border: none;
-    text-align: center;
-  }
-}
+// Legends that use images
 
+
+// Legend table styling
 table.alaska-wildfires-legend {
+
   td {
-    padding: 0.5ex 1ex 0 0;
+    vertical-align: middle !important;
+
+    // For the color blocks
     div {
       height: 2em;
       width: 2em;
-      border: 2px solid #222;
+    }
+  }
+
+  &.active-fires {
+    img {
+      width: 3em;
     }
   }
 
   &.historical-fire-perimeters {
-    .h-40-69 {
-      background-color: #cbd1ce;
-      border: 2px solid #98a09c;
-    }
-    .h-70-99 {
-      background-color: #8f9693;
-      border: 2px solid #5b6360;
-    }
-    .h-00-17 {
-      background-color: #5f6462;
-      border: 2px solid #2b3131;
-    }
-  }
-}
-
-table.alaska-wildfires-legend.active-fires {
-
-  td {
-    font-size: 12pt;
-    vertical-align: middle;
-
-    &.fire-text {
-      width: 15rem;
-    }
-
-    img {
-      width: 3em;
-      height: 3em;
+    td div {
+      &.h-40-69 {
+        background-color: #cbd1ce;
+        border: 2px solid #98a09c;
+      }
+      &.h-70-99 {
+        background-color: #8f9693;
+        border: 2px solid #5b6360;
+      }
+      &.h-00-17 {
+        background-color: #5f6462;
+        border: 2px solid #2b3131;
+      }
     }
   }
-}
 
-table.alaska-wildfires-legend.alaska-landcover-2015 {
-  td {
-    font-size: 10pt;
-    div {
-      height: 2em;
-      width: 2em;
-      border: none;
-      margin-right: 5px;
+  &.lightning-climatology {
+    td div {
+      &.lc-let1 {
+        background-color: rgb(229, 230, 236);
+      }
+      &.lc-6 {
+        background-color: rgb(142, 155, 186);
+      }
+      &.lc-13 {
+        background-color: rgb(84, 115, 160);
+      }
+      &.lc-19 {
+        background-color: rgb(98, 129, 152);
+      }
+      &.lc-26 {
+        background-color: rgb(130, 152, 141);
+      }
+      &.lc-32 {
+        background-color: rgb(174, 186, 145);
+      }
+      &.lc-39 {
+        background-color: rgb(236, 236, 199);
+      }
+      &.lc-gte45 {
+        background-color: rgb(255, 255, 255);
+        border: 1px solid #ccc;
+      }
+    }
+  }
+
+  &.alaska-landcover-2015 {
+    td div {
       &.l-1 {
         background-color: #003d00;
       }
@@ -700,17 +713,9 @@ table.alaska-wildfires-legend.alaska-landcover-2015 {
       }
     }
   }
-}
 
-table.spruce-adjective.smokey-bear {
-  td {
-    font-size: 10pt;
-    div {
-      height: 2em;
-      width: 2em;
-      border: none;
-      margin-right: 5px;
-      margin-bottom: 5px;
+  &.smokey-bear {
+    td div {
       &.sa-1 {
         background-color: #2b83ba;
       }
@@ -725,38 +730,6 @@ table.spruce-adjective.smokey-bear {
       }
       &.sa-5 {
         background-color: #d7191c;
-      }
-    }
-  }
-}
-
-table.alaska-wildfires-legend.big-fire-years {
-  td {
-    font-size: 12pt;
-    div {
-      height: 2em;
-      width: 2em;
-      border: none;
-      &.bf2004 {
-        background-color: #7fc97f;
-      }
-      &.bf2005 {
-        background-color: #beaed4;
-      }
-      &.bf2009 {
-        background-color: #fdc086;
-      }
-      &.bf2010 {
-        background-color: #ffff99;
-      }
-      &.bf2013 {
-        background-color: #386cb0;
-      }
-      &.bf2015 {
-        background-color: #f0027f;
-      }
-      &.bf2019 {
-        background-color: #333333;
       }
     }
   }

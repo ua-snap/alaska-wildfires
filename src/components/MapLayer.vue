@@ -5,7 +5,7 @@
     <!-- Layer title! -->
     <span class="layer-title">
       <a @click.prevent="toggleLayer(id)">
-        <span v-if="layer.visible">&#10003;</span>
+        <span v-if="layer.visible">&#10003;&nbsp;</span>
         <span
           v-html="layer.title"
           :class="{
@@ -91,7 +91,6 @@ export default {
 .visible {
   font-weight: 900;
   text-shadow: #fc0 1px 0 10px;
-  text-decoration: underline;
 }
 
 .layer-title {
