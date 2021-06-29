@@ -1,5 +1,12 @@
 import moment from "moment";
 
+function getPublicPath() {
+  switch (process.env.NODE_ENV) {
+    case 'production': return '/tools/alaska-wildfires'
+    default: return ''
+  }
+}
+
 export default [
   {
     id: "fires",
@@ -8,10 +15,10 @@ export default [
     local: true,
     visible: true,
     legend: `<table class="alaska-wildfires-legend active-fires">
-    <tr><td><img src="images/fire-perimeter.png"/></td><td class="fire-text">Active Fire Perimeters</td></tr>
-    <tr><td><img src="images/large-fire.png"/></td><td class="fire-text">Large Fire</td></tr>
-    <tr><td><img class="small-fire-dot" src="images/small-fire.png"/></td><td class="fire-text">Small Fires</td></tr>
-    </table>`,
+      <tr><td><img src="${getPublicPath()}/images/fire-perimeter.png"/></td><td class="fire-text">Active Fire Perimeters</td></tr>
+      <tr><td><img src="${getPublicPath()}/images/large-fire.png"/></td><td class="fire-text">Large Fire</td></tr>
+      <tr><td><img class="small-fire-dot" src="${getPublicPath()}/images/small-fire.png"/></td><td class="fire-text">Small Fires</td></tr>
+      </table>`,
     abstract: `
     <p>This layer shows active and inactive fires for the 2021 season, with data pulled every half hour from the most recent available information from the <a href="https://fire.ak.blm.gov">Alaska Interagency Coordination Center</a> data services.  <strong>Small fires</strong> (an acre or less) are shown with a dot, and <strong>larger fires or fires with mapped perimeters</strong> have a halo to show their relative size.  Recently-discovered fires, even if large, may not have a mapped perimeter yet.  <strong>Inactive fires</strong> are shown in grey.</p>`
   },
@@ -21,8 +28,8 @@ export default [
     title: "Lightning strikes, last 36 hours",
     layerName: "alaska_wildfires:postgis_lightning",
     legend: `<table class="alaska-wildfires-legend lightning">
-              <tr><td><div class="positive"><img src="images/lightning-positive.svg"/></div></td><td>Positive</td></tr>
-              <tr><td><div class="negative"><img src="images/lightning-negative.svg"/></div></td><td>Negative</td></tr>
+              <tr><td><div class="positive"><img src="${getPublicPath()}${getPublicPath()}/images/lightning-positive.svg"/></div></td><td>Positive</td></tr>
+              <tr><td><div class="negative"><img src="${getPublicPath()}/images/lightning-negative.svg"/></div></td><td>Negative</td></tr>
               <tr><td><div class="cloud2cloud">•</div></td><td>Cloud to cloud</td></tr>
             </table>`,
     zindex: 20,
@@ -62,20 +69,20 @@ export default [
     wmsLayerName: "viirs",
     title: "Hotspots, last 48 hours",
     local: true,
-    legend: `<img src="images/hotspot-legend.png"/>`,
+    legend: `<img src="${getPublicPath()}/images/hotspot-legend.png"/>`,
     zindex: 100,
     abstract: `<p>&ldquo;Hotspots&rdquo; are places where temperatures are higher than expected. Scientific instruments on satellites can detect hotspots which helps fire managers discover new wildfires. Here, individual hotspots are compiled into smooth gradients, where darker colors indicate greater densities of hotspots. Note that the instrument can also detect other hotspots unrelated to wildfire, such as flare stacks at oil drilling facilities on the North Slope of Alaska or even ship exhaust in the ocean.</p>
             `
   },
   {
     abstract: `
-          
+
           <p>Details of Alaska’s land cover as detected by Landsat satellite imagery. Spatial resolution is 30 m (1 pixel = 30 m on the ground). Dominant land cover relates to wildfire because it varies across the landscape, and influences how a region may burn. Wildfires often change the dominant land cover type, and many fires have occurred since this layer was created in 2015. Which types burn the most?</p>`,
     id: "alaska_landcover_2015",
     wmsLayerName: "alaska_wildfires:alaska_landcover_2015",
     title: "Land cover types",
     zindex: 3,
-    legendClassOverride: "is-one-third", // 
+    legendClassOverride: "is-one-third", //
     legend: `<table class="alaska-wildfires-legend alaska-landcover-2015">
             <tr><td><div class="l-1"></div></td><td>Temperate or sub-polar needleleaf forest</td></tr>
             <tr><td><div class="l-2"></div></td><td>Sub-polar taiga needleleaf forest</td></tr>
@@ -96,7 +103,7 @@ export default [
   },
   {
     abstract: `
-          
+
           <p>Older wildfire perimeters can be interesting to study in relation to newer fires. Previously burned areas often stop new fires from spreading due to a lack of fuel, but is this always true?</p>`,
     id: "historical_fire_perimiters",
     wmsLayerName: "historical_fire_perimiters",
@@ -124,7 +131,7 @@ export default [
   },
   {
     abstract: `
-    
+
     <p>Fire managers use these fire weather indexes to understand the environment that is developing over time.
     These are used to assess the risk of forest fires for areas of the state of Alaska based on factors such
     as recent precipitation and build up of trees / grass in the area.
