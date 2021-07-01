@@ -7,8 +7,8 @@
       <img src="@/assets/ak_shadowed.png" alt="" />
       <h1>Alaska Wildfire Explorer</h1>
       <h2>
-        See active wildfire locations and sizes in relation to fire history,
-        recent lightning strikes, land cover types, and more
+        See active fire locations and sizes compared to fire history, lightning,
+        land cover, and more.
       </h2>
     </header>
 
@@ -16,15 +16,21 @@
       <div class="container">
         <div class="intro content is-large">
           <p>
-            Use this map to see current fire information, updated daily, with
-            historical data and estimates about possible future fire conditions.
-            Information about the current fire season is provided via the Alaska
-            Interagency Coordination Center and the MesoWest data services [tbd
-            verify].
+            See current fire information (updated daily) along with research
+            from University of Alaska and other scientists that shows historical
+            data and estimated future fire conditions. Information about the
+            current fire season comes from the Alaska Interagency Coordination
+            Center and the MesoWest data services.
           </p>
           <p>
-            Turn on map layers from the menu on the left of the map. Scroll down
-            to see explanations of what the layers mean.
+            The Wildfire Explorer shows a variety of data that helps users
+            understand Alaska’s fire landscape. It is not designed for fire
+            management decision-making by agencies or individuals.
+          </p>
+          <p class="intro--legend"><img src="/images/fire-perimeter.png" />Active fires with mapped perimeters have a &lsquo;halo&rsquo; to show how big they are.</p>
+          <p>
+            Click one or more map layer names to activate. Scroll down to see
+            details on each layer.
           </p>
         </div>
       </div>
@@ -50,7 +56,7 @@
               >
               in collaboration with the
               <a href="https://akcasc.org"
-                >Alaskan Climate Adaptation Science Center</a
+                >Alaska Climate Adaptation Science Center</a
               >. SNAP is a research group in the
               <a href="https://uaf-iarc.org/"
                 >International Arctic Research Center</a
@@ -140,6 +146,12 @@ header {
     margin-bottom: 0;
   }
   font-size: 120%;
+}
+
+.intro--legend img {
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 1rem;
 }
 
 footer {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="subtitle is-4">Now</h3>
+    <h3 class="title is-4 top">Now (real time updates)</h3>
 
     <ul>
       <li>
@@ -20,7 +20,7 @@
       </li>
     </ul>
 
-    <h3 class="subtitle is-4">Past + future</h3>
+    <h3 class="title is-4">Past &amp; future</h3>
 
     <ul>
       <li>
@@ -51,7 +51,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ul {
+  font-size: 120%;
+}
 h3.is-4 {
-  margin: 1rem 0 0.25rem;
+  font-size: 150%;
+  margin: 2rem 0 0.5rem;
+  &.top {
+    margin-top: 0;
+  }
 }
 </style>
