@@ -2,8 +2,10 @@ import moment from "moment";
 
 function getPublicPath() {
   switch (process.env.NODE_ENV) {
-    case 'production': return '/tools/alaska-wildfires'
-    default: return ''
+    case "production":
+      return "/tools/alaska-wildfires";
+    default:
+      return "";
   }
 }
 
@@ -124,7 +126,10 @@ export default [
     styles: "alaska_wildfires:snow_cover",
     zindex: 10,
     title: "Today&rsquo;s Snow Cover",
-    legend: `need legend`
+    legend: `<table class="alaska-wildfires-legend snow-cover">
+            <tr><td><div class="sc-open"></div></td><td>Open terrain (no snow)</td></tr>
+            <tr><td><div class="sc-snow"></div></td><td>Snow</td></tr>
+          </table>`
   },
   {
     abstract: `

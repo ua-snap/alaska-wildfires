@@ -733,5 +733,17 @@ table.alaska-wildfires-legend {
       }
     }
   }
+
+  &.snow-cover {
+    td div {
+      &.sc-open {
+        background-color: rgb(221, 221, 221);
+      }
+      &.sc-snow {
+        background-color: white;
+        border: 1px solid #ddd;
+      }
+    }
+  }
 }
 </style>

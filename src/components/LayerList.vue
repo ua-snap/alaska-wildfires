@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="title is-4 top">Now (real time updates)</h3>
+    <h3 class="title is-4 top">Now (updated daily)</h3>
 
     <ul>
       <li>
