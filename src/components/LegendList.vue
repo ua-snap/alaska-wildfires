@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<h3 class="title is-2">Layer information</h3>
 		<legend-item id="fires"></legend-item>
 		<legend-item id="viirs"></legend-item>
 		<legend-item id="postgis_lightning"></legend-item>
@@ -24,4 +25,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+	h3 {
+		margin-top: 2rem;
+	}
+</style>
