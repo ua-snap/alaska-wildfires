@@ -611,7 +611,7 @@ table.alaska-wildfires-legend {
 
   &.active-fires {
     img {
-      width: 3em;
+      min-width: 3em;
     }
   }
 
