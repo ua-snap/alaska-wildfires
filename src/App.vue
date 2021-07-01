@@ -16,18 +16,21 @@
       <div class="container">
         <div class="intro content is-large">
           <p>
-            See current fire information (updated daily) along with research
-            from University of Alaska and other scientists that shows historical
-            data and estimated future fire conditions. Information about the
-            current fire season comes from the Alaska Interagency Coordination
-            Center and the MesoWest data services.
+            See current fire information (updated daily) along with work done by
+            University of Alaska researchers and other scientists that shows
+            historical data and estimated future fire conditions. Information
+            about the current fire season comes from the Alaska Interagency
+            Coordination Center and the MesoWest data services.
           </p>
           <p>
             The Wildfire Explorer shows a variety of data that helps users
             understand Alaska’s fire landscape. It is not designed for fire
             management decision-making by agencies or individuals.
           </p>
-          <p class="intro--legend"><img src="/images/fire-perimeter.png" />Active fires with mapped perimeters have a &lsquo;halo&rsquo; to show how big they are.</p>
+          <p class="intro--legend">
+            <img src="/images/fire-perimeter.png" />Active fires with mapped
+            perimeters have a &lsquo;halo&rsquo; to show how big they are.
+          </p>
           <p>
             Click one or more map layer names to activate. Scroll down to see
             details on each layer.
@@ -132,16 +135,16 @@ header {
   h2 {
     border-top: 0.25rem solid white;
     background-color: rgb(39, 41, 26);
-    padding: 0.75rem;
+    padding: 0.5rem 0 0.75rem;
     color: white;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 1.75rem;
   }
 }
 
 .intro.content p {
   max-width: 40em;
-  margin: 0 auto 1rem;
+  margin: 0 auto 2rem;
   &:last-child {
     margin-bottom: 0;
   }

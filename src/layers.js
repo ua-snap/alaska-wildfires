@@ -71,7 +71,7 @@ export default [
     local: true,
     legend: `<img src="${getPublicPath()}/images/hotspot-legend.png"/>`,
     zindex: 100,
-    abstract: `<p>&ldquo;Hotspots&rdquo; are places where temperatures are higher than expected. Scientific instruments on satellites can detect hotspots which helps fire managers discover new wildfires. Individual hotspots are compiled into smooth gradients, where darker colors indicate greater densities of hotspots. Note that the instrument can also detect other hotspots unrelated to wildfire, such as flare stacks at oil drilling facilities on the North Slope of Alaska or even ship exhaust in the ocean.</p>
+    abstract: `<p>&ldquo;Hotspots&rdquo; are places where temperatures are higher than expected. Scientific instruments on satellites can detect hotspots, which helps fire managers discover new wildfires. Individual hotspots are compiled into smooth gradients, where darker colors indicate greater densities of hotspots. Note that the instrument can also detect other hotspots unrelated to wildfire, such as flare stacks at oil drilling facilities on the North Slope of Alaska or even ship exhaust in the ocean.</p>
             `
   },
   {
@@ -123,7 +123,7 @@ export default [
     wmsLayerName: "alaska_wildfires:snow_cover_3338",
     styles: "alaska_wildfires:snow_cover",
     zindex: 10,
-    title: "Today's Snow Cover",
+    title: "Today&rsquo;s Snow Cover",
     legend: `need legend`
   },
   {
