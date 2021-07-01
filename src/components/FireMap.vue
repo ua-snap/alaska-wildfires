@@ -597,10 +597,8 @@ div.leaflet-marker-icon span {
 
 // Legends that use images
 
-
 // Legend table styling
 table.alaska-wildfires-legend {
-
   td {
     vertical-align: middle !important;
 
@@ -742,6 +740,26 @@ table.alaska-wildfires-legend {
       &.sc-snow {
         background-color: white;
         border: 1px solid #ddd;
+      }
+    }
+  }
+
+  &.relative-flammability {
+    td div {
+      &.rf-1 {
+        background-color: rgba(221, 221, 221, 0.7);
+      }
+      &.rf-2 {
+        background-color: rgb(250, 236, 229);
+      }
+      &.rf-3 {
+        background-color: rgb(234, 140, 121);
+      }
+      &.rf-4 {
+        background-color: rgb(193, 64, 64);
+      }
+      &.rf-5 {
+        background-color: rgb(92, 17, 23);
       }
     }
   }

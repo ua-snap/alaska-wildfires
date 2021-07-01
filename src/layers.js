@@ -150,12 +150,18 @@ export default [
   },
   {
     abstract: `
-          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. These model projections, for 2000&ndash;2099, can be useful for planning.</p>`,
+          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning <strong>relative</strong> to other areas of the model output. These model projections, for 2000&ndash;2099, can be useful for planning, but they can&rsquo;t predict which specific places will burn.</p>`,
     id: "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
     wmsLayerName:
       "alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
     zindex: 5,
-    title: "Projected flammability",
-    legend: `need legend!!!!`
+    title: "Projected relative flammability",
+    legend: `<table class="alaska-wildfires-legend relative-flammability">
+      <tr><td><div class="rf-1"></div></td><td>Less likely to burn</td></tr>
+      <tr><td><div class="rf-2"></div></td><td></td></tr>
+      <tr><td><div class="rf-3"></div></td><td>More likely to burn</td></tr>
+      <tr><td><div class="rf-4"></div></td><td></td></tr>
+      <tr><td><div class="rf-5"></div></td><td>Much more likely to burn</td></tr>
+    </table>`
   }
 ];
