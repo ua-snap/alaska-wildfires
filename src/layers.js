@@ -30,7 +30,7 @@ export default [
     title: "Lightning strikes, last 36 hours",
     layerName: "alaska_wildfires:postgis_lightning",
     legend: `<table class="alaska-wildfires-legend lightning">
-              <tr><td><div class="positive"><img src="${getPublicPath()}${getPublicPath()}/images/lightning-positive.svg"/></div></td><td>Positive</td></tr>
+              <tr><td><div class="positive"><img src="${getPublicPath()}/images/lightning-positive.svg"/></div></td><td>Positive</td></tr>
               <tr><td><div class="negative"><img src="${getPublicPath()}/images/lightning-negative.svg"/></div></td><td>Negative</td></tr>
               <tr><td><div class="cloud2cloud">•</div></td><td>Cloud to cloud</td></tr>
             </table>`,
