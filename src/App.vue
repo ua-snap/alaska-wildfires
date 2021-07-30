@@ -24,17 +24,19 @@
           </p>
           <p>
             The Wildfire Explorer shows a variety of data that helps users
-            understand Alaska’s fire landscape. It is not designed for fire
-            management decision-making by agencies or individuals.
+            understand Alaska’s fire landscape. <strong>It is not designed for fire
+            management decision-making by agencies or individuals.</strong>
           </p>
           <p class="intro--legend">
             <img src="/tools/alaska-wildfires/images/fire-perimeter.png" />Active fires with mapped
             perimeters have a &lsquo;halo&rsquo; to show how big they are.
           </p>
           <p>
-            Click one or more map layer names to activate. Scroll down to see
-            details on each layer.
-          </p>
+          <ul>
+            <li>Click one or more map layer names to activate.</li>
+            <li>Scroll down to see details on each layer.</li>
+            <li>Click anywhere on the map to see all information for that place.</li>
+          </ul></p>
         </div>
       </div>
     </section>

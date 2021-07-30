@@ -41,6 +41,8 @@ Object.defineProperty(Vue.prototype, "$L", { value: L });
 Object.defineProperty(Vue.prototype, "$axios", { value: axios });
 Object.defineProperty(Vue.prototype, "$moment", { value: moment });
 
+L.Icon.Default.imagePath = "/images/";
+
 // Wire in two listeners that will keep track of open
 // HTTP requests.
 Vue.prototype.$axios.interceptors.request.use(
@@ -144,7 +146,34 @@ export default {
       layers: mapLayers,
       fireJson: null,
       viirsJson: null,
-      map: undefined
+      colormaps: {
+        // Landscape classification: text colors, keyed
+        // by class returned from API.
+        lc: {
+          "1": "#fff",
+          "2": "#fff",
+          "5": "#fff",
+          "6": "#fff",
+          "8": "#fff",
+          "10": "#000",
+          "11": "#fff",
+          "12": "#000",
+          "13": "#fff",
+          "14": "#fff",
+          "15": "#000",
+          "16": "#fff",
+          "17": "#fff",
+          "18": "#fff",
+          "19": "#000"
+        },
+        fd: {
+          "1": "#fff",
+          "2": "#000",
+          "3": "#000",
+          "4": "#fff",
+          "5": "#fff"
+        }
+      }
     };
   },
   created() {
@@ -159,10 +188,83 @@ export default {
     this.fetchFireData();
     this.fetchViirsData();
 
+    this.$refs.map.$options.leaflet.map.on("click", this.handleMapClick);
+
     // Remove any stray localStorage.
     localStorage.clear();
   },
   methods: {
+    // When the map is clicked, see about adding a popup to the map
+    // with place data.
+    handleMapClick(ev) {
+      this.$axios
+        .get(
+          process.env.VUE_APP_DATA_API +
+            "/🔥/" +
+            ev.latlng.lat +
+            "/" +
+            ev.latlng.lng,
+          { timeout: 120000 }
+        )
+        .then(res => {
+          if (this.marker) {
+            this.$refs.map.$options.leaflet.map.removeLayer(this.marker);
+          }
+
+          let hf = "";
+          if (res.data["Historical Fires"]["fire history"]) {
+            hf = "None known since 1940";
+          } else {
+            hf =
+              res.data["Historical Fires"]["Fire Name"] +
+              ", " +
+              res.data["Historical Fires"]["Fire Year"];
+          }
+          let values = {
+            fd: res.data["Current fire danger"]["type"],
+            fd_color: res.data["Current fire danger"]["color"],
+            fd_text_color: this.colormaps.fd[
+              res.data["Current fire danger"]["code"]
+            ],
+            lc: res.data["Land cover"]["type"],
+            lc_color: res.data["Land cover"]["color"],
+            lc_text_color: this.colormaps.lc[res.data["Land cover"]["code"]],
+            hf: hf
+          };
+          let template = _.template(
+            `
+            <table class="table" style="margin: 2rem 0;">
+              <tr>
+                <th scope="row">Current fire danger</th>
+                <td style="background-color: <%= fd_color %>; color: <%= fd_text_color %>;"><%= fd %></td>
+              </tr>
+              <tr>
+                <th scope="row">Fire history</th>
+                <td><%= hf %></td>
+              </tr>
+              <tr>
+                <th scope="row">Landscape type</th>
+                <td style="background-color: <%= lc_color %>; color: <%= lc_text_color %>"><%= lc %></td>
+              </tr>
+            </table>
+            `
+          );
+          this.marker = this.$L
+            .marker(ev.latlng)
+            .addTo(this.$refs.map.$options.leaflet.map);
+          this.marker.bindPopup(template(values)).openPopup();
+        })
+        .catch(err => {
+          if (this.marker) {
+            alert(
+              "Sorry, something went wrong or the place you clicked is outside of Alaska."
+            );
+            this.$refs.map.$options.leaflet.map.removeLayer(this.marker);
+          }
+          console.error(err);
+        });
+    },
+
     // Helper function to format incoming UNIX timestamps
     // relative to brower's local time zone.  Returns Moment
     // object for formatting relevant in context.
@@ -552,6 +654,13 @@ export default {
     &.discovered {
       margin-top: 0;
       font-weight: 500;
+    }
+  }
+
+  table {
+    font-size: 1rem;
+    td.light {
+      color: #fff;
     }
   }
 
