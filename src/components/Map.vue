@@ -12,7 +12,6 @@ export default {
   props: [
     "baseLayerOptions",
     "baseLayer",
-    "placeLayer",
     "crs",
     "mapOptions",
     "localLayers"
@@ -179,10 +178,6 @@ export default {
       // The _.cloneDeep is to ensure we aren't recycling
       // the Leaflet layers (breaks map)
       var baseLayer = _.cloneDeep(this.baseLayer);
-      var placeLayer = _.cloneDeep(this.placeLayer);
-
-      // Don't add the place layer if not defined
-      var layers = placeLayer ? [baseLayer, placeLayer] : [baseLayer];
 
       var defaultMapProperties = _.extend(
         {
@@ -195,7 +190,7 @@ export default {
       );
 
       // Mix together some defaults with map-specific configuration.
-      return _.extend(defaultMapProperties, { layers: layers });
+      return _.extend(defaultMapProperties, { layers: [baseLayer] });
     }
   }
 };
