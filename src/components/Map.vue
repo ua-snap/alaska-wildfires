@@ -137,7 +137,7 @@ export default {
       };
 
       // Refresh map layer contents and visibility
-      // TODO 2021 it'd be nice to get rid of all this complexity.
+      // TODO it'd be nice to get rid of all this complexity.
       _.each(layers, (layer) => {
         if (_.isFunction(layer.wmsLayerName)) {
           // Update layer parameters

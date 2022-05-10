@@ -13,7 +13,7 @@ export default [
   {
     id: "fires",
     wmsLayerName: "fires",
-    title: "2021 Wildfires",
+    title: "2022 Wildfires",
     local: true,
     visible: true,
     legend: `<table class="alaska-wildfires-legend active-fires">
@@ -22,7 +22,7 @@ export default [
       <tr><td><img class="small-fire-dot" src="${getPublicPath()}/images/small-fire.png"/></td><td class="fire-text">Small Fires</td></tr>
       </table>`,
     abstract: `
-    <p>Active (red) and inactive (gray) fires for the 2021 season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p>`
+    <p>Active (red) and inactive (gray) fires for the 2022 season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p>`
   },
   {
     id: "postgis_lightning",
