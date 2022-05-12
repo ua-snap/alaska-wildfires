@@ -1,5 +1,6 @@
 <template>
   <div id="map">
+    <div v-if="this.$L.Browser.mobile" class="has-text-centered">Use two fingers to drag the map.</div>
     <div id="map--leaflet-map" class="leaflet-container"></div>
   </div>
 </template>
@@ -184,7 +185,8 @@ export default {
           crs: this.crs,
           zoomControl: false,
           scrollWheelZoom: false,
-          attributionControl: false
+          attributionControl: false,
+          dragging: !this.$L.Browser.mobile
         },
         this.mapOptions
       );
