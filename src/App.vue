@@ -125,12 +125,29 @@ header {
     max-width: 15rem;
   }
   h1 {
-    margin-top: -2rem;
+    margin-top: -1rem;
     padding: 0 0 1rem 0;
     font-family: "Yellowtail";
     color: white !important;
-    font-size: 6.75rem;
     text-shadow: 3px 3px 3px #000;
+
+    @media (max-width: 458px) {
+      font-size: 3.25rem;
+      line-height: 0.95;
+      margin-top: -0.5rem;
+    }
+    @media (min-width: 459px) and (max-width: 604px) {
+      font-size: 3.1rem;
+    }
+    @media (min-width: 605px) and (max-width: 704px) {
+      font-size: 4rem;
+    }
+    @media (min-width: 705px) and (max-width: 951px) {
+      font-size: 4.75rem;
+    }
+    @media (min-width: 952px) {
+      font-size: 6.5rem;
+    }
   }
   h2 {
     border-top: 0.25rem solid white;
@@ -166,6 +183,12 @@ footer {
       max-width: 90%;
       display: inline-block;
       margin-top: 0.45rem;
+    }
+    @media (max-width: 768px) {
+      text-align: center;
+      a img {
+        width: 200px;
+      }
     }
   }
   .content.column p {
