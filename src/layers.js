@@ -22,7 +22,7 @@ export default [
       <tr><td><img class="small-fire-dot" src="${getPublicPath()}/images/small-fire.png"/></td><td class="fire-text">Small Fires</td></tr>
       </table>`,
     abstract: `
-    <p>Active (red) and inactive (gray) fires for the 2022 season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p>`
+    <p>Active (red) and inactive (gray) fires for the 2022 season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p>`,
   },
   {
     id: "postgis_lightning",
@@ -36,7 +36,7 @@ export default [
             </table>`,
     zindex: 20,
     abstract: `
-            <p>Lightning strikes are classified according to the type of charge released. Nearly 95% of lightning strikes carry a negative charge, but positively-charged strikes are much more powerful. This layer shows the last 36 hours of lightning activity; older lightning strikes fade over time. </p>`
+            <p>Lightning strikes are classified according to the type of charge released. Nearly 95% of lightning strikes carry a negative charge, but positively-charged strikes are much more powerful. This layer shows the last 36 hours of lightning activity; older lightning strikes fade over time. </p>`,
   },
   {
     id: "gridded_lightning",
@@ -45,12 +45,12 @@ export default [
       return {
         name: `alaska_wildfires:lightning-monthly-climatology`,
         time: `2015-${params.month}-01T00:00:00Z`,
-        title: `Historical lightning strikes in ${monthName}`
+        title: `Historical lightning strikes in ${monthName}`,
       };
     },
     controls: "months",
     defaults: {
-      month: 5
+      month: 5,
     },
     zindex: 15,
     legend: `<table class="alaska-wildfires-legend lightning-climatology">
@@ -64,7 +64,7 @@ export default [
               <tr><td><div class="lc-gte45"></div></td><td>45+</td></tr>
             </table>`,
     abstract: `
-            <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p>`
+            <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p>`,
   },
   {
     id: "viirs",
@@ -74,7 +74,7 @@ export default [
     legend: `<img src="${getPublicPath()}/images/hotspot-legend.png"/>`,
     zindex: 100,
     abstract: `<p>&ldquo;Hotspots&rdquo; are places where temperatures are higher than expected. Scientific instruments on satellites can detect hotspots, which helps fire managers discover new wildfires. Individual hotspots are compiled into smooth gradients, where darker colors indicate greater densities of hotspots. Note that the instrument can also detect other hotspots unrelated to wildfire, such as flare stacks at oil drilling facilities on the North Slope of Alaska or even ship exhaust in the ocean.</p>
-            `
+            `,
   },
   {
     abstract: `
@@ -101,7 +101,7 @@ export default [
             <tr><td><div class="l-13"></div></td><td>Urban and built-up</td></tr>
             <tr><td><div class="l-14"></div></td><td>Water</td></tr>
             <tr><td><div class="l-15"></div></td><td>Snow and ice</td></tr>
-          </table>`
+          </table>`,
   },
   {
     abstract: `
@@ -115,8 +115,8 @@ export default [
     legend: `<table class="alaska-wildfires-legend historical-fire-perimeters">
             <tr><td><div class="h-40-69"></div></td><td>1940&mdash;1969</td></tr>
             <tr><td><div class="h-70-99"></div></td><td>1970&mdash;1999</td></tr>
-            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2019</td></tr>
-          </table>`
+            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2021</td></tr>
+          </table>`,
   },
   {
     abstract: `
@@ -129,7 +129,7 @@ export default [
     legend: `<table class="alaska-wildfires-legend snow-cover">
             <tr><td><div class="sc-open"></div></td><td>Open terrain (no snow)</td></tr>
             <tr><td><div class="sc-snow"></div></td><td>Snow</td></tr>
-          </table>`
+          </table>`,
   },
   {
     abstract: `
@@ -146,7 +146,7 @@ export default [
       <tr><td><div class="sa-3"></div></td><td>High</td></tr>
       <tr><td><div class="sa-4"></div></td><td>Very High</td></tr>
       <tr><td><div class="sa-5"></div></td><td>Extreme</td></tr>
-    </table>`
+    </table>`,
   },
   {
     abstract: `
@@ -162,6 +162,6 @@ export default [
       <tr><td><div class="rf-3"></div></td><td>More likely to burn</td></tr>
       <tr><td><div class="rf-4"></div></td><td></td></tr>
       <tr><td><div class="rf-5"></div></td><td>Much more likely to burn</td></tr>
-    </table>`
-  }
+    </table>`,
+  },
 ];
