@@ -734,7 +734,7 @@ table.alaska-wildfires-legend {
     }
   }
 
-  &.relative-flammability {
+  &.flammability {
     td div {
       &.rf-1 {
         background-color: rgba(221, 221, 221, 0.7);
