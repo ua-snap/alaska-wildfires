@@ -28,7 +28,7 @@
             management decision-making by agencies or individuals.
           </p>
           <p class="intro--legend">
-            <img src="/tools/alaska-wildfires/images/fire-perimeter.png" />Active fires with mapped
+            <img src="@/assets/fire-perimeter.png" />Active fires with mapped
             perimeters have a &lsquo;halo&rsquo; to show how big they are.
           </p>
           <p>
@@ -186,6 +186,6 @@ export default {
     year() {
       return new Date().getFullYear();
     }
-  }
+  },
 };
 </script>
