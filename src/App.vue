@@ -193,6 +193,9 @@ footer {
   }
   .content.column p {
     width: 90%;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
 }
 </style>
