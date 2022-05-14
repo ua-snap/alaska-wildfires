@@ -7,6 +7,7 @@ export default [
     title: "2022 Wildfires",
     local: true,
     visible: true,
+    legendClassOverride: "is-one-third",
     legend: `<table class="alaska-wildfires-legend active-fires">
       <tr><td><img src="` + require('@/assets/fire-perimeter.png') + `"/></td><td class="fire-text">Active Fire Perimeters</td></tr>
       <tr><td><img src="` + require('@/assets/large-fire.png') + `"/></td><td class="fire-text">Large Fire</td></tr>
