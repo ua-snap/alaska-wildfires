@@ -23,9 +23,9 @@
             Coordination Center and the MesoWest data services.
           </p>
           <p>
-            The Wildfire Explorer shows a variety of data that helps users
-            understand Alaska’s fire landscape. It is not designed for fire
-            management decision-making by agencies or individuals.
+            The Wildfire Explorer shows data that aids understanding of
+            Alaska&rsquo;s fire landscape. It is not designed for fire
+            management decision&ndash;making.
           </p>
           <p class="intro--legend">
             <img src="@/assets/fire-perimeter.png" />Active fires with mapped
@@ -206,12 +206,12 @@ import FireMap from "@/components/FireMap.vue";
 export default {
   name: "App",
   components: {
-    FireMap
+    FireMap,
   },
   computed: {
     year() {
       return new Date().getFullYear();
-    }
+    },
   },
 };
 </script>
