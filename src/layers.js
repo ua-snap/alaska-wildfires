@@ -155,6 +155,7 @@ export default [
     wmsLayerName:
       "alaska_wildfires:alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem",
     zindex: 5,
+    styles: "flammability",
     title: "Historical modeled flammability",
     legend: `<table class="alaska-wildfires-legend flammability">
       <tr><td><div class="rf-1"></div></td><td>Less likely to burn</td></tr>
@@ -171,6 +172,7 @@ export default [
     wmsLayerName:
       "alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
     zindex: 5,
+    styles: "flammability",
     title: "Projected flammability",
     legend: `<table class="alaska-wildfires-legend flammability">
       <tr><td><div class="rf-1"></div></td><td>Less likely to burn</td></tr>
