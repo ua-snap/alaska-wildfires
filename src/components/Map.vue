@@ -1,6 +1,8 @@
 <template>
   <div id="map">
-    <div v-if="this.$L.Browser.mobile" class="has-text-centered">Use two fingers to drag the map.</div>
+    <div v-if="this.$L.Browser.mobile" class="has-text-centered">
+      Use two fingers to drag the map.
+    </div>
     <div id="map--leaflet-map" class="leaflet-container"></div>
   </div>
 </template>
@@ -10,19 +12,13 @@ import _ from "lodash";
 
 export default {
   name: "mv-map",
-  props: [
-    "baseLayerOptions",
-    "baseLayer",
-    "crs",
-    "mapOptions",
-    "localLayers"
-  ],
+  props: ["baseLayerOptions", "baseLayer", "crs", "mapOptions", "localLayers"],
   // Static property, access via this.$options.leaflet
   leaflet: {
     // Leaflet object
     map: undefined,
     // Object of Leaflet layer objects, keyed by layer ID.
-    layers: {}
+    layers: {},
   },
   computed: {
     layers() {
@@ -35,14 +31,14 @@ export default {
           transparent: true,
           tiled: "true",
           format: "image/png",
-          version: "1.3.0"
+          version: "1.3.0",
         },
         this.baseLayerOptions
       );
     },
     map() {
       return this.$options.leaflet.map;
-    }
+    },
   },
   mounted() {
     // Instantiate map objects
@@ -54,7 +50,7 @@ export default {
     // Add zoom controls
     this.$L.control
       .zoom({
-        position: "topright"
+        position: "topright",
       })
       .addTo(this.$options.leaflet.map);
 
@@ -66,14 +62,14 @@ export default {
       deep: true,
       handler(layers) {
         this.refreshLayers(layers);
-      }
-    }
+      },
+    },
   },
   methods: {
     // Returns the Leaflet object corresponding to the
     // requested layer ID, or, undefined if not present
     findLayerById(id) {
-      return _.find(this.$options.leaflet.layers, layerObj => {
+      return _.find(this.$options.leaflet.layers, (layerObj) => {
         return layerObj.options.id === id;
       });
     },
@@ -81,7 +77,7 @@ export default {
     addLayers() {
       // Create or obtain actual Leaflet objects, and add them
       // to the maps.
-      _.each(this.layers, layer => {
+      _.each(this.layers, (layer) => {
         this.updateLayer(layer);
       });
     },
@@ -94,7 +90,7 @@ export default {
         layers: layer.wms,
         styles: layer.styles ? layer.styles : "",
         time: layer.time ? layer.time : "",
-        id: layer.id
+        id: layer.id,
       });
 
       // Remove old layers if present
@@ -144,7 +140,7 @@ export default {
           let layerObj = this.findLayerById(layer.id);
           if (layerObj) {
             let newParams = {
-              layers: layer.wms
+              layers: layer.wms,
             };
 
             if (layer.styles) {
@@ -160,7 +156,7 @@ export default {
             layerObj.setParams(newParams);
           }
         }
-        
+
         // Explicitly order the list by specified z-index
         this.$options.leaflet.layers[layer.id].setZIndex(layer.zindex);
 
@@ -186,15 +182,15 @@ export default {
           zoomControl: false,
           scrollWheelZoom: false,
           attributionControl: false,
-          dragging: !this.$L.Browser.mobile
+          dragging: !this.$L.Browser.mobile,
         },
         this.mapOptions
       );
 
       // Mix together some defaults with map-specific configuration.
       return _.extend(defaultMapProperties, { layers: [baseLayer] });
-    }
-  }
+    },
+  },
 };
 </script>
 

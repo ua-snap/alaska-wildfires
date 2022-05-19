@@ -16,14 +16,14 @@ export default {
     defaults: {
       default() {
         return {
-          month: 5
+          month: 5,
         };
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      month: this.month
+      month: this.month,
     };
   },
   mounted() {
@@ -32,13 +32,15 @@ export default {
   methods: {
     notifyParent() {
       this.$emit("change", {
-        month: this.month
+        month: this.month,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-  .layer--selector { margin-left: 1.25rem; }
+.layer--selector {
+  margin-left: 1.25rem;
+}
 </style>

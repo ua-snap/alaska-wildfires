@@ -8,10 +8,17 @@ export default [
     local: true,
     visible: true,
     legendClassOverride: "is-one-third",
-    legend: `<table class="alaska-wildfires-legend active-fires">
-      <tr><td><img src="` + require('@/assets/fire-perimeter.png') + `"/></td><td class="fire-text">Active Fire Perimeters</td></tr>
-      <tr><td><img src="` + require('@/assets/large-fire.png') + `"/></td><td class="fire-text">Large Fire</td></tr>
-      <tr><td><img class="small-fire-dot" src="` + require('@/assets/small-fire.png') + `"/></td><td class="fire-text">Small Fires</td></tr>
+    legend:
+      `<table class="alaska-wildfires-legend active-fires">
+      <tr><td><img src="` +
+      require("@/assets/fire-perimeter.png") +
+      `"/></td><td class="fire-text">Active Fire Perimeters</td></tr>
+      <tr><td><img src="` +
+      require("@/assets/large-fire.png") +
+      `"/></td><td class="fire-text">Large Fire</td></tr>
+      <tr><td><img class="small-fire-dot" src="` +
+      require("@/assets/small-fire.png") +
+      `"/></td><td class="fire-text">Small Fires</td></tr>
       </table>`,
     abstract: `
     <p>Active (red) and inactive (gray) fires for the 2022 season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p>`,
@@ -21,9 +28,14 @@ export default [
     wmsLayerName: "postgis_lightning",
     title: "Lightning strikes, last 36 hours",
     layerName: "alaska_wildfires:postgis_lightning",
-    legend: `<table class="alaska-wildfires-legend lightning">
-              <tr><td><div class="positive"><img src="` + require('@/assets/lightning-positive.svg') + `"/></div></td><td>Positive</td></tr>
-              <tr><td><div class="negative"><img src="` + require('@/assets/lightning-negative.svg') + `"/></div></td><td>Negative</td></tr>
+    legend:
+      `<table class="alaska-wildfires-legend lightning">
+              <tr><td><div class="positive"><img src="` +
+      require("@/assets/lightning-positive.svg") +
+      `"/></div></td><td>Positive</td></tr>
+              <tr><td><div class="negative"><img src="` +
+      require("@/assets/lightning-negative.svg") +
+      `"/></div></td><td>Negative</td></tr>
               <tr><td><div class="cloud2cloud">•</div></td><td>Cloud to cloud</td></tr>
             </table>`,
     zindex: 20,
@@ -63,7 +75,7 @@ export default [
     wmsLayerName: "viirs",
     title: "Hotspots, last 48 hours",
     local: true,
-    legend: `<img src="` + require('@/assets/hotspot-legend.png') + `"/>`,
+    legend: `<img src="` + require("@/assets/hotspot-legend.png") + `"/>`,
     zindex: 100,
     abstract: `<p>&ldquo;Hotspots&rdquo; are places where temperatures are higher than expected. Scientific instruments on satellites can detect hotspots, which helps fire managers discover new wildfires. Individual hotspots are compiled into smooth gradients, where darker colors indicate greater densities of hotspots. Note that the instrument can also detect other hotspots unrelated to wildfire, such as flare stacks at oil drilling facilities on the North Slope of Alaska or even ship exhaust in the ocean.</p>
             `,
