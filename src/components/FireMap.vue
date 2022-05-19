@@ -734,22 +734,22 @@ table.alaska-wildfires-legend {
     }
   }
 
-  &.relative-flammability {
+  &.flammability {
     td div {
       &.rf-1 {
-        background-color: rgba(221, 221, 221, 0.7);
+        background-color: #fef0d9;
       }
       &.rf-2 {
-        background-color: rgb(250, 236, 229);
+        background-color: #fdcc8a;
       }
       &.rf-3 {
-        background-color: rgb(234, 140, 121);
+        background-color: #fc8d59;
       }
       &.rf-4 {
-        background-color: rgb(193, 64, 64);
+        background-color: #e34a33;
       }
       &.rf-5 {
-        background-color: rgb(92, 17, 23);
+        background-color: #b30000;
       }
     }
   }
