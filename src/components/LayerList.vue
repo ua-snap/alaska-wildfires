@@ -33,10 +33,14 @@
         <map-layer id="historical_fire_perimiters"></map-layer>
       </li>
       <li>
-        <map-layer id="alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem"></map-layer>
+        <map-layer
+          id="alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem"
+        ></map-layer>
       </li>
       <li>
-        <map-layer id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"></map-layer>
+        <map-layer
+          id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"
+        ></map-layer>
       </li>
     </ul>
   </div>
@@ -48,8 +52,8 @@ import MapLayer from "./MapLayer";
 export default {
   name: "LayerList",
   components: {
-    "map-layer": MapLayer
-  }
+    "map-layer": MapLayer,
+  },
 };
 </script>
 

@@ -38,7 +38,7 @@ var swapVisibility = (
 
 // Helper to return a layer from the ordered array of layers.
 var getLayerIndexById = (state, id) => {
-  let targetLayerIndex = _.findIndex(state.layers, layer => layer.id === id);
+  let targetLayerIndex = _.findIndex(state.layers, (layer) => layer.id === id);
   return targetLayerIndex;
 };
 
@@ -53,7 +53,7 @@ export default new Vuex.Store({
 
     // True if the app knows that there are still outstanding
     // data requests (used on map splash screen)
-    pendingHttpRequests: 0
+    pendingHttpRequests: 0,
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -61,7 +61,7 @@ export default new Vuex.Store({
       var restructuredlayers = [];
 
       // Set some defaults for state/instance-based properties
-      _.each(layers, layer => {
+      _.each(layers, (layer) => {
         // Default visibility on left/right maps to off
         layer.visible = layer.visible || false;
         setWmsProperties(state, layer, layer.defaults);
@@ -119,12 +119,12 @@ export default new Vuex.Store({
     },
     decrementPendingHttpRequest(state) {
       state.pendingHttpRequests--;
-    }
+    },
   },
   getters: {
     // Returns true if there are pending HTTP requests
     loadingData(state) {
       return state.pendingHttpRequests > 0;
-    }
-  }
+    },
+  },
 });

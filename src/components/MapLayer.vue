@@ -9,7 +9,7 @@
         <span
           v-html="layer.title"
           :class="{
-            visible: layer.visible
+            visible: layer.visible,
           }"
         >
         </span>
@@ -42,7 +42,7 @@ export default {
       // Helper to return a layer from the ordered array of layers.
       let targetLayerIndex = _.findIndex(
         this.$store.state.layers,
-        layer => layer.id === this.id
+        (layer) => layer.id === this.id
       );
       return this.$store.state.layers[targetLayerIndex];
     },
@@ -54,12 +54,12 @@ export default {
     },
     rendererDefaults() {
       return this.layer.defaults;
-    }
+    },
   },
   methods: {
     toggleLayer() {
       this.$store.commit("toggleLayerVisibility", {
-        id: this.id
+        id: this.id,
       });
     },
     handleLayerConfigChange(data) {
@@ -70,10 +70,10 @@ export default {
       this.layer.defaults = data;
       this.$store.commit("updateLayer", {
         layer: this.id,
-        properties: data
+        properties: data,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -103,5 +103,4 @@ export default {
     margin: 0;
   }
 }
-
 </style>
