@@ -9,7 +9,7 @@
 </template>
 <script>
 export default {
-  name: "loading"
+  name: "loading",
 };
 </script>
 <style lang="scss" scoped>

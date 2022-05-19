@@ -44,22 +44,22 @@ Object.defineProperty(Vue.prototype, "$moment", { value: moment });
 // Wire in two listeners that will keep track of open
 // HTTP requests.
 Vue.prototype.$axios.interceptors.request.use(
-  function(config) {
+  function (config) {
     store.commit("incrementPendingHttpRequest");
     return config;
   },
-  function(error) {
+  function (error) {
     return Promise.reject(error);
   }
 );
 
 // Add a response interceptor
 Vue.prototype.$axios.interceptors.response.use(
-  function(response) {
+  function (response) {
     store.commit("decrementPendingHttpRequest");
     return response;
   },
-  function(error) {
+  function (error) {
     return Promise.reject(error);
   }
 );
@@ -84,7 +84,7 @@ export default {
   components: {
     MvMap,
     LayerList,
-    LegendList
+    LegendList,
   },
   computed: {
     crs() {
@@ -98,7 +98,7 @@ export default {
           // in projected space.  Use GeoServer to
           // find this:
           // TileSet > Gridset Bounds > compute from maximum extent of SRS
-          origin: [-4648005.934316417, 444809.882955059]
+          origin: [-4648005.934316417, 444809.882955059],
         }
       );
     },
@@ -106,7 +106,7 @@ export default {
       return new this.$L.tileLayer.wms(
         process.env.VUE_APP_GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
-          layers: "alaska_osm"
+          layers: "alaska_osm",
         })
       );
     },
@@ -115,16 +115,16 @@ export default {
         process.env.VUE_APP_GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           zIndex: 101,
-          layers: "alaska_places_osm_3338"
+          layers: "alaska_places_osm_3338",
         })
       );
     },
     localLayers() {
       return {
         fires: fireLayerGroup,
-        viirs: viirsLayerGroup
+        viirs: viirsLayerGroup,
       };
-    }
+    },
   },
   data() {
     return {
@@ -132,19 +132,19 @@ export default {
         zoom: 1,
         minZoom: 0,
         maxZoom: 6,
-        center: [65, -152.5]
+        center: [65, -152.5],
       },
       baseLayerOptions: {
         transparent: true,
         srs: "EPSG:3338",
         format: "image/png",
         version: "1.3",
-        continuousWorld: true // needed for non-3857 projs
+        continuousWorld: true, // needed for non-3857 projs
       },
       layers: mapLayers,
       fireJson: null,
       viirsJson: null,
-      map: undefined
+      map: undefined,
     };
   },
   created() {
@@ -171,16 +171,16 @@ export default {
     },
 
     fetchViirsData() {
-      var processViirsData = data => {
+      var processViirsData = (data) => {
         let viirsPoints = this.getViirsMarkers(data);
         viirsLayerGroup.addLayer(viirsPoints);
       };
 
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         if (!this.viirsJson) {
           this.$axios
             .get(process.env.VUE_APP_VIIRS_URL, { timeout: 120000 })
-            .then(res => {
+            .then((res) => {
               if (res) {
                 this.viirsJson = res.data;
                 processViirsData(res.data);
@@ -198,7 +198,7 @@ export default {
     getViirsMarkers(geoJson) {
       // reverse lat/lng for this plugin
       var coords = [];
-      _.each(geoJson.features[0].geometry.coordinates, e => {
+      _.each(geoJson.features[0].geometry.coordinates, (e) => {
         coords.push([e[1], e[0]]);
       });
       var heatLayer = this.$L.heatLayer(coords, {
@@ -208,14 +208,14 @@ export default {
         gradient: {
           0: "#FBF10A",
           0.9: "#FB7202",
-          1: "#5F200E"
-        }
+          1: "#5F200E",
+        },
       });
       return heatLayer;
     },
     fetchFireData() {
       // Helper function to rebuild Leaflet objects
-      var processFireData = data => {
+      var processFireData = (data) => {
         firePolygons = this.getGeoJsonLayer(data);
         fireMarkers = this.getFireMarkers(data);
 
@@ -223,11 +223,11 @@ export default {
         fireLayerGroup.addLayer(fireMarkers).addLayer(firePolygons);
       };
 
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         if (!this.fireJson) {
           this.$axios
             .get(process.env.VUE_APP_FIRE_FEATURES_URL, { timeout: 120000 })
-            .then(res => {
+            .then((res) => {
               if (res) {
                 this.fireJson = res.data;
                 processFireData(res.data);
@@ -264,7 +264,7 @@ export default {
         stop2: "RGB(207, 38, 47)",
         stop2opacity: ".15",
         stop3: "RGB(207, 38, 47)",
-        stop3opacity: ".35"
+        stop3opacity: ".35",
       });
       var inactiveSvgCircle = svgCircleTemplate({
         stop1: "RGB(80, 63, 63)",
@@ -272,7 +272,7 @@ export default {
         stop2: "RGB(80, 63, 63)",
         stop2opacity: ".15",
         stop3: "RGB(80, 63, 63)",
-        stop3opacity: ".35"
+        stop3opacity: ".35",
       });
 
       var activeFireCircle = encodeURI(
@@ -287,19 +287,19 @@ export default {
         options: {
           iconUrl: activeFireCircle,
           shadowSize: [0, 0], // no shadow!
-          popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
-        }
+          popupAnchor: [0, 0], // point from which the popup should open relative to the iconAnchor
+        },
       });
 
       var fireMarkers = [];
       var popupOptions = {
-        maxWidth: 200
+        maxWidth: 200,
       };
 
       // Compute largest to scale fire bubbles
       var smallest;
       var largest = 0;
-      _.each(geoJson.features, feature => {
+      _.each(geoJson.features, (feature) => {
         let size = parseInt(feature.properties.acres, 10);
         if (smallest === undefined) {
           smallest = size;
@@ -314,7 +314,7 @@ export default {
       // Pixel scale factor.
       var scaleFactor = 100 / largest;
 
-      _.each(geoJson.features, feature => {
+      _.each(geoJson.features, (feature) => {
         if (
           feature.geometry.type === "Polygon" ||
           feature.geometry.type === "MultiPolygon"
@@ -338,18 +338,18 @@ export default {
           var icon = this.isFireActive(feature.properties)
             ? new FireIcon({
                 iconSize: [iconSize, iconSize],
-                iconAnchor: [iconSize / 2, iconSize / 2]
+                iconAnchor: [iconSize / 2, iconSize / 2],
               })
             : new FireIcon({
                 iconUrl: inactiveFireCircle,
                 iconSize: [iconSize, iconSize],
-                iconAnchor: [iconSize / 2, iconSize / 2]
+                iconAnchor: [iconSize / 2, iconSize / 2],
               });
 
           fireMarkers.push(
             this.$L
               .marker(new this.$L.latLng([coords[1], coords[0]]), {
-                icon: icon
+                icon: icon,
               })
               .bindPopup(
                 this.getFireMarkerPopupContents(
@@ -359,7 +359,7 @@ export default {
                     cause: feature.properties.GENERALCAUSE,
                     updated: feature.properties.updated,
                     outdate: feature.properties.OUTDATE,
-                    discovered: feature.properties.discovered
+                    discovered: feature.properties.discovered,
                   },
                   popupOptions
                 )
@@ -372,7 +372,7 @@ export default {
     getGeoJsonLayer(geoJson) {
       return this.$L.geoJson(geoJson, {
         style: this.styleFirePolygons,
-        pointToLayer: this.firePointFeatureHandler
+        pointToLayer: this.firePointFeatureHandler,
       });
     },
     styleFirePolygons(feature) {
@@ -382,7 +382,7 @@ export default {
           fillColor: "#E83C18",
           opacity: 0.8,
           weight: 2,
-          fillOpacity: 0.3
+          fillOpacity: 0.3,
         };
       } else {
         return {
@@ -390,7 +390,7 @@ export default {
           fillColor: "#888888",
           opacity: 0.8,
           weight: 3,
-          fillOpacity: 1
+          fillOpacity: 1,
         };
       }
     },
@@ -409,7 +409,7 @@ export default {
       var isActive;
       var zIndex;
       var popupOptions = {
-        maxWidth: 200
+        maxWidth: 200,
       };
       if (this.isFireActive(geoJson.properties)) {
         isActive = "active";
@@ -426,12 +426,12 @@ export default {
       var icon = this.$L.divIcon({
         className: isActive,
         popupAnchor: [15, -5],
-        html: '<span class="' + isActive + '">' + acres + "</span>"
+        html: '<span class="' + isActive + '">' + acres + "</span>",
       });
       return this.$L
         .marker(latLng, {
           icon: icon,
-          zIndexOffset: zIndex
+          zIndexOffset: zIndex,
         })
         .bindPopup(
           this.getFireMarkerPopupContents(
@@ -441,7 +441,7 @@ export default {
               cause: geoJson.properties.GENERALCAUSE,
               updated: geoJson.properties.updated,
               outdate: geoJson.properties.OUTDATE,
-              discovered: geoJson.properties.discovered
+              discovered: geoJson.properties.discovered,
             },
             popupOptions
           )
@@ -488,7 +488,7 @@ export default {
         cause: cause,
         updated: updated,
         out: out,
-        discovered: discovered
+        discovered: discovered,
       });
     },
     // Helper function to place markers at the centroid
@@ -501,10 +501,10 @@ export default {
 
       var length = arr.length;
 
-      var x = i => {
+      var x = (i) => {
         return arr[i % length][0];
       };
-      var y = i => {
+      var y = (i) => {
         return arr[i % length][1];
       };
 
@@ -517,10 +517,10 @@ export default {
       var sixSignedArea = 3 * twoTimesSignedArea;
       return [
         cxTimes6SignedArea / sixSignedArea,
-        cyTimes6SignedArea / sixSignedArea
+        cyTimes6SignedArea / sixSignedArea,
       ];
-    }
-  }
+    },
+  },
 };
 </script>
 

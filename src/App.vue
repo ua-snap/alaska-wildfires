@@ -28,8 +28,10 @@
             management decision-making by agencies or individuals.
           </p>
           <p class="intro--legend">
-            <img src="/tools/alaska-wildfires/images/fire-perimeter.png" />Active fires with mapped
-            perimeters have a &lsquo;halo&rsquo; to show how big they are.
+            <img
+              src="/tools/alaska-wildfires/images/fire-perimeter.png"
+            />Active fires with mapped perimeters have a &lsquo;halo&rsquo; to
+            show how big they are.
           </p>
           <p>
             Click one or more map layer names to activate. Scroll down to see
@@ -180,12 +182,12 @@ import FireMap from "@/components/FireMap.vue";
 export default {
   name: "App",
   components: {
-    FireMap
+    FireMap,
   },
   computed: {
     year() {
       return new Date().getFullYear();
-    }
-  }
+    },
+  },
 };
 </script>
