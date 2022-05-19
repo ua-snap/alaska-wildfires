@@ -10,6 +10,9 @@
 		<legend-item id="gridded_lightning"></legend-item>
 		<legend-item id="historical_fire_perimiters"></legend-item>
 		<legend-item
+			id="alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem"
+		></legend-item>
+		<legend-item
 			id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"
 		></legend-item>
 	</div>
