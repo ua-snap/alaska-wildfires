@@ -27,7 +27,23 @@
             Alaska&rsquo;s fire landscape. It is not designed for fire
             management decision&ndash;making.
           </p>
-          <p class="intro--legend">
+        </div>
+        <div class="content is-large fire-tally-info">
+          <b-message>
+            <h4>
+              Fire Tally: How does this year&rsquo;s burned acreage compare with past
+              years?
+            </h4>
+            <p>
+              <a href="https://snap.uaf.edu/tools/daily-fire-tally">Use this tool</a> to compare the current year&rsquo;s daily tally of
+              acres burned to high fire years (> 1 million acres burned) since
+              daily tally records began in 2004. See tallies of Alaska acreage
+              burned daily statewide, by fire protection area, and by year.
+            </p>
+          </b-message>
+        </div>
+        <div class="intro content is-large intro--legend">
+          <p>
             <img src="@/assets/fire-perimeter.png" />Active fires with mapped
             perimeters have a &lsquo;halo&rsquo; to show how big they are.
           </p>
@@ -159,8 +175,20 @@ header {
   }
 }
 
+.fire-tally-info {
+  max-width: 60rem;
+  margin: 3rem auto;
+
+  .message .media-content p {
+    font-size: 110%;
+    a {
+      color: hsl(229deg, 53%, 53%) !important;
+    }
+  }
+}
+
 .intro.content p {
-  max-width: 40em;
+  max-width: 60rem;
   margin: 0 auto 2rem;
   &:last-child {
     margin-bottom: 0;
@@ -168,10 +196,13 @@ header {
   font-size: 120%;
 }
 
-.intro--legend img {
-  vertical-align: middle;
-  display: inline-block;
-  margin-right: 1rem;
+.intro--legend {
+  margin-top: 3rem;
+  img {
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 1rem;
+  }
 }
 
 footer {
