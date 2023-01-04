@@ -17,11 +17,11 @@
         <div class="container">
           <div class="intro content is-large">
             <p>
-              See current fire information (updated daily) along with work done by
-              University of Alaska researchers and other scientists that shows
-              historical data and estimated future fire conditions. Information
-              about the current fire season comes from the Alaska Interagency
-              Coordination Center and the MesoWest data services.
+              See current fire information (updated daily) along with work done
+              by University of Alaska researchers and other scientists that
+              shows historical data and estimated future fire conditions.
+              Information about the current fire season comes from the Alaska
+              Interagency Coordination Center and the MesoWest data services.
             </p>
             <p>
               The Wildfire Explorer shows data that aids understanding of
@@ -32,14 +32,17 @@
           <div class="content is-large fire-tally-info">
             <b-message>
               <h4>
-                Fire Tally: How does this year&rsquo;s burned acreage compare with past
-                years?
+                Fire Tally: How does this year&rsquo;s burned acreage compare
+                with past years?
               </h4>
               <p>
-                <a href="https://snap.uaf.edu/tools/daily-fire-tally">Use this tool</a> to compare the current year&rsquo;s daily tally of
-                acres burned to high fire years (> 1 million acres burned) since
-                daily tally records began in 2004. See tallies of Alaska acreage
-                burned daily statewide, by fire protection area, and by year.
+                <a href="https://snap.uaf.edu/tools/daily-fire-tally"
+                  >Use this tool</a
+                >
+                to compare the current year&rsquo;s daily tally of acres burned
+                to high fire years (> 1 million acres burned) since daily tally
+                records began in 2004. See tallies of Alaska acreage burned
+                daily statewide, by fire protection area, and by year.
               </p>
             </b-message>
           </div>
@@ -62,8 +65,18 @@
     </div>
     <div v-else>
       <section class="section">
-        <div class="container">
-          <p class="content is-large">This site will be reactivated in April this year.</p>
+        <div class="container content is-large">
+          <h3>Site offline until April, 2023</h3>
+          <p>
+            This map and tool will be restored in April this year, at the start of the
+            2023 wildfire season.
+          </p>
+          <p>
+            Any questions? Email us at
+            <a href="mailto:uaf-snap-data-tools@alaska.edu"
+              >uaf-snap-data-tools@alaska.edu</a
+            >.
+          </p>
         </div>
       </section>
     </div>
@@ -251,8 +264,8 @@ export default {
   data() {
     return {
       // Convert sting to boolean
-      active: process.env.VUE_APP_ACTIVE == 'true'
-    }
+      active: process.env.VUE_APP_ACTIVE == "true",
+    };
   },
   computed: {
     year() {
