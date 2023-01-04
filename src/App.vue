@@ -12,52 +12,74 @@
       </h2>
     </header>
 
-    <section class="section">
-      <div class="container">
-        <div class="intro content is-large">
-          <p>
-            See current fire information (updated daily) along with work done by
-            University of Alaska researchers and other scientists that shows
-            historical data and estimated future fire conditions. Information
-            about the current fire season comes from the Alaska Interagency
-            Coordination Center and the MesoWest data services.
-          </p>
-          <p>
-            The Wildfire Explorer shows data that aids understanding of
-            Alaska&rsquo;s fire landscape. It is not designed for fire
-            management decision&ndash;making.
-          </p>
-        </div>
-        <div class="content is-large fire-tally-info">
-          <b-message>
-            <h4>
-              Fire Tally: How does this year&rsquo;s burned acreage compare with past
-              years?
-            </h4>
+    <div v-if="active">
+      <section class="section">
+        <div class="container">
+          <div class="intro content is-large">
             <p>
-              <a href="https://snap.uaf.edu/tools/daily-fire-tally">Use this tool</a> to compare the current year&rsquo;s daily tally of
-              acres burned to high fire years (> 1 million acres burned) since
-              daily tally records began in 2004. See tallies of Alaska acreage
-              burned daily statewide, by fire protection area, and by year.
+              See current fire information (updated daily) along with work done
+              by University of Alaska researchers and other scientists that
+              shows historical data and estimated future fire conditions.
+              Information about the current fire season comes from the Alaska
+              Interagency Coordination Center and the MesoWest data services.
             </p>
-          </b-message>
+            <p>
+              The Wildfire Explorer shows data that aids understanding of
+              Alaska&rsquo;s fire landscape. It is not designed for fire
+              management decision&ndash;making.
+            </p>
+          </div>
+          <div class="content is-large fire-tally-info">
+            <b-message>
+              <h4>
+                Fire Tally: How does this year&rsquo;s burned acreage compare
+                with past years?
+              </h4>
+              <p>
+                <a href="https://snap.uaf.edu/tools/daily-fire-tally"
+                  >Use this tool</a
+                >
+                to compare the current year&rsquo;s daily tally of acres burned
+                to high fire years (> 1 million acres burned) since daily tally
+                records began in 2004. See tallies of Alaska acreage burned
+                daily statewide, by fire protection area, and by year.
+              </p>
+            </b-message>
+          </div>
+          <div class="intro content is-large intro--legend">
+            <p>
+              <img src="@/assets/fire-perimeter.png" />Active fires with mapped
+              perimeters have a &lsquo;halo&rsquo; to show how big they are.
+            </p>
+            <p>
+              Click one or more map layer names to activate. Scroll down to see
+              details on each layer.
+            </p>
+          </div>
         </div>
-        <div class="intro content is-large intro--legend">
-          <p>
-            <img src="@/assets/fire-perimeter.png" />Active fires with mapped
-            perimeters have a &lsquo;halo&rsquo; to show how big they are.
-          </p>
-          <p>
-            Click one or more map layer names to activate. Scroll down to see
-            details on each layer.
-          </p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section">
-      <FireMap></FireMap>
-    </section>
+      <section class="section">
+        <FireMap></FireMap>
+      </section>
+    </div>
+    <div v-else>
+      <section class="section">
+        <div class="container content is-large">
+          <h3>Site offline until April, 2023</h3>
+          <p>
+            This map and tool will be restored in April this year, at the start of the
+            2023 wildfire season.
+          </p>
+          <p>
+            Any questions? Email us at
+            <a href="mailto:uaf-snap-data-tools@alaska.edu"
+              >uaf-snap-data-tools@alaska.edu</a
+            >.
+          </p>
+        </div>
+      </section>
+    </div>
 
     <footer class="footer">
       <div class="container">
@@ -238,6 +260,12 @@ export default {
   name: "App",
   components: {
     FireMap,
+  },
+  data() {
+    return {
+      // Convert sting to boolean
+      active: process.env.VUE_APP_ACTIVE == "true",
+    };
   },
   computed: {
     year() {
