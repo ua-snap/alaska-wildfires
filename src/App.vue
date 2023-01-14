@@ -133,6 +133,7 @@
                 >Privacy Statement</a
               >
             </p>
+            <p>UA is committed to providing accessible websites. <a href="https://www.alaska.edu/webaccessibility/">Learn more about UA&rsquo;s notice of web accessibility</a>.  If we can help you access this website&rsquo;s content, <a href="mailto:uaf-snap-data-tools@alaska.edu">email us!</a></p>
           </div>
         </div>
       </div>
