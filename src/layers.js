@@ -1,40 +1,44 @@
-import moment from "moment";
+import moment from 'moment';
+
+const currentYear = new Date().getFullYear();
 
 export default [
   {
-    id: "fires",
-    wmsLayerName: "fires",
-    title: "2022 Wildfires",
+    id: 'fires',
+    wmsLayerName: 'fires',
+    title: currentYear + ' Wildfires',
     local: true,
     visible: true,
-    legendClassOverride: "is-one-third",
+    legendClassOverride: 'is-one-third',
     legend:
       `<table class="alaska-wildfires-legend active-fires">
       <tr><td><img src="` +
-      require("@/assets/fire-perimeter.png") +
+      require('@/assets/fire-perimeter.png') +
       `"/></td><td class="fire-text">Active Fire Perimeters</td></tr>
       <tr><td><img src="` +
-      require("@/assets/large-fire.png") +
+      require('@/assets/large-fire.png') +
       `"/></td><td class="fire-text">Large Fire</td></tr>
       <tr><td><img class="small-fire-dot" src="` +
-      require("@/assets/small-fire.png") +
+      require('@/assets/small-fire.png') +
       `"/></td><td class="fire-text">Small Fires</td></tr>
       </table>`,
-    abstract: `
-    <p>Active (red) and inactive (gray) fires for the 2022 season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
+    abstract:
+      '<p>Active (red) and inactive (gray) fires for the ' +
+      currentYear +
+      ' season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>',
   },
   {
-    id: "postgis_lightning",
-    wmsLayerName: "postgis_lightning",
-    title: "Lightning strikes, last 36 hours",
-    layerName: "alaska_wildfires:postgis_lightning",
+    id: 'postgis_lightning',
+    wmsLayerName: 'postgis_lightning',
+    title: 'Lightning strikes, last 36 hours',
+    layerName: 'alaska_wildfires:postgis_lightning',
     legend:
       `<table class="alaska-wildfires-legend lightning">
               <tr><td><div class="positive"><img src="` +
-      require("@/assets/lightning-positive.svg") +
+      require('@/assets/lightning-positive.svg') +
       `"/></div></td><td>Positive</td></tr>
               <tr><td><div class="negative"><img src="` +
-      require("@/assets/lightning-negative.svg") +
+      require('@/assets/lightning-negative.svg') +
       `"/></div></td><td>Negative</td></tr>
               <tr><td><div class="cloud2cloud">•</div></td><td>Cloud to cloud</td></tr>
             </table>`,
@@ -43,7 +47,7 @@ export default [
             <p>Lightning strikes are classified according to the type of charge released. Nearly 95% of lightning strikes carry a negative charge, but positively-charged strikes are much more powerful. This layer shows the last 36 hours of lightning activity; older lightning strikes fade over time.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
   },
   {
-    id: "gridded_lightning",
+    id: 'gridded_lightning',
     wmsLayerName(params) {
       var monthName = moment.months(params.month - 1);
       return {
@@ -52,7 +56,7 @@ export default [
         title: `Historical lightning strikes in ${monthName}`,
       };
     },
-    controls: "months",
+    controls: 'months',
     defaults: {
       month: 5,
     },
@@ -71,11 +75,11 @@ export default [
             <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p><p>Detailed information about this dataset can be found in <a href="https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml">this academic paper</a>, and <a href="https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548">the dataset can be downloaded here</a>.`,
   },
   {
-    id: "viirs",
-    wmsLayerName: "viirs",
-    title: "Hotspots, last 48 hours",
+    id: 'viirs',
+    wmsLayerName: 'viirs',
+    title: 'Hotspots, last 48 hours',
     local: true,
-    legend: `<img src="` + require("@/assets/hotspot-legend.png") + `"/>`,
+    legend: `<img src="` + require('@/assets/hotspot-legend.png') + `"/>`,
     zindex: 100,
     abstract: `<p>&ldquo;Hotspots&rdquo; are places where temperatures are higher than expected. Scientific instruments on satellites can detect hotspots, which helps fire managers discover new wildfires. Individual hotspots are compiled into smooth gradients, where darker colors indicate greater densities of hotspots. Note that the instrument can also detect other hotspots unrelated to wildfire, such as flare stacks at oil drilling facilities on the North Slope of Alaska or even ship exhaust in the ocean.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>
             `,
@@ -83,11 +87,11 @@ export default [
   {
     abstract: `
           <p>Land cover classification from the <a href="https://eros.usgs.gov/doi-remote-sensing-activities/2019/usgs/nalcms-release-new-land-cover-north-america">North American Land Change Monitoring System, 2015</a>. Spatial resolution is 30&#8239;m (1 pixel = 30&#8239;m on the ground). Dominant land cover relates to wildfire because it varies across the landscape, and influences how a region may burn. Wildfires often change the dominant land cover type, and many fires have occurred since this layer was created.</p>`,
-    id: "alaska_landcover_2015",
-    wmsLayerName: "alaska_wildfires:alaska_landcover_2015",
-    title: "Land cover types",
+    id: 'alaska_landcover_2015',
+    wmsLayerName: 'alaska_wildfires:alaska_landcover_2015',
+    title: 'Land cover types',
     zindex: 3,
-    legendClassOverride: "is-one-third", //
+    legendClassOverride: 'is-one-third', //
     legend: `<table class="alaska-wildfires-legend alaska-landcover-2015">
             <tr><td><div class="l-1"></div></td><td>Temperate or sub-polar needleleaf forest</td></tr>
             <tr><td><div class="l-2"></div></td><td>Sub-polar taiga needleleaf forest</td></tr>
@@ -109,11 +113,11 @@ export default [
   {
     abstract: `
           <p>Older wildfire perimeters can be interesting to study in relation to newer fires. Previously burned areas often stop new fires from spreading due to a lack of fuel.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
-    id: "historical_fire_perimiters",
-    wmsLayerName: "historical_fire_perimiters",
+    id: 'historical_fire_perimiters',
+    wmsLayerName: 'historical_fire_perimiters',
     zindex: 10,
-    styles: "historical_fire_polygon_buckets",
-    title: "Historical fire perimeters",
+    styles: 'historical_fire_polygon_buckets',
+    title: 'Historical fire perimeters',
     legend: `<table class="alaska-wildfires-legend historical-fire-perimeters">
             <tr><td><div class="h-40-69"></div></td><td>1940&mdash;1969</td></tr>
             <tr><td><div class="h-70-99"></div></td><td>1970&mdash;1999</td></tr>
@@ -123,11 +127,11 @@ export default [
   {
     abstract: `
     <p>This layer is derived from the U.S. National Ice Center&rsquo;s Interactive Multisensor Snow and Ice Mapping System, which shows snow and ice coverage over the Northern Hemisphere at 1 km resolution. This map shows only snow coverage as an indicator of potential for early fire during spring in Alaska. <a href="https://usicecenter.gov/Resources/ImsInfo">Visit the data source</a>.</p>`,
-    id: "snow_cover_3338",
-    wmsLayerName: "alaska_wildfires:snow_cover_3338",
-    styles: "alaska_wildfires:snow_cover",
+    id: 'snow_cover_3338',
+    wmsLayerName: 'alaska_wildfires:snow_cover_3338',
+    styles: 'alaska_wildfires:snow_cover',
     zindex: 10,
-    title: "Today&rsquo;s Snow Cover",
+    title: 'Today&rsquo;s Snow Cover',
     legend: `<table class="alaska-wildfires-legend snow-cover">
             <tr><td><div class="sc-open"></div></td><td>Open terrain (no snow)</td></tr>
             <tr><td><div class="sc-snow"></div></td><td>Snow</td></tr>
@@ -137,11 +141,11 @@ export default [
     abstract: `
     <p>This is the same information shown on the &ldquo;Smokey the Bear&rdquo; signs!  Fire managers use these ratings to understand the environment that is developing over time. Ratings are used to assess the risk of wildfires for areas of Alaska based on factors such as recent precipitation and buildup of vegetation in an area.  Data are derived from <a href="https://akff.mesowest.org">layers provided by MesoWest Alaska Fires &amp; Fuels website</a>.</p>
     `,
-    id: "spruceadj_3338",
-    wmsLayerName: "alaska_wildfires:spruceadj_3338",
-    styles: "alaska_wildfires:spruce_adjective",
+    id: 'spruceadj_3338',
+    wmsLayerName: 'alaska_wildfires:spruceadj_3338',
+    styles: 'alaska_wildfires:spruce_adjective',
     zindex: 10,
-    title: "Today&rsquo;s Fire Danger Ratings",
+    title: 'Today&rsquo;s Fire Danger Ratings',
     legend: `<table class="alaska-wildfires-legend smokey-bear">
       <tr><td><div class="sa-1"></div></td><td>Low</td></tr>
       <tr><td><div class="sa-2"></div></td><td>Medium</td></tr>
@@ -154,12 +158,12 @@ export default [
     abstract: `
           <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. These modeled data for the previous century (1900-1999) allow for comparison between that century and this one, but do not necessarily match historical fire perimeters.</p>
           <p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
-    id: "alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem",
+    id: 'alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem',
     wmsLayerName:
-      "alaska_wildfires:alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem",
+      'alaska_wildfires:alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem',
     zindex: 5,
-    styles: "flammability",
-    title: "Historical modeled flammability",
+    styles: 'flammability',
+    title: 'Historical modeled flammability',
     legend: `<table class="alaska-wildfires-legend flammability">
       <tr><td><div class="rf-1"></div></td><td>Less likely to burn</td></tr>
       <tr><td><div class="rf-2"></div></td><td></td></tr>
@@ -171,12 +175,12 @@ export default [
   {
     abstract: `
           <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2000&ndash;2099 using the <a href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can’t predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
-    id: "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
+    id: 'alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
     wmsLayerName:
-      "alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
+      'alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
     zindex: 5,
-    styles: "flammability",
-    title: "Projected flammability",
+    styles: 'flammability',
+    title: 'Projected flammability',
     legend: `<table class="alaska-wildfires-legend flammability">
       <tr><td><div class="rf-1"></div></td><td>Less likely to burn</td></tr>
       <tr><td><div class="rf-2"></div></td><td></td></tr>
