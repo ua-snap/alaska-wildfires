@@ -122,7 +122,8 @@
               rights reserved.
             </p>
             <p>
-              UA is an AA/EO employer and educational institution and prohibits
+              UA is an affirmative action / equal opportunity
+              employer, educational institution and provider, and prohibits
               illegal discrimination against any individual.
               <a href="https://www.alaska.edu/nondiscrimination/"
                 >Statement of Nondiscrimination</a
