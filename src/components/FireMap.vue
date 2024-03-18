@@ -154,10 +154,10 @@ export default {
   },
   methods: {
     // Helper function to format incoming UNIX timestamps
-    // relative to brower's local time zone.  Returns Moment
+    // relative to browser's local time zone.  Returns Moment
     // object for formatting relevant in context.
     parseDate(t) {
-      return this.$moment(t).utcOffset(offset);
+      return this.$moment(parseInt(t)).utcOffset(offset);
     },
 
     fetchViirsData() {
@@ -204,33 +204,50 @@ export default {
       return heatLayer;
     },
     fetchFireData() {
-      // Helper function to rebuild Leaflet objects
-      var processFireData = (data) => {
-        firePolygons = this.getGeoJsonLayer(data);
-        fireMarkers = this.getFireMarkers(data);
+      // WFS endpoint containing the latest fire data
+      var wfsUrl = "https://gs.mapventure.org/geoserver/wfs";
 
-        // Add layers to the LayerGroup we're using here.
-        fireLayerGroup.addLayer(fireMarkers).addLayer(firePolygons);
+      // Define parameters for the WFS requests
+      var pointParams = {
+        service: "WFS",
+        version: "1.1.0",
+        request: "GetFeature",
+        typeName: "alaska_wildfires:fire_points",
+        outputFormat: "json",
       };
 
-      return new Promise((resolve) => {
-        if (!this.fireJson) {
-          this.$axios
-            .get(process.env.VUE_APP_FIRE_FEATURES_URL, { timeout: 120000 })
-            .then((res) => {
-              if (res) {
-                this.fireJson = res.data;
-                processFireData(res.data);
-                this.$refs.map.refreshLayers();
-                resolve();
-              }
-            });
-        } else {
-          processFireData(this.fireJson);
+      var polygonParams = {
+        service: "WFS",
+        version: "1.1.0",
+        request: "GetFeature",
+        typeName: "alaska_wildfires:fire_polygons",
+        outputFormat: "json",
+      };
+
+      return Promise.all([
+        this.$axios.get(wfsUrl, { params: pointParams }),
+        this.$axios.get(wfsUrl, { params: polygonParams }),
+      ])
+        .then((responses) => {
+          // Process the WFS data for fire points and polygons
+          this.processFirePointData(responses[0].data);
+          this.processFirePolygonData(responses[1].data);
           this.$refs.map.refreshLayers();
-          resolve();
-        }
-      });
+        })
+        .catch((error) => {
+          console.error("Error fetching WFS data:", error);
+        });
+    },
+    processFirePointData(data) {
+      fireMarkers = this.getGeoJsonLayer(data);
+      fireLayerGroup.addLayer(fireMarkers);
+    },
+    processFirePolygonData(data) {
+      firePolygons = this.getGeoJsonLayer(data);
+      fireMarkers = this.getFireMarkers(data);
+
+      fireLayerGroup.addLayer(firePolygons);
+      fireLayerGroup.addLayer(fireMarkers);
     },
     // For any polygon features, return a marker with a bound popup.
     getFireMarkers(geoJson) {
@@ -367,6 +384,7 @@ export default {
     },
     styleFirePolygons(feature) {
       if (this.isFireActive(feature.properties)) {
+        console.log("active fire");
         return {
           color: "#ff0000",
           fillColor: "#E83C18",
@@ -375,6 +393,7 @@ export default {
           fillOpacity: 0.3,
         };
       } else {
+        console.log("inactive fire");
         return {
           color: "#888888",
           fillColor: "#888888",
@@ -389,7 +408,7 @@ export default {
     // for differing upstream data.  This function implements
     // the logic to determine if a fire is active or not.
     isFireActive(fireFeatures) {
-      return fireFeatures.active;
+      return fireFeatures.active == 1 ? true : false;
     },
     // This handler is only used for point features (no polygon).
     // It returns a Leaflet divIcon marker with classes
