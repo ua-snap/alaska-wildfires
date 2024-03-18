@@ -28,10 +28,10 @@ export default [
       ' season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>',
   },
   {
-    id: 'postgis_lightning',
-    wmsLayerName: 'postgis_lightning',
+    id: 'lightning_strikes',
+    wmsLayerName: 'lightning_strikes',
     title: 'Lightning strikes, last 36 hours',
-    layerName: 'alaska_wildfires:postgis_lightning',
+    layerName: 'alaska_wildfires:lightning_strikes',
     legend:
       `<table class="alaska-wildfires-legend lightning">
               <tr><td><div class="positive"><img src="` +
