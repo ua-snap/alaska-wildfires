@@ -384,7 +384,6 @@ export default {
     },
     styleFirePolygons(feature) {
       if (this.isFireActive(feature.properties)) {
-        console.log("active fire");
         return {
           color: "#ff0000",
           fillColor: "#E83C18",
@@ -393,7 +392,6 @@ export default {
           fillOpacity: 0.3,
         };
       } else {
-        console.log("inactive fire");
         return {
           color: "#888888",
           fillColor: "#888888",
