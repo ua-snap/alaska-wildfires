@@ -40,6 +40,8 @@ Object.defineProperty(Vue.prototype, "$L", { value: L });
 Object.defineProperty(Vue.prototype, "$axios", { value: axios });
 Object.defineProperty(Vue.prototype, "$moment", { value: moment });
 
+const wfsUrl = "https://gs.mapventure.org/geoserver/wfs";
+
 // Wire in two listeners that will keep track of open
 // HTTP requests.
 Vue.prototype.$axios.interceptors.request.use(
@@ -161,35 +163,44 @@ export default {
     },
 
     fetchViirsData() {
-      var processViirsData = (data) => {
-        let viirsPoints = this.getViirsMarkers(data);
-        viirsLayerGroup.addLayer(viirsPoints);
+      // Define parameters for the WFS requests
+      var params = {
+        service: "WFS",
+        version: "1.1.0",
+        request: "GetFeature",
+        typeName: "alaska_wildfires:viirs_hotspots",
+        outputFormat: "json",
       };
 
       return new Promise((resolve) => {
-        if (!this.viirsJson) {
-          this.$axios
-            .get(process.env.VUE_APP_VIIRS_URL, { timeout: 120000 })
-            .then((res) => {
-              if (res) {
-                this.viirsJson = res.data;
-                processViirsData(res.data);
-                this.$refs.map.refreshLayers();
-                resolve();
-              }
-            });
-        } else {
-          processViirsData(this.viirsJson);
-          this.$refs.map.refreshLayers();
-          resolve();
-        }
+        this.$axios
+          .get(wfsUrl, { params })
+          .then((response) => {
+            if (response.data) {
+              // Process the WFS data
+              this.processViirsData(response.data);
+              this.$refs.map.refreshLayers();
+              resolve();
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching WFS data:", error);
+            resolve();
+          });
       });
+    },
+    processViirsData(data) {
+      let viirsPoints = this.getViirsMarkers(data);
+      viirsLayerGroup.addLayer(viirsPoints);
     },
     getViirsMarkers(geoJson) {
       // reverse lat/lng for this plugin
       var coords = [];
-      _.each(geoJson.features[0].geometry.coordinates, (e) => {
-        coords.push([e[1], e[0]]);
+      _.each(geoJson.features, (feature) => {
+        coords.push([
+          feature.geometry.coordinates[1],
+          feature.geometry.coordinates[0],
+        ]);
       });
       var heatLayer = this.$L.heatLayer(coords, {
         minOpacity: 0.6,
@@ -204,9 +215,6 @@ export default {
       return heatLayer;
     },
     fetchFireData() {
-      // WFS endpoint containing the latest fire data
-      var wfsUrl = "https://gs.mapventure.org/geoserver/wfs";
-
       // Define parameters for the WFS requests
       var pointParams = {
         service: "WFS",

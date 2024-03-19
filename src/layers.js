@@ -78,6 +78,7 @@ export default [
     id: 'viirs',
     wmsLayerName: 'viirs',
     title: 'Hotspots, last 48 hours',
+    layerName: 'alaska_wildfires:viirs_hotspots',
     local: true,
     legend: `<img src="` + require('@/assets/hotspot-legend.png') + `"/>`,
     zindex: 100,
