@@ -35,6 +35,7 @@ import p4l from "proj4leaflet"; // eslint-disable-line
 import leaflet_heat from "leaflet.heat"; // eslint-disable-line
 import "leaflet/dist/leaflet.css";
 import axios from "axios";
+import turf from "turf";
 
 Object.defineProperty(Vue.prototype, "$L", { value: L });
 Object.defineProperty(Vue.prototype, "$axios", { value: axios });
@@ -76,6 +77,8 @@ var firePolygons;
 var fireMarkers;
 var fireLayerGroup;
 var viirsLayerGroup;
+var purpleAirMarkers;
+var purpleAirLayerGroup;
 
 // Current time zone offset (used in parseDate below).
 var offset = new Date().getTimezoneOffset();
@@ -115,6 +118,7 @@ export default {
       return {
         fires: fireLayerGroup,
         viirs: viirsLayerGroup,
+        purple_air: purpleAirLayerGroup,
       };
     },
   },
@@ -136,6 +140,7 @@ export default {
       layers: mapLayers,
       fireJson: null,
       viirsJson: null,
+      purpleAirJson: null,
       map: undefined,
     };
   },
@@ -143,6 +148,7 @@ export default {
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup();
     viirsLayerGroup = this.$L.layerGroup();
+    purpleAirLayerGroup = this.$L.layerGroup();
 
     // Initialize the layers!
     this.$store.commit("setLayers", this.layers);
@@ -151,6 +157,7 @@ export default {
   mounted() {
     this.fetchFireData();
     this.fetchViirsData();
+    this.fetchPurpleAirData();
 
     // Remove any stray localStorage.
     localStorage.clear();
@@ -161,6 +168,290 @@ export default {
     // object for formatting relevant in context.
     parseDate(t) {
       return this.$moment(parseInt(t)).utcOffset(offset);
+    },
+
+    fetchPurpleAirData() {
+      // Calculate the timestamp for 7 days ago
+      var oneWeekAgo = Math.floor(Date.now() / 1000) - 7 * 24 * 60 * 60;
+
+      // Define API URL and parameters
+      var apiUrl = "https://map.purpleair.com/v1/sensors";
+      var queryParams = {
+        fields:
+          "last_seen,location_type,latitude,longitude,pm2.5,pm2.5_10minute,pm2.5_30minute,pm2.5_60minute,pm2.5_6hour,pm2.5_24hour,pm2.5_1week",
+        modified_since: oneWeekAgo,
+        nwlat: 70,
+        selat: 54.56,
+        nwlng: -169.41,
+        selng: -130.1,
+      };
+
+      // Return a promise
+      return new Promise((resolve, reject) => {
+        // Make the Axios request
+        axios
+          .get(apiUrl, {
+            params: queryParams,
+            headers: { "X-API-KEY": process.env.VUE_APP_PURPLE_AIR_API_KEY },
+          })
+          .then((response) => {
+            // Process the API data
+            var geoJsonData = this.processPurpleAirData(response.data);
+            resolve(geoJsonData); // Resolve the promise with the GeoJSON data
+          })
+          .catch((error) => {
+            console.error("Error fetching data from API:", error);
+            reject(error); // Reject the promise with the error
+          });
+      });
+    },
+    convertToGeoJSON(data) {
+      var geoJsonFeatures = [];
+
+      // Loop through the data and create Turf.js Point features
+      data.data.forEach((sensor) => {
+        var latitude = sensor[3];
+        var longitude = sensor[4];
+
+        var properties = {
+          last_modified: sensor[1],
+          location_type: sensor[2],
+          pm2_5: sensor[5],
+          pm2_5_10minute: sensor[6],
+          pm2_5_30minute: sensor[7],
+          pm2_5_60minute: sensor[8],
+          pm2_5_6hour: sensor[9],
+          pm2_5_24hour: sensor[10],
+          pm2_5_1week: sensor[11],
+        };
+
+        var pointFeature = turf.point([longitude, latitude], properties);
+        geoJsonFeatures.push(pointFeature);
+      });
+
+      // Create a FeatureCollection from the array of features
+      var geoJsonFeatureCollection = turf.featureCollection(geoJsonFeatures);
+      return geoJsonFeatureCollection;
+    },
+
+    convertToAKST(utcTimestamp) {
+      // Convert the UTC timestamp in seconds to milliseconds and create a Date object
+      const date = new Date(utcTimestamp * 1000);
+
+      // Convert the date to AKST (Alaska Standard Time)
+      const akstDateString = date.toLocaleString("en-US", {
+        timeZone: "America/Anchorage",
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true,
+      });
+
+      return akstDateString;
+    },
+
+    processPurpleAirData(data) {
+      // Convert data to GeoJSON
+      var geoJsonData = this.convertToGeoJSON(data);
+
+      // Create markers for PurpleAir data
+      purpleAirMarkers = this.getPurpleAirMarkers(geoJsonData);
+
+      // Add the layer group to the map
+      purpleAirLayerGroup.addLayer(this.$L.layerGroup(purpleAirMarkers));
+    },
+    getPurpleAirBackgroundColor(aqi) {
+      var colorRanges = [
+        { max: 50, color: "#67E142", textFill: "black" }, // Green
+        { max: 100, color: "#FFFF00", textFill: "black" }, // Yellow
+        { max: 150, color: "#FF7E00", textFill: "black" }, // Orange
+        { max: 200, color: "#FF0000", textFill: "white" }, // Red
+        { max: 300, color: "#8F3F97", textFill: "white" }, // Purple
+        { max: 3000, color: "#7E0122", textFill: "white" }, // Maroon
+      ];
+
+      // Determine the color and text fill based on the pm2_5 value
+      var color = "#7E0122"; // Default color
+      var textFill = "white"; // Default text fill
+      for (var i = 0; i < colorRanges.length; i++) {
+        if (aqi <= colorRanges[i].max) {
+          color = colorRanges[i].color;
+          textFill = colorRanges[i].textFill;
+          break;
+        }
+      }
+
+      // Return color and textFill
+      return { color, textFill };
+    },
+    getPurpleAirMarkers(geoJson) {
+      var markers = [];
+
+      geoJson.features.forEach((feature) => {
+        // if (feature.properties.last_modified)
+        // Get the value of pm2_5
+        var pm2_5 = feature.properties.pm2_5_10minute;
+
+        var { color, textFill } = this.getPurpleAirBackgroundColor(pm2_5);
+
+        // Create SVG element for the custom icon
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 30 30"); // Set the viewBox to maintain aspect ratio
+        svg.innerHTML = `
+            <circle cx="15" cy="15" r="12" fill="${color}" />
+            <text x="15" y="18" font-size="12" font-weight="bold" text-anchor="middle" fill="${textFill}">${pm2_5}</text>
+        `;
+
+        // Convert SVG to data URI
+        var svgData = new XMLSerializer().serializeToString(svg);
+        var iconUrl = "data:image/svg+xml;base64," + btoa(svgData);
+
+        // Create the DivIcon
+        var icon = this.$L.icon({
+          iconUrl: iconUrl,
+          iconSize: [30, 30], // Size of the icon
+          iconAnchor: [15, 15], // Position of the icon's anchor point
+        });
+
+        // Create the marker with the custom DivIcon
+        var marker = this.$L.marker(
+          [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
+          { icon: icon }
+        );
+
+        // Create popup content
+        var popupContent = `
+        <div id="currentConditions" class="current-conditions" style="background-color: ${color};color:${textFill}">
+            <div class="fit popup-time-stamp" id="popup-time-stamp" style="white-space: nowrap;">
+                <span class="textFitted" style="display: inline-block; font-size: 11px;">On ${this.convertToAKST(
+                  feature.properties.last_modified
+                )}</span>
+            </div>
+            <div class="popup-conditions-container">
+                <div class="xfit popup-conditions">10 Minute Average US EPA PM2.5 AQI is now</div>
+                <div class="popup-value fit" style="white-space: nowrap;">
+                    <span class="textFitted" style="display: inline-block; font-size: 80px;">${
+                      feature.properties.pm2_5_10minute
+                    }</span>
+                </div>
+            </div>
+
+            <div style="width: 266px; height: 50px;">
+              <!-- pm2_5 -->
+              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
+                this.getPurpleAirBackgroundColor(feature.properties.pm2_5).color
+              }; color:${
+          this.getPurpleAirBackgroundColor(feature.properties.pm2_5).textFill
+        }; float: left; border: 1px solid black;">
+                  <div style="text-align: center; font-size: 10px;">Now</div>
+                  <div style="text-align: center; font-size: 16px;">${
+                    feature.properties.pm2_5
+                  }</div>
+              </div>
+
+              <!-- pm2_5_10minute -->
+              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
+                this.getPurpleAirBackgroundColor(
+                  feature.properties.pm2_5_10minute
+                ).color
+              }; color:${
+          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_10minute)
+            .textFill
+        }; float: left; border: 1px solid black;">
+                  <div style="text-align: center; font-size: 10px;">10 Min</div>
+                  <div style="text-align: center; font-size: 16px;">${
+                    feature.properties.pm2_5_10minute
+                  }</div>
+              </div>
+
+              <!-- pm2_5_30minute -->
+              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
+                this.getPurpleAirBackgroundColor(
+                  feature.properties.pm2_5_30minute
+                ).color
+              }; color:${
+          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_30minute)
+            .textFill
+        }; float: left; border: 1px solid black;">
+                  <div style="text-align: center; font-size: 10px;">30 Min</div>
+                  <div style="text-align: center; font-size: 16px;">${
+                    feature.properties.pm2_5_30minute
+                  }</div>
+              </div>
+
+              <!-- pm2_5_60minute -->
+              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
+                this.getPurpleAirBackgroundColor(
+                  feature.properties.pm2_5_60minute
+                ).color
+              }; color:${
+          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_60minute)
+            .textFill
+        }; float: left; border: 1px solid black;">
+                  <div style="text-align: center; font-size: 10px;">60 Min</div>
+                  <div style="text-align: center; font-size: 16px;">${
+                    feature.properties.pm2_5_60minute
+                  }</div>
+              </div>
+
+              <!-- pm2_5_6hour -->
+              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
+                this.getPurpleAirBackgroundColor(feature.properties.pm2_5_6hour)
+                  .color
+              }; color:${
+          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_6hour)
+            .textFill
+        }; float: left; border: 1px solid black;">
+                  <div style="text-align: center; font-size: 10px;">6 Hour</div>
+                  <div style="text-align: center; font-size: 16px;">${
+                    feature.properties.pm2_5_6hour
+                  }</div>
+              </div>
+
+              <!-- pm2_5_24hour -->
+              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
+                this.getPurpleAirBackgroundColor(
+                  feature.properties.pm2_5_24hour
+                ).color
+              }; color:${
+          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_24hour)
+            .textFill
+        }; float: left; border: 1px solid black;">
+                  <div style="text-align: center; font-size: 10px;">24 Hour</div>
+                  <div style="text-align: center; font-size: 16px;">${
+                    feature.properties.pm2_5_24hour
+                  }</div>
+              </div>
+
+              <!-- pm2_5_1week -->
+              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
+                this.getPurpleAirBackgroundColor(feature.properties.pm2_5_1week)
+                  .color
+              }; color:${
+          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_1week)
+            .textFill
+        }; float: left; border: 1px solid black;">
+                  <div style="text-align: center; font-size: 10px;">1 Week</div>
+                  <div style="text-align: center; font-size: 16px;">${
+                    feature.properties.pm2_5_1week
+                  }</div>
+              </div>
+            </div>
+          </div>
+    `;
+
+        // Bind popup to marker
+        marker.bindPopup(popupContent);
+
+        // Push the marker to the markers array
+        markers.push(marker);
+      });
+
+      return markers;
     },
 
     fetchViirsData() {

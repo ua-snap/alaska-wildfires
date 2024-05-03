@@ -248,4 +248,39 @@ export default [
       <tr><td><div class="rf-5"></div></td><td>Much more likely to burn</td></tr>
     </table>`,
   },
+  {
+    abstract: `
+    <p>Purple Air sensors are low-cost air quality sensors that measure particulate matter (PM2.5) in the air. This layer shows the most recent data from Purple Air sensors in Alaska. PM2.5 is a common pollutant that can be harmful to human health, especially when levels are high. This layer can be useful for understanding air quality in areas near wildfires.</p>`,
+    id: 'purple_air',
+    wmsLayerName: 'purple_air',
+    local: true,
+    title: 'Air quality',
+    zindex: 20,
+    legend: `<table class="alaska-wildfires-legend purple-air">
+            <tr>
+                <td><div class="pa-50" style="background-color: #67E142;"></div></td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td><div class="pa-100" style="background-color: #FFFF00;"></div></td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td><div class="pa-150" style="background-color: #FF7E00;"></div></td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td><div class="pa-200" style="background-color: #FF0000;"></div></td>
+                <td>150</td>
+            </tr>
+            <tr>
+                <td><div class="pa-300" style="background-color: #8F3F97;"></div></td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td><div class="pa-3000" style="background-color: #7E0122;"></div></td>
+                <td>>300</td>
+            </tr>
+            </table>`,
+  },
 ];

@@ -20,6 +20,9 @@
       <li><map-layer id="aqi_forecast_48_hrs"></map-layer></li>
 
       <li>
+        <map-layer id="purple_air"></map-layer>
+      </li>
+      <li>
         <map-layer id="spruceadj_3338"></map-layer>
       </li>
       <li>
