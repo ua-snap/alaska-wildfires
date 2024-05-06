@@ -75,6 +75,80 @@ export default [
             <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p><p>Detailed information about this dataset can be found in <a href="https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml">this academic paper</a>, and <a href="https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548">the dataset can be downloaded here</a>.`,
   },
   {
+    id: 'smoke_forecast_6hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_6hrs',
+    title: '6 hours',
+    // layerName: 'alaska_wildfires:smoke_forecast_6hrs',
+    legend:
+      `Temporary legend for smoke forecast 6 hours.`,
+    zindex: 20,
+    styles: 'alaska_wildfires:smoke_forecast',
+    abstract: `
+            <p>Smoke forecast for 6 hours in the future.</p>`,
+  },
+  {
+    id: 'smoke_forecast_12hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_12hrs',
+    title: '12 hours',
+    // layerName: 'alaska_wildfires:smoke_forecast_12hrs',
+    legend:
+      `Temporary legend for smoke forecast 12 hours.`,
+    zindex: 20,
+    styles: 'alaska_wildfires:smoke_forecast',
+    abstract: `
+            <p>Smoke forecast for 12 hours in the future.</p>`,
+  },
+  {
+    id: 'smoke_forecast_24hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_24hrs',
+    title: '24 hours',
+    // layerName: 'alaska_wildfires:smoke_forecast_24hrs',
+    legend:
+      `Temporary legend for smoke forecast 24 hours.`,
+    zindex: 20,
+    styles: 'alaska_wildfires:smoke_forecast',
+    abstract: `
+            <p>Smoke forecast for 24 hours in the future.</p>`,
+  },
+  {
+    id: 'smoke_forecast_48hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_48hrs',
+    title: '48 hours',
+    legend:
+      `Temporary legend for smoke forecast 48 hours.`,
+    zindex: 20,
+    styles: 'alaska_wildfires:smoke_forecast',
+    abstract: `
+            <p>Smoke forecast for 48 hours in the future.</p>`,
+  },
+  // {
+  //   id: 'smoke_Forecast',
+  //   wmsLayerName(params) {
+  //     var hour = params.hour;
+  //     return {
+  //       name: `alaska_wildfires:smoke_forecast_${hour}hrs`,
+  //       title: `Smoke Forecast: ${hour} hours in the future`,
+  //     };
+  //   },
+  //   controls: 'hour',
+  //   defaults: {
+  //     hour: 6,
+  //   },
+  //   zindex: 15,
+  //   legend: `<table class="alaska-wildfires-legend lightning-climatology">
+  //             <tr><td><div class="lc-let1"></div></td><td>&lt;1</td></tr>
+  //             <tr><td><div class="lc-6"></div></td><td>6</td></tr>
+  //             <tr><td><div class="lc-13"></div></td><td>13</td></tr>
+  //             <tr><td><div class="lc-19"></div></td><td>19</td></tr>
+  //             <tr><td><div class="lc-26"></div></td><td>26</td></tr>
+  //             <tr><td><div class="lc-32"></div></td><td>32</td></tr>
+  //             <tr><td><div class="lc-39"></div></td><td>39</td></tr>
+  //             <tr><td><div class="lc-gte45"></div></td><td>45+</td></tr>
+  //           </table>`,
+  //   abstract: `
+  //           <p>=Smoke forecast. This forecast is based on the HRRR model, which predicts the movement of smoke from wildfires. The model uses data from the National Weather Service and the National Center for Atmospheric Research. The forecast is updated every hour.</p><p>More information about the HRRR model can be found <a href="https://rapidrefresh.noaa.gov/hrrr/">here</a>.`,
+  // },
+  {
     id: 'viirs',
     wmsLayerName: 'viirs',
     title: 'Hotspots, last 48 hours',

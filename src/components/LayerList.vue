@@ -12,6 +12,13 @@
       <li>
         <map-layer id="lightning_strikes"></map-layer>
       </li>
+      <li>Smoke Forecasts</li>
+      <ul>
+        <li><map-layer id="smoke_forecast_6hrs"></map-layer></li>
+        <li><map-layer id="smoke_forecast_12hrs"></map-layer></li>
+        <li><map-layer id="smoke_forecast_24hrs"></map-layer></li>
+        <li><map-layer id="smoke_forecast_48hrs"></map-layer></li>
+      </ul>
       <li>
         <map-layer id="spruceadj_3338"></map-layer>
       </li>
