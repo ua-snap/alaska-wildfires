@@ -12,13 +12,13 @@
       <li>
         <map-layer id="lightning_strikes"></map-layer>
       </li>
-      <li>Smoke Forecasts</li>
-      <ul>
-        <li><map-layer id="smoke_forecast_6hrs"></map-layer></li>
-        <li><map-layer id="smoke_forecast_12hrs"></map-layer></li>
-        <li><map-layer id="smoke_forecast_24hrs"></map-layer></li>
-        <li><map-layer id="smoke_forecast_48hrs"></map-layer></li>
-      </ul>
+      <li><span class="layer-title">Smoke Forecasts</span></li>
+
+      <li><map-layer id="smoke_forecast_6hrs"></map-layer></li>
+      <li><map-layer id="smoke_forecast_12hrs"></map-layer></li>
+      <li><map-layer id="smoke_forecast_24hrs"></map-layer></li>
+      <li><map-layer id="smoke_forecast_48hrs"></map-layer></li>
+
       <li>
         <map-layer id="spruceadj_3338"></map-layer>
       </li>
@@ -73,6 +73,16 @@ h3.is-4 {
   margin: 2rem 0 0.5rem;
   &.top {
     margin-top: 0;
+  }
+}
+.layer-title {
+  display: inline-block;
+  padding-left: 1ex;
+
+  & span {
+    color: #666;
+    padding: 0;
+    margin: 0;
   }
 }
 </style>

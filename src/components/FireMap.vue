@@ -122,7 +122,7 @@ export default {
     return {
       mapOptions: {
         zoom: 1,
-        minZoom: 0,
+        minZoom: 1,
         maxZoom: 6,
         center: [65, -152.5],
       },

@@ -1,5 +1,11 @@
 <template>
-  <div :id="id" class="layer">
+  <div
+    :id="id"
+    :class="{
+      sublayer: id.includes('smoke_forecast'),
+      layer: !id.includes('smoke_forecast'),
+    }"
+  >
     <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
 
     <!-- Layer title! -->
@@ -80,6 +86,16 @@ export default {
 <style lang="scss" scoped>
 .layer {
   margin: 5px 0;
+  cursor: pointer;
+  cursor: hand;
+  span.drag {
+    cursor: grab;
+    color: #888;
+  }
+}
+
+.sublayer {
+  margin: 5px 15px;
   cursor: pointer;
   cursor: hand;
   span.drag {
