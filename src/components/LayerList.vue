@@ -37,7 +37,7 @@
         <map-layer id="gridded_lightning" controls="months"></map-layer>
       </li>
       <li>
-        <map-layer id="historical_fire_perimiters"></map-layer>
+        <map-layer id="historical_fire_perimeters"></map-layer>
       </li>
       <li>
         <map-layer

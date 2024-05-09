@@ -158,15 +158,15 @@ export default [
   {
     abstract: `
           <p>Older wildfire perimeters can be interesting to study in relation to newer fires. Previously burned areas often stop new fires from spreading due to a lack of fuel.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
-    id: 'historical_fire_perimiters',
-    wmsLayerName: 'historical_fire_perimiters',
+    id: 'historical_fire_perimeters',
+    wmsLayerName: 'historical_fire_perimeters',
     zindex: 10,
     styles: 'historical_fire_polygon_buckets',
     title: 'Historical fire perimeters',
     legend: `<table class="alaska-wildfires-legend historical-fire-perimeters">
             <tr><td><div class="h-40-69"></div></td><td>1940&mdash;1969</td></tr>
             <tr><td><div class="h-70-99"></div></td><td>1970&mdash;1999</td></tr>
-            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2021</td></tr>
+            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2023</td></tr>
           </table>`,
   },
   {
