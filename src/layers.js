@@ -2,6 +2,8 @@ import moment from 'moment';
 
 const currentYear = new Date().getFullYear();
 
+const smokeAbstract = `<p>A predictive map for PM 2.5 concentration, designed to anticipate regions susceptible to heightened particulate matter levels and potential smoke impact from forest fires. By amalgamating meteorological data, geographical features, historical fire occurrences, and air quality monitoring insights, the map will forecast PM 2.5 concentrations using advanced modeling techniques and spatial analysis. This layer can be used to signal potential future air pollution hotspots.</p>`;
+
 export default [
   {
     id: 'fires',
@@ -76,47 +78,39 @@ export default [
   },
   {
     id: 'smoke_forecast_6hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_6hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_6_hrs_wms',
     title: '6 hours',
     legend:
       `Temporary legend for smoke forecast 6 hours.`,
     zindex: 20,
-    styles: 'alaska_wildfires:smoke_forecast',
-    abstract: `
-            <p>Smoke forecast for 6 hours in the future.</p>`,
+    abstract: smokeAbstract
   },
   {
     id: 'smoke_forecast_12hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_12hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_12_hrs_wms',
     title: '12 hours',
     legend:
       `Temporary legend for smoke forecast 12 hours.`,
     zindex: 20,
-    styles: 'alaska_wildfires:smoke_forecast',
-    abstract: `
-            <p>Smoke forecast for 12 hours in the future.</p>`,
+    abstract: smokeAbstract
   },
   {
     id: 'smoke_forecast_24hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_24hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_24_hrs_wms',
     title: '24 hours',
     legend:
       `Temporary legend for smoke forecast 24 hours.`,
     zindex: 20,
-    styles: 'alaska_wildfires:smoke_forecast',
-    abstract: `
-            <p>Smoke forecast for 24 hours in the future.</p>`,
+    abstract: smokeAbstract
   },
   {
     id: 'smoke_forecast_48hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_48hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_48_hrs_wms',
     title: '48 hours',
     legend:
       `Temporary legend for smoke forecast 48 hours.`,
     zindex: 20,
-    styles: 'alaska_wildfires:smoke_forecast',
-    abstract: `
-            <p>Smoke forecast for 48 hours in the future.</p>`,
+    abstract: smokeAbstract
   },
   {
     id: 'viirs',
