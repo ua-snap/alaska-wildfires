@@ -5,6 +5,7 @@
         <layer-list></layer-list>
       </div>
       <div class="column">
+        <WarningBanner />
         <mv-map
           ref="map"
           :base-layer-options="baseLayerOptions"
@@ -30,6 +31,7 @@ import moment from "moment";
 
 import store from "../store";
 import mapLayers from "../layers";
+import WarningBanner from "./WarningBanner";
 import L from "leaflet";
 import p4l from "proj4leaflet"; // eslint-disable-line
 import leaflet_heat from "leaflet.heat"; // eslint-disable-line
@@ -86,6 +88,7 @@ export default {
     MvMap,
     LayerList,
     LegendList,
+    WarningBanner,
   },
   computed: {
     crs() {
