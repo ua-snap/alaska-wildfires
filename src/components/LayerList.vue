@@ -4,16 +4,10 @@
 
     <ul>
       <li>
-        <map-layer id="fires"></map-layer>
+        <map-layer id="spruceadj_3338"></map-layer>
       </li>
       <li>
         <map-layer id="viirs"></map-layer>
-      </li>
-      <li>
-        <map-layer id="lightning_strikes"></map-layer>
-      </li>
-      <li>
-        <map-layer id="spruceadj_3338"></map-layer>
       </li>
       <li>
         <map-layer id="snow_cover_3338"></map-layer>

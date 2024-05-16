@@ -143,6 +143,7 @@ export default [
     <p>This is the same information shown on the &ldquo;Smokey the Bear&rdquo; signs!  Fire managers use these ratings to understand the environment that is developing over time. Ratings are used to assess the risk of wildfires for areas of Alaska based on factors such as recent precipitation and buildup of vegetation in an area.  Data are derived from <a href="https://akff.mesowest.org">layers provided by MesoWest Alaska Fires &amp; Fuels website</a>.</p>
     `,
     id: 'spruceadj_3338',
+    visible: true,
     wmsLayerName: 'alaska_wildfires:spruceadj_3338',
     styles: 'alaska_wildfires:spruce_adjective',
     zindex: 10,

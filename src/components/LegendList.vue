@@ -1,9 +1,7 @@
 <template>
   <div>
     <h3 class="title is-2">Layer information</h3>
-    <legend-item id="fires"></legend-item>
     <legend-item id="viirs"></legend-item>
-    <legend-item id="lightning_strikes"></legend-item>
     <legend-item id="spruceadj_3338"></legend-item>
     <legend-item id="snow_cover_3338"></legend-item>
     <legend-item id="alaska_landcover_2015"></legend-item>
