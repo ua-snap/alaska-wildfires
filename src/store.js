@@ -1,8 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import _ from "lodash";
+import axios from "axios";
 
 Vue.use(Vuex);
+
+const apiUrl = 'https://earthmaps.io'
 
 // Helper function to set WMS properties for a layer.
 var setWmsProperties = (state, layer, properties) => {
@@ -54,6 +57,13 @@ export default new Vuex.Store({
     // True if the app knows that there are still outstanding
     // data requests (used on map splash screen)
     pendingHttpRequests: 0,
+
+    // List of all places defined in the application.
+    places: undefined,
+
+    // Output from Fire API endpoint
+    apiOutput: undefined,
+
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -120,11 +130,52 @@ export default new Vuex.Store({
     decrementPendingHttpRequest(state) {
       state.pendingHttpRequests--;
     },
+    setPlaces(state, places) {
+      state.places = places
+    },
+    setApiOutput(state, apiOutput) {
+      state.apiOutput = apiOutput
+    }
   },
   getters: {
     // Returns true if there are pending HTTP requests
     loadingData(state) {
       return state.pendingHttpRequests > 0;
     },
+    places(state) {
+      return state.places
+    },
+
+    apiOutput(state) {
+      return state.apiOutput
+    },
+  
+    name: (state, getters) => {
+        let place = _.find(state.places, {
+          id: getters.place.id,
+        })
+        if (place) {
+          let name = place.name
+          if (place.alt_name) {
+            name += ' (' + place.alt_name + ')'
+          }
+          return name
+        }
+      }
+    
   },
-});
+  actions: {
+    async fetchCommunities(context) {
+      let queryUrl = apiUrl + '/places/communities'
+      let returnedData = await axios.get(queryUrl)
+      context.commit('setPlaces', returnedData)
+    },
+    async fetchFireAPI(context, payload) {
+      let queryUrl = apiUrl + '/fire/point/' + payload.latitude + '/' + payload.longitude
+      let returnedData = await axios.get(queryUrl)
+      console.log(returnedData)
+      context.commit('setApiOutput', returnedData.data)
+    },
+  },
+}
+);

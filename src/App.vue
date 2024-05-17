@@ -68,8 +68,8 @@
         <div class="container content is-large">
           <h3>Site offline until April, 2023</h3>
           <p>
-            This map and tool will be restored in April this year, at the start of the
-            2023 wildfire season.
+            This map and tool will be restored in April this year, at the start
+            of the 2023 wildfire season.
           </p>
           <p>
             Any questions? Email us at
@@ -122,9 +122,9 @@
               rights reserved.
             </p>
             <p>
-              UA is an affirmative action / equal opportunity
-              employer, educational institution and provider, and prohibits
-              illegal discrimination against any individual.
+              UA is an affirmative action / equal opportunity employer,
+              educational institution and provider, and prohibits illegal
+              discrimination against any individual.
               <a href="https://www.alaska.edu/nondiscrimination/"
                 >Statement of Nondiscrimination</a
               >
@@ -134,7 +134,13 @@
                 >Privacy Statement</a
               >
             </p>
-            <p>UA is committed to providing accessible websites. <a href="https://www.alaska.edu/webaccessibility/">Learn more about UA&rsquo;s notice of web accessibility</a>.  If we can help you access this website&rsquo;s content, <a href="mailto:uaf-snap-data-tools@alaska.edu">email us!</a></p>
+            <p>
+              UA is committed to providing accessible websites.
+              <a href="https://www.alaska.edu/webaccessibility/"
+                >Learn more about UA&rsquo;s notice of web accessibility</a
+              >. If we can help you access this website&rsquo;s content,
+              <a href="mailto:uaf-snap-data-tools@alaska.edu">email us!</a>
+            </p>
           </div>
         </div>
       </div>
@@ -272,6 +278,14 @@ export default {
   computed: {
     year() {
       return new Date().getFullYear();
+    },
+  },
+  created() {
+    this.fetch();
+  },
+  methods: {
+    async fetch() {
+      await this.$store.dispatch("fetchCommunities");
     },
   },
 };
