@@ -9,6 +9,7 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters } from "vuex";
 
 export default {
   name: "mv-map",
@@ -39,6 +40,9 @@ export default {
     map() {
       return this.$options.leaflet.map;
     },
+    ...mapGetters({
+      selected: "selected",
+    }),
   },
   mounted() {
     // Instantiate map objects
@@ -63,6 +67,12 @@ export default {
       handler(layers) {
         this.refreshLayers(layers);
       },
+    },
+    selected: function () {
+      this.$options.leaflet.map.setView(
+        [this.selected.latitude, this.selected.longitude],
+        5
+      );
     },
   },
   methods: {

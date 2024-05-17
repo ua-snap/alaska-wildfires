@@ -125,7 +125,7 @@ export default {
   },
   watch: {
     selected: function (selected) {
-      console.log(selected);
+      this.$store.commit("setSelected", selected);
       this.fetchFireAPI(selected);
     },
   },

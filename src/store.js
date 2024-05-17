@@ -61,6 +61,9 @@ export default new Vuex.Store({
     // List of all places defined in the application.
     places: undefined,
 
+    // The current place selected by the user.
+    selected: undefined,
+
     // Output from Fire API endpoint
     apiOutput: undefined,
 
@@ -133,8 +136,14 @@ export default new Vuex.Store({
     setPlaces(state, places) {
       state.places = places
     },
+    setSelected(state, selected) {
+      state.selected = selected
+    },
     setApiOutput(state, apiOutput) {
       state.apiOutput = apiOutput
+    },
+    clearSelected(state) {
+      state.selected = undefined;
     }
   },
   getters: {
@@ -144,6 +153,10 @@ export default new Vuex.Store({
     },
     places(state) {
       return state.places
+    },
+
+    selected(state) {
+      return state.selected
     },
 
     apiOutput(state) {
@@ -173,7 +186,6 @@ export default new Vuex.Store({
     async fetchFireAPI(context, payload) {
       let queryUrl = apiUrl + '/fire/point/' + payload.latitude + '/' + payload.longitude
       let returnedData = await axios.get(queryUrl)
-      console.log(returnedData)
       context.commit('setApiOutput', returnedData.data)
     },
   },

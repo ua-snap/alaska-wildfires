@@ -125,8 +125,8 @@ export default {
     return {
       mapOptions: {
         zoom: 1,
-        minZoom: 0,
-        maxZoom: 6,
+        minZoom: 1,
+        maxZoom: 12,
         center: [65, -152.5],
       },
       baseLayerOptions: {
@@ -149,6 +149,7 @@ export default {
 
     // Initialize the layers!
     this.$store.commit("setLayers", this.layers);
+    this.$store.commit("clearSelected");
   },
   mounted() {
     this.fetchFireData();

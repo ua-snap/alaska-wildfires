@@ -70,7 +70,6 @@ export default {
   },
   watch: {
     apiOutput: function () {
-      console.log(this.apiOutput);
       this.data = this.apiOutput;
     },
   },
