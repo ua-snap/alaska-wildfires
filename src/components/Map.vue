@@ -59,6 +59,8 @@ export default {
       .addTo(this.$options.leaflet.map);
 
     this.addLayers();
+
+    this.$options.leaflet.map.on("click", this.onMapClick);
   },
   watch: {
     // When layer visibility or order changes, re-render
@@ -76,6 +78,28 @@ export default {
     },
   },
   methods: {
+    // Handle map click event
+    onMapClick(e) {
+      const lat = e.latlng.lat.toFixed(2);
+      const lng = e.latlng.lng.toFixed(2);
+      this.fetchLocationData(lat, lng);
+    },
+    async fetchLocationData(lat, lng) {
+      try {
+        const selected = {
+          name: lat + ", " + lng,
+          latitude: lat,
+          longitude: lng,
+        };
+        this.$store.commit("setSelected", selected);
+        this.fetchFireAPI(selected);
+      } catch (error) {
+        console.error("Error fetching location data:", error);
+      }
+    },
+    async fetchFireAPI(selected) {
+      await this.$store.dispatch("fetchFireAPI", selected);
+    },
     // Returns the Leaflet object corresponding to the
     // requested layer ID, or, undefined if not present
     findLayerById(id) {
@@ -208,5 +232,6 @@ export default {
 #map--leaflet-map {
   display: block;
   height: 85vh;
+  cursor: pointer;
 }
 </style>

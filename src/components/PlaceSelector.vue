@@ -13,7 +13,7 @@
             icon="magnify"
             clearable
             clear-on-select
-            @select="(option) => (selected = option)"
+            @select="(option) => (community = option)"
           >
             <template #empty>No results found</template>
             <template slot-scope="props">
@@ -28,8 +28,8 @@
     <div v-if="selected" class="name-types">
       <h5 class="title is-5">
         Viewing data for <b>{{ selected.name }}</b>
-        <span v-if="selected.alt_name"> ({{ selected.alt_name }}) </span>,
-        <b>{{ selected.region }}</b>
+        <span v-if="selected.alt_name"> ({{ selected.alt_name }}) </span>
+        <b v-if="selected.region">, {{ selected.region }}</b>
       </h5>
       <FireAPIOutput />
     </div>
@@ -94,7 +94,7 @@ export default {
   components: { FireAPIOutput },
   data() {
     return {
-      selected: undefined, // the actual selected place
+      community: undefined, // the actual selected place
       selectedPlace: "", // the temporary search fragment
     };
   },
@@ -117,16 +117,17 @@ export default {
         });
       }
 
-      return []; // Add this line to return an empty array if the async loading of places isn't done yet.
+      return [];
     },
     ...mapGetters({
       places: "places",
+      selected: "selected",
     }),
   },
   watch: {
-    selected: function (selected) {
-      this.$store.commit("setSelected", selected);
-      this.fetchFireAPI(selected);
+    community: function (community) {
+      this.$store.commit("setSelected", community);
+      this.fetchFireAPI(community);
     },
   },
   methods: {
