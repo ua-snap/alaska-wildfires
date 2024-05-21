@@ -24,12 +24,6 @@
       </ul>
     </div>
 
-    <!-- Display "is_snow" section -->
-    <div v-if="data.is_snow" class="section">
-      <h3 class="title is-6">{{ data.is_snow.title }}</h3>
-      <p>Snow covered: {{ data.is_snow.is_snow }}</p>
-    </div>
-
     <!-- Display "lc" section -->
     <div v-if="data.lc" class="section">
       <h3 class="title is-6">{{ data.lc.title }}</h3>
