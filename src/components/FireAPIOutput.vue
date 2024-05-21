@@ -45,12 +45,6 @@
       ></div>
       <p>Type: {{ data.lc.type }}</p>
     </div>
-
-    <!-- Display "prf" section -->
-    <div v-if="data.prf" class="section">
-      <h3 class="title is-6">{{ data.prf.title }}</h3>
-      <p>Flammability: {{ data.prf.flamm }}</p>
-    </div>
   </div>
 </template>
 
