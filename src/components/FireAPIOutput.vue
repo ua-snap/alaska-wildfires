@@ -39,6 +39,33 @@
       ></div>
       <p>Type: {{ data.lc.type }}</p>
     </div>
+
+    <!-- Display "lc" section -->
+    <div
+      v-if="data.aqi_6 && data.aqi_12 && data.aqi_24 && data.aqi_48"
+      class="section"
+    >
+      <h3 class="title is-6">AQI Forecast & PM2.5 Concentration</h3>
+      <p>6 hour AQI: {{ data.aqi_6.aqi }}</p>
+      <p>12 hour AQI: {{ data.aqi_12.aqi }}</p>
+      <p>24 hour AQI: {{ data.aqi_24.aqi }}</p>
+      <p>48 hour AQI: {{ data.aqi_48.aqi }}</p>
+      <p>
+        6 hour PM2.5 Concentration: {{ data.aqi_6.pm25_conc }} &micro;g/m&sup3;
+      </p>
+      <p>
+        12 hour PM2.5 Concentration:
+        {{ data.aqi_12.pm25_conc }} &micro;g/m&sup3;
+      </p>
+      <p>
+        24 hour PM2.5 Concentration:
+        {{ data.aqi_24.pm25_conc }} &micro;g/m&sup3;
+      </p>
+      <p>
+        48 hour PM2.5 Concentration:
+        {{ data.aqi_48.pm25_conc }} &micro;g/m&sup3;
+      </p>
+    </div>
   </div>
 </template>
 
