@@ -61,12 +61,27 @@ export default {
     rendererDefaults() {
       return this.layer.defaults;
     },
+    sublayers() {
+      // Helper to return all sublayers
+      return this.$store.state.layers.filter((layer) =>
+        layer.id.includes("aqi_forecast")
+      );
+    },
   },
   methods: {
     toggleLayer() {
-      this.$store.commit("toggleLayerVisibility", {
-        id: this.id,
-      });
+      if (this.id.includes("aqi_forecast")) {
+        this.sublayers.forEach((layer) => {
+          // When an AQI forecast layer is toggled, turn off all other AQI forecast layers.
+          if (layer.id !== this.id) {
+            this.$store.commit("setLayerVisibility", {
+              id: layer.id,
+              visible: false,
+            });
+          }
+        });
+      }
+      this.$store.commit("toggleLayerVisibility", { id: this.id });
     },
     handleLayerConfigChange(data) {
       // Update defaults so when
