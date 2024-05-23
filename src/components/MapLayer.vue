@@ -2,8 +2,8 @@
   <div
     :id="id"
     :class="{
-      sublayer: id.includes('smoke_forecast'),
-      layer: !id.includes('smoke_forecast'),
+      sublayer: id.includes('aqi_forecast'),
+      layer: !id.includes('aqi_forecast'),
     }"
   >
     <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->

@@ -12,12 +12,12 @@
       <li>
         <map-layer id="lightning_strikes"></map-layer>
       </li>
-      <li><span class="layer-title">Smoke Forecasts</span></li>
+      <li><span class="layer-title">Air Quality Index Forecasts</span></li>
 
-      <li><map-layer id="smoke_forecast_6hrs"></map-layer></li>
-      <li><map-layer id="smoke_forecast_12hrs"></map-layer></li>
-      <li><map-layer id="smoke_forecast_24hrs"></map-layer></li>
-      <li><map-layer id="smoke_forecast_48hrs"></map-layer></li>
+      <li><map-layer id="aqi_forecast_6_hrs"></map-layer></li>
+      <li><map-layer id="aqi_forecast_12_hrs"></map-layer></li>
+      <li><map-layer id="aqi_forecast_24_hrs"></map-layer></li>
+      <li><map-layer id="aqi_forecast_48_hrs"></map-layer></li>
 
       <li>
         <map-layer id="spruceadj_3338"></map-layer>

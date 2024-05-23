@@ -2,7 +2,7 @@ import moment from 'moment';
 
 const currentYear = new Date().getFullYear();
 
-const smokeAbstract = `<p>A predictive map for PM 2.5 concentration, designed to anticipate regions susceptible to heightened particulate matter levels and potential smoke impact from forest fires. By amalgamating meteorological data, geographical features, historical fire occurrences, and air quality monitoring insights, the map will forecast PM 2.5 concentrations using advanced modeling techniques and spatial analysis. This layer can be used to signal potential future air pollution hotspots.</p>`;
+const aqiAbstract = `<p>A predictive map for Air Quality Index (AQI), designed to anticipate regions susceptible to heightened particulate matter levels and potential smoke impact from forest fires. By amalgamating meteorological data, geographical features, historical fire occurrences, and air quality monitoring insights, the map will forecast AQI using advanced modeling techniques and spatial analysis. This layer can be used to signal potential future air pollution hotspots.</p>`;
 
 export default [
   {
@@ -77,48 +77,72 @@ export default [
             <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p><p>Detailed information about this dataset can be found in <a href="https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml">this academic paper</a>, and <a href="https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548">the dataset can be downloaded here</a>.`,
   },
   {
-    id: 'aqi_forecast_6hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_6hrs',
+    id: 'aqi_forecast_6_hrs',
+    wmsLayerName: 'alaska_wildfires:aqi_forecast_6_hrs',
     title: '6 hours',
     legend:
-      `Temporary legend for AQI forecast 6 hours.`,
+      `<table class="alaska-wildfires-legend aqi-forecast">
+        <tr><td><div class="aqi-good"></div></td><td>Good: 0 - 50</td></tr>
+        <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
+        <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
+        <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
+        <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
+        <tr><td><div class="aqi-hazardous"></div></td><td>Hazardoud: 301 - 500</td></tr>
+      </table>`,
     zindex: 20,
     styles: 'alaska_wildfires:aqi_forecast',
-    abstract: `
-            <p>AQI forecast for 6 hours in the future.</p>`,
+    abstract: aqiAbstract,
   },
   {
-    id: 'aqi_forecast_12hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_12hrs',
+    id: 'aqi_forecast_12_hrs',
+    wmsLayerName: 'alaska_wildfires:aqi_forecast_12_hrs',
     title: '12 hours',
     legend:
-      `Temporary legend for AQI forecast 12 hours.`,
+      `<table class="alaska-wildfires-legend aqi-forecast">
+        <tr><td><div class="aqi-good"></div></td><td>Good: 0 - 50</td></tr>
+        <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
+        <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
+        <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
+        <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
+        <tr><td><div class="aqi-hazardous"></div></td><td>Hazardoud: 301 - 500</td></tr>
+      </table>`,
     zindex: 20,
     styles: 'alaska_wildfires:aqi_forecast',
-    abstract: `
-            <p>AQI forecast for 12 hours in the future.</p>`,
+    abstract: aqiAbstract,
   },
   {
-    id: 'aqi_forecast_24hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_24hrs',
+    id: 'aqi_forecast_24_hrs',
+    wmsLayerName: 'alaska_wildfires:aqi_forecast_24_hrs',
     title: '24 hours',
     legend:
-      `Temporary legend for AQI forecast 24 hours.`,
+      `<table class="alaska-wildfires-legend aqi-forecast">
+        <tr><td><div class="aqi-good"></div></td><td>Good: 0 - 50</td></tr>
+        <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
+        <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
+        <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
+        <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
+        <tr><td><div class="aqi-hazardous"></div></td><td>Hazardoud: 301 - 500</td></tr>
+      </table>`,
     zindex: 20,
     styles: 'alaska_wildfires:aqi_forecast',
-    abstract: `
-            <p>AQI forecast for 24 hours in the future.</p>`,
+    abstract: aqiAbstract,
   },
   {
-    id: 'aqi_forecast_48hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_48hrs',
+    id: 'aqi_forecast_48_hrs',
+    wmsLayerName: 'alaska_wildfires:aqi_forecast_48_hrs',
     title: '48 hours',
     legend:
-      `Temporary legend for AQI forecast 48 hours.`,
+      `<table class="alaska-wildfires-legend aqi-forecast">
+        <tr><td><div class="aqi-good"></div></td><td>Good: 0 - 50</td></tr>
+        <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
+        <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
+        <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
+        <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
+        <tr><td><div class="aqi-hazardous"></div></td><td>Hazardoud: 301 - 500</td></tr>
+      </table>`,
     zindex: 20,
     styles: 'alaska_wildfires:aqi_forecast',
-    abstract: `
-            <p>AQI forecast for 48 hours in the future.</p>`,
+    abstract: aqiAbstract,
   },
   {
     id: 'viirs',

@@ -4,10 +4,10 @@
     <legend-item id="fires"></legend-item>
     <legend-item id="viirs"></legend-item>
     <legend-item id="lightning_strikes"></legend-item>
-    <legend-item id="smoke_forecast_6hrs"></legend-item>
-    <legend-item id="smoke_forecast_12hrs"></legend-item>
-    <legend-item id="smoke_forecast_24hrs"></legend-item>
-    <legend-item id="smoke_forecast_48hrs"></legend-item>
+    <legend-item id="aqi_forecast_6_hrs"></legend-item>
+    <legend-item id="aqi_forecast_12_hrs"></legend-item>
+    <legend-item id="aqi_forecast_24_hrs"></legend-item>
+    <legend-item id="aqi_forecast_48_hrs"></legend-item>
     <legend-item id="spruceadj_3338"></legend-item>
     <legend-item id="snow_cover_3338"></legend-item>
     <legend-item id="alaska_landcover_2015"></legend-item>
