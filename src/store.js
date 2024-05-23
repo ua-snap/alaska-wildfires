@@ -5,7 +5,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
-const apiUrl = 'https://earthmaps.io'
+const apiUrl = process.env.VUE_APP_SNAP_API_URL || 'https://earthmaps.io';
 
 // Helper function to set WMS properties for a layer.
 var setWmsProperties = (state, layer, properties) => {
