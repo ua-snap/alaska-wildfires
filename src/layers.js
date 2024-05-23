@@ -77,40 +77,48 @@ export default [
             <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p><p>Detailed information about this dataset can be found in <a href="https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml">this academic paper</a>, and <a href="https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548">the dataset can be downloaded here</a>.`,
   },
   {
-    id: 'smoke_forecast_6hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_6_hrs_wms',
+    id: 'aqi_forecast_6hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_6hrs',
     title: '6 hours',
     legend:
-      `Temporary legend for smoke forecast 6 hours.`,
+      `Temporary legend for AQI forecast 6 hours.`,
     zindex: 20,
-    abstract: smokeAbstract
+    styles: 'alaska_wildfires:aqi_forecast',
+    abstract: `
+            <p>AQI forecast for 6 hours in the future.</p>`,
   },
   {
-    id: 'smoke_forecast_12hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_12_hrs_wms',
+    id: 'aqi_forecast_12hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_12hrs',
     title: '12 hours',
     legend:
-      `Temporary legend for smoke forecast 12 hours.`,
+      `Temporary legend for AQI forecast 12 hours.`,
     zindex: 20,
-    abstract: smokeAbstract
+    styles: 'alaska_wildfires:aqi_forecast',
+    abstract: `
+            <p>AQI forecast for 12 hours in the future.</p>`,
   },
   {
-    id: 'smoke_forecast_24hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_24_hrs_wms',
+    id: 'aqi_forecast_24hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_24hrs',
     title: '24 hours',
     legend:
-      `Temporary legend for smoke forecast 24 hours.`,
+      `Temporary legend for AQI forecast 24 hours.`,
     zindex: 20,
-    abstract: smokeAbstract
+    styles: 'alaska_wildfires:aqi_forecast',
+    abstract: `
+            <p>AQI forecast for 24 hours in the future.</p>`,
   },
   {
-    id: 'smoke_forecast_48hrs',
-    wmsLayerName: 'alaska_wildfires:smoke_forecast_48_hrs_wms',
+    id: 'aqi_forecast_48hrs',
+    wmsLayerName: 'alaska_wildfires:smoke_forecast_48hrs',
     title: '48 hours',
     legend:
-      `Temporary legend for smoke forecast 48 hours.`,
+      `Temporary legend for AQI forecast 48 hours.`,
     zindex: 20,
-    abstract: smokeAbstract
+    styles: 'alaska_wildfires:aqi_forecast',
+    abstract: `
+            <p>AQI forecast for 48 hours in the future.</p>`,
   },
   {
     id: 'viirs',
