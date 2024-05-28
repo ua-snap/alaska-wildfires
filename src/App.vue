@@ -20,13 +20,17 @@
               See current fire information (updated daily) along with work done
               by University of Alaska researchers and other scientists that
               shows historical data and estimated future fire conditions.
-              Information about the current fire season comes from the Alaska
-              Interagency Coordination Center and the MesoWest data services.
+              Information about the current fire season comes from the
+              <a href="https://fire.ak.blm.gov/aicc.php">
+                Alaska Interagency Coordination Center</a
+              >
+              and the
+              <a href="https://mesowest.utah.edu">MesoWest data services</a>.
             </p>
             <p>
               The Wildfire Explorer shows data that aids understanding of
-              Alaska&rsquo;s fire landscape. It is not designed for fire
-              management decision&ndash;making.
+              Alaska&rsquo;s fire landscape. <strong>It is not designed for fire
+              management decision-making</strong>.
             </p>
           </div>
           <div class="content is-large fire-tally-info">
@@ -49,7 +53,7 @@
           <div class="intro content is-large intro--legend">
             <p>
               <img src="@/assets/fire-perimeter.png" />Active fires with mapped
-              perimeters have a &lsquo;halo&rsquo; to show how big they are.
+              perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
             <p>
               Click one or more map layer names to activate. Scroll down to see
@@ -68,8 +72,8 @@
         <div class="container content is-large">
           <h3>Site offline until April, 2023</h3>
           <p>
-            This map and tool will be restored in April this year, at the start of the
-            2023 wildfire season.
+            This map and tool will be restored in April this year, at the start
+            of the 2023 wildfire season.
           </p>
           <p>
             Any questions? Email us at
@@ -122,9 +126,9 @@
               rights reserved.
             </p>
             <p>
-              UA is an affirmative action / equal opportunity
-              employer, educational institution and provider, and prohibits
-              illegal discrimination against any individual.
+              UA is an affirmative action / equal opportunity employer,
+              educational institution and provider, and prohibits illegal
+              discrimination against any individual.
               <a href="https://www.alaska.edu/nondiscrimination/"
                 >Statement of Nondiscrimination</a
               >
@@ -134,7 +138,13 @@
                 >Privacy Statement</a
               >
             </p>
-            <p>UA is committed to providing accessible websites. <a href="https://www.alaska.edu/webaccessibility/">Learn more about UA&rsquo;s notice of web accessibility</a>.  If we can help you access this website&rsquo;s content, <a href="mailto:uaf-snap-data-tools@alaska.edu">email us!</a></p>
+            <p>
+              UA is committed to providing accessible websites.
+              <a href="https://www.alaska.edu/webaccessibility/"
+                >Learn more about UA&rsquo;s notice of web accessibility</a
+              >. If we can help you access this website&rsquo;s content,
+              <a href="mailto:uaf-snap-data-tools@alaska.edu">email us!</a>
+            </p>
           </div>
         </div>
       </div>

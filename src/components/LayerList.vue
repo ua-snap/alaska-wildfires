@@ -10,7 +10,7 @@
         <map-layer id="viirs"></map-layer>
       </li>
       <li>
-        <map-layer id="postgis_lightning"></map-layer>
+        <map-layer id="lightning_strikes"></map-layer>
       </li>
       <li>
         <map-layer id="spruceadj_3338"></map-layer>
