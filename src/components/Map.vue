@@ -55,6 +55,10 @@ export default {
       .addTo(this.$options.leaflet.map);
 
     this.addLayers();
+
+    setTimeout(() => {
+      this.$options.leaflet.map.invalidateSize();
+    }, 0);
   },
   watch: {
     // When layer visibility or order changes, re-render
