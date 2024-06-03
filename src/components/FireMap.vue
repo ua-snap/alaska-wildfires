@@ -680,7 +680,7 @@ table.alaska-wildfires-legend {
   &.aqi-forecast {
     td div {
       &.aqi-good {
-        background-color: rgb(0, 228, 0);
+        border: 2px solid rgb(0, 228, 0);
       }
       &.aqi-moderate {
         background-color: rgb(255, 255, 0);
