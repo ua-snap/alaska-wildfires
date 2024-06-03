@@ -2,8 +2,20 @@ import moment from 'moment';
 
 const currentYear = new Date().getFullYear();
 
-const aqiAbstract = `<p>A predictive map for Air Quality Index (AQI), designed to anticipate regions susceptible to heightened particulate matter levels and potential smoke impact from forest fires. By amalgamating meteorological data, geographical features, historical fire occurrences, and air quality monitoring insights, the map will forecast AQI using advanced modeling techniques and spatial analysis. This layer can be used to signal potential future air pollution hotspots.</p>
-<p>NOTE: AQI values below 50 are not shown on the map. This is because the map is designed to highlight areas of concern, not areas with good air quality.</p>`;
+const aqiAbstract = `
+
+<p>A predictive map for Air Quality Index (AQI), designed to anticipate regions susceptible to heightened particulate matter levels and potential smoke impact from forest fires. By amalgamating meteorological data, geographical features, historical fire occurrences, and air quality monitoring insights, the map will forecast AQI using advanced modeling techniques and spatial analysis. This layer can be used to signal potential future air pollution hotspots.</p>
+<p>NOTE: `;
+
+const aqiTable = `
+  <table class="alaska-wildfires-legend aqi-forecast">
+    <tr><td><div class="aqi-good"></div></td><td>Good: 0 - 50</td></tr>
+    <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
+    <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
+    <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
+    <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
+    <tr><td><div class="aqi-hazardous"></div></td><td>Hazardoud: 301 - 500</td></tr>
+  </table>`
 
 export default [
   {
@@ -81,14 +93,7 @@ export default [
     id: 'aqi_forecast_6_hrs',
     wmsLayerName: 'alaska_wildfires:aqi_forecast_6_hrs',
     title: '6 hours',
-    legend:
-      `<table class="alaska-wildfires-legend aqi-forecast">
-        <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
-        <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
-        <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
-        <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
-        <tr><td><div class="aqi-hazardous"></div></td><td>Hazardoud: 301 - 500</td></tr>
-      </table>`,
+    legend: aqiTable,
     zindex: 20,
     styles: 'alaska_wildfires:aqi_forecast',
     abstract: aqiAbstract,
@@ -97,14 +102,7 @@ export default [
     id: 'aqi_forecast_12_hrs',
     wmsLayerName: 'alaska_wildfires:aqi_forecast_12_hrs',
     title: '12 hours',
-    legend:
-      `<table class="alaska-wildfires-legend aqi-forecast">
-        <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
-        <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
-        <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
-        <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
-        <tr><td><div class="aqi-hazardous"></div></td><td>Hazardoud: 301 - 500</td></tr>
-      </table>`,
+    legend: aqiTable,
     zindex: 20,
     styles: 'alaska_wildfires:aqi_forecast',
     abstract: aqiAbstract,
@@ -113,14 +111,7 @@ export default [
     id: 'aqi_forecast_24_hrs',
     wmsLayerName: 'alaska_wildfires:aqi_forecast_24_hrs',
     title: '24 hours',
-    legend:
-      `<table class="alaska-wildfires-legend aqi-forecast">
-        <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
-        <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
-        <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
-        <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
-        <tr><td><div class="aqi-hazardous"></div></td><td>Hazardoud: 301 - 500</td></tr>
-      </table>`,
+    legend: aqiTable,
     zindex: 20,
     styles: 'alaska_wildfires:aqi_forecast',
     abstract: aqiAbstract,
@@ -129,14 +120,7 @@ export default [
     id: 'aqi_forecast_48_hrs',
     wmsLayerName: 'alaska_wildfires:aqi_forecast_48_hrs',
     title: '48 hours',
-    legend:
-      `<table class="alaska-wildfires-legend aqi-forecast">
-        <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
-        <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
-        <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
-        <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
-        <tr><td><div class="aqi-hazardous"></div></td><td>Hazardoud: 301 - 500</td></tr>
-      </table>`,
+    legend: aqiTable,
     zindex: 20,
     styles: 'alaska_wildfires:aqi_forecast',
     abstract: aqiAbstract,
