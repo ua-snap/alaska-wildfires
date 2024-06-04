@@ -9,6 +9,7 @@
 
 <script>
 import _ from "lodash";
+import { mapGetters } from "vuex";
 
 export default {
   name: "mv-map",
@@ -39,6 +40,9 @@ export default {
     map() {
       return this.$options.leaflet.map;
     },
+    ...mapGetters({
+      selected: "selected",
+    }),
   },
   mounted() {
     // Instantiate map objects
@@ -55,6 +59,12 @@ export default {
       .addTo(this.$options.leaflet.map);
 
     this.addLayers();
+
+    this.$options.leaflet.map.on("click", this.onMapClick);
+
+    setTimeout(() => {
+      this.$options.leaflet.map.invalidateSize();
+    }, 0);
   },
   watch: {
     // When layer visibility or order changes, re-render
@@ -64,8 +74,36 @@ export default {
         this.refreshLayers(layers);
       },
     },
+    selected: function () {
+      this.$options.leaflet.map.setView(
+        [this.selected.latitude, this.selected.longitude],
+        5
+      );
+    },
   },
   methods: {
+    // Handle map click event
+    onMapClick(e) {
+      const lat = e.latlng.lat.toFixed(2);
+      const lng = e.latlng.lng.toFixed(2);
+      this.fetchLocationData(lat, lng);
+    },
+    async fetchLocationData(lat, lng) {
+      try {
+        const selected = {
+          name: lat + ", " + lng,
+          latitude: lat,
+          longitude: lng,
+        };
+        this.$store.commit("setSelected", selected);
+        this.fetchFireAPI(selected);
+      } catch (error) {
+        console.error("Error fetching location data:", error);
+      }
+    },
+    async fetchFireAPI(selected) {
+      await this.$store.dispatch("fetchFireAPI", selected);
+    },
     // Returns the Leaflet object corresponding to the
     // requested layer ID, or, undefined if not present
     findLayerById(id) {
@@ -198,5 +236,6 @@ export default {
 #map--leaflet-map {
   display: block;
   height: 85vh;
+  cursor: pointer;
 }
 </style>
