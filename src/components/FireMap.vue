@@ -5,7 +5,6 @@
         <layer-list></layer-list>
       </div>
       <div class="column">
-        <PlaceSelector />
         <mv-map
           ref="map"
           :base-layer-options="baseLayerOptions"
@@ -69,7 +68,6 @@ Vue.prototype.$axios.interceptors.response.use(
 import MvMap from "./Map";
 import LegendList from "./LegendList";
 import LayerList from "./LayerList";
-import PlaceSelector from "./PlaceSelector";
 
 // Leaflet objects, keep these outside of the
 // scope of the Vue component for performance
@@ -88,7 +86,6 @@ export default {
     MvMap,
     LayerList,
     LegendList,
-    PlaceSelector,
   },
   computed: {
     crs() {

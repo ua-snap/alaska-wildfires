@@ -25,14 +25,6 @@
         </b-field>
       </div>
     </div>
-    <div v-if="selected" class="name-types">
-      <h5 class="title is-5">
-        Viewing data for <b>{{ selected.name }}</b>
-        <span v-if="selected.alt_name"> ({{ selected.alt_name }}) </span>
-        <b v-if="selected.region">, {{ selected.region }}</b>
-      </h5>
-      <FireAPIOutput />
-    </div>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -87,11 +79,9 @@
 </style>
 <script>
 import { mapGetters } from "vuex";
-import FireAPIOutput from "./FireAPIOutput";
 
 export default {
   name: "PlaceSelector",
-  components: { FireAPIOutput },
   data() {
     return {
       community: undefined, // the actual selected place
@@ -119,6 +109,7 @@ export default {
 
       return [];
     },
+
     ...mapGetters({
       places: "places",
       selected: "selected",
