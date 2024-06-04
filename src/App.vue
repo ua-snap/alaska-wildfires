@@ -64,6 +64,10 @@
       </section>
 
       <section class="section">
+        <div class="clamp">
+          <PlaceSelector />
+          <FireAPIOutput />
+        </div>
         <FireMap></FireMap>
       </section>
     </div>
@@ -221,6 +225,11 @@ header {
   }
 }
 
+.clamp {
+  max-width: 60rem;
+  margin: 2rem auto;
+}
+
 .intro.content p {
   max-width: 60rem;
   margin: 0 auto 2rem;
@@ -267,12 +276,12 @@ footer {
 
 <script>
 import FireMap from "@/components/FireMap.vue";
+import PlaceSelector from "@/components/PlaceSelector.vue";
+import FireAPIOutput from "@/components/FireAPIOutput";
 
 export default {
   name: "App",
-  components: {
-    FireMap,
-  },
+  components: { FireMap, PlaceSelector, FireAPIOutput },
   data() {
     return {
       // Convert sting to boolean
@@ -282,6 +291,14 @@ export default {
   computed: {
     year() {
       return new Date().getFullYear();
+    },
+  },
+  created() {
+    this.fetch();
+  },
+  methods: {
+    async fetch() {
+      await this.$store.dispatch("fetchCommunities");
     },
   },
 };
