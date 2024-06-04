@@ -29,8 +29,10 @@
             </p>
             <p>
               The Wildfire Explorer shows data that aids understanding of
-              Alaska&rsquo;s fire landscape. <strong>It is not designed for fire
-              management decision-making</strong>.
+              Alaska&rsquo;s fire landscape.
+              <strong
+                >It is not designed for fire management decision-making</strong
+              >.
             </p>
           </div>
           <div class="content is-large fire-tally-info">
@@ -74,10 +76,10 @@
     <div v-else>
       <section class="section">
         <div class="container content is-large">
-          <h3>Site offline until April, 2023</h3>
+          <h3>Site offline until April, 2025</h3>
           <p>
             This map and tool will be restored in April this year, at the start
-            of the 2023 wildfire season.
+            of the 2025 wildfire season.
           </p>
           <p>
             Any questions? Email us at

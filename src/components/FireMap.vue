@@ -678,6 +678,29 @@ table.alaska-wildfires-legend {
     }
   }
 
+  &.aqi-forecast {
+    td div {
+      &.aqi-good {
+        border: 2px solid rgb(0, 228, 0);
+      }
+      &.aqi-moderate {
+        background-color: rgb(255, 255, 0);
+      }
+      &.aqi-unhealthy-sg {
+        background-color: rgb(255, 126, 0);
+      }
+      &.aqi-unhealthy {
+        background-color: rgb(255, 0, 0);
+      }
+      &.aqi-very-unhealthy {
+        background-color: rgb(143, 63, 151);
+      }
+      &.aqi-hazardous {
+        background-color: rgb(126, 0, 35);
+      }
+    }
+  }
+
   &.alaska-landcover-2015 {
     td div {
       &.l-1 {

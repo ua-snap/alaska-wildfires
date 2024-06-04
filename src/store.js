@@ -103,6 +103,10 @@ export default new Vuex.Store({
         payload.setTo
       );
     },
+    setLayerVisibility(state, { id, visible }) {
+      const layer = state.layers.find(layer => layer.id === id);
+      layer.visible = visible;
+    },
     /*
 
     Triggered when a parameterized layer's configuration changes.

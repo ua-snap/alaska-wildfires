@@ -1,5 +1,11 @@
 <template>
-  <div :id="id" class="layer">
+  <div
+    :id="id"
+    :class="{
+      sublayer: id.includes('aqi_forecast'),
+      layer: !id.includes('aqi_forecast'),
+    }"
+  >
     <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
 
     <!-- Layer title! -->
@@ -55,12 +61,27 @@ export default {
     rendererDefaults() {
       return this.layer.defaults;
     },
+    sublayers() {
+      // Helper to return all sublayers
+      return this.$store.state.layers.filter((layer) =>
+        layer.id.includes("aqi_forecast")
+      );
+    },
   },
   methods: {
     toggleLayer() {
-      this.$store.commit("toggleLayerVisibility", {
-        id: this.id,
-      });
+      if (this.id.includes("aqi_forecast")) {
+        this.sublayers.forEach((layer) => {
+          // When an AQI forecast layer is toggled, turn off all other AQI forecast layers.
+          if (layer.id !== this.id) {
+            this.$store.commit("setLayerVisibility", {
+              id: layer.id,
+              visible: false,
+            });
+          }
+        });
+      }
+      this.$store.commit("toggleLayerVisibility", { id: this.id });
     },
     handleLayerConfigChange(data) {
       // Update defaults so when
@@ -80,6 +101,16 @@ export default {
 <style lang="scss" scoped>
 .layer {
   margin: 5px 0;
+  cursor: pointer;
+  cursor: hand;
+  span.drag {
+    cursor: grab;
+    color: #888;
+  }
+}
+
+.sublayer {
+  margin: 5px 15px;
   cursor: pointer;
   cursor: hand;
   span.drag {
