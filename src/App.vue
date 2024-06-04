@@ -20,13 +20,17 @@
               See current fire information (updated daily) along with work done
               by University of Alaska researchers and other scientists that
               shows historical data and estimated future fire conditions.
-              Information about the current fire season comes from the Alaska
-              Interagency Coordination Center and the MesoWest data services.
+              Information about the current fire season comes from the
+              <a href="https://fire.ak.blm.gov/aicc.php">
+                Alaska Interagency Coordination Center</a
+              >
+              and the
+              <a href="https://mesowest.utah.edu">MesoWest data services</a>.
             </p>
             <p>
               The Wildfire Explorer shows data that aids understanding of
-              Alaska&rsquo;s fire landscape. It is not designed for fire
-              management decision&ndash;making.
+              Alaska&rsquo;s fire landscape. <strong>It is not designed for fire
+              management decision-making</strong>.
             </p>
           </div>
           <div class="content is-large fire-tally-info">
@@ -49,7 +53,7 @@
           <div class="intro content is-large intro--legend">
             <p>
               <img src="@/assets/fire-perimeter.png" />Active fires with mapped
-              perimeters have a &lsquo;halo&rsquo; to show how big they are.
+              perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
             <p>
               Click one or more map layer names to activate. Scroll down to see
