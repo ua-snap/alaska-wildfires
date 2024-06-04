@@ -1,6 +1,6 @@
 <template>
   <div :class="{ visible: layer.visible }" class="legend--item block">
-    <h4 class="title is-5" v-html="layer.title"></h4>
+    <h4 class="title is-5" v-html="title"></h4>
     <div class="columns content">
       <div
         class="column"
@@ -32,6 +32,12 @@ export default {
       );
       return this.$store.state.layers[targetLayerIndex];
     },
+    title() {
+      if(this.layer.subtitle) {
+        return this.layer.subtitle
+      }
+      return this.layer.title
+    }
   },
 };
 </script>
