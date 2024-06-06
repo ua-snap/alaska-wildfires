@@ -310,13 +310,14 @@ export default {
         // Create popup content
         var popupContent = `
         <div class="${aqiClassInfo.class} sensor-detail">
-            <p>At ${this.convertToAKST(
+            <p>24-hour average PM2.5 AQI at this sensor on ${this.convertToAKST(
               feature.properties.lastupdate,
-            )}, the 24-hour average PM2.5 AQI at this sensor is
+            )}:
+            </p>
 
-            <span class="${aqiClassInfo.class}">${
+            <span class="sensor-aqi ${aqiClassInfo.class}">${
           feature.properties.pm2_5_24hr
-        } &mdash; ${aqiClassInfo.name}</span>.
+        } &mdash; ${aqiClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqiClassInfo.description}</p>
 
@@ -778,6 +779,42 @@ div.leaflet-marker-icon span {
     height: 1em;
     display: inline-block;
     z-index: 300;
+  }
+}
+
+.sensor-detail {
+  font-size: 1rem;
+
+  span.sensor-aqi {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+
+    &.aqi-green {
+      background-color: #67e142;
+      color: #000;
+    }
+    &.aqi-yellow {
+      background-color: #ffff00;
+      color: #000;
+    }
+    &.aqi-orange {
+      background-color: #ff7e00;
+      color: #000;
+    }
+    &.aqi-red {
+      background-color: #ff0000;
+      color: #fff;
+    }
+    &.aqi-purple {
+      background-color: #8f3f97;
+      color: #fff;
+    }
+    &.aqi-maroon {
+      background-color: #7e0122;
+      color: #fff;
+    }
+
   }
 }
 
