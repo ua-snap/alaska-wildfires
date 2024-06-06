@@ -51,7 +51,7 @@ Vue.prototype.$axios.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 // Add a response interceptor
@@ -62,7 +62,7 @@ Vue.prototype.$axios.interceptors.response.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 import MvMap from "./Map";
@@ -81,6 +81,51 @@ var purpleAirLayerGroup;
 
 // Current time zone offset (used in parseDate below).
 var offset = new Date().getTimezoneOffset();
+
+const aqiColorRanges = [
+  {
+    max: 50,
+    class: "aqi-green",
+    name: "Good",
+    description:
+      "Air quality is satisfactory, and air pollution poses little or no risk.",
+  },
+  {
+    max: 100,
+    class: "aqi-yellow",
+    name: "Moderate",
+    description:
+      "Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.",
+  },
+  {
+    max: 150,
+    class: "aqi-orange",
+    name: "Unhealthy for Sensitive Groups",
+    description:
+      "Members of sensitive groups may experience health effects. The general public is less likely to be affected.",
+  },
+  {
+    max: 200,
+    class: "aqi-red",
+    name: "Unhealthy",
+    description:
+      "Some members of the general public may experience health effects; members of sensitive groups may experience more serious health effects.",
+  },
+  {
+    max: 300,
+    class: "aqi-purple",
+    name: "Very Unhealthy",
+    description:
+      "Health alert: The risk of health effects is increased for everyone.",
+  },
+  {
+    max: 10000,
+    class: "aqi-maroon",
+    name: "Hazardous",
+    description:
+      "Health warning of emergency conditions: everyone is more likely to be affected.",
+  },
+];
 
 export default {
   name: "AK_Fires",
@@ -102,7 +147,7 @@ export default {
           // find this:
           // TileSet > Gridset Bounds > compute from maximum extent of SRS
           origin: [-4648005.934316417, 444809.882955059],
-        }
+        },
       );
     },
     baseLayer() {
@@ -110,7 +155,7 @@ export default {
         process.env.VUE_APP_GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           layers: "atlas_mapproxy:alaska_osm_retina",
-        })
+        }),
       );
     },
     localLayers() {
@@ -210,7 +255,6 @@ export default {
         day: "numeric",
         hour: "numeric",
         minute: "numeric",
-        second: "numeric",
         hour12: true,
       });
 
@@ -224,180 +268,60 @@ export default {
       // Add the layer group to the map
       purpleAirLayerGroup.addLayer(this.$L.layerGroup(purpleAirMarkers));
     },
-    getPurpleAirBackgroundColor(aqi) {
-      var colorRanges = [
-        { max: 50, color: "#67E142", textFill: "black" }, // Green
-        { max: 100, color: "#FFFF00", textFill: "black" }, // Yellow
-        { max: 150, color: "#FF7E00", textFill: "black" }, // Orange
-        { max: 200, color: "#FF0000", textFill: "white" }, // Red
-        { max: 300, color: "#8F3F97", textFill: "white" }, // Purple
-        { max: 3000, color: "#7E0122", textFill: "white" }, // Maroon
-      ];
-
-      // Determine the color and text fill based on the pm2_5 value
-      var color = "#7E0122"; // Default color
-      var textFill = "white"; // Default text fill
-      for (var i = 0; i < colorRanges.length; i++) {
-        if (aqi <= colorRanges[i].max) {
-          color = colorRanges[i].color;
-          textFill = colorRanges[i].textFill;
-          break;
+    getAqiClassInfo(aqi) {
+      let classInfo;
+      aqiColorRanges.every((e) => {
+        if (aqi <= e.max) {
+          classInfo = e;
+          return false;
         }
-      }
-
-      // Return color and textFill
-      return { color, textFill };
+        return true;
+      });
+      return classInfo;
     },
     getPurpleAirMarkers(geoJson) {
       var markers = [];
 
       geoJson.features.forEach((feature) => {
-        // Get the value of pm2_5_10m
-        var pm2_5 = feature.properties.pm2_5_10m;
+        const aqiClassInfo = this.getAqiClassInfo(
+          feature.properties.pm2_5_24hr,
+        );
 
-        var { color, textFill } = this.getPurpleAirBackgroundColor(pm2_5);
+        if (_.isUndefined(aqiClassInfo)) {
+          return false;
+        }
 
-        // Create SVG element for the custom icon
-        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("viewBox", "0 0 30 30"); // Set the viewBox to maintain aspect ratio
-        svg.innerHTML = `
-            <circle cx="15" cy="15" r="12" fill="${color}" />
-            <text x="15" y="18" font-size="12" font-weight="bold" text-anchor="middle" fill="${textFill}">${pm2_5}</text>
-        `;
-
-        // Convert SVG to data URI
-        var svgData = new XMLSerializer().serializeToString(svg);
-        var iconUrl = "data:image/svg+xml;base64," + btoa(svgData);
-
-        // Create the DivIcon
-        var icon = this.$L.icon({
-          iconUrl: iconUrl,
-          iconSize: [30, 30], // Size of the icon
-          iconAnchor: [15, 15], // Position of the icon's anchor point
+        var icon = this.$L.divIcon({
+          className: "aqi",
+          popupAnchor: [15, -5],
+          html:
+            '<span class="' +
+            aqiClassInfo.class +
+            '">' +
+            feature.properties.pm2_5_24hr +
+            "</span>",
         });
 
-        // Create the marker with the custom DivIcon
         var marker = this.$L.marker(
           [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
-          { icon: icon }
+          { icon: icon },
         );
 
         // Create popup content
         var popupContent = `
-        <div id="currentConditions" class="current-conditions" style="background-color: ${color};color:${textFill}">
-            <div class="fit popup-time-stamp" id="popup-time-stamp" style="white-space: nowrap;">
-                <span class="textFitted" style="display: inline-block; font-size: 11px;">On ${this.convertToAKST(
-                  feature.properties.lastupdate
-                )}</span>
-            </div>
-            <div class="popup-conditions-container">
-                <div class="xfit popup-conditions">10 Minute Average US EPA PM2.5 AQI is now</div>
-                <div class="popup-value fit" style="white-space: nowrap;">
-                    <span class="textFitted" style="display: inline-block; font-size: 80px;">${
-                      feature.properties.pm2_5_10m
-                    }</span>
-                </div>
-            </div>
+        <div class="${aqiClassInfo.class} sensor-detail">
+            <p>At ${this.convertToAKST(
+              feature.properties.lastupdate,
+            )}, the 24-hour average PM2.5 AQI at this sensor is
 
-            <div style="width: 266px; height: 50px;">
-              <!-- pm2_5 -->
-              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
-                this.getPurpleAirBackgroundColor(feature.properties.pm2_5).color
-              }; color:${
-          this.getPurpleAirBackgroundColor(feature.properties.pm2_5).textFill
-        }; float: left; border: 1px solid black;">
-                  <div style="text-align: center; font-size: 10px;">Now</div>
-                  <div style="text-align: center; font-size: 16px;">${
-                    feature.properties.pm2_5
-                  }</div>
-              </div>
+            <span class="${aqiClassInfo.class}">${
+          feature.properties.pm2_5_24hr
+        } &mdash; ${aqiClassInfo.name}</span>.
+            </p>
+            <p class="aqi-explain">${aqiClassInfo.description}</p>
 
-              <!-- pm2_5_10minute -->
-              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
-                this.getPurpleAirBackgroundColor(feature.properties.pm2_5_10m)
-                  .color
-              }; color:${
-          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_10m)
-            .textFill
-        }; float: left; border: 1px solid black;">
-                  <div style="text-align: center; font-size: 10px;">10 Min</div>
-                  <div style="text-align: center; font-size: 16px;">${
-                    feature.properties.pm2_5_10m
-                  }</div>
-              </div>
-
-              <!-- pm2_5_30minute -->
-              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
-                this.getPurpleAirBackgroundColor(feature.properties.pm2_5_30m)
-                  .color
-              }; color:${
-          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_30m)
-            .textFill
-        }; float: left; border: 1px solid black;">
-                  <div style="text-align: center; font-size: 10px;">30 Min</div>
-                  <div style="text-align: center; font-size: 16px;">${
-                    feature.properties.pm2_5_30m
-                  }</div>
-              </div>
-
-              <!-- pm2_5_60minute -->
-              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
-                this.getPurpleAirBackgroundColor(feature.properties.pm2_5_60m)
-                  .color
-              }; color:${
-          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_60m)
-            .textFill
-        }; float: left; border: 1px solid black;">
-                  <div style="text-align: center; font-size: 10px;">60 Min</div>
-                  <div style="text-align: center; font-size: 16px;">${
-                    feature.properties.pm2_5_60m
-                  }</div>
-              </div>
-
-              <!-- pm2_5_6hour -->
-              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
-                this.getPurpleAirBackgroundColor(feature.properties.pm2_5_6hr)
-                  .color
-              }; color:${
-          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_6hr)
-            .textFill
-        }; float: left; border: 1px solid black;">
-                  <div style="text-align: center; font-size: 10px;">6 Hour</div>
-                  <div style="text-align: center; font-size: 16px;">${
-                    feature.properties.pm2_5_6hr
-                  }</div>
-              </div>
-
-              <!-- pm2_5_24hour -->
-              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
-                this.getPurpleAirBackgroundColor(feature.properties.pm2_5_24hr)
-                  .color
-              }; color:${
-          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_24hr)
-            .textFill
-        }; float: left; border: 1px solid black;">
-                  <div style="text-align: center; font-size: 10px;">24 Hour</div>
-                  <div style="text-align: center; font-size: 16px;">${
-                    feature.properties.pm2_5_24hr
-                  }</div>
-              </div>
-
-              <!-- pm2_5_1week -->
-              <div style="text-align: center; width: 14.2857%; height: 50px; background-color:${
-                this.getPurpleAirBackgroundColor(feature.properties.pm2_5_1wk)
-                  .color
-              }; color:${
-          this.getPurpleAirBackgroundColor(feature.properties.pm2_5_1wk)
-            .textFill
-        }; float: left; border: 1px solid black;">
-                  <div style="text-align: center; font-size: 10px;">1 Week</div>
-                  <div style="text-align: center; font-size: 16px;">${
-                    feature.properties.pm2_5_1wk
-                  }</div>
-              </div>
-            </div>
           </div>
-    `;
+`;
 
         // Bind popup to marker
         marker.bindPopup(popupContent);
@@ -538,10 +462,10 @@ export default {
       });
 
       var activeFireCircle = encodeURI(
-        "data:image/svg+xml," + activeSvgCircle
+        "data:image/svg+xml," + activeSvgCircle,
       ).replace("#", "%23");
       var inactiveFireCircle = encodeURI(
-        "data:image/svg+xml," + inactiveSvgCircle
+        "data:image/svg+xml," + inactiveSvgCircle,
       ).replace("#", "%23");
 
       // Set up icon markers
@@ -623,9 +547,9 @@ export default {
                     outdate: feature.properties.OUTDATE,
                     discovered: feature.properties.discovered,
                   },
-                  popupOptions
-                )
-              )
+                  popupOptions,
+                ),
+              ),
           );
         }
       });
@@ -705,8 +629,8 @@ export default {
               outdate: geoJson.properties.OUTDATE,
               discovered: geoJson.properties.discovered,
             },
-            popupOptions
-          )
+            popupOptions,
+          ),
         );
     },
     // For this method, fireInfo must contain properties
@@ -857,8 +781,46 @@ div.leaflet-marker-icon span {
   }
 }
 
-// Legends that use images
+// Override / change some things from above
+div.leaflet-marker-icon.aqi {
+  span {
+    display: inline-block;
+    border-radius: 0;
+    opacity: 0.75;
+    min-width: 1rem;
+    text-align: center;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-weight: 600;
 
+    &.aqi-green {
+      background-color: #67e142;
+      color: #000;
+    }
+    &.aqi-yellow {
+      background-color: #ffff00;
+      color: #000;
+    }
+    &.aqi-orange {
+      background-color: #ff7e00;
+      color: #000;
+    }
+    &.aqi-red {
+      background-color: #ff0000;
+      color: #fff;
+    }
+    &.aqi-purple {
+      background-color: #8f3f97;
+      color: #fff;
+    }
+    &.aqi-maroon {
+      background-color: #7e0122;
+      color: #fff;
+    }
+  }
+}
+
+// Legends that use images
 // Legend table styling
 table.alaska-wildfires-legend {
   td {

@@ -12,13 +12,15 @@
       <li>
         <map-layer id="lightning_strikes"></map-layer>
       </li>
-      <li><span class="layer-title">Air Quality Index Forecasts</span></li>
-
-      <li><map-layer id="aqi_forecast_6_hrs"></map-layer></li>
-      <li><map-layer id="aqi_forecast_12_hrs"></map-layer></li>
-      <li><map-layer id="aqi_forecast_24_hrs"></map-layer></li>
-      <li><map-layer id="aqi_forecast_48_hrs"></map-layer></li>
-
+      <li>
+        <span class="layer-title">Air Quality Index forecasts:</span>
+        <ul>
+          <li><map-layer id="aqi_forecast_6_hrs"></map-layer></li>
+          <li><map-layer id="aqi_forecast_12_hrs"></map-layer></li>
+          <li><map-layer id="aqi_forecast_24_hrs"></map-layer></li>
+          <li><map-layer id="aqi_forecast_48_hrs"></map-layer></li>
+        </ul>
+      </li>
       <li>
         <map-layer id="purple_air"></map-layer>
       </li>
@@ -69,23 +71,17 @@ export default {
 
 <style lang="scss" scoped>
 ul {
-  font-size: 120%;
+  font-size: 1.25rem;
 }
 h3.is-4 {
-  font-size: 150%;
   margin: 2rem 0 0.5rem;
   &.top {
     margin-top: 0;
   }
 }
 .layer-title {
-  display: inline-block;
+  // display: inline-block;
   padding-left: 1ex;
-
-  & span {
-    color: #666;
-    padding: 0;
-    margin: 0;
-  }
+  font-weight: 300;
 }
 </style>

@@ -250,11 +250,14 @@ export default [
   },
   {
     abstract: `
-    <p>Purple Air sensors are low-cost air quality sensors that measure particulate matter (PM2.5) in the air. This layer shows the most recent data from Purple Air sensors in Alaska. PM2.5 is a common pollutant that can be harmful to human health, especially when levels are high. This layer can be useful for understanding air quality in areas near wildfires.</p>`,
+    <p>Purple Air sensors are low-cost air quality sensors that measure particulate matter (PM2.5) in the air. This layer shows the most recent 24-hour average AQI from Purple Air sensors in Alaska that are configured to share data publicly.</p>
+    <p>PM2.5 is a common pollutant that can be harmful to human health, especially when levels are high. This layer can be useful for understanding air quality in areas near wildfires.</p>`,
     id: 'purple_air',
     wmsLayerName: 'purple_air',
     local: true,
-    title: 'Air quality',
+    title: 'Air quality sensors',
+    subtitle: 'Air quality sensors, 24-hour average AQI',
+    blurb: '24-hour average AQI',
     zindex: 20,
     legend: `<table class="alaska-wildfires-legend purple-air">
             <tr>
