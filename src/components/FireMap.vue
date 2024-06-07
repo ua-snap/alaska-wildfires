@@ -818,6 +818,7 @@ div.leaflet-marker-icon span {
 }
 
 // Override / change some things from above
+// for the AQI popups vs. the fire info popups
 div.leaflet-marker-icon.aqi {
   span {
     display: inline-block;
