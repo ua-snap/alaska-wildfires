@@ -51,7 +51,7 @@ Vue.prototype.$axios.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 // Add a response interceptor
@@ -62,7 +62,7 @@ Vue.prototype.$axios.interceptors.response.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 import MvMap from "./Map";
@@ -76,9 +76,56 @@ var firePolygons;
 var fireMarkers;
 var fireLayerGroup;
 var viirsLayerGroup;
+var purpleAirMarkers;
+var purpleAirLayerGroup;
 
 // Current time zone offset (used in parseDate below).
 var offset = new Date().getTimezoneOffset();
+
+const aqiColorRanges = [
+  {
+    max: 50,
+    class: "aqi-green",
+    name: "Good",
+    description:
+      "Air quality is satisfactory, and air pollution poses little or no risk.",
+  },
+  {
+    max: 100,
+    class: "aqi-yellow",
+    name: "Moderate",
+    description:
+      "Air quality is acceptable. However, there may be a risk for some people, particularly those who are unusually sensitive to air pollution.",
+  },
+  {
+    max: 150,
+    class: "aqi-orange",
+    name: "Unhealthy for Sensitive Groups",
+    description:
+      "Members of sensitive groups may experience health effects. The general public is less likely to be affected.",
+  },
+  {
+    max: 200,
+    class: "aqi-red",
+    name: "Unhealthy",
+    description:
+      "Some members of the general public may experience health effects; members of sensitive groups may experience more serious health effects.",
+  },
+  {
+    max: 300,
+    class: "aqi-purple",
+    name: "Very Unhealthy",
+    description:
+      "Health alert: The risk of health effects is increased for everyone.",
+  },
+  {
+    max: 10000,
+    class: "aqi-maroon",
+    name: "Hazardous",
+    description:
+      "Health warning of emergency conditions: everyone is more likely to be affected.",
+  },
+];
 
 export default {
   name: "AK_Fires",
@@ -100,7 +147,7 @@ export default {
           // find this:
           // TileSet > Gridset Bounds > compute from maximum extent of SRS
           origin: [-4648005.934316417, 444809.882955059],
-        }
+        },
       );
     },
     baseLayer() {
@@ -108,13 +155,14 @@ export default {
         process.env.VUE_APP_GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           layers: "atlas_mapproxy:alaska_osm_retina",
-        })
+        }),
       );
     },
     localLayers() {
       return {
         fires: fireLayerGroup,
         viirs: viirsLayerGroup,
+        purple_air: purpleAirLayerGroup,
       };
     },
   },
@@ -136,6 +184,7 @@ export default {
       layers: mapLayers,
       fireJson: null,
       viirsJson: null,
+      purpleAirJson: null,
       map: undefined,
     };
   },
@@ -143,6 +192,7 @@ export default {
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup();
     viirsLayerGroup = this.$L.layerGroup();
+    purpleAirLayerGroup = this.$L.layerGroup();
 
     // Initialize the layers!
     this.$store.commit("setLayers", this.layers);
@@ -151,6 +201,7 @@ export default {
   mounted() {
     this.fetchFireData();
     this.fetchViirsData();
+    this.fetchPurpleAirData();
 
     // Remove any stray localStorage.
     localStorage.clear();
@@ -161,6 +212,126 @@ export default {
     // object for formatting relevant in context.
     parseDate(t) {
       return this.$moment(parseInt(t)).utcOffset(offset);
+    },
+
+    fetchPurpleAirData() {
+      // Define parameters for the WFS requests
+      var params = {
+        service: "WFS",
+        version: "1.1.0",
+        request: "GetFeature",
+        typeName: "alaska_wildfires:purple_air",
+        outputFormat: "json",
+      };
+
+      return new Promise((resolve) => {
+        this.$axios
+          .get(wfsUrl, { params })
+          .then((response) => {
+            if (response.data) {
+              // Process the WFS data
+              this.processPurpleAirData(response.data);
+              this.$refs.map.refreshLayers();
+              resolve();
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching WFS data:", error);
+            resolve();
+          });
+      });
+    },
+
+    convertToAKST(utcTimestamp) {
+      // Convert the UTC timestamp in seconds to milliseconds and create a Date object
+      const date = new Date(utcTimestamp * 1000);
+
+      // Convert the date to AKST (Alaska Standard Time)
+      const akstDateString = date.toLocaleString("en-US", {
+        timeZone: "America/Anchorage",
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      });
+
+      return akstDateString;
+    },
+
+    processPurpleAirData(data) {
+      // Create markers for PurpleAir data
+      purpleAirMarkers = this.getPurpleAirMarkers(data);
+
+      // Add the layer group to the map
+      purpleAirLayerGroup.addLayer(this.$L.layerGroup(purpleAirMarkers));
+    },
+    getAqiClassInfo(aqi) {
+      let classInfo;
+      aqiColorRanges.every((e) => {
+        if (aqi <= e.max) {
+          classInfo = e;
+          return false;
+        }
+        return true;
+      });
+      return classInfo;
+    },
+    getPurpleAirMarkers(geoJson) {
+      var markers = [];
+
+      geoJson.features.forEach((feature) => {
+        const aqiClassInfo = this.getAqiClassInfo(
+          feature.properties.pm2_5_24hr,
+        );
+
+        if (_.isUndefined(aqiClassInfo)) {
+          return false;
+        }
+
+        var icon = this.$L.divIcon({
+          className: "aqi",
+          popupAnchor: [15, -5],
+          html:
+            '<span class="' +
+            aqiClassInfo.class +
+            '">' +
+            feature.properties.pm2_5_24hr +
+            "</span>",
+        });
+
+        var marker = this.$L.marker(
+          [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
+          { icon: icon },
+        );
+
+        // Create popup content
+        var popupContent = `
+        <div class="${aqiClassInfo.class} sensor-detail">
+            <p>24-hour average PM2.5 AQI at this sensor on ${this.convertToAKST(
+              feature.properties.lastupdate,
+            )}:
+            </p>
+
+            <span class="sensor-aqi ${aqiClassInfo.class}">${
+          feature.properties.pm2_5_24hr
+        } &mdash; ${aqiClassInfo.name}</span>
+            </p>
+            <p class="aqi-explain">${aqiClassInfo.description}</p>
+
+          </div>
+`;
+
+        // Bind popup to marker
+        marker.bindPopup(popupContent);
+
+        // Push the marker to the markers array
+        markers.push(marker);
+      });
+
+      return markers;
     },
 
     fetchViirsData() {
@@ -292,10 +463,10 @@ export default {
       });
 
       var activeFireCircle = encodeURI(
-        "data:image/svg+xml," + activeSvgCircle
+        "data:image/svg+xml," + activeSvgCircle,
       ).replace("#", "%23");
       var inactiveFireCircle = encodeURI(
-        "data:image/svg+xml," + inactiveSvgCircle
+        "data:image/svg+xml," + inactiveSvgCircle,
       ).replace("#", "%23");
 
       // Set up icon markers
@@ -377,9 +548,9 @@ export default {
                     outdate: feature.properties.OUTDATE,
                     discovered: feature.properties.discovered,
                   },
-                  popupOptions
-                )
-              )
+                  popupOptions,
+                ),
+              ),
           );
         }
       });
@@ -459,8 +630,8 @@ export default {
               outdate: geoJson.properties.OUTDATE,
               discovered: geoJson.properties.discovered,
             },
-            popupOptions
-          )
+            popupOptions,
+          ),
         );
     },
     // For this method, fireInfo must contain properties
@@ -611,8 +782,82 @@ div.leaflet-marker-icon span {
   }
 }
 
-// Legends that use images
+.sensor-detail {
+  font-size: 1rem;
 
+  span.sensor-aqi {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+
+    &.aqi-green {
+      background-color: #67e142;
+      color: #000;
+    }
+    &.aqi-yellow {
+      background-color: #ffff00;
+      color: #000;
+    }
+    &.aqi-orange {
+      background-color: #ff7e00;
+      color: #000;
+    }
+    &.aqi-red {
+      background-color: #ff0000;
+      color: #fff;
+    }
+    &.aqi-purple {
+      background-color: #8f3f97;
+      color: #fff;
+    }
+    &.aqi-maroon {
+      background-color: #7e0122;
+      color: #fff;
+    }
+  }
+}
+
+// Override / change some things from above
+// for the AQI popups vs. the fire info popups
+div.leaflet-marker-icon.aqi {
+  span {
+    display: inline-block;
+    border-radius: 0;
+    opacity: 0.75;
+    min-width: 1rem;
+    text-align: center;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-weight: 600;
+
+    &.aqi-green {
+      background-color: #67e142;
+      color: #000;
+    }
+    &.aqi-yellow {
+      background-color: #ffff00;
+      color: #000;
+    }
+    &.aqi-orange {
+      background-color: #ff7e00;
+      color: #000;
+    }
+    &.aqi-red {
+      background-color: #ff0000;
+      color: #fff;
+    }
+    &.aqi-purple {
+      background-color: #8f3f97;
+      color: #fff;
+    }
+    &.aqi-maroon {
+      background-color: #7e0122;
+      color: #fff;
+    }
+  }
+}
+
+// Legends that use images
 // Legend table styling
 table.alaska-wildfires-legend {
   td {
@@ -674,6 +919,29 @@ table.alaska-wildfires-legend {
       &.lc-gte45 {
         background-color: rgb(255, 255, 255);
         border: 1px solid #ccc;
+      }
+    }
+  }
+
+  &.purple-air {
+    td div {
+      &.pa-50 {
+        background-color: #67e142;
+      }
+      &.pa-100 {
+        background-color: #ffff00;
+      }
+      &.pa-150 {
+        background-color: #ff7e00;
+      }
+      &.pa-200 {
+        background-color: #ff0000;
+      }
+      &.pa-300 {
+        background-color: #8f3f97;
+      }
+      &.pa-3000 {
+        background-color: #7e0122;
       }
     }
   }

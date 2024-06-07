@@ -12,12 +12,12 @@ const aqiAbstract = `
 
 const aqiTable = `
   <table class="alaska-wildfires-legend aqi-forecast">
-    <tr><td><div class="aqi-good"></div></td><td>Good: 0 - 50</td></tr>
-    <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
-    <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
-    <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
-    <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
-    <tr><td><div class="aqi-hazardous"></div></td><td>Hazardous: 301 - 500</td></tr>
+    <tr><td><div class="aqi-good"></div></td><td>Good: 0&ndash;50</td></tr>
+    <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51&ndash;100</td></tr>
+    <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101&ndash;150</td></tr>
+    <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151&ndash;200</td></tr>
+    <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201&ndash;300</td></tr>
+    <tr><td><div class="aqi-hazardous"></div></td><td>Hazardous: 301&ndash;500</td></tr>
   </table>`;
 
 export default [
@@ -247,5 +247,44 @@ export default [
       <tr><td><div class="rf-4"></div></td><td></td></tr>
       <tr><td><div class="rf-5"></div></td><td>Much more likely to burn</td></tr>
     </table>`,
+  },
+  {
+    abstract: `
+    <p>Purple Air sensors are low-cost air quality sensors that measure particulate matter (PM2.5) in the air. This layer shows the most recent 24-hour average AQI from Purple Air sensors in Alaska that are configured to share data publicly.</p>
+    <p>PM2.5 is a common pollutant that can be harmful to human health, especially when levels are high. This layer can be useful for understanding air quality in areas near wildfires.</p>
+    <p>Data are provided by <a href="https://www2.purpleair.com/">PurpleAir</a>.</p>`,
+    id: 'purple_air',
+    wmsLayerName: 'purple_air',
+    local: true,
+    title: 'Air quality sensors',
+    subtitle: 'Air quality sensors, 24-hour average AQI',
+    blurb: '24-hour average AQI',
+    zindex: 20,
+    legend: `<table class="alaska-wildfires-legend purple-air">
+      <tr>
+          <td><div class="pa-50"></div></td>
+          <td>0&ndash;50</td>
+      </tr>
+      <tr>
+          <td><div class="pa-100"></div></td>
+          <td>51&ndash;100</td>
+      </tr>
+      <tr>
+          <td><div class="pa-150"></div></td>
+          <td>101&ndash;150</td>
+      </tr>
+      <tr>
+          <td><div class="pa-200"></div></td>
+          <td>151&ndash;200</td>
+      </tr>
+      <tr>
+          <td><div class="pa-300"></div></td>
+          <td>201&ndash;300</td>
+      </tr>
+      <tr>
+          <td><div class="pa-3000"></div></td>
+          <td>301+</td>
+      </tr>
+      </table>`,
   },
 ];
