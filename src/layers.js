@@ -12,12 +12,12 @@ const aqiAbstract = `
 
 const aqiTable = `
   <table class="alaska-wildfires-legend aqi-forecast">
-    <tr><td><div class="aqi-good"></div></td><td>Good: 0 - 50</td></tr>
-    <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51 - 100</td></tr>
-    <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101 - 150</td></tr>
-    <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151 - 200</td></tr>
-    <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201 - 300</td></tr>
-    <tr><td><div class="aqi-hazardous"></div></td><td>Hazardous: 301 - 500</td></tr>
+    <tr><td><div class="aqi-good"></div></td><td>Good: 0&ndash;50</td></tr>
+    <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51&ndash;100</td></tr>
+    <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101&ndash;150</td></tr>
+    <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151&ndash;200</td></tr>
+    <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201&ndash;300</td></tr>
+    <tr><td><div class="aqi-hazardous"></div></td><td>Hazardous: 301&ndash;500</td></tr>
   </table>`;
 
 export default [
@@ -251,7 +251,8 @@ export default [
   {
     abstract: `
     <p>Purple Air sensors are low-cost air quality sensors that measure particulate matter (PM2.5) in the air. This layer shows the most recent 24-hour average AQI from Purple Air sensors in Alaska that are configured to share data publicly.</p>
-    <p>PM2.5 is a common pollutant that can be harmful to human health, especially when levels are high. This layer can be useful for understanding air quality in areas near wildfires.</p>`,
+    <p>PM2.5 is a common pollutant that can be harmful to human health, especially when levels are high. This layer can be useful for understanding air quality in areas near wildfires.</p>
+    <p>Data are provided by <a href="https://www2.purpleair.com/">PurpleAir</a>.</p>`,
     id: 'purple_air',
     wmsLayerName: 'purple_air',
     local: true,
@@ -260,30 +261,30 @@ export default [
     blurb: '24-hour average AQI',
     zindex: 20,
     legend: `<table class="alaska-wildfires-legend purple-air">
-            <tr>
-                <td><div class="pa-50" style="background-color: #67E142;"></div></td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td><div class="pa-100" style="background-color: #FFFF00;"></div></td>
-                <td>50</td>
-            </tr>
-            <tr>
-                <td><div class="pa-150" style="background-color: #FF7E00;"></div></td>
-                <td>100</td>
-            </tr>
-            <tr>
-                <td><div class="pa-200" style="background-color: #FF0000;"></div></td>
-                <td>150</td>
-            </tr>
-            <tr>
-                <td><div class="pa-300" style="background-color: #8F3F97;"></div></td>
-                <td>200</td>
-            </tr>
-            <tr>
-                <td><div class="pa-3000" style="background-color: #7E0122;"></div></td>
-                <td>>300</td>
-            </tr>
-            </table>`,
+      <tr>
+          <td><div class="pa-50"></div></td>
+          <td>0&ndash;50</td>
+      </tr>
+      <tr>
+          <td><div class="pa-100"></div></td>
+          <td>51&ndash;100</td>
+      </tr>
+      <tr>
+          <td><div class="pa-150"></div></td>
+          <td>101&ndash;150</td>
+      </tr>
+      <tr>
+          <td><div class="pa-200"></div></td>
+          <td>151&ndash;200</td>
+      </tr>
+      <tr>
+          <td><div class="pa-300"></div></td>
+          <td>201&ndash;300</td>
+      </tr>
+      <tr>
+          <td><div class="pa-3000"></div></td>
+          <td>301+</td>
+      </tr>
+      </table>`,
   },
 ];
