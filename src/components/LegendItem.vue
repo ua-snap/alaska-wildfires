@@ -28,16 +28,16 @@ export default {
       // Helper to return a layer from the ordered array of layers.
       let targetLayerIndex = _.findIndex(
         this.$store.state.layers,
-        (layer) => layer.id === this.id
+        (layer) => layer.id === this.id,
       );
       return this.$store.state.layers[targetLayerIndex];
     },
     title() {
-      if(this.layer.subtitle) {
-        return this.layer.subtitle
+      if (this.layer.subtitle) {
+        return this.layer.subtitle;
       }
-      return this.layer.title
-    }
+      return this.layer.title;
+    },
   },
 };
 </script>

@@ -17,15 +17,23 @@
         <div class="container">
           <div class="intro content is-large">
             <p>
-              See current fire and air quality information (updated daily) along with work done
-              by University of Alaska researchers and other scientists that
-              shows historical data and estimated future smoke and fire conditions.
-              Information about the current fire season comes from the
+              See current fire and air quality information (updated daily) along
+              with work done by University of Alaska researchers and other
+              scientists that shows historical data and estimated future smoke
+              and fire conditions. Information about the current fire season
+              comes from the
               <a href="https://fire.ak.blm.gov/aicc.php">
                 Alaska Interagency Coordination Center</a
               >
               and the
-              <a href="https://mesowest.utah.edu">MesoWest data services</a>.  Smoke forecasts are provided by the <a href="https://gmao.gsfc.nasa.gov/">Global Modeling and Assimilation Office (GMAO)</a> at NASA Goddard Space Flight Center and local air quality sensor data feeds are provided through <a href="https://www2.purpleair.com/">PurpleAir</a>.
+              <a href="https://mesowest.utah.edu">MesoWest data services</a>.
+              Smoke forecasts are provided by the
+              <a href="https://gmao.gsfc.nasa.gov/"
+                >Global Modeling and Assimilation Office (GMAO)</a
+              >
+              at NASA Goddard Space Flight Center and local air quality sensor
+              data feeds are provided through
+              <a href="https://www2.purpleair.com/">PurpleAir</a>.
             </p>
             <p>
               The Wildfire Explorer shows data that aids understanding of
