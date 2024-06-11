@@ -34,7 +34,7 @@ export default {
           format: "image/png",
           version: "1.3.0",
         },
-        this.baseLayerOptions
+        this.baseLayerOptions,
       );
     },
     map() {
@@ -48,7 +48,7 @@ export default {
     // Instantiate map objects
     this.$options.leaflet.map = this.$L.map(
       "map--leaflet-map",
-      this.getBaseMapAndLayers()
+      this.getBaseMapAndLayers(),
     );
 
     // Add zoom controls
@@ -77,7 +77,7 @@ export default {
     selected: function () {
       this.$options.leaflet.map.setView(
         [this.selected.latitude, this.selected.longitude],
-        5
+        5,
       );
     },
   },
@@ -134,13 +134,13 @@ export default {
       // Remove old layers if present
       if (this.$options.leaflet.layers[layer.id]) {
         this.$options.leaflet.map.removeLayer(
-          this.$options.leaflet.layers[layer.id]
+          this.$options.leaflet.layers[layer.id],
         );
       }
 
       this.$options.leaflet.layers[layer.id] = this.$L.tileLayer.wms(
         process.env.VUE_APP_GEOSERVER_WMS_URL,
-        layerConfiguration
+        layerConfiguration,
       );
     },
     // Triggered when a configurable layer has changed, and
@@ -205,7 +205,7 @@ export default {
         toggleLayerVisibility(
           layerVisibility,
           this.$options.leaflet.map,
-          this.$options.leaflet.layers[layer.id]
+          this.$options.leaflet.layers[layer.id],
         );
       });
     },
@@ -222,7 +222,7 @@ export default {
           attributionControl: false,
           dragging: !this.$L.Browser.mobile,
         },
-        this.mapOptions
+        this.mapOptions,
       );
 
       // Mix together some defaults with map-specific configuration.
