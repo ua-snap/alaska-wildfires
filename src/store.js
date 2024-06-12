@@ -67,6 +67,9 @@ export default new Vuex.Store({
     // Output from Fire API endpoint
     apiOutput: undefined,
 
+    // Loading state
+    loading: false,
+
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -146,9 +149,12 @@ export default new Vuex.Store({
     setApiOutput(state, apiOutput) {
       state.apiOutput = apiOutput
     },
+    setLoading(state, loading) {
+      state.loading = loading
+    },
     clearSelected(state) {
       state.selected = undefined;
-    }
+    },
   },
   getters: {
     // Returns true if there are pending HTTP requests
@@ -165,6 +171,10 @@ export default new Vuex.Store({
 
     apiOutput(state) {
       return state.apiOutput
+    },
+
+    loading(state) {
+      return state.loading
     },
   
     name: (state, getters) => {
@@ -188,9 +198,14 @@ export default new Vuex.Store({
       context.commit('setPlaces', returnedData)
     },
     async fetchFireAPI(context, payload) {
+      context.commit('setLoading', true)
       let queryUrl = apiUrl + '/fire/point/' + payload.latitude + '/' + payload.longitude
-      let returnedData = await axios.get(queryUrl)
-      context.commit('setApiOutput', returnedData.data)
+      try {
+        let returnedData = await axios.get(queryUrl)
+        context.commit('setApiOutput', returnedData.data)
+      } finally {
+        context.commit('setLoading', false)
+      }
     },
   },
 }
