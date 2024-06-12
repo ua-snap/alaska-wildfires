@@ -283,9 +283,7 @@ export default {
       var markers = [];
 
       geoJson.features.forEach((feature) => {
-        const aqiClassInfo = this.getAqiClassInfo(
-          feature.properties.pm2_5_24hr,
-        );
+        const aqiClassInfo = this.getAqiClassInfo(feature.properties.aqi_24hr);
 
         if (_.isUndefined(aqiClassInfo)) {
           return false;
@@ -298,7 +296,7 @@ export default {
             '<span class="' +
             aqiClassInfo.class +
             '">' +
-            feature.properties.pm2_5_24hr +
+            feature.properties.aqi_24hr +
             "</span>",
         });
 
@@ -316,7 +314,7 @@ export default {
             </p>
 
             <span class="sensor-aqi ${aqiClassInfo.class}">${
-          feature.properties.pm2_5_24hr
+          feature.properties.aqi_24hr
         } &mdash; ${aqiClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqiClassInfo.description}</p>
