@@ -67,7 +67,8 @@
             </p>
             <p>
               Click one or more map layer names to activate. Scroll down to see
-              details on each layer.
+              details on each layer. You can also hold down Shift and click on
+              the map to get data about current conditions at that location.
             </p>
           </div>
         </div>

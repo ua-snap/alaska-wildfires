@@ -171,7 +171,7 @@ export default {
       mapOptions: {
         zoom: 1,
         minZoom: 1,
-        maxZoom: 12,
+        maxZoom: 5,
         center: [65, -152.5],
       },
       baseLayerOptions: {

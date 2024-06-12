@@ -62,6 +62,10 @@ export default {
 
     this.$options.leaflet.map.on("click", this.onMapClick);
 
+    // Adds event listeners to change cursor style when shift key is pressed
+    document.addEventListener("keydown", this.updateCursorStyle);
+    document.addEventListener("keyup", this.updateCursorStyle);
+
     setTimeout(() => {
       this.$options.leaflet.map.invalidateSize();
     }, 0);
@@ -84,9 +88,24 @@ export default {
   methods: {
     // Handle map click event
     onMapClick(e) {
-      const lat = e.latlng.lat.toFixed(2);
-      const lng = e.latlng.lng.toFixed(2);
-      this.fetchLocationData(lat, lng);
+      // Only fetch data if shift key is pressed
+      if (e.originalEvent.shiftKey) {
+        const lat = e.latlng.lat.toFixed(2);
+        const lng = e.latlng.lng.toFixed(2);
+        this.fetchLocationData(lat, lng);
+      }
+    },
+    updateCursorStyle(e) {
+      // Checks for shift key press to change cursor style
+      if (e.key == "Shift") {
+        if (e.type == "keydown") {
+          this.$options.leaflet.map.getContainer().style.cursor = "pointer";
+        } else {
+          this.$options.leaflet.map
+            .getContainer()
+            .style.removeProperty("cursor");
+        }
+      }
     },
     async fetchLocationData(lat, lng) {
       try {
@@ -236,6 +255,5 @@ export default {
 #map--leaflet-map {
   display: block;
   height: 85vh;
-  cursor: pointer;
 }
 </style>
