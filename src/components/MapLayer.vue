@@ -22,6 +22,13 @@
       </a>
     </span>
 
+    <!-- Blurb for extra info if activated -->
+    <span
+      class="layer-blurb"
+      v-if="layer.visible && layer.blurb"
+      v-html="layer.blurb"
+    ></span>
+
     <!-- If there is a custom layer configuration renderer, show here. -->
     <span v-if="controls && layer.visible">
       <keep-alive>
@@ -48,7 +55,7 @@ export default {
       // Helper to return a layer from the ordered array of layers.
       let targetLayerIndex = _.findIndex(
         this.$store.state.layers,
-        (layer) => layer.id === this.id
+        (layer) => layer.id === this.id,
       );
       return this.$store.state.layers[targetLayerIndex];
     },
@@ -64,7 +71,7 @@ export default {
     sublayers() {
       // Helper to return all sublayers
       return this.$store.state.layers.filter((layer) =>
-        layer.id.includes("aqi_forecast")
+        layer.id.includes("aqi_forecast"),
       );
     },
   },
@@ -133,5 +140,12 @@ export default {
     padding: 0;
     margin: 0;
   }
+}
+
+.layer-blurb {
+  display: block;
+  font-weight: 300;
+  font-size: 1.15rem;
+  margin-left: 2rem;
 }
 </style>
