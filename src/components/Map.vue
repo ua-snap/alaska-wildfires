@@ -276,4 +276,7 @@ export default {
   display: block;
   height: 85vh;
 }
+.leaflet-interactive {
+  cursor: inherit !important;
+}
 </style>
