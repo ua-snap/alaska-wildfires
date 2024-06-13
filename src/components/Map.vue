@@ -10,7 +10,9 @@
 <script>
 import _ from "lodash";
 import { mapGetters } from "vuex";
+import mask from "@/mask.json";
 
+console.log(mask);
 export default {
   name: "mv-map",
   props: ["baseLayerOptions", "baseLayer", "crs", "mapOptions", "localLayers"],
@@ -60,11 +62,19 @@ export default {
 
     this.addLayers();
 
-    this.$options.leaflet.map.on("click", this.onMapClick);
-
-    // Adds event listeners to change cursor style when shift key is pressed
-    document.addEventListener("keydown", this.updateCursorStyle);
-    document.addEventListener("keyup", this.updateCursorStyle);
+    this.$L
+      .geoJSON(mask, {
+        onEachFeature: (feature, layer) => {
+          layer.on("click", this.onMapClick.bind(this));
+          layer.on("mouseover", this.addKeyboardListeners.bind(this));
+          layer.on("mouseout", this.removeKeyboardListeners.bind(this));
+        },
+        style: {
+          opacity: 0.0,
+          fillOpacity: 0.0,
+        },
+      })
+      .addTo(this.$options.leaflet.map);
 
     setTimeout(() => {
       this.$options.leaflet.map.invalidateSize();
@@ -97,15 +107,23 @@ export default {
     },
     updateCursorStyle(e) {
       // Checks for shift key press to change cursor style
-      if (e.key == "Shift") {
-        if (e.type == "keydown") {
+      if (e.key === "Shift") {
+        if (e.type === "keydown") {
           this.$options.leaflet.map.getContainer().style.cursor = "pointer";
-        } else {
+        } else if (e.type === "keyup") {
           this.$options.leaflet.map
             .getContainer()
             .style.removeProperty("cursor");
         }
       }
+    },
+    addKeyboardListeners() {
+      document.addEventListener("keydown", this.updateCursorStyle);
+      document.addEventListener("keyup", this.updateCursorStyle);
+    },
+    removeKeyboardListeners() {
+      document.removeEventListener("keydown", this.updateCursorStyle);
+      document.removeEventListener("keyup", this.updateCursorStyle);
     },
     async fetchLocationData(lat, lng) {
       try {
@@ -236,9 +254,11 @@ export default {
       var defaultMapProperties = _.extend(
         {
           crs: this.crs,
+          boxZoom: false,
           zoomControl: false,
           scrollWheelZoom: false,
           attributionControl: false,
+          doubleClickZoom: false,
           dragging: !this.$L.Browser.mobile,
         },
         this.mapOptions,
