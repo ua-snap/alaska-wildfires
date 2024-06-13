@@ -51,7 +51,7 @@ Vue.prototype.$axios.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 // Add a response interceptor
@@ -62,7 +62,7 @@ Vue.prototype.$axios.interceptors.response.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 import MvMap from "./Map";
@@ -147,7 +147,7 @@ export default {
           // find this:
           // TileSet > Gridset Bounds > compute from maximum extent of SRS
           origin: [-4648005.934316417, 444809.882955059],
-        }
+        },
       );
     },
     baseLayer() {
@@ -155,7 +155,7 @@ export default {
         process.env.VUE_APP_GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           layers: "atlas_mapproxy:alaska_osm_retina",
-        })
+        }),
       );
     },
     localLayers() {
@@ -284,7 +284,7 @@ export default {
 
       geoJson.features.forEach((feature) => {
         const aqiClassInfo = this.getAqiClassInfo(
-          feature.properties.pm2_5_24hr
+          feature.properties.pm2_5_24hr,
         );
 
         if (_.isUndefined(aqiClassInfo)) {
@@ -304,14 +304,14 @@ export default {
 
         var marker = this.$L.marker(
           [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
-          { icon: icon }
+          { icon: icon },
         );
 
         // Create popup content
         var popupContent = `
         <div class="${aqiClassInfo.class} sensor-detail">
             <p>24-hour average PM2.5 AQI at this sensor on ${this.convertToAKST(
-              feature.properties.lastupdate
+              feature.properties.lastupdate,
             )}:
             </p>
 
@@ -463,10 +463,10 @@ export default {
       });
 
       var activeFireCircle = encodeURI(
-        "data:image/svg+xml," + activeSvgCircle
+        "data:image/svg+xml," + activeSvgCircle,
       ).replace("#", "%23");
       var inactiveFireCircle = encodeURI(
-        "data:image/svg+xml," + inactiveSvgCircle
+        "data:image/svg+xml," + inactiveSvgCircle,
       ).replace("#", "%23");
 
       // Set up icon markers
@@ -548,9 +548,9 @@ export default {
                     outdate: feature.properties.OUTDATE,
                     discovered: feature.properties.discovered,
                   },
-                  popupOptions
-                )
-              )
+                  popupOptions,
+                ),
+              ),
           );
         }
       });
@@ -630,8 +630,8 @@ export default {
               outdate: geoJson.properties.OUTDATE,
               discovered: geoJson.properties.discovered,
             },
-            popupOptions
-          )
+            popupOptions,
+          ),
         );
     },
     // For this method, fireInfo must contain properties
