@@ -13,8 +13,9 @@
         <map-layer id="lightning_strikes"></map-layer>
       </li>
       <li>
-        <span class="layer-title">Air Quality Index forecasts:</span>
+        <span class="layer-title">Air Quality Index forecasts</span>
         <ul>
+          <li class="layer-title">since {{ todayString }} midnight</li>
           <li><map-layer id="aqi_forecast_6_hrs"></map-layer></li>
           <li><map-layer id="aqi_forecast_12_hrs"></map-layer></li>
           <li><map-layer id="aqi_forecast_24_hrs"></map-layer></li>
@@ -65,6 +66,11 @@ export default {
   name: "LayerList",
   components: {
     "map-layer": MapLayer,
+  },
+  data() {
+    return {
+      todayString: new Date().toLocaleDateString("en-US"),
+    };
   },
 };
 </script>

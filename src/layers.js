@@ -20,17 +20,6 @@ const aqiTable = `
     <tr><td><div class="aqi-hazardous"></div></td><td>Hazardous: 301&ndash;500</td></tr>
   </table>`;
 
-const today = new Date();
-const tomorrow = new Date();
-const dayAfterTomorrow = new Date();
-
-tomorrow.setDate(today.getDate() + 1);
-dayAfterTomorrow.setDate(today.getDate() + 2);
-
-const todayString = today.toLocaleDateString('en-US');
-const tomorrowString = tomorrow.toLocaleDateString('en-US');
-const dayAfterTomorrowString = dayAfterTomorrow.toLocaleDateString('en-US');
-
 export default [
   {
     id: "fires",
@@ -106,8 +95,8 @@ export default [
   {
     id: "aqi_forecast_6_hrs",
     wmsLayerName: "alaska_wildfires:aqi_forecast_6_hrs",
-    title: `${todayString} 6 AM AKST`,
-    subtitle: `Projected Air Quality Index, ${todayString} 6 AM AKST`,
+    title: "6 Hours",
+    subtitle: "Projected Air Quality Index",
     legend: aqiTable,
     zindex: 20,
     styles: "alaska_wildfires:aqi_forecast",
@@ -116,8 +105,8 @@ export default [
   {
     id: "aqi_forecast_12_hrs",
     wmsLayerName: "alaska_wildfires:aqi_forecast_12_hrs",
-    title: `${todayString} 12 PM AKST`,
-    subtitle: `Projected Air Quality Index, ${todayString}) 12 PM AKST`,
+    title: "12 Hours",
+    subtitle: "Projected Air Quality Index",
     legend: aqiTable,
     zindex: 20,
     styles: "alaska_wildfires:aqi_forecast",
@@ -126,8 +115,8 @@ export default [
   {
     id: "aqi_forecast_24_hrs",
     wmsLayerName: "alaska_wildfires:aqi_forecast_24_hrs",
-    title: `${tomorrowString} 12 AM AKST`,
-    subtitle: `Projected Air Quality Index, ${tomorrowString} 12 AM AKST`,
+    title: "24 Hours",
+    subtitle: "Projected Air Quality Index",
     legend: aqiTable,
     zindex: 20,
     styles: "alaska_wildfires:aqi_forecast",
@@ -136,8 +125,8 @@ export default [
   {
     id: "aqi_forecast_48_hrs",
     wmsLayerName: "alaska_wildfires:aqi_forecast_48_hrs",
-    title: `${dayAfterTomorrowString} 12 AM AKST`,
-    subtitle: `Projected Air Quality Index, ${dayAfterTomorrowString} 12 AM AKST`,
+    title: "48 Hours",
+    subtitle: "Projected Air Quality Index",
     legend: aqiTable,
     zindex: 20,
     styles: "alaska_wildfires:aqi_forecast",
