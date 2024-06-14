@@ -2,8 +2,8 @@
   <div class="place-selector--wrapper">
     <div class="content">
       <h4 class="title is-5">Find a community by name</h4>
-      <div>
-        <b-field>
+      <div class="selector-container">
+        <b-field class="selector-field">
           <b-autocomplete
             v-model="selectedPlace"
             :data="filteredDataObj"
@@ -23,6 +23,9 @@
             </template>
           </b-autocomplete>
         </b-field>
+        <div v-if="isPlaceSelected"><b-button type="is-light" @click="clearSelection" class="is-clear-location">
+          Clear Location
+        </b-button></div>
       </div>
     </div>
   </div>
@@ -76,6 +79,18 @@
     font-size: 90%;
   }
 }
+
+.selector-container {
+  display: flex;
+  align-items: center;
+}
+
+.selector-field {
+  flex: 1;
+  margin-right: 1rem;
+  margin-top: 1.35rem;
+}
+
 </style>
 <script>
 import { mapGetters } from "vuex";
@@ -109,7 +124,9 @@ export default {
 
       return [];
     },
-
+    isPlaceSelected() {
+      return this.selected !== undefined
+    },
     ...mapGetters({
       places: "places",
       selected: "selected",
@@ -124,6 +141,9 @@ export default {
   methods: {
     async fetchFireAPI(selected) {
       await this.$store.dispatch("fetchFireAPI", selected);
+    },
+    clearSelection() {
+      this.$store.commit("clearSelected");
     },
   },
 };
