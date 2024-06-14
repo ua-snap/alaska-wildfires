@@ -5,7 +5,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
-const apiUrl = process.env.VUE_APP_SNAP_API_URL || 'https://earthmaps.io';
+const apiUrl = process.env.VUE_APP_SNAP_API_URL || "https://earthmaps.io";
 
 // Helper function to set WMS properties for a layer.
 var setWmsProperties = (state, layer, properties) => {
@@ -26,7 +26,7 @@ var swapVisibility = (
   targetLayer,
   targetLayerIndex,
   propName,
-  value
+  value,
 ) => {
   // If we're explicitly setting the value, do so.
   if (value === true || value === false) {
@@ -66,10 +66,7 @@ export default new Vuex.Store({
 
     // Output from Fire API endpoint
     apiOutput: undefined,
-
-    // Loading state
-    loading: false,
-
+    
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -103,11 +100,11 @@ export default new Vuex.Store({
         state.layers[targetLayerIndex],
         targetLayerIndex,
         "visible",
-        payload.setTo
+        payload.setTo,
       );
     },
     setLayerVisibility(state, { id, visible }) {
-      const layer = state.layers.find(layer => layer.id === id);
+      const layer = state.layers.find((layer) => layer.id === id);
       layer.visible = visible;
     },
     /*
@@ -141,16 +138,16 @@ export default new Vuex.Store({
       state.pendingHttpRequests--;
     },
     setPlaces(state, places) {
-      state.places = places
+      state.places = places;
     },
     setSelected(state, selected) {
-      state.selected = selected
+      state.selected = selected;
     },
     setApiOutput(state, apiOutput) {
-      state.apiOutput = apiOutput
+      state.apiOutput = apiOutput;
     },
     setLoading(state, loading) {
-      state.loading = loading
+      state.loading = loading;
     },
     clearSelected(state) {
       state.selected = undefined;
@@ -162,51 +159,40 @@ export default new Vuex.Store({
       return state.pendingHttpRequests > 0;
     },
     places(state) {
-      return state.places
+      return state.places;
     },
 
     selected(state) {
-      return state.selected
+      return state.selected;
     },
 
     apiOutput(state) {
-      return state.apiOutput
+      return state.apiOutput;
     },
-
-    loading(state) {
-      return state.loading
-    },
-  
     name: (state, getters) => {
-        let place = _.find(state.places, {
-          id: getters.place.id,
-        })
-        if (place) {
-          let name = place.name
-          if (place.alt_name) {
-            name += ' (' + place.alt_name + ')'
-          }
-          return name
+      let place = _.find(state.places, {
+        id: getters.place.id,
+      });
+      if (place) {
+        let name = place.name;
+        if (place.alt_name) {
+          name += " (" + place.alt_name + ")";
         }
+        return name;
       }
-    
+    },
   },
   actions: {
     async fetchCommunities(context) {
-      let queryUrl = apiUrl + '/places/communities'
-      let returnedData = await axios.get(queryUrl)
-      context.commit('setPlaces', returnedData)
+      let queryUrl = apiUrl + "/places/communities";
+      let returnedData = await axios.get(queryUrl);
+      context.commit("setPlaces", returnedData);
     },
     async fetchFireAPI(context, payload) {
-      context.commit('setLoading', true)
-      let queryUrl = apiUrl + '/fire/point/' + payload.latitude + '/' + payload.longitude
-      try {
-        let returnedData = await axios.get(queryUrl)
-        context.commit('setApiOutput', returnedData.data)
-      } finally {
-        context.commit('setLoading', false)
-      }
+      let queryUrl =
+        apiUrl + "/fire/point/" + payload.latitude + "/" + payload.longitude;
+      let returnedData = await axios.get(queryUrl);
+      context.commit("setApiOutput", returnedData.data);
     },
   },
-}
-);
+});

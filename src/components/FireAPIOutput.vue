@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- Display the spinner when loading fire API output -->
-    <div v-if="loading" class="spinner">
+    <div v-if="loadingData" class="spinner">
       <div></div>
     </div>
-    <div class="container" v-if="!loading && selected && apiOutput">
+    <div class="container" v-if="!loadingData && selected && apiOutput && apiOutput.cfd">
       <h5 class="title is-5">
         Current conditions for
         <strong
@@ -138,7 +138,7 @@ export default {
     ...mapGetters({
       selected: "selected",
       apiOutput: "apiOutput",
-      loading: "loading",
+      loadingData: "loadingData",
     }),
   },
   methods: {
