@@ -13,9 +13,9 @@
         <map-layer id="lightning_strikes"></map-layer>
       </li>
       <li>
-        <span class="layer-title">Air Quality Index forecasts</span>
+        <div class="layer-title">Air Quality Index forecasts<br><span class="when">from midnight, {{ todayString }}</span></div>
         <ul>
-          <li class="layer-title">since {{ todayString }} midnight</li>
+          
           <li><map-layer id="aqi_forecast_6_hrs"></map-layer></li>
           <li><map-layer id="aqi_forecast_12_hrs"></map-layer></li>
           <li><map-layer id="aqi_forecast_24_hrs"></map-layer></li>
@@ -86,8 +86,12 @@ h3.is-4 {
   }
 }
 .layer-title {
-  // display: inline-block;
   padding-left: 1ex;
   font-weight: 300;
+  line-height: 1;
+  color: #000;
+  span.when {
+    font-size: 1.15rem;
+  }
 }
 </style>
