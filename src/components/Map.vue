@@ -12,7 +12,6 @@ import _ from "lodash";
 import { mapGetters } from "vuex";
 import mask from "@/mask.json";
 
-console.log(mask);
 export default {
   name: "mv-map",
   props: ["baseLayerOptions", "baseLayer", "crs", "mapOptions", "localLayers"],
@@ -62,6 +61,7 @@ export default {
 
     this.addLayers();
 
+    // Add land mask to map to handle shift-click events
     this.$L
       .geoJSON(mask, {
         onEachFeature: (feature, layer) => {
