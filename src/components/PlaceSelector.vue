@@ -21,11 +21,15 @@
             </template>
           </b-autocomplete>
         </b-field>
+        <div v-if="isPlaceSelected"><b-button type="is-light" @click="clearSelection" class="is-clear-location">
+          Clear Location
+        </b-button></div>
       </div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped></style>
+
 <script>
 import { mapGetters } from "vuex";
 
@@ -58,7 +62,9 @@ export default {
 
       return [];
     },
-
+    isPlaceSelected() {
+      return this.selected !== undefined
+    },
     ...mapGetters({
       places: "places",
       selected: "selected",
@@ -73,6 +79,9 @@ export default {
   methods: {
     async fetchFireAPI(selected) {
       await this.$store.dispatch("fetchFireAPI", selected);
+    },
+    clearSelection() {
+      this.$store.commit("clearSelected");
     },
   },
 };
