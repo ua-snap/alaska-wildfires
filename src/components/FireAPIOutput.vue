@@ -1,112 +1,117 @@
 <template>
-  <div class="container" v-if="selected && apiOutput">
-    <h5 class="title is-5">
-      Current conditions for
-      <strong
-        >{{ selected.name }}
-        <span v-if="selected.alt_name">
-          ({{ selected.alt_name }})
-        </span></strong
-      >
-      <strong v-if="selected.region">, {{ selected.region }}</strong>
-    </h5>
-    <div class="content is-size-4">
-      <p>
-        <a
-          href="https://en.wikipedia.org/wiki/National_Fire_Danger_Rating_System"
-          >Fire danger</a
+  <div>
+    <!-- Display the spinner when loading fire API output -->
+    <div v-if="loadingData" class="spinner">
+      <div></div>
+    </div>
+    <div class="container" v-if="!loadingData && selected && apiOutput && apiOutput.cfd">
+      <h5 class="title is-5">
+        Current conditions for
+        <strong
+          >{{ selected.name }}
+          <span v-if="selected.alt_name">
+            ({{ selected.alt_name }})
+          </span></strong
         >
-        level is
-        <span
-          class="fire-danger-rating"
-          :style="{
-            backgroundColor: apiOutput.cfd.color,
-            color:
-              apiOutput.cfd.type === 'Low' || apiOutput.cfd.type === 'Extreme'
-                ? '#fff'
-                : '#000',
-          }"
+      </h5>
+      <div class="content is-size-4">
+        <p>
+          <a
+            href="https://en.wikipedia.org/wiki/National_Fire_Danger_Rating_System"
+            >Fire danger</a
+          >
+          level is
+          <span
+            class="fire-danger-rating"
+            :style="{
+              backgroundColor: apiOutput.cfd.color,
+              color:
+                apiOutput.cfd.type === 'Low' || apiOutput.cfd.type === 'Extreme'
+                  ? '#fff'
+                  : '#000',
+            }"
+          >
+            {{ apiOutput.cfd.type }}
+          </span>
+          &nbsp;&mdash;
+          <span class="fire-danger-level" v-html="dangerRating"></span>
+        </p>
+
+        <table
+          v-if="
+            apiOutput.aqi_6 &&
+            apiOutput.aqi_12 &&
+            apiOutput.aqi_24 &&
+            apiOutput.aqi_48
+          "
+          class="table"
         >
-          {{ apiOutput.cfd.type }}
-        </span>
-        &nbsp;&mdash;
-        <span class="fire-danger-level" v-html="dangerRating"></span>
-      </p>
+          <caption>
+            Air Quality Index forecast,
+            {{
+              selected.name
+            }}
+            <span v-if="selected.alt_name"> ({{ selected.alt_name }}) </span>
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">6-hour AQI</th>
+              <th scope="col">12-hour AQI</th>
+              <th scope="col">24-hour AQI</th>
+              <th scope="col">48-hour AQI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                :style="{
+                  backgroundColor: aqiName(apiOutput.aqi_6.aqi).bg,
+                  color: aqiName(apiOutput.aqi_6.aqi).fg,
+                }"
+              >
+                {{ apiOutput.aqi_6.aqi }} &mdash;
+                {{ aqiName(apiOutput.aqi_6.aqi).name }}
+              </td>
+              <td
+                :style="{
+                  backgroundColor: aqiName(apiOutput.aqi_12.aqi).bg,
+                  color: aqiName(apiOutput.aqi_12.aqi).fg,
+                }"
+              >
+                {{ apiOutput.aqi_12.aqi }}&mdash;
+                {{ aqiName(apiOutput.aqi_12.aqi).name }}
+              </td>
+              <td
+                :style="{
+                  backgroundColor: aqiName(apiOutput.aqi_24.aqi).bg,
+                  color: aqiName(apiOutput.aqi_24.aqi).fg,
+                }"
+              >
+                {{ apiOutput.aqi_24.aqi }}&mdash;
+                {{ aqiName(apiOutput.aqi_24.aqi).name }}
+              </td>
+              <td
+                :style="{
+                  backgroundColor: aqiName(apiOutput.aqi_48.aqi).bg,
+                  color: aqiName(apiOutput.aqi_48.aqi).fg,
+                }"
+              >
+                {{ apiOutput.aqi_48.aqi }}&mdash;
+                {{ aqiName(apiOutput.aqi_48.aqi).name }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-      <table
-        v-if="
-          apiOutput.aqi_6 &&
-          apiOutput.aqi_12 &&
-          apiOutput.aqi_24 &&
-          apiOutput.aqi_48
-        "
-        class="table"
-      >
-        <caption>
-          Air Quality Index forecast,
-          {{
-            selected.name
-          }}
-          <span v-if="selected.alt_name"> ({{ selected.alt_name }}) </span>
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">6-hour AQI</th>
-            <th scope="col">12-hour AQI</th>
-            <th scope="col">24-hour AQI</th>
-            <th scope="col">48-hour AQI</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              :style="{
-                backgroundColor: aqiName(apiOutput.aqi_6.aqi).bg,
-                color: aqiName(apiOutput.aqi_6.aqi).fg,
-              }"
-            >
-              {{ apiOutput.aqi_6.aqi }} &mdash;
-              {{ aqiName(apiOutput.aqi_6.aqi).name }}
-            </td>
-            <td
-              :style="{
-                backgroundColor: aqiName(apiOutput.aqi_12.aqi).bg,
-                color: aqiName(apiOutput.aqi_12.aqi).fg,
-              }"
-            >
-              {{ apiOutput.aqi_12.aqi }}&mdash;
-              {{ aqiName(apiOutput.aqi_12.aqi).name }}
-            </td>
-            <td
-              :style="{
-                backgroundColor: aqiName(apiOutput.aqi_24.aqi).bg,
-                color: aqiName(apiOutput.aqi_24.aqi).fg,
-              }"
-            >
-              {{ apiOutput.aqi_24.aqi }}&mdash;
-              {{ aqiName(apiOutput.aqi_24.aqi).name }}
-            </td>
-            <td
-              :style="{
-                backgroundColor: aqiName(apiOutput.aqi_48.aqi).bg,
-                color: aqiName(apiOutput.aqi_48.aqi).fg,
-              }"
-            >
-              {{ apiOutput.aqi_48.aqi }}&mdash;
-              {{ aqiName(apiOutput.aqi_48.aqi).name }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Display "hist_fire" section -->
-      <div v-if="apiOutput.hist_fire">
-        <p>Historical fires in this place:</p>
-        <ul>
-          <li v-for="(year, fire) in apiOutput.hist_fire" :key="fire">
-            <strong>{{ fire }},</strong> {{ year }}
-          </li>
-        </ul>
+        <!-- Display "hist_fire" section -->
+        <div v-if="apiOutput.hist_fire">
+          <p>Historical fires in this place:</p>
+          <ul>
+            <li v-for="(year, fire) in apiOutput.hist_fire" :key="fire">
+              <strong>{{ fire }},</strong> {{ year }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -133,6 +138,7 @@ export default {
     ...mapGetters({
       selected: "selected",
       apiOutput: "apiOutput",
+      loadingData: "loadingData",
     }),
   },
   methods: {
@@ -167,5 +173,30 @@ export default {
   display: inline-block;
   font-weight: 700;
   padding: 0.25rem 0.5rem;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+}
+
+.spinner div {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
