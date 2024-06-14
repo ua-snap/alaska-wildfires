@@ -21,9 +21,15 @@
           class="fire-danger-rating"
           :style="{
             backgroundColor: apiOutput.cfd.color,
+            color:
+              apiOutput.cfd.type === 'Low' || apiOutput.cfd.type === 'Extreme'
+                ? '#fff'
+                : '#000',
           }"
-          >{{ apiOutput.cfd.type }}</span
-        >&nbsp;&mdash;
+        >
+          {{ apiOutput.cfd.type }}
+        </span>
+        &nbsp;&mdash;
         <span class="fire-danger-level" v-html="dangerRating"></span>
       </p>
 
