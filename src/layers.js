@@ -95,8 +95,8 @@ export default [
   {
     id: "aqi_forecast_6_hrs",
     wmsLayerName: "alaska_wildfires:aqi_forecast_6_hrs",
-    title: "6 hours",
-    subtitle: "Projected Air Quality Index, 6 hours",
+    title: "6 Hours",
+    subtitle: "Projected Air Quality Index",
     legend: aqiTable,
     zindex: 20,
     styles: "alaska_wildfires:aqi_forecast",
@@ -105,8 +105,8 @@ export default [
   {
     id: "aqi_forecast_12_hrs",
     wmsLayerName: "alaska_wildfires:aqi_forecast_12_hrs",
-    title: "12 hours",
-    subtitle: "Projected Air Quality Index, 12 hours",
+    title: "12 Hours",
+    subtitle: "Projected Air Quality Index",
     legend: aqiTable,
     zindex: 20,
     styles: "alaska_wildfires:aqi_forecast",
@@ -115,8 +115,8 @@ export default [
   {
     id: "aqi_forecast_24_hrs",
     wmsLayerName: "alaska_wildfires:aqi_forecast_24_hrs",
-    title: "24 hours",
-    subtitle: "Projected Air Quality Index, 24 hours",
+    title: "24 Hours",
+    subtitle: "Projected Air Quality Index",
     legend: aqiTable,
     zindex: 20,
     styles: "alaska_wildfires:aqi_forecast",
@@ -125,8 +125,8 @@ export default [
   {
     id: "aqi_forecast_48_hrs",
     wmsLayerName: "alaska_wildfires:aqi_forecast_48_hrs",
-    title: "48 hours",
-    subtitle: "Projected Air Quality Index, 48 hours",
+    title: "48 Hours",
+    subtitle: "Projected Air Quality Index",
     legend: aqiTable,
     zindex: 20,
     styles: "alaska_wildfires:aqi_forecast",
