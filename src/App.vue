@@ -65,16 +65,16 @@
               <img src="@/assets/fire-perimeter.png" />Active fires with mapped
               perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
-            <p>
-              Click one or more map layer names to activate. Scroll down to see
-              details on each layer.
-            </p>
           </div>
         </div>
-      </section>
-
-      <section class="section">
-        <div class="clamp">
+        <div class="intro content is-size-4 clamp">
+          <p>
+            Click one or more map layer names to activate. Scroll down to see
+            details on each layer.<br><span class="small"
+              >Shift-click inside Alaska to get current conditions at that
+              point.</span
+            >
+          </p>
           <PlaceSelector />
           <FireAPIOutput />
         </div>
@@ -247,6 +247,10 @@ header {
     margin-bottom: 0;
   }
   font-size: 120%;
+
+  span.small {
+    font-size: 1.25rem;
+  }
 }
 
 .intro--legend {

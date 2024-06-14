@@ -10,6 +10,7 @@
 <script>
 import _ from "lodash";
 import { mapGetters } from "vuex";
+import mask from "@/mask.json";
 
 export default {
   name: "mv-map",
@@ -60,7 +61,20 @@ export default {
 
     this.addLayers();
 
-    this.$options.leaflet.map.on("click", this.onMapClick);
+    // Add land mask to map to handle shift-click events
+    this.$L
+      .geoJSON(mask, {
+        onEachFeature: (feature, layer) => {
+          layer.on("click", this.onMapClick.bind(this));
+          layer.on("mouseover", this.addKeyboardListeners.bind(this));
+          layer.on("mouseout", this.removeKeyboardListeners.bind(this));
+        },
+        style: {
+          opacity: 0.0,
+          fillOpacity: 0.0,
+        },
+      })
+      .addTo(this.$options.leaflet.map);
 
     setTimeout(() => {
       this.$options.leaflet.map.invalidateSize();
@@ -84,9 +98,32 @@ export default {
   methods: {
     // Handle map click event
     onMapClick(e) {
-      const lat = e.latlng.lat.toFixed(2);
-      const lng = e.latlng.lng.toFixed(2);
-      this.fetchLocationData(lat, lng);
+      // Only fetch data if shift key is pressed
+      if (e.originalEvent.shiftKey) {
+        const lat = e.latlng.lat.toFixed(2);
+        const lng = e.latlng.lng.toFixed(2);
+        this.fetchLocationData(lat, lng);
+      }
+    },
+    updateCursorStyle(e) {
+      // Checks for shift key press to change cursor style
+      if (e.key === "Shift") {
+        if (e.type === "keydown") {
+          this.$options.leaflet.map.getContainer().style.cursor = "pointer";
+        } else if (e.type === "keyup") {
+          this.$options.leaflet.map
+            .getContainer()
+            .style.removeProperty("cursor");
+        }
+      }
+    },
+    addKeyboardListeners() {
+      document.addEventListener("keydown", this.updateCursorStyle);
+      document.addEventListener("keyup", this.updateCursorStyle);
+    },
+    removeKeyboardListeners() {
+      document.removeEventListener("keydown", this.updateCursorStyle);
+      document.removeEventListener("keyup", this.updateCursorStyle);
     },
     async fetchLocationData(lat, lng) {
       try {
@@ -217,9 +254,11 @@ export default {
       var defaultMapProperties = _.extend(
         {
           crs: this.crs,
+          boxZoom: false,
           zoomControl: false,
           scrollWheelZoom: false,
           attributionControl: false,
+          doubleClickZoom: false,
           dragging: !this.$L.Browser.mobile,
         },
         this.mapOptions,
@@ -236,6 +275,8 @@ export default {
 #map--leaflet-map {
   display: block;
   height: 85vh;
-  cursor: pointer;
+}
+.leaflet-interactive {
+  cursor: inherit !important;
 }
 </style>
