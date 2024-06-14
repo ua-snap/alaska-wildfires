@@ -23,9 +23,9 @@
             </template>
           </b-autocomplete>
         </b-field>
-        <button @click="clearSelection" class="button is-clear-location">
+        <div v-if="isPlaceSelected"><b-button type="is-light" @click="clearSelection" class="is-clear-location">
           Clear Location
-        </button>
+        </b-button></div>
       </div>
     </div>
   </div>
@@ -91,14 +91,6 @@
   margin-top: 1.35rem;
 }
 
-.button.is-clear-location {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  color: #333;
-  &:hover {
-    background-color: #e5e5e5;
-  }
-}
 </style>
 <script>
 import { mapGetters } from "vuex";
@@ -132,7 +124,9 @@ export default {
 
       return [];
     },
-
+    isPlaceSelected() {
+      return this.selected !== undefined
+    },
     ...mapGetters({
       places: "places",
       selected: "selected",
