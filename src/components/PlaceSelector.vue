@@ -11,11 +11,7 @@
             placeholder="e.g. Fairbanks"
             clearable
             clear-on-select
-            @select="
-              (option) => {
-                if (option) community = option;
-              }
-            "
+            @select="(option) => (community = option)"
           >
             <template #empty>No results found</template>
             <template slot-scope="props">
@@ -87,8 +83,10 @@ export default {
   },
   watch: {
     community: function (community) {
-      this.$store.commit("setSelected", community);
-      this.fetchFireAPI(community);
+      if (community) {
+        this.$store.commit("setSelected", community);
+        this.fetchFireAPI(community);
+      }
     },
   },
   methods: {
