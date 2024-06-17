@@ -4,7 +4,23 @@
     <div v-if="loadingData" class="spinner">
       <div></div>
     </div>
-    <div class="container" v-if="!loadingData && selected && apiOutput && apiOutput.cfd">
+    <div
+      class="container"
+      v-if="
+        !loadingData && selected && !aqiForecastPresent && !dangerRatingPresent
+      "
+    >
+      <h5 class="title is-5">
+        No data available for
+        <strong
+          >{{ selected.name }}
+          <span v-if="selected.alt_name">
+            ({{ selected.alt_name }})
+          </span></strong
+        >
+      </h5>
+    </div>
+    <div class="container" v-if="!loadingData && selected">
       <h5 class="title is-5">
         Current conditions for
         <strong
@@ -15,7 +31,7 @@
         >
       </h5>
       <div class="content is-size-4">
-        <p>
+        <p v-if="dangerRatingPresent">
           <a
             href="https://en.wikipedia.org/wiki/National_Fire_Danger_Rating_System"
             >Fire danger</a
@@ -37,15 +53,7 @@
           <span class="fire-danger-level" v-html="dangerRating"></span>
         </p>
 
-        <table
-          v-if="
-            apiOutput.aqi_6 &&
-            apiOutput.aqi_12 &&
-            apiOutput.aqi_24 &&
-            apiOutput.aqi_48
-          "
-          class="table"
-        >
+        <table v-if="aqiForecastPresent" class="table">
           <caption>
             Air Quality Index forecast,
             {{
@@ -132,6 +140,18 @@ const fireDangerLevels = {
 export default {
   name: "FireAPIOutput",
   computed: {
+    aqiForecastPresent() {
+      return (
+        this.apiOutput &&
+        this.apiOutput.aqi_6 &&
+        this.apiOutput.aqi_12 &&
+        this.apiOutput.aqi_24 &&
+        this.apiOutput.aqi_48
+      );
+    },
+    dangerRatingPresent() {
+      return this.apiOutput && this.apiOutput.cfd && this.apiOutput.cfd.type;
+    },
     dangerRating() {
       return fireDangerLevels[this.apiOutput.cfd.type];
     },
@@ -143,6 +163,9 @@ export default {
   },
   methods: {
     aqiName(aqi) {
+      if (!aqi) {
+        throw "Undefined AQI in aqiName";
+      }
       if (aqi < 51) {
         return { name: "Good", bg: "rgb(0, 228, 0)", fg: "#000" };
       }
@@ -162,7 +185,9 @@ export default {
       if (aqi < 301) {
         return { name: "Very Unhealthy", bg: "rgb(143, 63, 151)", fg: "#fff" };
       }
-      return { name: "Hazardous", bg: "rgb(126, 0, 35)", fg: "#fff" };
+      if (aqi >= 301) {
+        return { name: "Hazardous", bg: "rgb(126, 0, 35)", fg: "#fff" };
+      }
     },
   },
 };
