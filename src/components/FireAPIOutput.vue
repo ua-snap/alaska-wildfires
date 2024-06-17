@@ -4,7 +4,38 @@
     <div v-if="loadingData" class="spinner">
       <div></div>
     </div>
-    <div class="container" v-if="!loadingData && selected && apiOutput && apiOutput.cfd">
+    <div
+      class="container"
+      v-if="
+        !loadingData &&
+        selected &&
+        apiOutput &&
+        !apiOutput.cfd &&
+        (!apiOutput.aqi_6 ||
+          !apiOutput.aqi_12 ||
+          !apiOutput.aqi_24 ||
+          !apiOutput.aqi_48)
+      "
+    >
+      <h5 class="title is-5">
+        No data available for
+        <strong
+          >{{ selected.name }}
+          <span v-if="selected.alt_name">
+            ({{ selected.alt_name }})
+          </span></strong
+        >
+      </h5>
+    </div>
+    <div
+      class="container"
+      v-if="
+        !loadingData &&
+        selected &&
+        apiOutput &&
+        (apiOutput.cfd || apiOutput.aqi_6)
+      "
+    >
       <h5 class="title is-5">
         Current conditions for
         <strong
@@ -15,7 +46,7 @@
         >
       </h5>
       <div class="content is-size-4">
-        <p>
+        <p v-if="apiOutput.cfd">
           <a
             href="https://en.wikipedia.org/wiki/National_Fire_Danger_Rating_System"
             >Fire danger</a
