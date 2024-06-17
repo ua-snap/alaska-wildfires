@@ -11,7 +11,11 @@
             placeholder="e.g. Fairbanks"
             clearable
             clear-on-select
-            @select="(option) => (community = option)"
+            @select="
+              (option) => {
+                if (option) community = option;
+              }
+            "
           >
             <template #empty>No results found</template>
             <template slot-scope="props">
@@ -21,9 +25,15 @@
             </template>
           </b-autocomplete>
         </b-field>
-        <div v-if="isPlaceSelected"><b-button type="is-light" @click="clearSelection" class="is-clear-location">
-          Clear Location
-        </b-button></div>
+        <div v-if="isPlaceSelected">
+          <b-button
+            type="is-light"
+            @click="clearSelection"
+            class="is-clear-location"
+          >
+            Clear Location
+          </b-button>
+        </div>
       </div>
     </div>
   </div>
@@ -63,7 +73,7 @@ export default {
       return [];
     },
     isPlaceSelected() {
-      return this.selected !== undefined
+      return this.selected !== undefined;
     },
     ...mapGetters({
       places: "places",
