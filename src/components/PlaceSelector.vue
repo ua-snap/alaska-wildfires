@@ -1,10 +1,10 @@
 <template>
-  <div class="mb-6">
+  <div class="place-selector mb-6">
     <div class="content">
       <div>
         <b-field label="Go to a community">
           <b-autocomplete
-            v-model="selectedPlace"
+            v-model="placeNameFragment"
             :data="filteredDataObj"
             keep-first
             field="name"
@@ -39,7 +39,7 @@
   </div>
 </template>
 <style lang="scss" scoped>
-.mb-6 {
+.place-selector {
   z-index: 10000;
   position: relative;
 }
@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       community: undefined, // the actual selected place
-      selectedPlace: "", // the temporary search fragment
+      placeNameFragment: "", // the temporary search fragment
     };
   },
   computed: {
@@ -65,12 +65,12 @@ export default {
             option.name
               .toString()
               .toLowerCase()
-              .indexOf(this.selectedPlace.toLowerCase()) >= 0 ||
+              .indexOf(this.placeNameFragment.toLowerCase()) >= 0 ||
             (option.alt_name &&
               option.alt_name
                 .toString()
                 .toLowerCase()
-                .indexOf(this.selectedPlace.toLowerCase()) >= 0)
+                .indexOf(this.placeNameFragment.toLowerCase()) >= 0)
           );
         });
       }
