@@ -38,7 +38,12 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.mb-6 {
+  z-index: 10000;
+  position: relative;
+}
+</style>
 
 <script>
 import { mapGetters } from "vuex";
