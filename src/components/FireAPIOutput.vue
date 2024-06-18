@@ -112,7 +112,7 @@
         </table>
 
         <!-- Display "hist_fire" section -->
-        <div v-if="apiOutput.hist_fire">
+        <div v-if="historicalFiresPresent">
           <p>Historical fires in this place:</p>
           <ul>
             <li v-for="(year, fire) in apiOutput.hist_fire" :key="fire">
@@ -126,6 +126,7 @@
 </template>
 
 <script>
+import _ from "lodash";
 import { mapGetters } from "vuex";
 
 const fireDangerLevels = {
@@ -151,6 +152,13 @@ export default {
     },
     dangerRatingPresent() {
       return this.apiOutput && this.apiOutput.cfd && this.apiOutput.cfd.type;
+    },
+    historicalFiresPresent() {
+      return (
+        this.apiOutput &&
+        this.apiOutput.hist_fire &&
+        _.isArray(this.apiOutput.hist_fire)
+      );
     },
     dangerRating() {
       return fireDangerLevels[this.apiOutput.cfd.type];

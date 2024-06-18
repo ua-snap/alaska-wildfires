@@ -421,12 +421,10 @@ export default {
               totalAcresBurned += parseFloat(feature.properties.acres) || 0;
             });
           });
-          totalAcresBurned = Math.round(totalAcresBurned)
-          console.log(totalAcresBurned)
+          totalAcresBurned = Math.round(totalAcresBurned);
 
           this.$store.commit("setFireCount", fireCount);
           this.$store.commit("setAcresBurned", totalAcresBurned);
-          console.log()
 
           // Process the WFS data for fire points and polygons
           this.processFirePointData(responses[0].data);
