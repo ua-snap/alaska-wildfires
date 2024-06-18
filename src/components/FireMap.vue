@@ -524,11 +524,13 @@ export default {
             ? new FireIcon({
                 iconSize: [iconSize, iconSize],
                 iconAnchor: [iconSize / 2, iconSize / 2],
+                className: "fire-polygon",
               })
             : new FireIcon({
                 iconUrl: inactiveFireCircle,
                 iconSize: [iconSize, iconSize],
                 iconAnchor: [iconSize / 2, iconSize / 2],
+                className: "fire-polygon",
               });
 
           fireMarkers.push(
@@ -752,6 +754,10 @@ export default {
   }
 }
 
+.fire-polygon {
+  cursor: pointer !important;
+}
+
 div.leaflet-marker-icon span {
   font-size: 85%;
   color: white;
@@ -759,6 +765,7 @@ div.leaflet-marker-icon span {
   border-radius: 1em;
   margin: 1ex;
   padding: 0.5ex;
+  cursor: pointer;
 
   &.active {
     background-color: rgba(200, 56, 20, 0.55);
