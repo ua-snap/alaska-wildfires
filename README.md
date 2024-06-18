@@ -1,29 +1,39 @@
-# alaska-wildfires
+# Alaska Wildfires
 
-## Project setup
+This Git repository contains code and data related to viewing and analyzing wildfires and associated map layers in Alaska. The repository provides tools and resources to monitor and study wildfire incidents in the region.
 
-```
-npm install
-```
+## Installation
 
-### Compiles and hot-reloads for development
+To install and run this project locally, follow these steps:
 
-```
-npm run serve
-```
+1. Clone the repository to your local machine using the following command:
 
-### Compiles and minifies for production
+   ```
+   git clone https://github.com/username/alaska-wildfires.git
+   ```
 
-```
-npm run build
-```
+2. Navigate to the project directory:
 
-### Lints and fixes files
+   ```
+   cd alaska-wildfires
+   ```
 
-```
-npm run lint
-```
+3. Install the required dependencies:
 
-### Customize configuration
+   ```
+   npm install
+   ```
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+4. Start the application:
+
+   ```
+   npm run serve
+   ```
+
+## Usage
+
+Once the application is running, you can access it by opening your web browser and navigating to `http://localhost:8080`. From there, you can explore the wildfire incidents and view detailed information regarding other available layers related to wildfires in Alaska.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
