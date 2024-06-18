@@ -79,6 +79,11 @@ export default {
     setTimeout(() => {
       this.$options.leaflet.map.invalidateSize();
     }, 0);
+
+    // Adds an event listener to prevent layer text selection when shift-clicking on the map
+    this.$options.leaflet.map
+      .getContainer()
+      .addEventListener("mousedown", this.preventShiftClickTextSelection);
   },
   watch: {
     // When layer visibility or order changes, re-render
@@ -96,6 +101,16 @@ export default {
     },
   },
   methods: {
+    // Prevent shift-click text selection
+    preventShiftClickTextSelection(e) {
+      if (e.shiftKey) {
+        // This prevents the default behavior of text selection when shift-clicking on the map
+        e.preventDefault();
+
+        // This prevents the event from propagating to the map click event
+        e.stopPropagation();
+      }
+    },
     // Handle map click event
     onMapClick(e) {
       // Only fetch data if shift key is pressed
