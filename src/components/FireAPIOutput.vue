@@ -127,6 +127,11 @@
             There are <strong>{{ firesNearbyCount }}</strong> fires within ~50
             miles of this location.
           </p>
+          <ul>
+            <li v-for="fire in firesNearbyNames" :key="fire">
+              {{ fire }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -176,6 +181,7 @@ export default {
       apiOutput: "apiOutput",
       loadingData: "loadingData",
       firesNearbyCount: "firesNearbyCount",
+      firesNearbyNames: "firesNearbyNames",
     }),
   },
   methods: {

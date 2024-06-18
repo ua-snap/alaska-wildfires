@@ -73,7 +73,7 @@ export default new Vuex.Store({
     // Total acres burned for the season
     acresBurned: 0,
 
-    // Fires burning within ~50mi
+    // Fires nearby object containing fires from 50 miles around the selected location
     firesNearby: undefined,
   },
   mutations: {
@@ -215,12 +215,11 @@ export default new Vuex.Store({
     firesNearbyNames(state) {
       // Initialize an empty array to store the names
       let names = [];
-
       state.firesNearby.forEach((fireData) => {
         fireData.data.features.forEach((feature) => {
-          console.log(feature.property.name);
+          console.log(feature.properties.NAME);
           // Push the name property of each feature to the names array
-          names.push(feature.property.name);
+          names.push(feature.properties.NAME);
         });
       });
 
