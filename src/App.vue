@@ -66,11 +66,13 @@
               perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
             <p>
-              Fire Count for {{ year }}: <strong>{{ fireCount }}</strong>
-            </p>
-            <p>
-              Total Acres Burned for {{ year }}:
-              <strong>{{ acresBurned }}</strong>
+              As of {{ date }}, there are
+              <strong>{{ fireCount }}</strong> active fires, and a total of
+              <strong>{{ acresBurned }}</strong> acres have burned. For the most
+              current information, visit the
+              <a href="https://fire.ak.blm.gov/"
+                >Alaska Interagency Coordination Center</a
+              >.
             </p>
           </div>
         </div>
@@ -187,7 +189,7 @@
 header {
   padding-top: 3rem;
 
-  background-image: url('assets/nenana-fire-rev-cropt.jpg');
+  background-image: url("assets/nenana-fire-rev-cropt.jpg");
   background-size: cover;
 
   text-align: center;
@@ -198,7 +200,7 @@ header {
   h1 {
     margin-top: -1rem;
     padding: 0 0 1rem 0;
-    font-family: 'Yellowtail';
+    font-family: "Yellowtail";
     color: white !important;
     text-shadow: 3px 3px 3px #000;
 
@@ -296,27 +298,34 @@ footer {
 </style>
 
 <script>
-import { mapGetters } from 'vuex';
-import FireMap from '@/components/FireMap.vue';
-import PlaceSelector from '@/components/PlaceSelector.vue';
-import FireAPIOutput from '@/components/FireAPIOutput';
+import { mapGetters } from "vuex";
+import FireMap from "@/components/FireMap.vue";
+import PlaceSelector from "@/components/PlaceSelector.vue";
+import FireAPIOutput from "@/components/FireAPIOutput";
 
 export default {
-  name: 'App',
+  name: "App",
   components: { FireMap, PlaceSelector, FireAPIOutput },
   data() {
     return {
       // Convert sting to boolean
-      active: process.env.VUE_APP_ACTIVE == 'true',
+      active: process.env.VUE_APP_ACTIVE == "true",
     };
   },
   computed: {
     year() {
       return new Date().getFullYear();
     },
+    date() {
+      return new Date().toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+    },
     ...mapGetters({
-      fireCount: 'fireCount',
-      acresBurned: 'acresBurned',
+      fireCount: "fireCount",
+      acresBurned: "acresBurned",
     }),
   },
   created() {
@@ -324,7 +333,7 @@ export default {
   },
   methods: {
     async fetch() {
-      await this.$store.dispatch('fetchCommunities');
+      await this.$store.dispatch("fetchCommunities");
     },
   },
 };

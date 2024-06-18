@@ -412,8 +412,10 @@ export default {
 
           responses.forEach((response) => {
             response.data.features.forEach((feature) => {
-              // Count number of features to count total number of fires
-              fire_count++;
+              // Count number of features with active == "1" to count total number of active fires
+              if (feature.properties.active == "1") {
+                fire_count++;
+              }
 
               // Sum up total acres burned
               total_acres_burned += parseFloat(feature.properties.acres) || 0;
