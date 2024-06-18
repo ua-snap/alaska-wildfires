@@ -72,6 +72,9 @@ export default new Vuex.Store({
 
     // Total acres burned for the season
     acresBurned: 0,
+
+    // Fires burning within ~50mi
+    firesNearby: undefined,
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -160,6 +163,9 @@ export default new Vuex.Store({
     setAcresBurned(state, acresBurned) {
       state.acresBurned = acresBurned;
     },
+    setFiresNearby(state, firesNearby) {
+      state.firesNearby = firesNearby;
+    },
     clearSelected(state) {
       state.selected = undefined;
     },
@@ -199,6 +205,27 @@ export default new Vuex.Store({
       // Format number with commas.
       // https://stackoverflow.com/questions/2901102/how-to-format-a-number-with-commas-as-thousands-separators
       return state.acresBurned.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    firesNearbyCount(state) {
+      return (
+        parseInt(state.firesNearby[0].data.totalFeatures) +
+        parseInt(state.firesNearby[1].data.totalFeatures)
+      );
+    },
+    firesNearbyNames(state) {
+      // Initialize an empty array to store the names
+      let names = [];
+
+      state.firesNearby.forEach((fireData) => {
+        fireData.data.features.forEach((feature) => {
+          console.log(feature.property.name);
+          // Push the name property of each feature to the names array
+          names.push(feature.property.name);
+        });
+      });
+
+      // Return the array of names
+      return names;
     },
   },
   actions: {
