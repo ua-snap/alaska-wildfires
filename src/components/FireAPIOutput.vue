@@ -120,6 +120,14 @@
             </li>
           </ul>
         </div>
+
+        <!-- Display number of nearby fires -->
+        <div v-if="firesNearbyCount > 0">
+          <p>
+            There are <strong>{{ firesNearbyCount }}</strong> fires within ~50
+            miles of this location.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -167,6 +175,7 @@ export default {
       selected: "selected",
       apiOutput: "apiOutput",
       loadingData: "loadingData",
+      firesNearbyCount: "firesNearbyCount",
     }),
   },
   methods: {

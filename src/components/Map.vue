@@ -140,8 +140,42 @@ export default {
       document.removeEventListener("keydown", this.updateCursorStyle);
       document.removeEventListener("keyup", this.updateCursorStyle);
     },
+    nearbyFires(lat, lng) {
+      const wfsUrl = "https://gs.mapventure.org/geoserver/wfs";
+      // Define parameters for the WFS requests
+      var pointParams = {
+        service: "WFS",
+        version: "1.1.0",
+        request: "GetFeature",
+        typeName: "alaska_wildfires:fire_points",
+        cql_filter: `Dwithin(the_geom,Point(${lng} ${lat}),1,statute miles)`,
+        outputFormat: "json",
+      };
+
+      var polygonParams = {
+        service: "WFS",
+        version: "1.1.0",
+        request: "GetFeature",
+        typeName: "alaska_wildfires:fire_polygons",
+        cql_filter: `Dwithin(the_geom,Point(${lng} ${lat}),1,statute miles)`,
+        outputFormat: "json",
+      };
+
+      return Promise.all([
+        this.$axios.get(wfsUrl, { params: pointParams }),
+        this.$axios.get(wfsUrl, { params: polygonParams }),
+      ])
+        .then((responses) => {
+          // Process the WFS data for fire points and polygons
+          this.$store.commit("setFiresNearby", responses);
+        })
+        .catch((error) => {
+          console.error("Error fetching WFS data:", error);
+        });
+    },
     async fetchLocationData(lat, lng) {
       try {
+        this.nearbyFires(lat, lng);
         const selected = {
           name: lat + ", " + lng,
           latitude: lat,
