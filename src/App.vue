@@ -65,12 +65,21 @@
               <img src="@/assets/fire-perimeter.png" />Active fires with mapped
               perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
+            <p v-if="fireCount > 0">
+              As of {{ date }}, there are
+              <strong>{{ fireCount }}</strong> active fires, and approximately
+              <strong>{{ acresBurned }}</strong> acres have burned. For the most
+              current information, visit the
+              <a href="https://fire.ak.blm.gov/"
+                >Alaska Interagency Coordination Center</a
+              >.
+            </p>
           </div>
         </div>
         <div class="intro content is-size-4 clamp">
           <p>
             Click one or more map layer names to activate. Scroll down to see
-            details on each layer.<br><span class="small"
+            details on each layer.<br /><span class="small"
               >Shift-click inside Alaska to get current conditions at that
               point.</span
             >
@@ -289,6 +298,7 @@ footer {
 </style>
 
 <script>
+import { mapGetters } from "vuex";
 import FireMap from "@/components/FireMap.vue";
 import PlaceSelector from "@/components/PlaceSelector.vue";
 import FireAPIOutput from "@/components/FireAPIOutput";
@@ -306,6 +316,17 @@ export default {
     year() {
       return new Date().getFullYear();
     },
+    date() {
+      return new Date().toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+    },
+    ...mapGetters({
+      fireCount: "fireCount",
+      acresBurned: "acresBurned",
+    }),
   },
   created() {
     this.fetch();

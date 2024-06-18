@@ -66,7 +66,12 @@ export default new Vuex.Store({
 
     // Output from Fire API endpoint
     apiOutput: undefined,
-    
+
+    // Fire count for the season
+    fireCount: 0,
+
+    // Total acres burned for the season
+    acresBurned: 0,
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -149,6 +154,12 @@ export default new Vuex.Store({
     setLoading(state, loading) {
       state.loading = loading;
     },
+    setFireCount(state, fireCount) {
+      state.fireCount = fireCount;
+    },
+    setAcresBurned(state, acresBurned) {
+      state.acresBurned = acresBurned;
+    },
     clearSelected(state) {
       state.selected = undefined;
     },
@@ -180,6 +191,14 @@ export default new Vuex.Store({
         }
         return name;
       }
+    },
+    fireCount(state) {
+      return state.fireCount;
+    },
+    acresBurned(state) {
+      // Format number with commas.
+      // https://stackoverflow.com/questions/2901102/how-to-format-a-number-with-commas-as-thousands-separators
+      return state.acresBurned.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
   actions: {
