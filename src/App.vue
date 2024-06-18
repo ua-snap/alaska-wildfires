@@ -65,12 +65,19 @@
               <img src="@/assets/fire-perimeter.png" />Active fires with mapped
               perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
+            <p>
+              Fire Count for {{ year }}: <strong>{{ fireCount }}</strong>
+            </p>
+            <p>
+              Total Acres Burned for {{ year }}:
+              <strong>{{ acresBurned }}</strong>
+            </p>
           </div>
         </div>
         <div class="intro content is-size-4 clamp">
           <p>
             Click one or more map layer names to activate. Scroll down to see
-            details on each layer.<br><span class="small"
+            details on each layer.<br /><span class="small"
               >Shift-click inside Alaska to get current conditions at that
               point.</span
             >
@@ -180,7 +187,7 @@
 header {
   padding-top: 3rem;
 
-  background-image: url("assets/nenana-fire-rev-cropt.jpg");
+  background-image: url('assets/nenana-fire-rev-cropt.jpg');
   background-size: cover;
 
   text-align: center;
@@ -191,7 +198,7 @@ header {
   h1 {
     margin-top: -1rem;
     padding: 0 0 1rem 0;
-    font-family: "Yellowtail";
+    font-family: 'Yellowtail';
     color: white !important;
     text-shadow: 3px 3px 3px #000;
 
@@ -289,30 +296,35 @@ footer {
 </style>
 
 <script>
-import FireMap from "@/components/FireMap.vue";
-import PlaceSelector from "@/components/PlaceSelector.vue";
-import FireAPIOutput from "@/components/FireAPIOutput";
+import { mapGetters } from 'vuex';
+import FireMap from '@/components/FireMap.vue';
+import PlaceSelector from '@/components/PlaceSelector.vue';
+import FireAPIOutput from '@/components/FireAPIOutput';
 
 export default {
-  name: "App",
+  name: 'App',
   components: { FireMap, PlaceSelector, FireAPIOutput },
   data() {
     return {
       // Convert sting to boolean
-      active: process.env.VUE_APP_ACTIVE == "true",
+      active: process.env.VUE_APP_ACTIVE == 'true',
     };
   },
   computed: {
     year() {
       return new Date().getFullYear();
     },
+    ...mapGetters({
+      fireCount: 'fireCount',
+      acresBurned: 'acresBurned',
+    }),
   },
   created() {
     this.fetch();
   },
   methods: {
     async fetch() {
-      await this.$store.dispatch("fetchCommunities");
+      await this.$store.dispatch('fetchCommunities');
     },
   },
 };

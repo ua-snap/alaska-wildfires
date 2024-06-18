@@ -1,18 +1,18 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import _ from "lodash";
-import axios from "axios";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import _ from 'lodash';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
-const apiUrl = process.env.VUE_APP_SNAP_API_URL || "https://earthmaps.io";
+const apiUrl = process.env.VUE_APP_SNAP_API_URL || 'https://earthmaps.io';
 
 // Helper function to set WMS properties for a layer.
 var setWmsProperties = (state, layer, properties) => {
   if (_.isFunction(layer.wmsLayerName)) {
-    Vue.set(layer, "wms", layer.wmsLayerName(properties).name);
-    Vue.set(layer, "time", layer.wmsLayerName(properties).time);
-    Vue.set(layer, "title", layer.wmsLayerName(properties).title);
+    Vue.set(layer, 'wms', layer.wmsLayerName(properties).name);
+    Vue.set(layer, 'time', layer.wmsLayerName(properties).time);
+    Vue.set(layer, 'title', layer.wmsLayerName(properties).title);
   } else {
     // Don't need to ensure deep watchers see this change -- static layer name
     layer.wms = layer.wmsLayerName;
@@ -66,7 +66,12 @@ export default new Vuex.Store({
 
     // Output from Fire API endpoint
     apiOutput: undefined,
-    
+
+    // Fire count for the season
+    fireCount: 0,
+
+    // Total acres burned for the season
+    acresBurned: 0,
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -99,7 +104,7 @@ export default new Vuex.Store({
         state,
         state.layers[targetLayerIndex],
         targetLayerIndex,
-        "visible",
+        'visible',
         payload.setTo,
       );
     },
@@ -149,6 +154,12 @@ export default new Vuex.Store({
     setLoading(state, loading) {
       state.loading = loading;
     },
+    setFireCount(state, fireCount) {
+      state.fireCount = fireCount;
+    },
+    setAcresBurned(state, acresBurned) {
+      state.acresBurned = acresBurned;
+    },
     clearSelected(state) {
       state.selected = undefined;
     },
@@ -176,23 +187,29 @@ export default new Vuex.Store({
       if (place) {
         let name = place.name;
         if (place.alt_name) {
-          name += " (" + place.alt_name + ")";
+          name += ' (' + place.alt_name + ')';
         }
         return name;
       }
     },
+    fireCount(state) {
+      return state.fireCount;
+    },
+    acresBurned(state) {
+      return state.acresBurned.toFixed(2);
+    },
   },
   actions: {
     async fetchCommunities(context) {
-      let queryUrl = apiUrl + "/places/communities";
+      let queryUrl = apiUrl + '/places/communities';
       let returnedData = await axios.get(queryUrl);
-      context.commit("setPlaces", returnedData);
+      context.commit('setPlaces', returnedData);
     },
     async fetchFireAPI(context, payload) {
       let queryUrl =
-        apiUrl + "/fire/point/" + payload.latitude + "/" + payload.longitude;
+        apiUrl + '/fire/point/' + payload.latitude + '/' + payload.longitude;
       let returnedData = await axios.get(queryUrl);
-      context.commit("setApiOutput", returnedData.data);
+      context.commit('setApiOutput', returnedData.data);
     },
   },
 });

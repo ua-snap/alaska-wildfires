@@ -407,6 +407,22 @@ export default {
         this.$axios.get(wfsUrl, { params: polygonParams }),
       ])
         .then((responses) => {
+          let fire_count = 0;
+          let total_acres_burned = 0;
+
+          responses.forEach((response) => {
+            response.data.features.forEach((feature) => {
+              // Count number of features to count total number of fires
+              fire_count++;
+
+              // Sum up total acres burned
+              total_acres_burned += parseFloat(feature.properties.acres) || 0;
+            });
+          });
+
+          this.$store.commit("setFireCount", fire_count);
+          this.$store.commit("setAcresBurned", total_acres_burned);
+
           // Process the WFS data for fire points and polygons
           this.processFirePointData(responses[0].data);
           this.processFirePolygonData(responses[1].data);
