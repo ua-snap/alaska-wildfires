@@ -65,9 +65,9 @@
               <img src="@/assets/fire-perimeter.png" />Active fires with mapped
               perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
-            <p>
+            <p v-if="fireCount > 0">
               As of {{ date }}, there are
-              <strong>{{ fireCount }}</strong> active fires, and a total of
+              <strong>{{ fireCount }}</strong> active fires, and approximately
               <strong>{{ acresBurned }}</strong> acres have burned. For the most
               current information, visit the
               <a href="https://fire.ak.blm.gov/"
