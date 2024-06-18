@@ -34,6 +34,8 @@ To install and run this project locally, follow these steps:
 
 Once the application is running, you can access it by opening your web browser and navigating to `http://localhost:8080`. From there, you can explore the wildfire incidents and view detailed information regarding other available layers related to wildfires in Alaska.
 
+The app depends on an upstream API.  The location of this API can be changed by setting an environment variable:  `export VUE_APP_SNAP_API_URL=http://development.earthmaps.io/` as required.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
