@@ -7,85 +7,63 @@
       <img src="@/assets/ak_shadowed.png" alt="" />
       <h1>Alaska Wildfire Explorer</h1>
       <h2>
-        See active fire locations and sizes compared to fire history, lightning,
-        land cover, and more.
+        See active fire locations and sizes compared to smoke conditions,
+        hotspots, lightning, and more.
       </h2>
     </header>
 
     <div v-if="active">
       <section class="section">
         <div class="container">
-          <div class="intro content is-large">
+          <div class="intro content clamp is-size-3">
             <p>
-              See current fire and air quality information (updated daily) along
-              with work done by University of Alaska researchers and other
-              scientists that shows historical data and estimated future smoke
-              and fire conditions. Information about the current fire season
-              comes from the
-              <a href="https://fire.ak.blm.gov/aicc.php">
-                Alaska Interagency Coordination Center</a
-              >
-              and the
-              <a href="https://mesowest.utah.edu">MesoWest data services</a>.
-              Smoke forecasts are provided by the
-              <a href="https://gmao.gsfc.nasa.gov/"
-                >Global Modeling and Assimilation Office (GMAO)</a
-              >
-              at NASA Goddard Space Flight Center and local air quality sensor
-              data feeds are provided through
-              <a href="https://www2.purpleair.com/">PurpleAir</a>.
+              This site shows data that aids understanding of Alaska&rsquo;s
+              wildfire landscape.
             </p>
+          </div>
+          <div class="intro content clamp is-size-4">
             <p>
-              The Wildfire Explorer shows data that aids understanding of
-              Alaska&rsquo;s fire landscape.
+              Use the map below to see where fires are burning, air quality
+              conditions across the state of Alaska, and more data layers
+              produced by scientists in the fire research community.
               <strong
                 >It is not designed for fire management decision-making</strong
-              >.
-            </p>
-          </div>
-          <div class="content is-large fire-tally-info">
-            <b-message>
-              <h4>
-                Fire Tally: How does this year&rsquo;s burned acreage compare
-                with past years?
-              </h4>
-              <p>
-                <a href="https://snap.uaf.edu/tools/daily-fire-tally"
-                  >Use this tool</a
-                >
-                to compare the current year&rsquo;s daily tally of acres burned
-                to high fire years (> 1 million acres burned) since daily tally
-                records began in 2004. See tallies of Alaska acreage burned
-                daily statewide, by fire protection area, and by year.
-              </p>
-            </b-message>
-          </div>
-          <div class="intro content is-large intro--legend">
-            <p>
-              <img src="@/assets/fire-perimeter.png" />Active fires with mapped
-              perimeters have a &lsquo;halo&rsquo; to show relative size.
-            </p>
-            <p v-if="fireCount > 0">
-              As of {{ date }}, there are
-              <strong>{{ fireCount }}</strong> active fires, and approximately
-              <strong>{{ acresBurned }}</strong> acres have burned. For the most
-              current information, visit the
+              >. For the most current information, visit the
               <a href="https://fire.ak.blm.gov/"
                 >Alaska Interagency Coordination Center</a
               >.
             </p>
           </div>
-        </div>
-        <div class="intro content is-size-4 clamp">
-          <p>
-            Click one or more map layer names to activate. Scroll down to see
-            details on each layer.<br /><span class="small"
-              >Shift-click inside Alaska to get current conditions at that
-              point.</span
-            >
-          </p>
-          <PlaceSelector />
-          <FireAPIOutput />
+
+          <div class="intro content is-size-4 clamp">
+            <p v-if="fireCount > 0">
+              <span class="glow"
+                >As of {{ date }}, there are
+                <strong>{{ fireCount }}</strong> active fires, and approximately
+                <strong>{{ acresBurned }}</strong> acres have burned.</span
+              ><br />To compare this the current fire year to high fire years
+              since 2004, visit the
+              <a href="https://snap.uaf.edu/tools/daily-fire-tally"
+                >Fire Tally</a
+              >
+              tool.
+            </p>
+            <p class="intro--legend">
+              <img src="@/assets/fire-perimeter.png" />Active fires with mapped
+              perimeters have a &lsquo;halo&rsquo; to show relative size.
+            </p>
+            <p>
+              Click one or more map layer names to activate. Scroll down to see
+              details on each layer.<br /><span class="small"
+                >Shift-click inside Alaska to get current conditions at that
+                point.</span
+              >
+            </p>
+          </div>
+          <div class="intro content is-size-4 clamp">
+            <PlaceSelector />
+            <FireAPIOutput />
+          </div>
         </div>
         <FireMap></FireMap>
       </section>
@@ -117,6 +95,21 @@
             </a>
           </div>
           <div class="column content is-size-4">
+            <p class="data-credit">
+              Information about the current fire season comes from the
+              <a href="https://fire.ak.blm.gov/aicc.php">
+                Alaska Interagency Coordination Center</a
+              >
+              and the
+              <a href="https://mesowest.utah.edu">MesoWest data services</a>.
+              Smoke forecasts are provided by the
+              <a href="https://gmao.gsfc.nasa.gov/"
+                >Global Modeling and Assimilation Office (GMAO)</a
+              >
+              at NASA Goddard Space Flight Center and local air quality sensor
+              data feeds are provided through
+              <a href="https://www2.purpleair.com/">PurpleAir</a>.
+            </p>
             <p>
               This tool was developed by the
               <a href="https://www.snap.uaf.edu/" title="👍"
@@ -232,38 +225,16 @@ header {
   }
 }
 
-.fire-tally-info {
-  max-width: 60rem;
-  margin: 3rem auto;
-
-  .message .media-content p {
-    font-size: 110%;
-    a {
-      color: hsl(229deg, 53%, 53%) !important;
-    }
-  }
-}
-
 .clamp {
-  max-width: 60rem;
+  max-width: 50rem;
   margin: 2rem auto;
 }
 
-.intro.content p {
-  max-width: 60rem;
-  margin: 0 auto 2rem;
-  &:last-child {
-    margin-bottom: 0;
-  }
-  font-size: 120%;
-
-  span.small {
-    font-size: 1.25rem;
-  }
+.glow {
+  background-color: #f3f7a8;
 }
 
 .intro--legend {
-  margin-top: 3rem;
   img {
     vertical-align: middle;
     display: inline-block;

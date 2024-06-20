@@ -4,6 +4,7 @@
     :class="{
       sublayer: id.includes('aqi_forecast'),
       layer: !id.includes('aqi_forecast'),
+      small: small,
     }"
   >
     <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
@@ -49,7 +50,7 @@ import _ from "lodash";
 
 export default {
   name: "MapLayer",
-  props: ["id", "controls"],
+  props: ["id", "controls", "small"],
   computed: {
     layer() {
       // Helper to return a layer from the ordered array of layers.
@@ -110,25 +111,21 @@ export default {
   margin: 5px 0;
   cursor: pointer;
   cursor: hand;
-  span.drag {
-    cursor: grab;
-    color: #888;
-  }
 }
 
 .sublayer {
   margin: 5px 15px;
   cursor: pointer;
   cursor: hand;
-  span.drag {
-    cursor: grab;
-    color: #888;
+  &.small {
+    margin: 0 15px;
+    font-size: 1.25rem;
   }
 }
 
 .visible {
   font-weight: 900;
-  text-shadow: #fc0 1px 0 10px;
+  text-shadow: #f4d609 1px 1px 7px, #f4d609 -1px -1px 7px;
 }
 
 .layer-title {
@@ -136,7 +133,7 @@ export default {
   padding-left: 1ex;
 
   & span {
-    color: #666;
+    color: #33a;
     padding: 0;
     margin: 0;
   }

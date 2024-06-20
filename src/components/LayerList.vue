@@ -12,19 +12,21 @@
       <li>
         <map-layer id="lightning_strikes"></map-layer>
       </li>
-      <li>
-        <div class="layer-title">Air Quality Index forecasts<br><span class="when">from midnight, {{ todayString }}</span></div>
-        <ul>
-          
-          <li><map-layer id="aqi_forecast_6_hrs"></map-layer></li>
-          <li><map-layer id="aqi_forecast_12_hrs"></map-layer></li>
-          <li><map-layer id="aqi_forecast_24_hrs"></map-layer></li>
-          <li><map-layer id="aqi_forecast_48_hrs"></map-layer></li>
-        </ul>
-      </li>
+      <hr>
       <li>
         <map-layer id="purple_air"></map-layer>
       </li>
+      <li>
+        <div class="layer-title">Air Quality forecast<br><span class="when">starting at midnight, {{ todayString }}</span></div>
+        <ul class="aqi-forecast-list">
+          
+          <li><map-layer small="small" id="aqi_forecast_6_hrs"></map-layer></li>
+          <li><map-layer small="small" id="aqi_forecast_12_hrs"></map-layer></li>
+          <li><map-layer small="small" id="aqi_forecast_24_hrs"></map-layer></li>
+          <li><map-layer small="small" id="aqi_forecast_48_hrs"></map-layer></li>
+        </ul>
+      </li>
+      <hr>
       <li>
         <map-layer id="spruceadj_3338"></map-layer>
       </li>
@@ -87,11 +89,17 @@ h3.is-4 {
 }
 .layer-title {
   padding-left: 1ex;
-  font-weight: 300;
+  font-weight: 500;
   line-height: 1;
   color: #000;
   span.when {
+    display: inline-block;
     font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
   }
+}
+hr {
+  margin: 0.75rem 0 0.5rem;
 }
 </style>
