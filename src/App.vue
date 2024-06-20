@@ -41,7 +41,7 @@
                 >As of {{ date }}, there are
                 <strong>{{ fireCount }}</strong> active fires, and approximately
                 <strong>{{ acresBurned }}</strong> acres have burned.</span
-              ><br />To compare this the current fire year to high fire years
+              ><br />To compare the current fire year to high fire years
               since 2004, visit the
               <a href="https://snap.uaf.edu/tools/daily-fire-tally"
                 >Fire Tally</a
