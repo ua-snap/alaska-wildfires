@@ -2,7 +2,7 @@
   <div class="place-selector mb-6">
     <div class="content">
       <div>
-        <b-field label="Go to a community">
+        <b-field label="Type a community name below to show current conditions at that place:">
           <b-autocomplete
             v-model="placeNameFragment"
             :data="filteredDataObj"
@@ -38,6 +38,13 @@
 .place-selector {
   z-index: 10000;
   position: relative;
+}
+::v-deep .field {
+  label.label {
+    font-size: 1.25rem;
+    color: hsl(0deg, 0%, 29%);
+    font-weight: 600;
+  }
 }
 </style>
 
