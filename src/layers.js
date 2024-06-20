@@ -256,7 +256,7 @@ export default [
     id: 'purple_air',
     wmsLayerName: 'purple_air',
     local: true,
-    title: 'Air quality sensors',
+    title: 'Air quality sensor network',
     subtitle: 'Air quality sensors, 24-hour average AQI',
     blurb: '24-hour average AQI',
     zindex: 20,
