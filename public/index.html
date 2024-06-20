@@ -11,19 +11,16 @@
     <meta name="title" content="Alaska Wildfire Explorer" />
     <meta
       name="description"
-      content="See active fire locations and sizes compared to fire history, lightning, land cover, and more."
+      content="See active fire locations and sizes compared to fire history, lightning, smoke conditions, and more."
     />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://alaskawildfires.org"
-    />
+    <meta property="og:url" content="https://alaskawildfires.org" />
     <meta property="og:title" content="Alaska Wildfire Explorer" />
     <meta
       property="og:description"
-      content="See active fire locations and sizes compared to fire history, lightning, land cover, and more."
+      content="See active fire locations and sizes compared to fire history, lightning, smoke conditions, and more."
     />
     <meta
       property="og:image"
@@ -32,14 +29,11 @@
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta
-      property="twitter:url"
-      content="https://alaskawildfires.org"
-    />
+    <meta property="twitter:url" content="https://alaskawildfires.org" />
     <meta property="twitter:title" content="Alaska Wildfire Explorer" />
     <meta
       property="twitter:description"
-      content="See active fire locations and sizes compared to fire history, lightning, land cover, and more."
+      content="See active fire locations and sizes compared to fire history, lightning, smoke conditions, and more."
     />
     <meta
       property="twitter:image"
@@ -56,11 +50,47 @@
   </head>
   <body>
     <noscript>
-      <strong
-        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
-        properly without JavaScript enabled. Please enable it to
-        continue.</strong
-      >
+      <p>
+        <strong
+          >We&rsquo;re sorry! This tool doesn&rsquo;t
+          work properly without JavaScript enabled. Please enable it to
+          continue.</strong
+        >
+      </p>
+      <p>
+        With JavaScript enabled, this site allows you to see the following data
+        layers of current conditions:
+      </p>
+      <ul>
+        <li>Current fire locations and sizes, updated daily</li>
+        <li>
+          Air quality index including wildfire smoke conditions, updated daily
+        </li>
+        <li>Hotspots from satellite data for the past 48 hours</li>
+        <li>Lightning strikes and locations for the past 36 hours</li>
+        <li>Current fire danger ratings across the state of Alaska</li>
+      </ul>
+      <p>
+        In addition, the tool provides historical landscape and fire data as
+        well as projected data from climate model outputs.
+      </p>
+      <ul>
+        <li>Land cover classification</li>
+        <li>Historical prevalence of lightning across interior Alaska</li>
+        <li>Boundaries of historical fires since 1940</li>
+        <li>
+          Projected and modeled baseline flammability from the ALFRESCO
+          landscape model, using CMIP5 climate model forcings
+        </li>
+      </ul>
+      <p>
+        If you need help accessing the content on this site, please get in
+        touch! Email us at
+        <a href="mailto:uaf-snap-data-tools@alaska.edu"
+          >uaf-snap-data-tools@alaska.edu</a
+        >
+      </p>
+      <p>This tool was developed by the <a href="https://uaf-snap.org">Scenarios Network for Alaska and Arctic Planning</a> at the <a href="https://uaf.edu">University of Alaska Fairbanks</a>.</p>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
