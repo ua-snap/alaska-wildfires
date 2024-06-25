@@ -226,7 +226,7 @@ header {
 }
 
 .clamp {
-  max-width: 50rem;
+  max-width: 55rem;
   margin: 2rem auto;
 }
 

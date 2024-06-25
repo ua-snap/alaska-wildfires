@@ -1,7 +1,6 @@
 <template>
   <div>
     <h3 class="title is-4 top">Now (updated daily)</h3>
-
     <ul>
       <li>
         <map-layer id="fires"></map-layer>
@@ -17,7 +16,7 @@
         <map-layer id="purple_air"></map-layer>
       </li>
       <li>
-        <div class="layer-title">Air Quality forecast<br><span class="when">starting at midnight, {{ todayString }}</span></div>
+        <div class="layer-title">Air quality forecast<br><span class="when">starting at midnight, {{ todayString }}</span></div>
         <ul class="aqi-forecast-list">
           
           <li><map-layer small="small" id="aqi_forecast_6_hrs"></map-layer></li>

@@ -318,7 +318,7 @@ export default {
         } &mdash; ${aqiClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqiClassInfo.description}</p>
-
+            <p>Data provided by a local <a target="_blank" href="https://www2.purpleair.com/">PurpleAir</a> sensor.</p>
           </div>
 `;
 
@@ -943,29 +943,6 @@ table.alaska-wildfires-legend {
       &.lc-gte45 {
         background-color: rgb(255, 255, 255);
         border: 1px solid #ccc;
-      }
-    }
-  }
-
-  &.purple-air {
-    td div {
-      &.pa-50 {
-        background-color: #67e142;
-      }
-      &.pa-100 {
-        background-color: #ffff00;
-      }
-      &.pa-150 {
-        background-color: #ff7e00;
-      }
-      &.pa-200 {
-        background-color: #ff0000;
-      }
-      &.pa-300 {
-        background-color: #8f3f97;
-      }
-      &.pa-3000 {
-        background-color: #7e0122;
       }
     }
   }
