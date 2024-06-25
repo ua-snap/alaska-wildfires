@@ -1,7 +1,7 @@
 <template>
   <div :class="{ visible: layer.visible }" class="legend--item block">
-    <h4 class="title is-5" v-html="title"></h4>
-    <div class="columns content">
+    <h4 class="title is-4" v-html="title"></h4>
+    <div class="columns">
       <div
         class="column"
         v-bind:class="
@@ -10,7 +10,7 @@
       >
         <div v-html="layer.legend"></div>
       </div>
-      <div class="column">
+      <div class="column content is-size-4">
         <div v-html="layer.abstract"></div>
       </div>
     </div>
