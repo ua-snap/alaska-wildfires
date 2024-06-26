@@ -2,6 +2,9 @@ import Vue from "vue";
 import Vuex from "vuex";
 import _ from "lodash";
 import axios from "axios";
+import moment from "moment";
+
+const statusJson = require("@/assets/status.json");
 
 Vue.use(Vuex);
 
@@ -168,6 +171,12 @@ export default new Vuex.Store({
     // Returns true if there are pending HTTP requests
     loadingData(state) {
       return state.pendingHttpRequests > 0;
+    },
+    lastDataUpdate() {
+      return moment(statusJson.updated, "YYYYMMDDHH").format("ha, MMMM Do");
+    },
+    aqiUpdate() {
+      return moment(statusJson.layers.aqi_forecast.updated, "YYYYMMDDHH").format("ha, MMMM Do");
     },
     places(state) {
       return state.places;
