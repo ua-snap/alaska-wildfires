@@ -173,10 +173,10 @@ export default new Vuex.Store({
       return state.pendingHttpRequests > 0;
     },
     lastDataUpdate() {
-      return moment(statusJson.updated, "YYYYMMDDHH").format("ha, MMMM Do");
+      return moment(statusJson.updated, "YYYYMMDDHH").format("ha, MMMM D");
     },
     aqiUpdate() {
-      return moment(statusJson.layers.aqi_forecast.updated, "YYYYMMDDHH").format("ha, MMMM Do");
+      return moment(statusJson.layers.aqi_forecast.updated, "YYYYMMDDHH").format("ha, MMMM D");
     },
     places(state) {
       return state.places;
