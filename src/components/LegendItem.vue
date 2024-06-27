@@ -1,6 +1,6 @@
 <template>
   <div :class="{ visible: layer.visible }" class="legend--item block">
-    <h4 class="title is-4" v-html="title"></h4>
+    <h4 :id="targetId" class="title is-4" v-html="title"></h4>
     <div class="columns">
       <div
         class="column"
@@ -14,6 +14,10 @@
         <div v-html="layer.abstract"></div>
       </div>
     </div>
+    <div class="content is-size-4">
+      <p><a href="#map" class="button">⇧ Back to map</a></p>
+    </div>
+    <hr />
   </div>
 </template>
 
@@ -38,13 +42,16 @@ export default {
       }
       return this.layer.title;
     },
+    targetId() {
+      return "legend--" + this.id;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .legend--item {
-  display: none;
+  display: hidden;
   &.visible {
     display: block;
     padding-top: 1rem;

@@ -9,7 +9,7 @@
   >
     <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
 
-    <!-- Layer title! -->
+    <!-- Layer title + legend -->
     <span class="layer-title">
       <a @click.prevent="toggleLayer(id)">
         <span v-if="layer.visible">&#10003;&nbsp;</span>
@@ -21,6 +21,7 @@
         >
         </span>
       </a>
+      <a v-if="layer.visible" class="legend" :href="anchorId">Legend</a>
     </span>
 
     <!-- Blurb for extra info if activated -->
@@ -74,6 +75,9 @@ export default {
       return this.$store.state.layers.filter((layer) =>
         layer.id.includes("aqi_forecast"),
       );
+    },
+    anchorId() {
+      return "#legend--" + this.id;
     },
   },
   methods: {
@@ -136,6 +140,16 @@ export default {
     color: #33a;
     padding: 0;
     margin: 0;
+  }
+      line-height: 1;
+
+
+  a.legend {
+    display: inline-block;
+    font-variant: small-caps;
+    font-size: 85%;
+    padding-left: 0.5rem;
+    line-height: 0.5;
   }
 }
 
