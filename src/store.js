@@ -4,8 +4,6 @@ import _ from "lodash";
 import axios from "axios";
 import moment from "moment";
 
-const statusJson = require("@/assets/status.json");
-
 Vue.use(Vuex);
 
 const apiUrl = process.env.VUE_APP_SNAP_API_URL || "https://earthmaps.io";
@@ -75,6 +73,12 @@ export default new Vuex.Store({
 
     // Total acres burned for the season
     acresBurned: 0,
+
+    // JSON of layer update status
+    // Loaded async from {publicRoot}/status.json,
+    // which is refreshed by an external process that will
+    // update the S3 bucket in production.
+    updateStatus: undefined,
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -127,18 +131,6 @@ export default new Vuex.Store({
       let layer = state.layers[getLayerIndexById(state, payload.layer)];
       setWmsProperties(state, layer, payload.properties);
     },
-    reorderLayers(state, layers) {
-      state.layers = layers;
-    },
-    toggleLayerMenu(state) {
-      state.layerMenuVisibility = !state.layerMenuVisibility;
-    },
-    showLayerMenu(state) {
-      state.layerMenuVisibility = true;
-    },
-    hideLayerMenu(state) {
-      state.layerMenuVisibility = false;
-    },
     incrementPendingHttpRequest(state) {
       state.pendingHttpRequests++;
     },
@@ -154,14 +146,14 @@ export default new Vuex.Store({
     setApiOutput(state, apiOutput) {
       state.apiOutput = apiOutput;
     },
-    setLoading(state, loading) {
-      state.loading = loading;
-    },
     setFireCount(state, fireCount) {
       state.fireCount = fireCount;
     },
     setAcresBurned(state, acresBurned) {
       state.acresBurned = acresBurned;
+    },
+    setUpdateStatus(state, updateStatus) {
+      state.updateStatus = updateStatus;
     },
     clearSelected(state) {
       state.selected = undefined;
@@ -172,11 +164,22 @@ export default new Vuex.Store({
     loadingData(state) {
       return state.pendingHttpRequests > 0;
     },
-    lastDataUpdate() {
-      return moment(statusJson.updated, "YYYYMMDDHH").format("ha, MMMM D");
+    lastDataUpdate(state) {
+      if (state.updateStatus) {
+        return moment(state.updateStatus.updated, "YYYYMMDDHH").format(
+          "ha, MMMM D",
+        );
+      }
+      return "";
     },
-    aqiUpdate() {
-      return moment(statusJson.layers.aqi_forecast.updated, "YYYYMMDDHH").format("ha, MMMM D");
+    aqiUpdate(state) {
+      if (state.updateStatus) {
+        return moment(
+          state.updateStatus.layers.aqi_forecast.updated,
+          "YYYYMMDDHH",
+        ).format("ha, MMMM D");
+      }
+      return "";
     },
     places(state) {
       return state.places;
@@ -221,6 +224,11 @@ export default new Vuex.Store({
         apiUrl + "/fire/point/" + payload.latitude + "/" + payload.longitude;
       let returnedData = await axios.get(queryUrl);
       context.commit("setApiOutput", returnedData.data);
+    },
+    async fetchUpdateStatus(context) {
+      let queryUrl = process.env.BASE_URL + "status.json";
+      let updateStatus = await axios.get(queryUrl);
+      context.commit("setUpdateStatus", updateStatus.data);
     },
   },
 });
