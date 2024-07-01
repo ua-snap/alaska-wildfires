@@ -122,7 +122,7 @@
         </div>
 
         <!-- Display number of nearby fires -->
-        <div v-if="nearbyFiresPresent">
+        <div v-if="nearbyFiresCount > 0">
           <p>
             There are
             <strong>{{ nearbyFiresCount }} active fires</strong> within ~70
@@ -139,11 +139,14 @@
             <tbody>
               <tr v-for="fire in nearbyFires" :key="fire.NAME">
                 <td>{{ fire.properties.NAME }}</td>
-                <td>{{ fire.properties.acres }}</td>
+                <td>{{ formatNumber(fire.properties.acres) }}</td>
                 <td>{{ formatDate(fire.properties.updated) }}</td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div v-else>
+          There are no active fires within ~70 miles of this location.
         </div>
       </div>
     </div>
@@ -189,7 +192,10 @@ export default {
       );
     },
     nearbyFiresCount() {
-      return this.nearbyFires.length;
+      if (this.nearbyFires) {
+        return this.nearbyFires.length;
+      }
+      return 0;
     },
     nearbyFiresPresent() {
       return this.nearbyFires !== undefined;
@@ -206,9 +212,10 @@ export default {
   },
   methods: {
     formatDate(t) {
-      return this.$moment(parseInt(t))
-        .utcOffset(offset)
-        .format("MMMM D");
+      return this.$moment(parseInt(t)).utcOffset(offset).format("MMMM D");
+    },
+    formatNumber(acres) {
+      return acres.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
     aqiName(aqi) {
       if (!aqi) {
