@@ -110,13 +110,11 @@ export default {
 .layer {
   margin: 5px 0;
   cursor: pointer;
-  cursor: hand;
 }
 
 .sublayer {
   margin: 5px 15px;
   cursor: pointer;
-  cursor: hand;
   &.small {
     margin: 0 15px;
     font-size: 1.25rem;
