@@ -122,16 +122,28 @@
         </div>
 
         <!-- Display number of nearby fires -->
-        <div v-if="firesNearbyCount > 0">
+        <div v-if="nearbyFiresPresent">
           <p>
-            There are <strong>{{ firesNearbyCount }}</strong> fires within ~50
+            There are
+            <strong>{{ nearbyFiresCount }} active fires</strong> within ~70
             miles of this location.
           </p>
-          <ul>
-            <li v-for="fire in firesNearbyNames" :key="fire">
-              {{ fire }}
-            </li>
-          </ul>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Fire name</th>
+                <th scope="col">Size (acres)</th>
+                <th scope="col">Last updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="fire in nearbyFires" :key="fire.NAME">
+                <td>{{ fire.properties.NAME }}</td>
+                <td>{{ fire.properties.acres }}</td>
+                <td>{{ formatDate(fire.properties.updated) }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -141,6 +153,9 @@
 <script>
 import _ from "lodash";
 import { mapGetters } from "vuex";
+
+// Current time zone offset (used in formatDate below).
+const offset = new Date().getTimezoneOffset();
 
 const fireDangerLevels = {
   Low: `Fuels do not ignite readily from small firebrands although a more intense heat source, such as lightning, may start fires in duff or light fuels.`,
@@ -173,6 +188,12 @@ export default {
         _.isArray(this.apiOutput.hist_fire)
       );
     },
+    nearbyFiresCount() {
+      return this.nearbyFires.length;
+    },
+    nearbyFiresPresent() {
+      return this.nearbyFires !== undefined;
+    },
     dangerRating() {
       return fireDangerLevels[this.apiOutput.cfd.type];
     },
@@ -180,11 +201,15 @@ export default {
       selected: "selected",
       apiOutput: "apiOutput",
       loadingData: "loadingData",
-      firesNearbyCount: "firesNearbyCount",
-      firesNearbyNames: "firesNearbyNames",
+      nearbyFires: "nearbyFires",
     }),
   },
   methods: {
+    formatDate(t) {
+      return this.$moment(parseInt(t))
+        .utcOffset(offset)
+        .format("MMMM D");
+    },
     aqiName(aqi) {
       if (!aqi) {
         throw "Undefined AQI in aqiName";

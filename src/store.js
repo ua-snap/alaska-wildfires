@@ -73,8 +73,8 @@ export default new Vuex.Store({
     // Total acres burned for the season
     acresBurned: 0,
 
-    // Fires nearby object containing fires from 50 miles around the selected location
-    firesNearby: undefined,
+    // Fires nearby object containing fires from ~70 miles around the selected location
+    nearbyFires: undefined,
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -163,11 +163,13 @@ export default new Vuex.Store({
     setAcresBurned(state, acresBurned) {
       state.acresBurned = acresBurned;
     },
-    setFiresNearby(state, firesNearby) {
-      state.firesNearby = firesNearby;
+    setNearbyFires(state, nearbyFires) {
+      state.nearbyFires = nearbyFires;
     },
     clearSelected(state) {
       state.selected = undefined;
+      state.apiOutput = undefined;
+      state.nearbyFires = undefined;
     },
   },
   getters: {
@@ -207,17 +209,19 @@ export default new Vuex.Store({
       return state.acresBurned.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
     firesNearbyCount(state) {
-      return (
-        parseInt(state.firesNearby[0].data.totalFeatures) +
-        parseInt(state.firesNearby[1].data.totalFeatures)
-      );
+      if (state.firesNearby && state.firesNearby[0] && state.firesNearby[1]) {
+        return (
+          parseInt(state.firesNearby[0].data.totalFeatures) +
+          parseInt(state.firesNearby[1].data.totalFeatures)
+        );
+      }
+      return undefined;
     },
     firesNearbyNames(state) {
       // Initialize an empty array to store the names
       let names = [];
       state.firesNearby.forEach((fireData) => {
         fireData.data.features.forEach((feature) => {
-          console.log(feature.properties.NAME);
           // Push the name property of each feature to the names array
           names.push(feature.properties.NAME);
         });
@@ -225,6 +229,9 @@ export default new Vuex.Store({
 
       // Return the array of names
       return names;
+    },
+    nearbyFires(state) {
+      return state.nearbyFires;
     },
   },
   actions: {
@@ -234,10 +241,65 @@ export default new Vuex.Store({
       context.commit("setPlaces", returnedData);
     },
     async fetchFireAPI(context, payload) {
+      // Get API data
       let queryUrl =
         apiUrl + "/fire/point/" + payload.latitude + "/" + payload.longitude;
       let returnedData = await axios.get(queryUrl);
       context.commit("setApiOutput", returnedData.data);
+
+      // Get Nearby Fires
+      const wfsUrl = "https://gs.mapventure.org/geoserver/wfs";
+
+      // Define parameters for the WFS requests
+      // For filtering against points
+      var pointParams = {
+        service: "WFS",
+        version: "1.1.0",
+        request: "GetFeature",
+        typeName: "alaska_wildfires:fire_points",
+        cql_filter: `Dwithin(the_geom, Point(${payload.longitude} ${payload.latitude}), 1, statute miles)`,
+        outputFormat: "json",
+      };
+
+      // For filtering against polygons
+      var polygonParams = {
+        service: "WFS",
+        version: "1.1.0",
+        request: "GetFeature",
+        typeName: "alaska_wildfires:fire_polygons",
+        // GeoServer only supports degrees, so this is a query
+        // for ~70 mile radius.
+        // https://gis.stackexchange.com/questions/132251/dwithin-wfs-filter-is-not-working
+        cql_filter: `Dwithin(the_geom, Point(${payload.longitude} ${payload.latitude}), 1, statute miles)`,
+        outputFormat: "json",
+      };
+
+      let nearbyFires = []; // will be both results, merged
+      let nearbyPointFires = await axios.get(wfsUrl, {
+        params: pointParams,
+      });
+      let nearbyPolygonFires = await axios.get(wfsUrl, {
+        params: polygonParams,
+      });
+      if (nearbyPointFires.data.features) {
+        nearbyFires = nearbyPointFires.data.features;
+      }
+      if (nearbyPolygonFires.data.features) {
+        nearbyFires = [...nearbyFires, ...nearbyPolygonFires.data.features];
+      }
+      // Filter for only active fires
+      nearbyFires = _.filter(nearbyFires, (fire) => {
+        return fire.properties.active == "1";
+      });
+      // Sort by size
+      nearbyFires = _.sortBy(nearbyFires, [
+        (fire) => {
+          return fire.properties.acres;
+        },
+      ]);
+      // ...and reverse so biggest are first.
+      nearbyFires = _.reverse(nearbyFires);
+      context.commit("setNearbyFires", nearbyFires);
     },
   },
 });
