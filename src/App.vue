@@ -40,9 +40,12 @@
               <span class="glow"
                 >As of {{ date }}, there are
                 <strong>{{ fireCount }}</strong> active fires, and approximately
-                <strong>{{ acresBurned }}</strong> acres have burned.</span
-              ><br />To compare the current fire year to high fire years
-              since 2004, visit the
+                <strong>{{ acresBurned }}</strong> acres have burned this fire season.</span
+              >
+            </p>
+            <p>
+              To compare the current fire year to high fire years since 2004,
+              visit the
               <a href="https://snap.uaf.edu/tools/daily-fire-tally"
                 >Fire Tally</a
               >
@@ -52,13 +55,12 @@
               <img src="@/assets/fire-perimeter.png" />Active fires with mapped
               perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
-            <p>
-              Click one or more map layer names to activate. Scroll down to see
-              details on each layer.<br /><span class="small"
-                >Shift-click inside Alaska to get current conditions at that
-                point.</span
-              >
-            </p>
+            <ul>
+              <li>Click one or more map layer names to activate.</li>
+              <li>
+                Legends are shown below the map, scroll down to see details.
+              </li>
+            </ul>
           </div>
           <div class="intro content is-size-4 clamp">
             <PlaceSelector />
@@ -231,6 +233,7 @@ header {
 }
 
 .glow {
+  font-size: 1.5rem;
   background-color: #f3f7a8;
 }
 
@@ -305,6 +308,7 @@ export default {
   methods: {
     async fetch() {
       await this.$store.dispatch("fetchCommunities");
+      await this.$store.dispatch("fetchUpdateStatus");
     },
   },
 };

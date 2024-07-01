@@ -1,0 +1,33 @@
+{
+	"updated": "2024062600",
+	"layers": {
+		"wildfires": {
+			"updated": "2024062600",
+			"succeeded": true
+		},
+		"hotspots": {
+			"updated": "2024062600",
+			"succeeded": true
+		},
+		"lightning": {
+			"updated": "2024062600",
+			"succeeded": true
+		},
+		"purpleair": {
+			"updated": "2024062600",
+			"succeeded": true
+		},
+		"aqi_forecast": {
+			"updated": "2024062518",
+			"succeeded": true
+		},
+		"fire_danger": {
+			"updated": "2024062600",
+			"succeeded": true
+		},
+		"snow_cover": {
+			"updated": "2024062600",
+			"succeeded": true
+		}
+	}
+}
