@@ -9,7 +9,7 @@ const aqiAbstract = `
 
 <p>&lsquo;Good&rsquo; air quality (AQI &le;50) is shown as transparent on the map.</p>
 
-<p>The GEOS data used in this layer have been provided by the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the <a  target="_blank" href="https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php">online data portal in the NASA Center for Climate Simulation</a>.</p>
+<p>The data used in this layer have been provided by the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the <a  target="_blank" href="https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php">online data portal in the NASA Center for Climate Simulation</a>.</p>
 
 <ul>
   <li><a  target="_blank" href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read about Particulate Matter (PM) basics</a></li>
