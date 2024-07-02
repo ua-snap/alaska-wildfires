@@ -36,6 +36,8 @@ Once the application is running, you can access it by opening your web browser a
 
 The app depends on an upstream API.  The location of this API can be changed by setting an environment variable:  `export VUE_APP_SNAP_API_URL=http://development.earthmaps.io/` as required.
 
+The file `src/assets/status.json` is intended to be updated by an external process (Prefect) which handling the data assimilation and backend updates.  The version checked into the repository is suitable for testing.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
