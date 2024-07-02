@@ -172,6 +172,7 @@ export default {
         zoom: 1,
         minZoom: 1,
         maxZoom: 6,
+        zoomSnap: 0.5,
         center: [65, -152.5],
       },
       baseLayerOptions: {

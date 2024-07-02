@@ -122,7 +122,7 @@
         </div>
 
         <!-- Display number of nearby fires -->
-        <div v-if="nearbyFiresCount > 0">
+        <div v-if="nearbyFiresPresent">
           <p>
             There are
             <strong>{{ nearbyFiresCount }} active fires</strong> within ~70
@@ -146,7 +146,9 @@
           </table>
         </div>
         <div v-else>
-          There are no active fires within ~70 miles of this location.
+          <span v-if="selected.region == 'Alaska'">
+            There are no active fires within ~70 miles of this location.
+          </span>
         </div>
       </div>
     </div>
@@ -191,14 +193,14 @@ export default {
         _.isArray(this.apiOutput.hist_fire)
       );
     },
+    nearbyFiresPresent() {
+      return this.nearbyFires !== undefined && this.nearbyFiresCount > 0;
+    },
     nearbyFiresCount() {
       if (this.nearbyFires) {
         return this.nearbyFires.length;
       }
       return 0;
-    },
-    nearbyFiresPresent() {
-      return this.nearbyFires !== undefined;
     },
     dangerRating() {
       return fireDangerLevels[this.apiOutput.cfd.type];

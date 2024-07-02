@@ -96,7 +96,7 @@ export default {
     selected: function () {
       this.$options.leaflet.map.setView(
         [this.selected.latitude, this.selected.longitude],
-        5,
+        3.5,
       );
     },
   },
