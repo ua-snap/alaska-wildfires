@@ -2,7 +2,9 @@
   <div class="place-selector mb-6">
     <div class="content">
       <div>
-        <b-field label="Type a community name below to show current conditions at that place:">
+        <b-field
+          label="Type a community name below to show current conditions at that place:"
+        >
           <b-autocomplete
             v-model="placeNameFragment"
             :data="filteredDataObj"
@@ -17,6 +19,9 @@
             <template slot-scope="props">
               <div class="search-item">
                 {{ props.option.name }}
+                <span v-if="props.option.country == 'CA'" class="canada">
+                  ({{ props.option.region }}, Canada)</span
+                >
               </div>
             </template>
           </b-autocomplete>
