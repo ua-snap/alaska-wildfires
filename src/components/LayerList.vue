@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="title is-4 top">Now (updated {{ lastDataUpdate }})</h3>
+    <h3 class="title is-4 top">Now{{ fireUpdateText }}</h3>
     <ul>
       <li>
         <map-layer id="fires"></map-layer>
@@ -17,9 +17,9 @@
       </li>
       <li>
         <div class="layer-title">
-          Air quality forecast<br /><span class="when"
-            >starting at {{ aqiUpdate }}</span
-          >
+          Air quality forecast<br /><span class="when">{{
+            aqiUpdateText
+          }}</span>
         </div>
         <ul class="aqi-forecast-list">
           <li><map-layer small="small" id="aqi_forecast_6_hrs"></map-layer></li>
@@ -79,6 +79,14 @@ export default {
     "map-layer": MapLayer,
   },
   computed: {
+    fireUpdateText() {
+      return this.lastDataUpdate
+        ? " (updated " + this.lastDataUpdate + ")"
+        : "";
+    },
+    aqiUpdateText() {
+      return this.aqiUpdate ? "starting at " + this.aqiUpdate : "";
+    },
     ...mapGetters({ lastDataUpdate: "lastDataUpdate", aqiUpdate: "aqiUpdate" }),
   },
 };

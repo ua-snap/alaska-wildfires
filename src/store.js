@@ -170,7 +170,6 @@ export default new Vuex.Store({
           "ha, MMMM D",
         );
       }
-      return "";
     },
     aqiUpdate(state) {
       if (state.updateStatus) {
@@ -179,7 +178,6 @@ export default new Vuex.Store({
           "YYYYMMDDHH",
         ).format("ha, MMMM D");
       }
-      return "";
     },
     places(state) {
       return state.places;
