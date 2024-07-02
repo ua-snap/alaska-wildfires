@@ -440,7 +440,19 @@ export default {
       fireLayerGroup.addLayer(fireMarkers);
     },
     processFirePolygonData(data) {
-      firePolygons = this.getGeoJsonLayer(data);
+      let featureHandler = (feature, layer) => {
+        layer.bindPopup(
+          this.getFireMarkerPopupContents({
+            title: feature.properties.NAME,
+            acres: feature.properties.acres,
+            cause: feature.properties.GENERALCAUSE,
+            updated: feature.properties.updated,
+            outdate: feature.properties.OUTDATE,
+            discovered: feature.properties.discovered,
+          }),
+        );
+      };
+      firePolygons = this.getGeoJsonLayer(data, featureHandler);
       fireMarkers = this.getFireMarkers(data);
 
       fireLayerGroup.addLayer(firePolygons);
@@ -575,11 +587,15 @@ export default {
       });
       return this.$L.layerGroup(fireMarkers);
     },
-    getGeoJsonLayer(geoJson) {
-      return this.$L.geoJson(geoJson, {
+    getGeoJsonLayer(geoJson, layerHandler) {
+      let config = {
         style: this.styleFirePolygons,
         pointToLayer: this.firePointFeatureHandler,
-      });
+      };
+      if (layerHandler) {
+        config.onEachFeature = layerHandler;
+      }
+      return this.$L.geoJson(geoJson, config);
     },
     styleFirePolygons(feature) {
       if (this.isFireActive(feature.properties)) {
@@ -589,6 +605,7 @@ export default {
           opacity: 0.8,
           weight: 2,
           fillOpacity: 0.3,
+          className: "fire-polygon",
         };
       } else {
         return {
@@ -597,6 +614,7 @@ export default {
           opacity: 0.8,
           weight: 3,
           fillOpacity: 1,
+          className: "fire-polygon",
         };
       }
     },
