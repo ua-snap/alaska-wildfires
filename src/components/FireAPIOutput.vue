@@ -120,6 +120,34 @@
             </li>
           </ul>
         </div>
+
+        <!-- Display number of nearby fires -->
+        <div v-if="nearbyFiresCount > 0">
+          <p>
+            There are
+            <strong>{{ nearbyFiresCount }} active fires</strong> within ~70
+            miles of this location.
+          </p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Fire name</th>
+                <th scope="col">Size (acres)</th>
+                <th scope="col">Last updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="fire in nearbyFires" :key="fire.NAME">
+                <td>{{ fire.properties.NAME }}</td>
+                <td>{{ formatNumber(fire.properties.acres) }}</td>
+                <td>{{ formatDate(fire.properties.updated) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div v-else>
+          There are no active fires within ~70 miles of this location.
+        </div>
       </div>
     </div>
   </div>
@@ -128,6 +156,9 @@
 <script>
 import _ from "lodash";
 import { mapGetters } from "vuex";
+
+// Current time zone offset (used in formatDate below).
+const offset = new Date().getTimezoneOffset();
 
 const fireDangerLevels = {
   Low: `Fuels do not ignite readily from small firebrands although a more intense heat source, such as lightning, may start fires in duff or light fuels.`,
@@ -160,6 +191,15 @@ export default {
         _.isArray(this.apiOutput.hist_fire)
       );
     },
+    nearbyFiresCount() {
+      if (this.nearbyFires) {
+        return this.nearbyFires.length;
+      }
+      return 0;
+    },
+    nearbyFiresPresent() {
+      return this.nearbyFires !== undefined;
+    },
     dangerRating() {
       return fireDangerLevels[this.apiOutput.cfd.type];
     },
@@ -167,9 +207,16 @@ export default {
       selected: "selected",
       apiOutput: "apiOutput",
       loadingData: "loadingData",
+      nearbyFires: "nearbyFires",
     }),
   },
   methods: {
+    formatDate(t) {
+      return this.$moment(parseInt(t)).utcOffset(offset).format("MMMM D");
+    },
+    formatNumber(acres) {
+      return acres.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
     aqiName(aqi) {
       if (!aqi) {
         throw "Undefined AQI in aqiName";
