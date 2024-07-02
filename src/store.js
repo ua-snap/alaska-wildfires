@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import _ from "lodash";
 import axios from "axios";
+import moment from "moment";
 
 Vue.use(Vuex);
 
@@ -72,6 +73,15 @@ export default new Vuex.Store({
 
     // Total acres burned for the season
     acresBurned: 0,
+
+    // Fires nearby object containing fires from ~70 miles around the selected location
+    nearbyFires: undefined,
+
+    // JSON of layer update status
+    // Loaded async from {publicRoot}/status.json,
+    // which is refreshed by an external process that will
+    // update the S3 bucket in production.
+    updateStatus: undefined,
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -124,18 +134,6 @@ export default new Vuex.Store({
       let layer = state.layers[getLayerIndexById(state, payload.layer)];
       setWmsProperties(state, layer, payload.properties);
     },
-    reorderLayers(state, layers) {
-      state.layers = layers;
-    },
-    toggleLayerMenu(state) {
-      state.layerMenuVisibility = !state.layerMenuVisibility;
-    },
-    showLayerMenu(state) {
-      state.layerMenuVisibility = true;
-    },
-    hideLayerMenu(state) {
-      state.layerMenuVisibility = false;
-    },
     incrementPendingHttpRequest(state) {
       state.pendingHttpRequests++;
     },
@@ -151,23 +149,43 @@ export default new Vuex.Store({
     setApiOutput(state, apiOutput) {
       state.apiOutput = apiOutput;
     },
-    setLoading(state, loading) {
-      state.loading = loading;
-    },
     setFireCount(state, fireCount) {
       state.fireCount = fireCount;
     },
     setAcresBurned(state, acresBurned) {
       state.acresBurned = acresBurned;
     },
+    setNearbyFires(state, nearbyFires) {
+      state.nearbyFires = nearbyFires;
+    },
+    setUpdateStatus(state, updateStatus) {
+      state.updateStatus = updateStatus;
+    },
     clearSelected(state) {
       state.selected = undefined;
+      state.apiOutput = undefined;
+      state.nearbyFires = undefined;
     },
   },
   getters: {
     // Returns true if there are pending HTTP requests
     loadingData(state) {
       return state.pendingHttpRequests > 0;
+    },
+    lastDataUpdate(state) {
+      if (state.updateStatus) {
+        return moment(state.updateStatus.updated, "YYYYMMDDHH").format(
+          "ha, MMMM D",
+        );
+      }
+    },
+    aqiUpdate(state) {
+      if (state.updateStatus) {
+        return moment(
+          state.updateStatus.layers.aqi_forecast.updated,
+          "YYYYMMDDHH",
+        ).format("ha, MMMM D");
+      }
     },
     places(state) {
       return state.places;
@@ -200,6 +218,31 @@ export default new Vuex.Store({
       // https://stackoverflow.com/questions/2901102/how-to-format-a-number-with-commas-as-thousands-separators
       return state.acresBurned.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
+    firesNearbyCount(state) {
+      if (state.firesNearby && state.firesNearby[0] && state.firesNearby[1]) {
+        return (
+          parseInt(state.firesNearby[0].data.totalFeatures) +
+          parseInt(state.firesNearby[1].data.totalFeatures)
+        );
+      }
+      return undefined;
+    },
+    firesNearbyNames(state) {
+      // Initialize an empty array to store the names
+      let names = [];
+      state.firesNearby.forEach((fireData) => {
+        fireData.data.features.forEach((feature) => {
+          // Push the name property of each feature to the names array
+          names.push(feature.properties.NAME);
+        });
+      });
+
+      // Return the array of names
+      return names;
+    },
+    nearbyFires(state) {
+      return state.nearbyFires;
+    },
   },
   actions: {
     async fetchCommunities(context) {
@@ -208,10 +251,70 @@ export default new Vuex.Store({
       context.commit("setPlaces", returnedData);
     },
     async fetchFireAPI(context, payload) {
+      // Get API data
       let queryUrl =
         apiUrl + "/fire/point/" + payload.latitude + "/" + payload.longitude;
       let returnedData = await axios.get(queryUrl);
       context.commit("setApiOutput", returnedData.data);
+
+      // Get Nearby Fires
+      const wfsUrl = "https://gs.mapventure.org/geoserver/wfs";
+
+      // Define parameters for the WFS requests
+      // For filtering against points
+      var pointParams = {
+        service: "WFS",
+        version: "1.1.0",
+        request: "GetFeature",
+        typeName: "alaska_wildfires:fire_points",
+        cql_filter: `Dwithin(the_geom, Point(${payload.longitude} ${payload.latitude}), 1, statute miles)`,
+        outputFormat: "json",
+      };
+
+      // For filtering against polygons
+      var polygonParams = {
+        service: "WFS",
+        version: "1.1.0",
+        request: "GetFeature",
+        typeName: "alaska_wildfires:fire_polygons",
+        // GeoServer only supports degrees, so this is a query
+        // for ~70 mile radius.
+        // https://gis.stackexchange.com/questions/132251/dwithin-wfs-filter-is-not-working
+        cql_filter: `Dwithin(the_geom, Point(${payload.longitude} ${payload.latitude}), 1, statute miles)`,
+        outputFormat: "json",
+      };
+
+      let nearbyFires = []; // will be both results, merged
+      let nearbyPointFires = await axios.get(wfsUrl, {
+        params: pointParams,
+      });
+      let nearbyPolygonFires = await axios.get(wfsUrl, {
+        params: polygonParams,
+      });
+      if (nearbyPointFires.data.features) {
+        nearbyFires = nearbyPointFires.data.features;
+      }
+      if (nearbyPolygonFires.data.features) {
+        nearbyFires = [...nearbyFires, ...nearbyPolygonFires.data.features];
+      }
+      // Filter for only active fires
+      nearbyFires = _.filter(nearbyFires, (fire) => {
+        return fire.properties.active == "1";
+      });
+      // Sort by size
+      nearbyFires = _.sortBy(nearbyFires, [
+        (fire) => {
+          return fire.properties.acres;
+        },
+      ]);
+      // ...and reverse so biggest are first.
+      nearbyFires = _.reverse(nearbyFires);
+      context.commit("setNearbyFires", nearbyFires);
+    },
+    async fetchUpdateStatus(context) {
+      let queryUrl = process.env.BASE_URL + "status.json";
+      let updateStatus = await axios.get(queryUrl);
+      context.commit("setUpdateStatus", updateStatus.data);
     },
   },
 });

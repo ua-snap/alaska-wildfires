@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="title is-4 top">Now (updated daily)</h3>
+    <h3 class="title is-4 top">Now{{ fireUpdateText }}</h3>
     <ul>
       <li>
         <map-layer id="fires"></map-layer>
@@ -11,21 +11,30 @@
       <li>
         <map-layer id="lightning_strikes"></map-layer>
       </li>
-      <hr>
+      <hr />
       <li>
         <map-layer id="purple_air"></map-layer>
       </li>
       <li>
-        <div class="layer-title">Air quality forecast<br><span class="when">starting at midnight, {{ todayString }}</span></div>
+        <div class="layer-title">
+          Air quality forecast<br /><span class="when">{{
+            aqiUpdateText
+          }}</span>
+        </div>
         <ul class="aqi-forecast-list">
-          
           <li><map-layer small="small" id="aqi_forecast_6_hrs"></map-layer></li>
-          <li><map-layer small="small" id="aqi_forecast_12_hrs"></map-layer></li>
-          <li><map-layer small="small" id="aqi_forecast_24_hrs"></map-layer></li>
-          <li><map-layer small="small" id="aqi_forecast_48_hrs"></map-layer></li>
+          <li>
+            <map-layer small="small" id="aqi_forecast_12_hrs"></map-layer>
+          </li>
+          <li>
+            <map-layer small="small" id="aqi_forecast_24_hrs"></map-layer>
+          </li>
+          <li>
+            <map-layer small="small" id="aqi_forecast_48_hrs"></map-layer>
+          </li>
         </ul>
       </li>
-      <hr>
+      <hr />
       <li>
         <map-layer id="spruceadj_3338"></map-layer>
       </li>
@@ -62,16 +71,23 @@
 
 <script>
 import MapLayer from "./MapLayer";
+import { mapGetters } from "vuex";
 
 export default {
   name: "LayerList",
   components: {
     "map-layer": MapLayer,
   },
-  data() {
-    return {
-      todayString: new Date().toLocaleDateString("en-US"),
-    };
+  computed: {
+    fireUpdateText() {
+      return this.lastDataUpdate
+        ? " (updated " + this.lastDataUpdate + ")"
+        : "";
+    },
+    aqiUpdateText() {
+      return this.aqiUpdate ? "starting at " + this.aqiUpdate : "";
+    },
+    ...mapGetters({ lastDataUpdate: "lastDataUpdate", aqiUpdate: "aqiUpdate" }),
   },
 };
 </script>
