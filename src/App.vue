@@ -36,11 +36,12 @@
           </div>
 
           <div class="intro content is-size-4 clamp">
-            <p v-if="fireCount > 0">
+            <p v-if="fireUpdateDate">
               <span class="glow"
-                >As of {{ date }}, there are
+                >As of {{ dataDate }}, there are
                 <strong>{{ fireCount }}</strong> active fires, and approximately
-                <strong>{{ acresBurned }}</strong> acres have burned this fire season.</span
+                <strong>{{ acresBurned }}</strong> acres have burned this fire
+                season.</span
               >
             </p>
             <p>
@@ -290,14 +291,14 @@ export default {
     year() {
       return new Date().getFullYear();
     },
-    date() {
-      return new Date().toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      });
+    fireCountPresent() {
+      return this.fireUpdateDate && this.fireCount > 0;
+    },
+    dataDate() {
+      return this.fireUpdateDate.format("MMMM D, YYYY");
     },
     ...mapGetters({
+      fireUpdateDate: "fireUpdateDate",
       fireCount: "fireCount",
       acresBurned: "acresBurned",
     }),
