@@ -172,9 +172,14 @@ export default new Vuex.Store({
     loadingData(state) {
       return state.pendingHttpRequests > 0;
     },
-    lastDataUpdate(state) {
+    fireUpdateDate(state) {
+      if(state.updateStatus) {
+        return moment(state.updateStatus.updated, "YYYYMMDDHH")
+      }
+    },
+    lastDataUpdate(state, getters) {
       if (state.updateStatus) {
-        return moment(state.updateStatus.updated, "YYYYMMDDHH").format(
+        return getters.fireUpdateDate.format(
           "ha, MMMM D",
         );
       }
