@@ -151,6 +151,7 @@ export default [
     abstract: `<p>&ldquo;Hotspots&rdquo; are places where temperatures are higher than expected. Scientific instruments on satellites can detect hotspots, which helps fire managers discover new wildfires. Individual hotspots are compiled into smooth gradients, where darker colors indicate greater densities of hotspots. Note that the instrument can also detect other hotspots unrelated to wildfire, such as flare stacks at oil drilling facilities on the North Slope of Alaska or even ship exhaust in the ocean.</p>
 
     <p>The data source is <a target="_blank" href="https://www.ospo.noaa.gov/Products/land/afiband.html">NOAA Active Fire Detections from the VIIRS sensor</a>, accessed from the Alaska Interagency Coordination Center (AICC) <a target="_blank" href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>
+    <p>Read about the <a target="_blank" href="https://gina.alaska.edu/wp-content/uploads/2022/05/VIIRS_ActiveFiresAlgorithm_Quick_Guide.pdf">VIIRS Active Fire Detection</a> product.
     `,
   },
   {

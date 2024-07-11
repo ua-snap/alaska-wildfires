@@ -18,11 +18,13 @@
 					<a href="https://www2.purpleair.com/">PurpleAir</a>.
 				</p>
 				<p>
-					VIIRS fire detection points are provided by the
+					VIIRS Active Fire Detections are provided by the
 					<a href="https://gina.alaska.edu"
 						>Geographic Information Network of Alaska</a
-					>, supported by funding provided by
+					>
+					with support from
 					<a href="https://www.noaa.gov/noaa-wildfire">NOAA</a> and the
+					Bureau of Land Management&rsquo;s <a href="https://www.blm.gov/programs/fire-and-aviation/regional-info/alaska-fire-service">Alaska Fire Service</a>. Data are accessed from the
 					<a href="https://fire.ak.blm.gov"
 						>Alaska Interagency Coordination Center</a
 					>.
