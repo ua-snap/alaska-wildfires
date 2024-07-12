@@ -23,7 +23,7 @@
 						>Geographic Information Network of Alaska</a
 					>
 					with support from
-					<a href="https://www.noaa.gov/noaa-wildfire">NOAA</a> and the
+					<a href="https://www.nesdis.noaa.gov/about/our-offices/office-of-low-earth-orbit-observations">NOAA</a> and the
 					Bureau of Land Management&rsquo;s <a href="https://www.blm.gov/programs/fire-and-aviation/regional-info/alaska-fire-service">Alaska Fire Service</a>. Data are accessed from the
 					<a href="https://fire.ak.blm.gov"
 						>Alaska Interagency Coordination Center</a
