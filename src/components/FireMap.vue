@@ -221,7 +221,7 @@ export default {
         service: "WFS",
         version: "1.1.0",
         request: "GetFeature",
-        typeName: "alaska_wildfires:purple_air",
+        typeName: "alaska_wildfires:purple_air_pm25_10min",
         outputFormat: "json",
       };
 
@@ -284,9 +284,17 @@ export default {
       var markers = [];
 
       geoJson.features.forEach((feature) => {
-        const aqiClassInfo = this.getAqiClassInfo(feature.properties.aqi_24hr);
+        const aqi10minClassInfo = this.getAqiClassInfo(
+          feature.properties.aqi_10m,
+        );
+        const aqi24hrClassInfo = this.getAqiClassInfo(
+          feature.properties.aqi_24hr,
+        );
 
-        if (_.isUndefined(aqiClassInfo)) {
+        if (
+          _.isUndefined(aqi10minClassInfo) ||
+          _.isUndefined(aqi24hrClassInfo)
+        ) {
           return false;
         }
 
@@ -295,9 +303,9 @@ export default {
           popupAnchor: [15, -5],
           html:
             '<span class="' +
-            aqiClassInfo.class +
+            aqi10minClassInfo.class +
             '">' +
-            feature.properties.aqi_24hr +
+            feature.properties.aqi_10m +
             "</span>",
         });
 
@@ -308,17 +316,22 @@ export default {
 
         // Create popup content
         var popupContent = `
-        <div class="${aqiClassInfo.class} sensor-detail">
-            <p>24-hour average PM2.5 AQI at this sensor on ${this.convertToAKST(
+        <div class="${aqi24hrClassInfo.class} sensor-detail">
+            <p><strong>10-minute average PM2.5 AQI</strong> at this sensor on ${this.convertToAKST(
               feature.properties.lastupdate,
             )}:
             </p>
-
-            <span class="sensor-aqi ${aqiClassInfo.class}">${
-          feature.properties.aqi_24hr
-        } &mdash; ${aqiClassInfo.name}</span>
+            <p><span class="sensor-aqi ${aqi10minClassInfo.class}">${
+          feature.properties.aqi_10m
+        } &mdash; ${aqi10minClassInfo.name}</span>
             </p>
-            <p class="aqi-explain">${aqiClassInfo.description}</p>
+            <p class="aqi-explain">${aqi10minClassInfo.description}</p>
+            <p><strong>24-hour average PM2.5 AQI</strong> at this sensor is <span class="sensor-24hr-aqi ${
+              aqi24hrClassInfo.class
+            }">${feature.properties.aqi_24hr} &mdash; ${
+          aqi24hrClassInfo.name
+        } </span> &nbsp;${aqi24hrClassInfo.description}
+            </p>
             <p>Data provided by a local <a target="_blank" href="https://www2.purpleair.com/">PurpleAir</a> sensor.</p>
           </div>
 `;
@@ -832,6 +845,36 @@ div.leaflet-marker-icon span {
     font-size: 1.5rem;
     font-weight: 700;
     padding: 0.25rem 0.5rem;
+
+    &.aqi-green {
+      background-color: #67e142;
+      color: #000;
+    }
+    &.aqi-yellow {
+      background-color: #ffff00;
+      color: #000;
+    }
+    &.aqi-orange {
+      background-color: #ff7e00;
+      color: #000;
+    }
+    &.aqi-red {
+      background-color: #ff0000;
+      color: #fff;
+    }
+    &.aqi-purple {
+      background-color: #8f3f97;
+      color: #fff;
+    }
+    &.aqi-maroon {
+      background-color: #7e0122;
+      color: #fff;
+    }
+  }
+
+  span.sensor-24hr-aqi {
+    font-size: 1rem;
+    padding: 0.25rem 0.25rem;
 
     &.aqi-green {
       background-color: #67e142;
