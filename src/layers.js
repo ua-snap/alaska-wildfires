@@ -262,7 +262,7 @@ export default [
   {
     abstract: `
     <p>This layer shows local sensor values for Air Quality Index from PM2.5, a measure of how polluted the air is.</p>
-    <p>The layer shows the most recent 24-hour average AQI from Purple Air sensors in Alaska that are configured to share data publicly.  Purple Air sensors are low-cost air quality sensors that measure particulate matter in the air.</p>
+    <p>The layer shows data for the average AQI over the last 10 minutes, and the 24-hour average AQI from Purple Air sensors in Alaska can be seen if you click on a specific sensor.  Purple Air sensors are low-cost air quality sensors that measure particulate matter in the air.</p>
     <p>PM2.5 is a common pollutant that can be harmful to human health, especially when levels are high. This layer can be useful for understanding air quality in areas near wildfires.</p>
     <p>Data are provided by <a  target="_blank" href="https://www2.purpleair.com/">PurpleAir</a>.</p>
     <ul>
@@ -274,7 +274,7 @@ export default [
     wmsLayerName: "purple_air",
     local: true,
     title: "Air quality sensor network",
-    blurb: "24-hour average AQI",
+    blurb: "Updated every 10 minutes",
     zindex: 20,
     legend: aqiTable,
     legendClassOverride: "is-one-third",
