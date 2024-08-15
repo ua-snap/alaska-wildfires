@@ -943,6 +943,49 @@ div.leaflet-marker-icon.aqi {
   }
 }
 
+/* Legend table styling */
+table.pm25-days-legend {
+  td {
+    vertical-align: middle !important;
+
+    /* For the color blocks */
+    div {
+      height: 2em;
+      width: 2em;
+    }
+  }
+
+  /* Specific styling for WFSM3_Days ranges */
+  &.wfsm3-days {
+    td div {
+      &.days-0-20 {
+        background-color: #dbe9f6;
+        border: 2px solid #a6c9de;
+      }
+      &.days-20-40 {
+        background-color: #a3cbe7;
+        border: 2px solid #78a6c1;
+      }
+      &.days-40-60 {
+        background-color: #649fce;
+        border: 2px solid #427b9c;
+      }
+      &.days-60-80 {
+        background-color: #2e7bb8;
+        border: 2px solid #215b87;
+      }
+      &.days-80-100 {
+        background-color: #17469d;
+        border: 2px solid #11347c;
+      }
+      &.days-100-plus {
+        background-color: #08306b;
+        border: 2px solid #051f4a;
+      }
+    }
+  }
+}
+
 // Legends that use images
 // Legend table styling
 table.alaska-wildfires-legend {

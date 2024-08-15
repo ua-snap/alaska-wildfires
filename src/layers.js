@@ -279,4 +279,21 @@ export default [
     legend: aqiTable,
     legendClassOverride: "is-one-third",
   },
+  {
+    abstract: `
+    <p>These data show the number of days during the wildfire season (May-September) where the air quality was classified as moderate or worse due to wildfire smoke (wildfire PM2.5 > 9 μg/m3) between 2015-2020, based on GEOS-Chem model output.</p>`,
+    wmsLayerName: "alaska_wildfires:past_pm25_concentration",
+    zindex: 5,
+    id: "past_pm25_concentration",
+    title: "Historical Air Quality",
+    legend: `<table class="table pm25-days-legend wfsm3-days">
+  <tr><td><div class="days-0-20"></div></td><td>0-20 Days</td></tr>
+  <tr><td><div class="days-20-40"></div></td><td>20-40 Days</td></tr>
+  <tr><td><div class="days-40-60"></div></td><td>40-60 Days</td></tr>
+  <tr><td><div class="days-60-80"></div></td><td>60-80 Days</td></tr>
+  <tr><td><div class="days-80-100"></div></td><td>80-100 Days</td></tr>
+  <tr><td><div class="days-100-plus"></div></td><td>100 or more Days</td></tr>
+</table>
+`,
+  },
 ];

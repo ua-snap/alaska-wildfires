@@ -14,6 +14,7 @@
     <legend-item id="alaska_landcover_2015"></legend-item>
     <legend-item id="gridded_lightning"></legend-item>
     <legend-item id="historical_fire_perimeters"></legend-item>
+    <legend-item id="past_pm25_concentration"></legend-item>
     <legend-item
       id="alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem"
     ></legend-item>
