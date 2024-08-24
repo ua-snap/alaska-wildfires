@@ -5,16 +5,12 @@ const currentYear = new Date().getFullYear();
 const aqiForecastTitle = "Air quality forecast";
 
 const aqiAbstract = `
-<p>This layer shows <strong>projected</strong> Air Quality Index from PM2.5, a measure of how polluted the air is.</p>
-
+<p>This layer shows the predicted Air Quality Index (AQI), an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics" target="_blank">Read more here</a>.</p>
 <p>&lsquo;Good&rsquo; air quality (AQI &le;50) is shown as transparent on the map.</p>
+<p>The predicted air quality can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
+<p><a href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf" target="_blank">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
+<p>The data used in this layer have been provided by the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the online data portal in the NASA Center for Climate Simulation.</p>
 
-<p>The data used in this layer have been provided by the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the <a  target="_blank" href="https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php">online data portal in the NASA Center for Climate Simulation</a>.</p>
-
-<ul>
-  <li><a  target="_blank" href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read about Particulate Matter (PM) basics</a></li>
-  <li><a  target="_blank" href="https://www.airnow.gov/aqi/aqi-basics/">Read more about AQI</a></li>
-</ul>
 `;
 
 const aqiTable = `
@@ -261,20 +257,17 @@ export default [
   },
   {
     abstract: `
-    <p>This layer shows local sensor values for Air Quality Index from PM2.5, a measure of how polluted the air is.</p>
-    <p>The layer shows the average AQI over the last 10 minutes, and the 24-hour average AQI from Purple Air sensors in Alaska can be seen if you click on a specific sensor.  Purple Air sensors are low-cost air quality sensors that measure particulate matter in the air.</p>
-    <p>PM2.5 is a common pollutant that can be harmful to human health, especially when levels are high. This layer can be useful for understanding air quality in areas near wildfires.</p>
+    <p>This layer shows sensor values for the <a target="_blank" href="https://www.airnow.gov/aqi/aqi-basics/">Air Quality Index (AQI)</a>, an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a target="_blank" href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read more here</a>.</p>
+    <p>The layer shows the average AQI over the last 10 minutes at each sensor location. The 24-hour average AQI can be seen if you click on a specific sensor. These data are measured using Purple Air sensors that are hosted by communities and made public.</p>
+    <p>The air quality shown on these sensors can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
+    <p><a target="_blank" href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
     <p>Data are provided by <a  target="_blank" href="https://www2.purpleair.com/">PurpleAir</a>.</p>
-    <ul>
-      <li><a target="_blank" href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read about Particulate Matter (PM) basics</a></li>
-      <li><a target="_blank" href="https://www.airnow.gov/aqi/aqi-basics/">Read more about AQI</a></li>
-    </ul>
     `,
     id: "purple_air",
     wmsLayerName: "purple_air",
     local: true,
     title: "Air quality sensor network",
-    blurb: "Updated every 10 minutes",
+    blurb: "updated every 10 minutes",
     zindex: 20,
     legend: aqiTable,
     legendClassOverride: "is-one-third",

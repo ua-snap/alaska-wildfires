@@ -140,7 +140,8 @@ export default {
 .layer-blurb {
   display: block;
   font-weight: 300;
-  font-size: 1.15rem;
+  font-size: 1.10rem;
   margin-left: 2rem;
+  line-height: 1.1;
 }
 </style>
