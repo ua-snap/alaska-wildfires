@@ -5,11 +5,11 @@ const currentYear = new Date().getFullYear();
 const aqiForecastTitle = "Air quality forecast";
 
 const aqiAbstract = `
-<p>This layer shows the predicted Air Quality Index (AQI), an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics" target="_blank">Read more here</a>.</p>
+<p>This layer shows the <strong>projected</strong> Air Quality Index (AQI), an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics" target="_blank">Read more here</a>.</p>
 <p>&lsquo;Good&rsquo; air quality (AQI &le;50) is shown as transparent on the map.</p>
 <p>The predicted air quality can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
 <p><a href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf" target="_blank">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
-<p>The data used in this layer have been provided by the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the online data portal in the NASA Center for Climate Simulation.</p>
+<p>The data used in this layer have been provided by the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the <a href="https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php" target="_blank">online data portal in the NASA Center for Climate Simulation</a>.</p>
 
 `;
 
