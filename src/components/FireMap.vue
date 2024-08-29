@@ -339,6 +339,11 @@ export default {
         // Bind popup to marker
         marker.bindPopup(popupContent);
 
+        // Attach analytics
+        marker.on("click", () => {
+          window.umami.track("aqi-marker-click");
+        });
+
         // Push the marker to the markers array
         markers.push(marker);
       });
@@ -595,7 +600,10 @@ export default {
                   },
                   popupOptions,
                 ),
-              ),
+              )
+              .on("click", () => {
+                window.umami.track("fire-marker-click");
+              }),
           );
         }
       });
@@ -683,7 +691,11 @@ export default {
             },
             popupOptions,
           ),
-        );
+        )
+        .on("click", () => {
+          // Attach analytics
+          window.umami.track("fire-marker-click");
+        });
     },
     // For this method, fireInfo must contain properties
     // title, acres, cause, updated, outdate

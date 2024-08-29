@@ -78,6 +78,7 @@ export default {
   },
   methods: {
     toggleLayer() {
+      window.umami.track("toggle-layer", { id: this.id });
       if (this.id.includes("aqi_forecast")) {
         this.sublayers.forEach((layer) => {
           // When an AQI forecast layer is toggled, turn off all other AQI forecast layers.
@@ -140,7 +141,7 @@ export default {
 .layer-blurb {
   display: block;
   font-weight: 300;
-  font-size: 1.10rem;
+  font-size: 1.1rem;
   margin-left: 2rem;
   line-height: 1.1;
 }
