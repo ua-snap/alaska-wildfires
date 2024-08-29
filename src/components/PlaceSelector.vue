@@ -96,6 +96,11 @@ export default {
   watch: {
     community: function (community) {
       if (community) {
+        window.umami.track("community-selected", {
+          id: community.id,
+          name: community.name,
+          region: community.region,
+        });
         this.$store.commit("setSelected", community);
         this.fetchFireAPI(community);
       }
