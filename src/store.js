@@ -173,15 +173,13 @@ export default new Vuex.Store({
       return state.pendingHttpRequests > 0;
     },
     fireUpdateDate(state) {
-      if(state.updateStatus) {
-        return moment(state.updateStatus.updated, "YYYYMMDDHH")
+      if (state.updateStatus) {
+        return moment(state.updateStatus.updated, "YYYYMMDDHH");
       }
     },
     lastDataUpdate(state, getters) {
       if (state.updateStatus) {
-        return getters.fireUpdateDate.format(
-          "ha, MMMM D",
-        );
+        return getters.fireUpdateDate.format("ha, MMMM D");
       }
     },
     aqiUpdate(state) {
@@ -262,46 +260,11 @@ export default new Vuex.Store({
       let returnedData = await axios.get(queryUrl);
       context.commit("setApiOutput", returnedData.data);
 
-      // Get Nearby Fires
-      const wfsUrl = "https://gs.mapventure.org/geoserver/wfs";
-
-      // Define parameters for the WFS requests
-      // For filtering against points
-      var pointParams = {
-        service: "WFS",
-        version: "1.1.0",
-        request: "GetFeature",
-        typeName: "alaska_wildfires:fire_points",
-        cql_filter: `Dwithin(the_geom, Point(${payload.longitude} ${payload.latitude}), 1, statute miles)`,
-        outputFormat: "json",
-      };
-
-      // For filtering against polygons
-      var polygonParams = {
-        service: "WFS",
-        version: "1.1.0",
-        request: "GetFeature",
-        typeName: "alaska_wildfires:fire_polygons",
-        // GeoServer only supports degrees, so this is a query
-        // for ~70 mile radius.
-        // https://gis.stackexchange.com/questions/132251/dwithin-wfs-filter-is-not-working
-        cql_filter: `Dwithin(the_geom, Point(${payload.longitude} ${payload.latitude}), 1, statute miles)`,
-        outputFormat: "json",
-      };
-
-      let nearbyFires = []; // will be both results, merged
-      let nearbyPointFires = await axios.get(wfsUrl, {
-        params: pointParams,
-      });
-      let nearbyPolygonFires = await axios.get(wfsUrl, {
-        params: polygonParams,
-      });
-      if (nearbyPointFires.data.features) {
-        nearbyFires = nearbyPointFires.data.features;
-      }
-      if (nearbyPolygonFires.data.features) {
-        nearbyFires = [...nearbyFires, ...nearbyPolygonFires.data.features];
-      }
+      // Get the list of nearby fires (~70 miles around the selected location) from the API
+      let nearbyFires = [
+        ...returnedData.data.fire_points,
+        ...returnedData.data.fire_polygons,
+      ];
       // Filter for only active fires
       nearbyFires = _.filter(nearbyFires, (fire) => {
         return fire.properties.active == "1";
