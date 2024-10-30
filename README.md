@@ -38,6 +38,12 @@ The app depends on an upstream API. The location of this API can be changed by s
 
 The file `src/assets/status.json` is intended to be updated by an external process (Prefect) which handling the data assimilation and backend updates. The version checked into the repository is suitable for testing.
 
+### Offline mode
+
+To set the app into "winter mode", export this env var:
+
+`export VUE_APP_ACTIVE=False`
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
