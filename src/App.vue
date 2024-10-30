@@ -86,12 +86,13 @@
               </p>
               <ul>
                 <li>
-                  <strong>Updated twice per day:</strong> locations and sizes of active wildfires, hotspots and recent
-                  lightning, and air quality forecasts up to 36 hours
+                  <strong>Updated twice per day:</strong> locations and sizes of
+                  active wildfires, hotspots and recent lightning, and air
+                  quality forecasts up to 48 hours
                 </li>
                 <li>
-                  <strong>Updated every 10 minutes:</strong> air quality sensors showing PM2.5 AQI (Air Quality
-                  Index)
+                  <strong>Updated every 10 minutes:</strong> air quality sensors
+                  showing PM2.5 AQI (Air Quality Index)
                 </li>
                 <li>
                   Academic data layers for research, including lightning
@@ -116,14 +117,19 @@
             <div class="content is-size-4">
               <ul>
                 <li>
-                  Learn more about wildfire in Arctic ecosystems from <a href="https://courses.edx.org/videos/block-v1:AlaskaX+IARC100+2T2024+type@video+block@460e8ddddab04171bcaafba0919c7d86">
-                    SNAP
-                    Director and wildfire ecologist Dr. Scott Rupp in this video
-                    on EdX
-                  </a>.
+                  Learn more about wildfire in Arctic ecosystems from
+                  <a
+                    href="https://courses.edx.org/videos/block-v1:AlaskaX+IARC100+2T2024+type@video+block@460e8ddddab04171bcaafba0919c7d86"
+                  >
+                    SNAP Director and wildfire ecologist Dr. Scott Rupp in this
+                    video on EdX </a
+                  >.
                 </li>
                 <li>
-                  Our partner research unit the <a href="https://www.frames.gov/afsc/home">Alaska Fire Science Consortium</a>
+                  Our partner research unit the
+                  <a href="https://www.frames.gov/afsc/home"
+                    >Alaska Fire Science Consortium</a
+                  >
                   is another great place for resources on fire management in
                   Alaska.
                 </li>
@@ -137,24 +143,36 @@
               <ul>
                 <li>
                   You can find out more about historical and projected
-                  flammability across Alaska and western Canada in our <a href="https://northernclimatereports.org">
-                    Northern
-                    Climate Reports
-                  </a> tool.
+                  flammability across Alaska and western Canada in our
+                  <a href="https://northernclimatereports.org">
+                    Northern Climate Reports
+                  </a>
+                  tool.
                 </li>
                 <li>
-                  Our <a href="https://snap.uaf.edu/tools/daily-fire-tally">Fire Tally tool</a>, developed in partnership with the Alaska Interagency Coordination Center, displays historical acres burned for
+                  Our
+                  <a href="https://snap.uaf.edu/tools/daily-fire-tally"
+                    >Fire Tally tool</a
+                  >, developed in partnership with the Alaska Interagency
+                  Coordination Center, displays historical acres burned for
                   different wildfire seasons across different areas in Alaska.
                 </li>
                 <li>
-                  Our <a href="https://snap.uaf.edu/tools/fish-and-fire/">Fish and Fire in Interior Alaska</a> tool explores fire
-                  management options in the context of runoff and river growth
-                  for the watershed around Fairbanks, Alaska.
+                  Our
+                  <a href="https://snap.uaf.edu/tools/fish-and-fire/"
+                    >Fish and Fire in Interior Alaska</a
+                  >
+                  tool explores fire management options in the context of runoff
+                  and river growth for the watershed around Fairbanks, Alaska.
                 </li>
                 <li>
                   Many of the data feeds that are used by this tool come from
-                  the <a href="https://fire.ak.blm.gov">Alaska Interagency Coordination Center</a> where data and
-                  reports for current and past fire seasons are often available.
+                  the
+                  <a href="https://fire.ak.blm.gov"
+                    >Alaska Interagency Coordination Center</a
+                  >
+                  where data and reports for current and past fire seasons are
+                  often available.
                 </li>
               </ul>
               <p>Looking forward to seeing you here next year!</p>
