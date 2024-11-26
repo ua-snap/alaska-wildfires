@@ -40,7 +40,7 @@ Object.defineProperty(Vue.prototype, "$L", { value: L });
 Object.defineProperty(Vue.prototype, "$axios", { value: axios });
 Object.defineProperty(Vue.prototype, "$moment", { value: moment });
 
-const wfsUrl = "https://gs.mapventure.org/geoserver/wfs";
+const wfsUrl = "https://gs.earthmaps.io/geoserver/wfs";
 
 // Wire in two listeners that will keep track of open
 // HTTP requests.
