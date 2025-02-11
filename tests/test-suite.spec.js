@@ -413,3 +413,69 @@ test('Projected flammability', async ({ page }) => {
   src = await legend.locator('a:has-text("can be downloaded here")').getAttribute('href')
   expect(src).toContain('https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214')
 })
+
+test('Footer links', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  let src = await page.locator('.footer a:has-text("Alaska Interagency Coordination Center")').first().getAttribute('href')
+  expect(src).toContain('https://fire.ak.blm.gov/aicc.php')
+
+  src = await page.locator('.footer a:has-text("MesoWest data services")').getAttribute('href')
+  expect(src).toContain('https://mesowest.utah.edu')
+
+  src = await page.locator('.footer a:has-text("Global Modeling and Assimilation Office (GMAO)")').getAttribute('href')
+  expect(src).toContain('https://gmao.gsfc.nasa.gov/')
+
+  src = await page.locator('.footer a:has-text("PurpleAir")').getAttribute('href')
+  expect(src).toContain('https://www2.purpleair.com/')
+
+  src = await page.locator('.footer a:has-text("Geographic Information Network of Alaska")').getAttribute('href')
+  expect(src).toContain('https://gina.alaska.edu')
+
+  src = await page.locator('.footer a:has-text("NOAA")').getAttribute('href')
+  expect(src).toContain('https://www.nesdis.noaa.gov/about/our-offices/office-of-low-earth-orbit-observations')
+
+  src = await page.locator('.footer a:has-text("Alaska Fire Service")').getAttribute('href')
+  expect(src).toContain('https://www.blm.gov/programs/fire-and-aviation/regional-info/alaska-fire-service')
+
+  src = await page.locator('.footer a:has-text("Alaska Interagency Coordination Center")').last().getAttribute('href')
+  expect(src).toContain('https://fire.ak.blm.gov')
+
+  src = await page.locator('.footer a:has-text("Scenarios Network for Alaska and Arctic Planning")').getAttribute('href')
+  expect(src).toContain('https://www.snap.uaf.edu/')
+
+  src = await page.locator('.footer a:has-text("Alaska Climate Adaptation Science Center")').getAttribute('href')
+  expect(src).toContain('https://akcasc.org')
+
+  src = await page.locator('.footer a:has-text("Institute for Circumpolar Health Studies")').getAttribute('href')
+  expect(src).toContain('https://www.uaa.alaska.edu/academics/college-of-health/departments/population-health-sciences/institute-for-circumpolar-health-studies')
+
+  src = await page.locator('.footer a:has-text("Center for Disaster Resilient Communities")').getAttribute('href')
+  expect(src).toContain('https://cdrc.uw.edu')
+
+  src = await page.locator('.footer a:has-text("EPA Grant Number R840479")').getAttribute('href')
+  expect(src).toContain('https://cfpub.epa.gov/ncer_abstracts/index.cfm/fuseaction/display.abstractDetail/abstract_id/11349')
+
+  src = await page.locator('.footer a:has-text("International Arctic Research Center")').getAttribute('href')
+  expect(src).toContain('https://uaf-iarc.org/')
+
+  src = await page.locator('.footer a:has-text("University of Alaska Fairbanks")').getAttribute('href')
+  expect(src).toContain('https://uaf.edu/uaf/')
+
+  src = await page.locator('.footer a:has-text("uaf-snap-data-tools@alaska.edu")').getAttribute('href')
+  expect(src).toContain('mailto:uaf-snap-data-tools@alaska.edu')
+
+  src = await page.locator('.footer a:has-text("Visit the SNAP Climate + Weather Tools page")').getAttribute('href')
+  expect(src).toContain('https://uaf-snap.org/tools-overview/')
+
+  src = await page.locator('.footer a:has-text("Statement of Nondiscrimination")').getAttribute('href')
+  expect(src).toContain('https://www.alaska.edu/nondiscrimination/')
+
+  src = await page.locator('.footer a:has-text("Privacy Statement")').getAttribute('href')
+  expect(src).toContain('https://www.alaska.edu/records/records/compliance/gdpr/ua-privacy-statement/')
+
+  src = await page.locator('.footer a:has-text("Learn more about UA’s notice of web accessibility")').getAttribute('href')
+  expect(src).toContain('https://www.alaska.edu/webaccessibility/')
+
+})
