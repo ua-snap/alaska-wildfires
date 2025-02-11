@@ -45,7 +45,6 @@ test('Current conditions', async ({ page }) => {
   await page.waitForTimeout(3000)
 
   const results = page.locator('.dropdown-menu .dropdown-item:has(div:has-text("Fairbanks"))')
-  console.log(results)
 
   await page.click('.dropdown-menu .dropdown-item:has(div:text-is("Fairbanks"))')
 
