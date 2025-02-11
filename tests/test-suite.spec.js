@@ -1,0 +1,415 @@
+import { test, expect } from '@playwright/test'
+
+const url = 'http://localhost:8080'
+
+test('Intro text', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  let src = await page.locator('.intro a:has-text("Alaska Interagency Coordination Center")').getAttribute('href')
+  expect(src).toContain('https://fire.ak.blm.gov/')
+
+  const glowText = await page.locator('.intro .glow').textContent()
+  const regex = /As of (.*), there are (.*) active fires, and approximately (.*) acres have burned this fire season./
+  const matches = glowText.match(regex)
+
+  const dataDate = matches[1]
+  const fireCount = matches[2]
+  const acresBurned = matches[3]
+
+  expect(dataDate).toMatch(/^[A-Z][a-z]+ \d{1,2}, \d{4}$/)
+  expect(fireCount).toMatch(/^[0-9,]+$/)
+  expect(acresBurned).toMatch(/^[0-9,]+$/)
+
+  src = await page.locator('.intro a:has-text("Fire Tally")').getAttribute('href')
+  expect(src).toContain('https://snap.uaf.edu/tools/daily-fire-tally')
+})
+
+test('Place selector autocomplete', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+  await page.fill('.place-selector input', 'Fairb')
+
+  // Wait a bit for autocomplete options to load.
+  await page.waitForTimeout(3000)
+
+  await expect(page.locator('.dropdown-menu .dropdown-item')).toHaveCount(1)
+})
+
+test('Current conditions', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+  await page.fill('.place-selector input', 'Fairbanks')
+
+  // Wait a bit for autocomplete options to load.
+  await page.waitForTimeout(3000)
+
+  const results = page.locator('.dropdown-menu .dropdown-item:has(div:has-text("Fairbanks"))')
+  console.log(results)
+
+  await page.click('.dropdown-menu .dropdown-item:has(div:text-is("Fairbanks"))')
+
+  // Wait a bit for data to load.
+  await page.waitForTimeout(3000)
+
+  let src = await page.locator('.intro a:has-text("Fire danger")').getAttribute('href')
+  expect(src).toContain('https://en.wikipedia.org/wiki/National_Fire_Danger_Rating_System')
+
+  await expect(page.locator('.intro table')).toHaveCount(2)
+
+  const tables = page.locator('.intro table')
+  const tableCount = await tables.count()
+  for (let i = 0; i < tableCount; i++) {
+    await expect(tables.nth(i)).toBeVisible()
+  }
+})
+
+test('Active wildfires layer', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+  await expect.poll(() => page.locator('.leaflet-container .leaflet-marker-icon').count()).toBeGreaterThan(10)
+
+  let legend = page.locator('.legend--item:has(table.active-fires)')
+  expect(legend).toBeVisible()
+
+  let src = await legend.locator('a:has-text("data services")').getAttribute('href')
+  expect(src).toContain('https://fire.ak.blm.gov/predsvcs/maps.php')
+
+  // Test disabling of wildfires layer.
+  await page.click('#fires a')
+  await expect(page.locator('.leaflet-container .leaflet-marker-icon')).toHaveCount(0)
+})
+
+test('Hotspots layer', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#viirs a')
+
+  await expect(page.locator('.leaflet-container .leaflet-heatmap-layer')).toBeVisible()
+
+  let legend = page.locator('.legend--item:has(h4:has-text("Hotspots, last 48 hours"))')
+  expect(legend).toBeVisible()
+
+  let src = await legend.locator('img').last().getAttribute('src')
+  expect(src).toContain('hotspot-legend')
+
+  src = await legend.locator('a:has-text("NOAA Active Fire Detections from the VIIRS sensor")').getAttribute('href')
+  expect(src).toContain('https://www.ospo.noaa.gov/Products/land/afiband.html')
+
+  src = await legend.locator('a:has-text("data services")').getAttribute('href')
+  expect(src).toContain('https://fire.ak.blm.gov/predsvcs/maps.php')
+
+  src = await legend.locator('a:has-text("VIIRS Active Fire Detection")').getAttribute('href')
+  expect(src).toContain('https://gina.alaska.edu/wp-content/uploads/2022/05/VIIRS_ActiveFiresAlgorithm_Quick_Guide.pdf')
+})
+
+test('Lightning strikes layer', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#lightning_strikes a')
+
+  // Check that the most recently added map tiles contain "lightning_strikes" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('lightning_strikes')
+
+  let legend = page.locator('.legend--item:has(table.lightning)')
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("data services")').getAttribute('href')
+  expect(src).toContain('https://fire.ak.blm.gov/predsvcs/maps.php')
+})
+
+test('Fire danger layer', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#spruceadj_3338 a')
+
+  // Check that the most recently added map tiles contain "spruceadj_3338" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('spruceadj_3338')
+
+  let legend = page.locator('.legend--item:has(table.smokey-bear)')
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("layers provided by MesoWest Alaska Fires & Fuels website")').getAttribute('href')
+  expect(src).toContain('https://akff.mesowest.org')
+})
+
+test('Air quality sensor network layer', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#purple_air a')
+  await expect.poll(() => page.locator('.leaflet-container .leaflet-marker-icon.aqi').count()).toBeGreaterThan(10)
+
+  let legend = page.locator('.legend--item:has(table.aqi-forecast)').nth(0)
+  expect(legend).toBeVisible()
+
+  let src = await legend.locator('a:has-text("Air Quality Index (AQI)")').getAttribute('href')
+  expect(src).toContain('https://www.airnow.gov/aqi/aqi-basics/')
+
+  src = await legend.locator('a:has-text("Read more here")').getAttribute('href')
+  expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
+
+  src = await legend.locator('a:has-text("Learn more about how to protect yourself and your family")').getAttribute('href')
+  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
+
+  src = await legend.locator('a:has-text("PurpleAir")').getAttribute('href')
+  expect(src).toContain('https://www2.purpleair.com/')
+})
+
+test('6-hour air quality forecast layer', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#aqi_forecast_6_hrs a')
+
+  await page.waitForTimeout(3000)
+
+  // Check that the most recently added map tiles contain "aqi_forecast_6_hrs" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('aqi_forecast_6_hrs')
+
+  let legend = page.locator('.legend--item:has(table.aqi-forecast)').nth(1)
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("Read more here")').getAttribute('href')
+  expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
+
+  src = await legend.locator('a:has-text("Learn more about how to protect yourself and your family")').getAttribute('href')
+  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
+
+  src = await legend.locator('a:has-text("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
+  expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
+
+})
+
+test('12-hour air quality forecast layer', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#aqi_forecast_12_hrs a')
+
+  // Check that the most recently added map tiles contain "aqi_forecast_12_hrs" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('aqi_forecast_12_hrs')
+
+  let legend = page.locator('.legend--item:has(table.aqi-forecast)').nth(2)
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("Read more here")').getAttribute('href')
+  expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
+
+  src = await legend.locator('a:has-text("Learn more about how to protect yourself and your family")').getAttribute('href')
+  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
+
+  src = await legend.locator('a:has-text("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
+  expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
+})
+
+test('24-hour air quality forecast layer', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#aqi_forecast_24_hrs a')
+
+  // Check that the most recently added map tiles contain "aqi_forecast_24_hrs" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('aqi_forecast_24_hrs')
+
+  let legend = page.locator('.legend--item:has(table.aqi-forecast)').nth(3)
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("Read more here")').getAttribute('href')
+  expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
+
+  src = await legend.locator('a:has-text("Learn more about how to protect yourself and your family")').getAttribute('href')
+  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
+
+  src = await legend.locator('a:has-text("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
+  expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
+})
+
+test('48-hour air quality forecast layer', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#aqi_forecast_48_hrs a')
+
+  // Check that the most recently added map tiles contain "aqi_forecast_48_hrs" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('aqi_forecast_48_hrs')
+
+  let legend = page.locator('.legend--item:has(table.aqi-forecast)').nth(4)
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("Read more here")').getAttribute('href')
+  expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
+
+  src = await legend.locator('a:has-text("Learn more about how to protect yourself and your family")').getAttribute('href')
+  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
+
+  src = await legend.locator('a:has-text("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
+  expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
+})
+
+test('Snow cover', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#snow_cover_3338 a')
+
+  // Check that the most recently added map tiles contain "snow_cover_3338" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('snow_cover_3338')
+
+  let legend = page.locator('.legend--item:has(table.snow-cover)')
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("Visit the data source")').getAttribute('href')
+  expect(src).toContain('https://usicecenter.gov/Resources/ImsInfo')
+})
+
+test('Land cover types', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#alaska_landcover_2015 a')
+
+  // Check that the most recently added map tiles contain "wildfires" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('alaska_landcover_2015')
+
+  let legend = page.locator('.legend--item:has(table.alaska-landcover-2015)')
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("North American Land Change Monitoring System, 2015")').getAttribute('href')
+  expect(src).toContain('https://eros.usgs.gov/doi-remote-sensing-activities/2019/usgs/nalcms-release-new-land-cover-north-america')
+})
+
+test('Historical lightning strikes', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#gridded_lightning a')
+
+  // Check that the most recently added map tiles contain "lightning-monthly-climatology" in the URL of their src attribute.
+  // Also check that the layer loaded is for the month of May.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('lightning-monthly-climatology')
+  expect(src).toContain('2015-5-01')
+
+  // Click the #gridded_lightning select dropdown and select "August"
+  await page.selectOption('#gridded_lightning select', '8')
+
+  // Check that the most recently added map tiles contain "lightning-monthly-climatology" in the URL of their src attribute.
+  // Also check that the layer loaded is for the month of August.
+  src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('lightning-monthly-climatology')
+  expect(src).toContain('2015-8-01')
+
+  let legend = page.locator('.legend--item:has(table.lightning-climatology)')
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("this academic paper")').getAttribute('href')
+  expect(src).toContain('https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml')
+
+  src = await legend.locator('a:has-text("the dataset can be downloaded here")').getAttribute('href')
+  expect(src).toContain('https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548')
+})
+
+test('Historical fire perimeters', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#historical_fire_perimeters a')
+
+  // Check that the most recently added map tiles contain "lightning-monthly-climatology" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('historical_fire_perimeters')
+
+  let legend = page.locator('.legend--item:has(table.historical-fire-perimeters)')
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("data services")').getAttribute('href')
+  expect(src).toContain('https://fire.ak.blm.gov/predsvcs/maps.php')
+})
+
+test('Historical modeled flammability', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem a')
+
+  // Check that the most recently added map tiles contain "alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem')
+
+  let legend = page.locator('.legend--item:has(h4:has-text("Historical modeled flammability"))')
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("can be downloaded here")').getAttribute('href')
+  expect(src).toContain('https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214')
+})
+
+test('Projected flammability', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  await page.click('#alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099 a')
+
+  // Check that the most recently added map tiles contain "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099" in the URL of their src attribute.
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099')
+
+  let legend = page.locator('.legend--item:has(h4:has-text("Projected flammability"))')
+  expect(legend).toBeVisible()
+
+  src = await legend.locator('a:has-text("can be downloaded here")').getAttribute('href')
+  expect(src).toContain('https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214')
+})
