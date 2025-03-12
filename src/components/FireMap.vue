@@ -40,8 +40,6 @@ Object.defineProperty(Vue.prototype, "$L", { value: L });
 Object.defineProperty(Vue.prototype, "$axios", { value: axios });
 Object.defineProperty(Vue.prototype, "$moment", { value: moment });
 
-const wfsUrl = "https://gs.earthmaps.io/geoserver/wfs";
-
 // Wire in two listeners that will keep track of open
 // HTTP requests.
 Vue.prototype.$axios.interceptors.request.use(
@@ -227,7 +225,7 @@ export default {
 
       return new Promise((resolve) => {
         this.$axios
-          .get(wfsUrl, { params })
+          .get(process.env.VUE_APP_GEOSERVER_WFS_URL, { params })
           .then((response) => {
             if (response.data) {
               // Process the WFS data
@@ -363,7 +361,7 @@ export default {
 
       return new Promise((resolve) => {
         this.$axios
-          .get(wfsUrl, { params })
+          .get(process.env.VUE_APP_GEOSERVER_WFS_URL, { params })
           .then((response) => {
             if (response.data) {
               // Process the WFS data
@@ -422,8 +420,12 @@ export default {
       };
 
       return Promise.all([
-        this.$axios.get(wfsUrl, { params: pointParams }),
-        this.$axios.get(wfsUrl, { params: polygonParams }),
+        this.$axios.get(process.env.VUE_APP_GEOSERVER_WFS_URL, {
+          params: pointParams,
+        }),
+        this.$axios.get(process.env.VUE_APP_GEOSERVER_WFS_URL, {
+          params: polygonParams,
+        }),
       ])
         .then((responses) => {
           let fireCount = 0;
