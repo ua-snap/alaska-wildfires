@@ -26,6 +26,7 @@ const aqiTable = `
 export default [
   {
     id: "fires",
+    numericId: 0,
     wmsLayerName: "fires",
     title: currentYear + " Wildfires",
     local: true,
@@ -50,6 +51,7 @@ export default [
   },
   {
     id: "lightning_strikes",
+    numericId: 1,
     wmsLayerName: "lightning_strikes",
     title: "Lightning strikes, last 36 hours",
     layerName: "alaska_wildfires:lightning_strikes",
@@ -69,6 +71,7 @@ export default [
   },
   {
     id: "gridded_lightning",
+    numericId: 2,
     wmsLayerName(params) {
       var monthName = moment.months(params.month - 1);
       return {
@@ -97,6 +100,7 @@ export default [
   },
   {
     id: "aqi_forecast_6_hrs",
+    numericId: 3,
     wmsLayerName: "alaska_wildfires:aqi_forecast_6_hrs",
     title: "6 Hours",
     subtitle: aqiForecastTitle,
@@ -108,6 +112,7 @@ export default [
   },
   {
     id: "aqi_forecast_12_hrs",
+    numericId: 4,
     wmsLayerName: "alaska_wildfires:aqi_forecast_12_hrs",
     title: "12 Hours",
     subtitle: aqiForecastTitle,
@@ -118,6 +123,7 @@ export default [
   },
   {
     id: "aqi_forecast_24_hrs",
+    numericId: 5,
     wmsLayerName: "alaska_wildfires:aqi_forecast_24_hrs",
     title: "24 Hours",
     subtitle: aqiForecastTitle,
@@ -128,6 +134,7 @@ export default [
   },
   {
     id: "aqi_forecast_48_hrs",
+    numericId: 6,
     wmsLayerName: "alaska_wildfires:aqi_forecast_48_hrs",
     title: "48 Hours",
     subtitle: aqiForecastTitle,
@@ -138,6 +145,7 @@ export default [
   },
   {
     id: "viirs",
+    numericId: 7,
     wmsLayerName: "viirs",
     title: "Hotspots, last 48 hours",
     layerName: "alaska_wildfires:viirs_hotspots",
@@ -154,6 +162,7 @@ export default [
     abstract: `
           <p>Land cover classification from the <a  target="_blank" href="https://eros.usgs.gov/doi-remote-sensing-activities/2019/usgs/nalcms-release-new-land-cover-north-america">North American Land Change Monitoring System, 2015</a>. Spatial resolution is 30&#8239;m (1 pixel = 30&#8239;m on the ground). Dominant land cover relates to wildfire because it varies across the landscape, and influences how a region may burn. Wildfires often change the dominant land cover type, and many fires have occurred since this layer was created.</p>`,
     id: "alaska_landcover_2015",
+    numericId: 8,
     wmsLayerName: "alaska_wildfires:alaska_landcover_2015",
     title: "Land cover types",
     zindex: 3,
@@ -180,6 +189,7 @@ export default [
     abstract: `
           <p>Older wildfire perimeters can be interesting to study in relation to newer fires. Previously burned areas often stop new fires from spreading due to a lack of fuel.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a  target="_blank"  href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
     id: "historical_fire_perimeters",
+    numericId: 9,
     wmsLayerName: "historical_fire_perimeters",
     zindex: 10,
     styles: "historical_fire_polygon_buckets",
@@ -194,6 +204,7 @@ export default [
     abstract: `
     <p>This layer is derived from the U.S. National Ice Center&rsquo;s Interactive Multisensor Snow and Ice Mapping System, which shows snow and ice coverage over the Northern Hemisphere at 1 km resolution. This map shows only snow coverage as an indicator of potential for early fire during spring in Alaska. <a  target="_blank" href="https://usicecenter.gov/Resources/ImsInfo">Visit the data source</a>.</p>`,
     id: "snow_cover_3338",
+    numericId: 10,
     wmsLayerName: "alaska_wildfires:snow_cover_3338",
     styles: "alaska_wildfires:snow_cover",
     zindex: 10,
@@ -208,6 +219,7 @@ export default [
     <p>This is the same information shown on the &ldquo;Smokey the Bear&rdquo; signs!  Fire managers use these ratings to understand the environment that is developing over time. Ratings are used to assess the risk of wildfires for areas of Alaska based on factors such as recent precipitation and buildup of vegetation in an area.  Data are derived from <a  target="_blank" href="https://akff.mesowest.org">layers provided by MesoWest Alaska Fires &amp; Fuels website</a>.</p>
     `,
     id: "spruceadj_3338",
+    numericId: 11,
     wmsLayerName: "alaska_wildfires:spruceadj_3338",
     styles: "alaska_wildfires:spruce_adjective",
     zindex: 10,
@@ -225,6 +237,7 @@ export default [
           <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. These modeled data for the previous century (1900&ndash;1999) allow for comparison between that century and this one, but do not necessarily match historical fire perimeters.</p>
           <p>Source data, including additional models and scenarios, <a  target="_blank" href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
     id: "alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem",
+    numericId: 12,
     wmsLayerName:
       "alaska_wildfires:alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem",
     zindex: 5,
@@ -242,6 +255,7 @@ export default [
     abstract: `
           <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2000&ndash;2099 using the <a target="_blank" href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can’t predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a  target="_blank" href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
     id: "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
+    numericId: 13,
     wmsLayerName:
       "alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
     zindex: 5,
@@ -264,6 +278,7 @@ export default [
     <p>Data are provided by <a  target="_blank" href="https://www2.purpleair.com/">PurpleAir</a>.</p>
     `,
     id: "purple_air",
+    numericId: 14,
     wmsLayerName: "purple_air",
     local: true,
     title: "Air quality sensor network",

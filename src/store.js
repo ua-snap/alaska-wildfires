@@ -117,10 +117,34 @@ export default new Vuex.Store({
         "visible",
         payload.setTo,
       );
+      // Add numeric IDs of all visible layers to the URL as GET parameters
+      let visibleLayers = state.layers
+        .map((layer) => (layer.visible ? layer.numericId : null))
+        .filter((index) => index !== null);
+  
+      // Update the URL with the visible layers
+      if (payload.router) {
+        payload.router.replace({
+          query: {
+            ...payload.router.query,
+            layers: visibleLayers.join(","),
+          },
+        });
+      }
     },
-    setLayerVisibility(state, { id, visible }) {
-      const layer = state.layers.find((layer) => layer.id === id);
+    setLayerVisibility(state, { id, numericId, visible }) {
+      let layer_id;
+      if (id) {
+        layer_id = id;
+      } else if (numericId >= 0) {
+        let foundLayer = state.layers.find((layer) => layer.numericId === parseInt(numericId))
+        layer_id = foundLayer.id;
+      } else {
+        console.error("No layer id or index provided to setLayerVisibility");
+      }
+      const layer = state.layers.find((layer) => layer.id === layer_id);
       layer.visible = visible;
+      Vue.set(state.layers);
     },
     /*
 

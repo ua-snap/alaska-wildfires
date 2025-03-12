@@ -294,6 +294,11 @@ export default {
     }),
   },
   created() {
+    const path = (/#!(\/.*)$/.exec(this.$route.fullPath) || [])[1];
+    if (path) {
+      this.$router.push({ path: path });
+    }
+
     this.fetch();
   },
   methods: {

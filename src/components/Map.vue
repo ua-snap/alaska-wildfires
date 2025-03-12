@@ -78,6 +78,17 @@ export default {
 
     setTimeout(() => {
       this.$options.leaflet.map.invalidateSize();
+
+      // Set visibility of layers based on query params
+      let numericIds = this.$route.query.layers ? this.$route.query.layers.split(',') : [];
+      if (numericIds.length > 0) {
+        numericIds.forEach((numericId) => {
+          this.$store.commit("setLayerVisibility", {
+            numericId: numericId,
+            visible: true,
+          });
+        });
+      }
     }, 0);
 
     // Adds an event listener to prevent layer text selection when shift-clicking on the map
@@ -94,10 +105,12 @@ export default {
       },
     },
     selected: function () {
-      this.$options.leaflet.map.setView(
-        [this.selected.latitude, this.selected.longitude],
-        3.5,
-      );
+      if (this.selected) {
+        this.$options.leaflet.map.setView(
+          [this.selected.latitude, this.selected.longitude],
+          3.5,
+        );
+      }
     },
   },
   methods: {

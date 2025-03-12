@@ -12,7 +12,6 @@
             field="name"
             placeholder="e.g. Fairbanks"
             clearable
-            clear-on-select
             @select="(option) => (community = option)"
           >
             <template #empty>No results found</template>
@@ -101,8 +100,36 @@ export default {
           name: community.name,
           region: community.region,
         });
-        this.$store.commit("setSelected", community);
-        this.fetchFireAPI(community);
+        if (community.id !== this.$route.params.communityId) {
+          this.$router.push({ path: '/' + community.id });
+        }
+      }
+    },
+    // Triggered if user started on front page and selected a community
+    "$route.params.communityId": function (communityId) {
+      if (communityId) {
+        const community = this.places.data.find(
+          (place) => place.id == communityId
+        );
+        if (community) {
+          this.placeNameFragment = community.name;
+          this.$store.commit("setSelected", community);
+          this.fetchFireAPI(community);
+        }
+      }
+    },
+    // Triggered if user arrived to webapp with communityId permalink
+    "places.data": function () {
+      let communityId = this.$route.params.communityId;
+      if (communityId) {
+        const community = this.places.data.find(
+          (place) => place.id == communityId
+        );
+        if (community) {
+          this.placeNameFragment = community.name;
+          this.$store.commit("setSelected", community);
+          this.fetchFireAPI(community);
+        }
       }
     },
   },
@@ -112,6 +139,8 @@ export default {
     },
     clearSelection() {
       this.$store.commit("clearSelected");
+      this.placeNameFragment = '';
+      this.$router.push({ path: '/' })
     },
   },
 };
