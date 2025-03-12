@@ -77,10 +77,6 @@ var viirsLayerGroup;
 var purpleAirMarkers;
 var purpleAirLayerGroup;
 
-console.log("WMS URL:", process.env.VUE_APP_GEOSERVER_WMS_URL);
-console.log("WFS URL:", process.env.VUE_APP_GEOSERVER_WFS_URL);
-console.log("Active:", process.env.VUE_APP_ACTIVE);
-
 // Current time zone offset (used in parseDate below).
 var offset = new Date().getTimezoneOffset();
 
