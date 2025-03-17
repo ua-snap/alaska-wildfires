@@ -44,6 +44,16 @@ To set the app into "winter mode", export this env var:
 
 `export VUE_APP_ACTIVE=False`
 
+## Building the repository for production
+
+This repository uses AWS CLI tools to pull the latest version of the status.json file from the production version of the application before building the application. This means that the status.json will match the last time data was updated using our Prefect update scripts.
+
+To use the build command, be sure you have [AWS CLI Toolkit](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed. Then you can run:
+
+```
+npm run build
+```
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
