@@ -101,10 +101,9 @@ export default {
           region: community.region,
         });
         if (community.id !== this.$route.params.communityId) {
-            this.$router.push({
-              path: '/' + community.id,
-              query: { ...this.$route.query }
-            });
+          let routeParams = { path: '/' + community.id }
+          routeParams.query = { layers: this.$route.query.layers }
+          this.$router.push(routeParams);
         }
       }
     },
@@ -143,7 +142,10 @@ export default {
     clearSelection() {
       this.$store.commit("clearSelected");
       this.placeNameFragment = '';
-      this.$router.push({ path: '/' })
+
+      let routeParams = { path: '/' }
+      routeParams.query = { layers: this.$route.query.layers }
+      this.$router.push(routeParams);
     },
   },
 };
