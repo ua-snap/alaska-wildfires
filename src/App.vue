@@ -299,6 +299,11 @@ export default {
       this.$router.push({ path: path });
     }
 
+    // Remove the "layers" GET parameter if it is empty
+    if (this.$route.query.layers === "") {
+      this.$router.push({ query: {} });
+    }
+
     this.fetch();
   },
   methods: {
