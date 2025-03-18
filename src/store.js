@@ -132,6 +132,11 @@ export default new Vuex.Store({
         });
       }
     },
+    hideAllLayers(state) {
+      state.layers.forEach((layer) => {
+        layer.visible = false;
+      });
+    },
     setLayerVisibility(state, { id, numericId, visible }) {
       let layer_id;
       if (id) {

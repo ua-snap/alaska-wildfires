@@ -78,18 +78,19 @@ export default {
 
     setTimeout(() => {
       this.$options.leaflet.map.invalidateSize();
-
-      // Set visibility of layers based on query params
-      let numericIds = this.$route.query.layers ? this.$route.query.layers.split(',') : [];
-      if (numericIds.length > 0) {
-        numericIds.forEach((numericId) => {
-          this.$store.commit("setLayerVisibility", {
-            numericId: numericId,
-            visible: true,
-          });
-        });
-      }
     }, 0);
+
+    // Set visibility of layers based on query params
+    let numericIds = this.$route.query.layers ? this.$route.query.layers.split(',') : [];
+    if (numericIds.length > 0) {
+      this.$store.commit("hideAllLayers");
+      numericIds.forEach((numericId) => {
+        this.$store.commit("setLayerVisibility", {
+          numericId: numericId,
+          visible: true,
+        });
+      });
+    }
 
     // Adds an event listener to prevent layer text selection when shift-clicking on the map
     this.$options.leaflet.map

@@ -101,7 +101,10 @@ export default {
           region: community.region,
         });
         if (community.id !== this.$route.params.communityId) {
-          this.$router.push({ path: '/' + community.id });
+            this.$router.push({
+              path: '/' + community.id,
+              query: { ...this.$route.query }
+            });
         }
       }
     },
