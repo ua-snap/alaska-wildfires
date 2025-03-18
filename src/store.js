@@ -101,6 +101,7 @@ export default new Vuex.Store({
     {
       // id: Layer id
       id: '',
+      router: VueRouter instance,
 
       // If `undefined`, toggles current state.
       // If `true` or `false`, sets the layer's visibility
