@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "aws s3 cp s3://alaskawildfires.org/status.json ./public/ && vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
