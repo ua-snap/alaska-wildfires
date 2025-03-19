@@ -466,7 +466,7 @@ export default {
           this.getFireMarkerPopupContents({
             title: feature.properties.NAME,
             acres: feature.properties.acres,
-            cause: feature.properties.GENERALCAUSE,
+            cause: feature.properties.CAUSE,
             updated: feature.properties.updated,
             outdate: feature.properties.OUTDATE,
             discovered: feature.properties.discovered,
@@ -595,7 +595,7 @@ export default {
                   {
                     title: feature.properties.NAME,
                     acres: feature.properties.acres,
-                    cause: feature.properties.GENERALCAUSE,
+                    cause: feature.properties.CAUSE,
                     updated: feature.properties.updated,
                     outdate: feature.properties.OUTDATE,
                     discovered: feature.properties.discovered,
@@ -686,7 +686,7 @@ export default {
             {
               title: geoJson.properties.NAME,
               acres: geoJson.properties.acres,
-              cause: geoJson.properties.GENERALCAUSE,
+              cause: geoJson.properties.CAUSE,
               updated: geoJson.properties.updated,
               outdate: geoJson.properties.OUTDATE,
               discovered: geoJson.properties.discovered,
