@@ -330,7 +330,7 @@ export default {
           aqi24hrClassInfo.name
         } </span> &nbsp;${aqi24hrClassInfo.description}
             </p>
-            <p>Data provided by a local <a target="_blank" href="https://www2.purpleair.com/">PurpleAir</a> sensor.</p>
+            <p>Data provided by a local <a href="https://www2.purpleair.com/">PurpleAir</a> sensor.</p>
           </div>
 `;
 

@@ -12,7 +12,6 @@
             field="name"
             placeholder="e.g. Fairbanks"
             clearable
-            clear-on-select
             @select="(option) => (community = option)"
           >
             <template #empty>No results found</template>
@@ -101,17 +100,49 @@ export default {
           name: community.name,
           region: community.region,
         });
-        this.$store.commit("setSelected", community);
-        this.fetchFireAPI(community);
+        if (community.id !== this.$route.params.communityId) {
+          let routeParams = { path: '/' + community.id }
+          routeParams.query = { layers: this.$route.query.layers }
+          this.$router.push(routeParams);
+        }
       }
+    },
+    // Triggered if user started on front page and selected a community
+    "$route.params.communityId": function (communityId) {
+      this.handleCommunity(communityId);
+    },
+    // Triggered if user arrived to webapp with communityId permalink
+    "places.data": function () {
+      let communityId = this.$route.params.communityId;
+      this.handleCommunity(communityId);
     },
   },
   methods: {
+    handleCommunity(communityId) {
+      if (communityId) {
+        const community = this.places.data.find(
+          (place) => place.id == communityId
+        );
+        if (community) {
+          this.placeNameFragment = community.name;
+          this.$store.commit("setSelected", community);
+          this.fetchFireAPI({
+            community,
+            router: this.$router
+          });
+        }
+      }
+    },
     async fetchFireAPI(selected) {
       await this.$store.dispatch("fetchFireAPI", selected);
     },
     clearSelection() {
       this.$store.commit("clearSelected");
+      this.placeNameFragment = '';
+
+      let routeParams = { path: '/' }
+      routeParams.query = { layers: this.$route.query.layers }
+      this.$router.push(routeParams);
     },
   },
 };
