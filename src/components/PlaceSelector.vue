@@ -116,7 +116,10 @@ export default {
         if (community) {
           this.placeNameFragment = community.name;
           this.$store.commit("setSelected", community);
-          this.fetchFireAPI(community);
+          this.fetchFireAPI({
+            community,
+            router: this.$router
+          });
         }
       }
     },
@@ -130,7 +133,10 @@ export default {
         if (community) {
           this.placeNameFragment = community.name;
           this.$store.commit("setSelected", community);
-          this.fetchFireAPI(community);
+          this.fetchFireAPI({
+            community,
+            router: this.$router
+          });
         }
       }
     },

@@ -284,30 +284,40 @@ export default new Vuex.Store({
       context.commit("setPlaces", returnedData);
     },
     async fetchFireAPI(context, payload) {
+      let community = payload.community;
       // Get API data
       let queryUrl =
-        apiUrl + "/fire/point/" + payload.latitude + "/" + payload.longitude;
-      let returnedData = await axios.get(queryUrl);
-      context.commit("setApiOutput", returnedData.data);
+        apiUrl + "/fire/point/" + community.latitude + "/" + community.longitude;
+      let returnedData = await axios.get(queryUrl).catch(() => {
+        // If the API call fails, redirect to the home page
+        payload.router.push("/");
 
-      // Get the list of nearby fires (~70 miles around the selected location) from the API
-      let nearbyFires = [
-        ...returnedData.data.fire_points,
-        ...returnedData.data.fire_polygons,
-      ];
-      // Filter for only active fires
-      nearbyFires = _.filter(nearbyFires, (fire) => {
-        return fire.properties.active == "1";
+        // Reload the front page to clear the app state
+        payload.router.go(0);
       });
-      // Sort by size
-      nearbyFires = _.sortBy(nearbyFires, [
-        (fire) => {
-          return fire.properties.acres;
-        },
-      ]);
-      // ...and reverse so biggest are first.
-      nearbyFires = _.reverse(nearbyFires);
-      context.commit("setNearbyFires", nearbyFires);
+
+      if (returnedData) {
+        context.commit("setApiOutput", returnedData.data);
+
+        // Get the list of nearby fires (~70 miles around the selected location) from the API
+        let nearbyFires = [
+          ...returnedData.data.fire_points,
+          ...returnedData.data.fire_polygons,
+        ];
+        // Filter for only active fires
+        nearbyFires = _.filter(nearbyFires, (fire) => {
+          return fire.properties.active == "1";
+        });
+        // Sort by size
+        nearbyFires = _.sortBy(nearbyFires, [
+          (fire) => {
+            return fire.properties.acres;
+          },
+        ]);
+        // ...and reverse so biggest are first.
+        nearbyFires = _.reverse(nearbyFires);
+        context.commit("setNearbyFires", nearbyFires);
+      }
     },
     async fetchUpdateStatus(context) {
       let queryUrl = process.env.BASE_URL + "status.json";
