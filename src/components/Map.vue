@@ -111,7 +111,10 @@ export default {
           [this.selected.latitude, this.selected.longitude],
           3.5,
         );
-      }
+      } else if (this.selected == undefined) {
+        // Reset the map back to the default view
+        this.$options.leaflet.map.setView([65, -152.5], 1);
+}
     },
   },
   methods: {
