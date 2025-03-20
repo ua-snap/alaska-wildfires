@@ -101,6 +101,7 @@ export default new Vuex.Store({
     {
       // id: Layer id
       id: '',
+      router: VueRouter instance,
 
       // If `undefined`, toggles current state.
       // If `true` or `false`, sets the layer's visibility
@@ -117,10 +118,39 @@ export default new Vuex.Store({
         "visible",
         payload.setTo,
       );
+      // Add numeric IDs of all visible layers to the URL as GET parameters
+      let visibleLayers = state.layers
+        .map((layer) => (layer.visible ? layer.numericId : null))
+        .filter((index) => index !== null);
+  
+      // Update the URL with the visible layers
+      if (payload.router) {
+        payload.router.replace({
+          query: {
+            ...payload.router.query,
+            layers: visibleLayers.join(","),
+          },
+        });
+      }
     },
-    setLayerVisibility(state, { id, visible }) {
-      const layer = state.layers.find((layer) => layer.id === id);
+    hideAllLayers(state) {
+      state.layers.forEach((layer) => {
+        layer.visible = false;
+      });
+    },
+    setLayerVisibility(state, { id, numericId, visible }) {
+      let layer_id;
+      if (id) {
+        layer_id = id;
+      } else if (numericId >= 0) {
+        let foundLayer = state.layers.find((layer) => layer.numericId === parseInt(numericId))
+        layer_id = foundLayer.id;
+      } else {
+        console.error("No layer id or index provided to setLayerVisibility");
+      }
+      const layer = state.layers.find((layer) => layer.id === layer_id);
       layer.visible = visible;
+      Vue.set(state.layers);
     },
     /*
 
@@ -254,30 +284,40 @@ export default new Vuex.Store({
       context.commit("setPlaces", returnedData);
     },
     async fetchFireAPI(context, payload) {
+      let community = payload.community;
       // Get API data
       let queryUrl =
-        apiUrl + "/fire/point/" + payload.latitude + "/" + payload.longitude;
-      let returnedData = await axios.get(queryUrl);
-      context.commit("setApiOutput", returnedData.data);
+        apiUrl + "/fire/point/" + community.latitude + "/" + community.longitude;
+      let returnedData = await axios.get(queryUrl).catch(() => {
+        // If the API call fails, redirect to the home page
+        payload.router.push("/");
 
-      // Get the list of nearby fires (~70 miles around the selected location) from the API
-      let nearbyFires = [
-        ...returnedData.data.fire_points,
-        ...returnedData.data.fire_polygons,
-      ];
-      // Filter for only active fires
-      nearbyFires = _.filter(nearbyFires, (fire) => {
-        return fire.properties.active == "1";
+        // Reload the front page to clear the app state
+        payload.router.go(0);
       });
-      // Sort by size
-      nearbyFires = _.sortBy(nearbyFires, [
-        (fire) => {
-          return fire.properties.acres;
-        },
-      ]);
-      // ...and reverse so biggest are first.
-      nearbyFires = _.reverse(nearbyFires);
-      context.commit("setNearbyFires", nearbyFires);
+
+      if (returnedData) {
+        context.commit("setApiOutput", returnedData.data);
+
+        // Get the list of nearby fires (~70 miles around the selected location) from the API
+        let nearbyFires = [
+          ...returnedData.data.fire_points,
+          ...returnedData.data.fire_polygons,
+        ];
+        // Filter for only active fires
+        nearbyFires = _.filter(nearbyFires, (fire) => {
+          return fire.properties.active == "1";
+        });
+        // Sort by size
+        nearbyFires = _.sortBy(nearbyFires, [
+          (fire) => {
+            return fire.properties.acres;
+          },
+        ]);
+        // ...and reverse so biggest are first.
+        nearbyFires = _.reverse(nearbyFires);
+        context.commit("setNearbyFires", nearbyFires);
+      }
     },
     async fetchUpdateStatus(context) {
       let queryUrl = process.env.BASE_URL + "status.json";

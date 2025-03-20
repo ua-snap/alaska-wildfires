@@ -90,7 +90,7 @@ export default {
           }
         });
       }
-      this.$store.commit("toggleLayerVisibility", { id: this.id });
+      this.$store.commit("toggleLayerVisibility", { id: this.id, router: this.$router });
     },
     handleLayerConfigChange(data) {
       // Update defaults so when
