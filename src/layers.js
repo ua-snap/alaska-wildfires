@@ -67,7 +67,7 @@ export default [
             </table>`,
     zindex: 20,
     abstract: `
-            <p>Lightning strikes are classified according to the type of charge released. Nearly 95% of lightning strikes carry a negative charge, but positively-charged strikes are much more powerful. This layer shows the last 36 hours of lightning activity; older lightning strikes fade over time.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a hrref="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
+            <p>Lightning strikes are classified according to the type of charge released. Nearly 95% of lightning strikes carry a negative charge, but positively-charged strikes are much more powerful. This layer shows the last 36 hours of lightning activity; older lightning strikes fade over time.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
   },
   {
     id: "gridded_lightning",
