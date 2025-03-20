@@ -187,7 +187,7 @@ export default [
   },
   {
     abstract: `
-          <p>Older wildfire perimeters can be interesting to study in relation to newer fires. Previously burned areas often stop new fires from spreading due to a lack of fuel.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a hrref="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
+          <p>Older wildfire perimeters can be interesting to study in relation to newer fires. Previously burned areas often stop new fires from spreading due to a lack of fuel.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
     id: "historical_fire_perimeters",
     numericId: 12,
     wmsLayerName: "historical_fire_perimeters",
