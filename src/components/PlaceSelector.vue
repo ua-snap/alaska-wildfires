@@ -109,23 +109,16 @@ export default {
     },
     // Triggered if user started on front page and selected a community
     "$route.params.communityId": function (communityId) {
-      if (communityId) {
-        const community = this.places.data.find(
-          (place) => place.id == communityId
-        );
-        if (community) {
-          this.placeNameFragment = community.name;
-          this.$store.commit("setSelected", community);
-          this.fetchFireAPI({
-            community,
-            router: this.$router
-          });
-        }
-      }
+      this.handleCommunity(communityId);
     },
     // Triggered if user arrived to webapp with communityId permalink
     "places.data": function () {
       let communityId = this.$route.params.communityId;
+      this.handleCommunity(communityId);
+    },
+  },
+  methods: {
+    handleCommunity(communityId) {
       if (communityId) {
         const community = this.places.data.find(
           (place) => place.id == communityId
@@ -140,8 +133,6 @@ export default {
         }
       }
     },
-  },
-  methods: {
     async fetchFireAPI(selected) {
       await this.$store.dispatch("fetchFireAPI", selected);
     },
