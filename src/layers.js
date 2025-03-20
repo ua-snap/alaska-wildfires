@@ -5,11 +5,11 @@ const currentYear = new Date().getFullYear();
 const aqiForecastTitle = "Air quality forecast";
 
 const aqiAbstract = `
-<p>This layer shows the <strong>predicted</strong> Air Quality Index (AQI), an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics" target="_blank">Read more here</a>.</p>
+<p>This layer shows the <strong>predicted</strong> Air Quality Index (AQI), an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read more here</a>.</p>
 <p>&lsquo;Good&rsquo; air quality (AQI &le;50) is shown as transparent on the map.</p>
 <p>The predicted air quality can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
-<p><a href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf" target="_blank">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
-<p>The data used in this layer have been provided by the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the <a href="https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php" target="_blank">online data portal in the NASA Center for Climate Simulation</a>.</p>
+<p><a href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
+<p>The data used in this layer have been provided by the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the <a href="https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php">online data portal in the NASA Center for Climate Simulation</a>.</p>
 
 `;
 
@@ -47,7 +47,7 @@ export default [
     abstract:
       "<p>Active (red) and inactive (gray) fires for the " +
       currentYear +
-      ' season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a  target="_blank" href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>',
+      ' season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>',
   },
   {
     id: "lightning_strikes",
@@ -67,7 +67,7 @@ export default [
             </table>`,
     zindex: 20,
     abstract: `
-            <p>Lightning strikes are classified according to the type of charge released. Nearly 95% of lightning strikes carry a negative charge, but positively-charged strikes are much more powerful. This layer shows the last 36 hours of lightning activity; older lightning strikes fade over time.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a  target="_blank"  href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
+            <p>Lightning strikes are classified according to the type of charge released. Nearly 95% of lightning strikes carry a negative charge, but positively-charged strikes are much more powerful. This layer shows the last 36 hours of lightning activity; older lightning strikes fade over time.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a hrref="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
   },
   {
     id: "gridded_lightning",
@@ -96,7 +96,7 @@ export default [
               <tr><td><div class="lc-gte45"></div></td><td>45+</td></tr>
             </table>`,
     abstract: `
-            <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p><p>Detailed information about this dataset can be found in <a  target="_blank" href="https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml">this academic paper</a>, and <a target="_blank" href="https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548">the dataset can be downloaded here</a>.`,
+            <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p><p>Detailed information about this dataset can be found in <a href="https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml">this academic paper</a>, and <a href="https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548">the dataset can be downloaded here</a>.`,
   },
   {
     id: "aqi_forecast_6_hrs",
@@ -154,13 +154,13 @@ export default [
     zindex: 100,
     abstract: `<p>&ldquo;Hotspots&rdquo; are places where temperatures are higher than expected. Scientific instruments on satellites can detect hotspots, which helps fire managers discover new wildfires. Individual hotspots are compiled into smooth gradients, where darker colors indicate greater densities of hotspots. Note that the instrument can also detect other hotspots unrelated to wildfire, such as flare stacks at oil drilling facilities on the North Slope of Alaska or even ship exhaust in the ocean.</p>
 
-    <p>The data source is <a target="_blank" href="https://www.ospo.noaa.gov/Products/land/afiband.html">NOAA Active Fire Detections from the VIIRS sensor</a>, accessed from the Alaska Interagency Coordination Center (AICC) <a target="_blank" href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>
-    <p>Read about the <a target="_blank" href="https://gina.alaska.edu/wp-content/uploads/2022/05/VIIRS_ActiveFiresAlgorithm_Quick_Guide.pdf">VIIRS Active Fire Detection</a> product.
+    <p>The data source is <a href="https://www.ospo.noaa.gov/Products/land/afiband.html">NOAA Active Fire Detections from the VIIRS sensor</a>, accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>
+    <p>Read about the <a href="https://gina.alaska.edu/wp-content/uploads/2022/05/VIIRS_ActiveFiresAlgorithm_Quick_Guide.pdf">VIIRS Active Fire Detection</a> product.
     `,
   },
   {
     abstract: `
-          <p>Land cover classification from the <a  target="_blank" href="https://eros.usgs.gov/doi-remote-sensing-activities/2019/usgs/nalcms-release-new-land-cover-north-america">North American Land Change Monitoring System, 2015</a>. Spatial resolution is 30&#8239;m (1 pixel = 30&#8239;m on the ground). Dominant land cover relates to wildfire because it varies across the landscape, and influences how a region may burn. Wildfires often change the dominant land cover type, and many fires have occurred since this layer was created.</p>`,
+          <p>Land cover classification from the <a href="https://eros.usgs.gov/doi-remote-sensing-activities/2019/usgs/nalcms-release-new-land-cover-north-america">North American Land Change Monitoring System, 2015</a>. Spatial resolution is 30&#8239;m (1 pixel = 30&#8239;m on the ground). Dominant land cover relates to wildfire because it varies across the landscape, and influences how a region may burn. Wildfires often change the dominant land cover type, and many fires have occurred since this layer was created.</p>`,
     id: "alaska_landcover_2015",
     numericId: 10,
     wmsLayerName: "alaska_wildfires:alaska_landcover_2015",
@@ -187,7 +187,7 @@ export default [
   },
   {
     abstract: `
-          <p>Older wildfire perimeters can be interesting to study in relation to newer fires. Previously burned areas often stop new fires from spreading due to a lack of fuel.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a  target="_blank"  href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
+          <p>Older wildfire perimeters can be interesting to study in relation to newer fires. Previously burned areas often stop new fires from spreading due to a lack of fuel.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a hrref="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
     id: "historical_fire_perimeters",
     numericId: 12,
     wmsLayerName: "historical_fire_perimeters",
@@ -202,7 +202,7 @@ export default [
   },
   {
     abstract: `
-    <p>This layer is derived from the U.S. National Ice Center&rsquo;s Interactive Multisensor Snow and Ice Mapping System, which shows snow and ice coverage over the Northern Hemisphere at 1 km resolution. This map shows only snow coverage as an indicator of potential for early fire during spring in Alaska. <a  target="_blank" href="https://usicecenter.gov/Resources/ImsInfo">Visit the data source</a>.</p>`,
+    <p>This layer is derived from the U.S. National Ice Center&rsquo;s Interactive Multisensor Snow and Ice Mapping System, which shows snow and ice coverage over the Northern Hemisphere at 1 km resolution. This map shows only snow coverage as an indicator of potential for early fire during spring in Alaska. <a href="https://usicecenter.gov/Resources/ImsInfo">Visit the data source</a>.</p>`,
     id: "snow_cover_3338",
     numericId: 9,
     wmsLayerName: "alaska_wildfires:snow_cover_3338",
@@ -216,7 +216,7 @@ export default [
   },
   {
     abstract: `
-    <p>This is the same information shown on the &ldquo;Smokey the Bear&rdquo; signs!  Fire managers use these ratings to understand the environment that is developing over time. Ratings are used to assess the risk of wildfires for areas of Alaska based on factors such as recent precipitation and buildup of vegetation in an area.  Data are derived from <a  target="_blank" href="https://akff.mesowest.org">layers provided by MesoWest Alaska Fires &amp; Fuels website</a>.</p>
+    <p>This is the same information shown on the &ldquo;Smokey the Bear&rdquo; signs!  Fire managers use these ratings to understand the environment that is developing over time. Ratings are used to assess the risk of wildfires for areas of Alaska based on factors such as recent precipitation and buildup of vegetation in an area.  Data are derived from <a href="https://akff.mesowest.org">layers provided by MesoWest Alaska Fires &amp; Fuels website</a>.</p>
     `,
     id: "spruceadj_3338",
     numericId: 3,
@@ -235,7 +235,7 @@ export default [
   {
     abstract: `
           <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. These modeled data for the previous century (1900&ndash;1999) allow for comparison between that century and this one, but do not necessarily match historical fire perimeters.</p>
-          <p>Source data, including additional models and scenarios, <a  target="_blank" href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
+          <p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
     id: "alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem",
     numericId: 13,
     wmsLayerName:
@@ -253,7 +253,7 @@ export default [
   },
   {
     abstract: `
-          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2000&ndash;2099 using the <a target="_blank" href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can’t predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a  target="_blank" href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
+          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2000&ndash;2099 using the <a href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can’t predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
     id: "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
     numericId: 14,
     wmsLayerName:
@@ -271,11 +271,11 @@ export default [
   },
   {
     abstract: `
-    <p>This layer shows sensor values for the <a target="_blank" href="https://www.airnow.gov/aqi/aqi-basics/">Air Quality Index (AQI)</a>, an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a target="_blank" href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read more here</a>.</p>
+    <p>This layer shows sensor values for the <a href="https://www.airnow.gov/aqi/aqi-basics/">Air Quality Index (AQI)</a>, an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read more here</a>.</p>
     <p>The layer shows the average AQI over the last 10 minutes at each sensor location. The 24-hour average AQI can be seen if you click on a specific sensor. These data are measured using Purple Air sensors that are hosted by communities and made public.</p>
     <p>The air quality shown on these sensors can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
-    <p><a target="_blank" href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
-    <p>Data are provided by <a  target="_blank" href="https://www2.purpleair.com/">PurpleAir</a>.</p>
+    <p><a href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
+    <p>Data are provided by <a href="https://www2.purpleair.com/">PurpleAir</a>.</p>
     `,
     id: "purple_air",
     numericId: 4,
