@@ -36,7 +36,7 @@
           </div>
 
           <div class="intro content is-size-4 clamp">
-            <p v-if="fireUpdateDate">
+            <p v-if="fireUpdateDate && fireCount">
               <span class="glow"
                 >As of {{ dataDate }}, there are
                 <strong>{{ fireCount }}</strong> active fires, and approximately
