@@ -180,6 +180,8 @@ export default {
         version: "1.3",
         continuousWorld: true, // needed for non-3857 projs
       },
+      active_fire_color: "#fc8d05",
+      inactive_fire_color: "#22535b",
       layers: mapLayers,
       fireJson: null,
       viirsJson: null,
@@ -496,28 +498,26 @@ export default {
       </svg>
       `);
       var activeSvgCircle = svgCircleTemplate({
-        stop1: "RGB(207, 38, 47)",
+        stop1: this.active_fire_color,
         stop1opacity: ".05",
-        stop2: "RGB(207, 38, 47)",
+        stop2: this.active_fire_color,
         stop2opacity: ".15",
-        stop3: "RGB(207, 38, 47)",
+        stop3: this.active_fire_color,
         stop3opacity: ".35",
       });
       var inactiveSvgCircle = svgCircleTemplate({
-        stop1: "RGB(80, 63, 63)",
+        stop1: this.inactive_fire_color,
         stop1opacity: ".05",
-        stop2: "RGB(80, 63, 63)",
+        stop2: this.inactive_fire_color,
         stop2opacity: ".15",
-        stop3: "RGB(80, 63, 63)",
+        stop3: this.inactive_fire_color,
         stop3opacity: ".35",
       });
 
-      var activeFireCircle = encodeURI(
-        "data:image/svg+xml," + activeSvgCircle,
-      ).replace("#", "%23");
-      var inactiveFireCircle = encodeURI(
-        "data:image/svg+xml," + inactiveSvgCircle,
-      ).replace("#", "%23");
+      var activeFireCircle =
+        "data:image/svg+xml," + encodeURIComponent(activeSvgCircle);
+      var inactiveFireCircle =
+        "data:image/svg+xml," + encodeURIComponent(inactiveSvgCircle);
 
       // Set up icon markers
       let FireIcon = this.$L.Icon.extend({
@@ -624,8 +624,8 @@ export default {
     styleFirePolygons(feature) {
       if (this.isFireActive(feature.properties)) {
         return {
-          color: "#ff0000",
-          fillColor: "#E83C18",
+          color: this.active_fire_color,
+          fillColor: this.active_fire_color,
           opacity: 0.8,
           weight: 2,
           fillOpacity: 0.3,
@@ -633,8 +633,8 @@ export default {
         };
       } else {
         return {
-          color: "#888888",
-          fillColor: "#888888",
+          color: this.inactive_fire_color,
+          fillColor: this.inactive_fire_color,
           opacity: 0.8,
           weight: 3,
           fillOpacity: 1,
@@ -833,7 +833,7 @@ div.leaflet-marker-icon span {
   cursor: pointer;
 
   &.active {
-    background-color: rgba(200, 56, 20, 0.55);
+    background-color: #fc8d05;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
     z-index: 10000;
   }
