@@ -731,8 +731,10 @@ export default {
         : "";
 
       var summary = fireInfo.summary
-        ? "<strong>Summary</strong>: <code>" + fireInfo.summary + "</code>"
-        : "<strong>Summary</strong>: <code>None provided.</code>";
+        ? "<strong>Summary</strong>: <div class='fire-summary'>" +
+          fireInfo.summary +
+          "</div>"
+        : "";
 
       return _.template(`
   <h1><%= title %></h1>
@@ -791,6 +793,13 @@ export default {
 .leaflet-popup-content {
   z-index: 1000;
 
+  .fire-summary {
+    width: 30vh;
+    max-height: 30vh;
+    overflow-y: scroll;
+    white-space: pre-wrap;
+  }
+
   h1 {
     font-size: 16pt;
     color: #322323;
@@ -818,7 +827,7 @@ export default {
   p.updated {
     margin-top: 0.25ex;
     font-weight: 300;
-    color: #988989;
+    color: #000;
   }
 
   p.out {
