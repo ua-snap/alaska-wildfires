@@ -279,7 +279,7 @@ export default new Vuex.Store({
   },
   actions: {
     async fetchCommunities(context) {
-      let queryUrl = apiUrl + "/places/communities";
+      let queryUrl = apiUrl + "/places/communities?tags=awe";
       let returnedData = await axios.get(queryUrl);
       context.commit("setPlaces", returnedData);
     },
