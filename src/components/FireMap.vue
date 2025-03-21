@@ -599,6 +599,7 @@ export default {
                     updated: feature.properties.updated,
                     outdate: feature.properties.OUTDATE,
                     discovered: feature.properties.discovered,
+                    summary: feature.properties.SUMMARY,
                   },
                   popupOptions,
                 ),
@@ -690,6 +691,7 @@ export default {
               updated: geoJson.properties.updated,
               outdate: geoJson.properties.OUTDATE,
               discovered: geoJson.properties.discovered,
+              summary: geoJson.properties.SUMMARY,
             },
             popupOptions,
           ),
@@ -728,19 +730,27 @@ export default {
           "</h3>"
         : "";
 
+      var summary = fireInfo.summary
+        ? "<strong>Summary</strong>: <div class='fire-summary'>" +
+          fireInfo.summary +
+          "</div>"
+        : "";
+
       return _.template(`
   <h1><%= title %></h1>
   <h2><%= acres %></h2>
   <%= discovered %>
   <%= cause %>
   <%= out %>
-  <%= updated %>`)({
+  <%= updated %>
+  <%= summary %>`)({
         title: fireInfo.title,
         acres: acres,
         cause: cause,
         updated: updated,
         out: out,
         discovered: discovered,
+        summary: summary,
       });
     },
     // Helper function to place markers at the centroid
@@ -783,6 +793,13 @@ export default {
 .leaflet-popup-content {
   z-index: 1000;
 
+  .fire-summary {
+    width: 30vh;
+    max-height: 30vh;
+    overflow-y: scroll;
+    white-space: pre-wrap;
+  }
+
   h1 {
     font-size: 16pt;
     color: #322323;
@@ -810,7 +827,7 @@ export default {
   p.updated {
     margin-top: 0.25ex;
     font-weight: 300;
-    color: #988989;
+    color: #000;
   }
 
   p.out {
