@@ -599,6 +599,7 @@ export default {
                     updated: feature.properties.updated,
                     outdate: feature.properties.OUTDATE,
                     discovered: feature.properties.discovered,
+                    summary: feature.properties.SUMMARY,
                   },
                   popupOptions,
                 ),
@@ -690,6 +691,7 @@ export default {
               updated: geoJson.properties.updated,
               outdate: geoJson.properties.OUTDATE,
               discovered: geoJson.properties.discovered,
+              summary: geoJson.properties.SUMMARY,
             },
             popupOptions,
           ),
@@ -728,19 +730,25 @@ export default {
           "</h3>"
         : "";
 
+      var summary = fireInfo.summary
+        ? "<strong>Summary</strong>: <code>" + fireInfo.summary + "</code>"
+        : "<strong>Summary</strong>: <code>None provided.</code>";
+
       return _.template(`
   <h1><%= title %></h1>
   <h2><%= acres %></h2>
   <%= discovered %>
   <%= cause %>
   <%= out %>
-  <%= updated %>`)({
+  <%= updated %>
+  <%= summary %>`)({
         title: fireInfo.title,
         acres: acres,
         cause: cause,
         updated: updated,
         out: out,
         discovered: discovered,
+        summary: summary,
       });
     },
     // Helper function to place markers at the centroid
