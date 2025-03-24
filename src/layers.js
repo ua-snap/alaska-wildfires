@@ -45,7 +45,7 @@ export default [
       `"/></td><td class="fire-text">Small Fires</td></tr>
       </table>`,
     abstract:
-      "<p>Active (red) and inactive (gray) fires for the " +
+      "<p>Active (orange) and inactive (gray) fires for the " +
       currentYear +
       ' season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>',
   },
