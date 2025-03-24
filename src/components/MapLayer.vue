@@ -90,7 +90,10 @@ export default {
           }
         });
       }
-      this.$store.commit("toggleLayerVisibility", { id: this.id, router: this.$router });
+      this.$store.commit("toggleLayerVisibility", {
+        id: this.id,
+        router: this.$router,
+      });
     },
     handleLayerConfigChange(data) {
       // Update defaults so when
@@ -108,6 +111,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a:hover {
+  text-decoration: none;
+}
+
 .layer {
   margin: 5px 0;
   cursor: pointer;
