@@ -11,3 +11,8 @@
 .leaflet-control-container .leaflet-bottom {
   will-change: transform;
 }
+
+a:hover {
+  color: hsl(229 53% 48% / 1);
+  text-decoration: underline;
+}
