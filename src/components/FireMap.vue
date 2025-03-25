@@ -499,11 +499,11 @@ export default {
       `);
       var activeSvgCircle = svgCircleTemplate({
         stop1: this.active_fire_color,
-        stop1opacity: ".05",
+        stop1opacity: ".1",
         stop2: this.active_fire_color,
-        stop2opacity: ".15",
+        stop2opacity: ".45",
         stop3: this.active_fire_color,
-        stop3opacity: ".35",
+        stop3opacity: ".95",
       });
       var inactiveSvgCircle = svgCircleTemplate({
         stop1: this.inactive_fire_color,
@@ -624,19 +624,19 @@ export default {
     styleFirePolygons(feature) {
       if (this.isFireActive(feature.properties)) {
         return {
-          color: this.active_fire_color,
+          color: '#fff',
           fillColor: this.active_fire_color,
           opacity: 0.8,
           weight: 2,
-          fillOpacity: 0.3,
+          fillOpacity: 0.8,
           className: "fire-polygon",
         };
       } else {
         return {
-          color: this.inactive_fire_color,
+          color: '#333',
           fillColor: this.inactive_fire_color,
           opacity: 0.8,
-          weight: 3,
+          weight: 2,
           fillOpacity: 1,
           className: "fire-polygon",
         };
