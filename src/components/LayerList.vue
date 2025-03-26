@@ -9,6 +9,9 @@
         <map-layer id="viirs"></map-layer>
       </li>
       <li>
+        <map-layer id="viirs_smoke"></map-layer>
+      </li>
+      <li>
         <map-layer id="lightning_strikes"></map-layer>
       </li>
       <li>

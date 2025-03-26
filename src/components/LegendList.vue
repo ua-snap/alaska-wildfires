@@ -20,6 +20,7 @@
     <legend-item
       id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"
     ></legend-item>
+    <legend-item id="viirs_smoke"></legend-item>
   </div>
 </template>
 

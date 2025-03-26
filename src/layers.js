@@ -96,7 +96,7 @@ export default [
               <tr><td><div class="lc-gte45"></div></td><td>45+</td></tr>
             </table>`,
     abstract: `
-            <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p><p>Detailed information about this dataset can be found in <a href="https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml">this academic paper</a>, and <a href="https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548">the dataset can be downloaded here</a>.`,
+            <p>Average of detected lightning strikes for Alaska's wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p><p>Detailed information about this dataset can be found in <a href="https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml">this academic paper</a>, and <a href="https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548">the dataset can be downloaded here</a>.`,
   },
   {
     id: "aqi_forecast_6_hrs",
@@ -187,6 +187,21 @@ export default [
   },
   {
     abstract: `
+          <p>This layer shows smoke coverage detected by the VIIRS (Visible Infrared Imaging Radiometer Suite) satellite sensor. The smoke data helps track the movement and extent of wildfire smoke plumes, which can affect air quality and visibility across large areas.</p><p>Data are derived from NOAA's VIIRS satellite observations.</p>`,
+    id: "viirs_smoke",
+    numericId: 15,
+    wmsLayerName: "alaska_wildfires:viirs_smoke",
+    zindex: 10,
+    styles: "alaska_wildfires:viirs_smoke_product",
+    title: "Smoke coverage",
+    legend: `<table class="table alaska-wildfires-legend viirs-smoke">
+            <tr><td><div class="smoke-light"></div></td><td>Light smoke</td></tr>
+            <tr><td><div class="smoke-medium"></div></td><td>Medium smoke</td></tr>
+            <tr><td><div class="smoke-heavy"></div></td><td>Heavy smoke</td></tr>
+          </table>`,
+  },
+  {
+    abstract: `
           <p>Older wildfire perimeters can be interesting to study in relation to newer fires. Previously burned areas often stop new fires from spreading due to a lack of fuel.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>`,
     id: "historical_fire_perimeters",
     numericId: 12,
@@ -253,7 +268,7 @@ export default [
   },
   {
     abstract: `
-          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2000&ndash;2099 using the <a href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can’t predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
+          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2000&ndash;2099 using the <a href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can't predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
     id: "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
     numericId: 14,
     wmsLayerName:
