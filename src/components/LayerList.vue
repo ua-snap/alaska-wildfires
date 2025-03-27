@@ -1,5 +1,26 @@
 <template>
   <div>
+    <div class="dropdown" :class="{ 'is-active': isDropdownActive }">
+      <div class="dropdown-trigger">
+        <button
+          class="button"
+          aria-haspopup="true"
+          aria-controls="dropdown-menu"
+          @click="toggleDropdown"
+        >
+          <span>{{ selectedBoundary || "Choose a boundary" }}</span>
+          <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+          <a class="dropdown-item" @click="selectBoundary('Off')">Off</a>
+          <a class="dropdown-item" @click="selectBoundary('GMUs')">GMUs</a>
+        </div>
+      </div>
+    </div>
     <h3 class="title is-4 top">Now{{ fireUpdateText }}</h3>
     <ul>
       <li>
@@ -79,6 +100,48 @@ export default {
   components: {
     "map-layer": MapLayer,
   },
+  data() {
+    return {
+      isDropdownActive: false,
+      selectedBoundary: null,
+    };
+  },
+  created() {
+    const layers = this.$route.query.layers
+      ? this.$route.query.layers.split(",")
+      : [];
+    if (layers.includes("16")) {
+      this.selectedBoundary = "GMUs";
+    }
+  },
+  methods: {
+    toggleDropdown() {
+      this.isDropdownActive = !this.isDropdownActive;
+    },
+    selectBoundary(boundary) {
+      this.selectedBoundary = boundary;
+      this.isDropdownActive = false;
+
+      // We can add more boundaries here as desired
+      if (boundary === "GMUs") {
+        this.$store.commit("setLayerVisibility", {
+          id: "gmu",
+          visible: true,
+          router: this.$router,
+        });
+        // Refresh map layers when GMUs are selected
+        this.$root.$emit("refresh-map-layers");
+      } else if (boundary === "Off") {
+        this.$store.commit("setLayerVisibility", {
+          id: "gmu",
+          visible: false,
+          router: this.$router,
+        });
+        // Force map to refresh layers
+        this.$root.$emit("refresh-map-layers");
+      }
+    },
+  },
   computed: {
     fireUpdateText() {
       return this.lastDataUpdate
@@ -117,5 +180,8 @@ h3.is-4 {
 }
 hr {
   margin: 0.75rem 0 0.5rem;
+}
+.dropdown {
+  margin-bottom: 1rem;
 }
 </style>
