@@ -18,7 +18,7 @@
       id="alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem"
     ></legend-item>
     <legend-item
-      id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2010_2099"
+      id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099"
     ></legend-item>
   </div>
 </template>
