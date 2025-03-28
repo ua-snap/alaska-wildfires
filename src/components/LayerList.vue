@@ -18,8 +18,21 @@
       </div>
       <div class="dropdown-menu" id="dropdown-menu" role="menu">
         <div class="dropdown-content">
-          <a class="dropdown-item" @click="selectBoundary('Off')">Off</a>
-          <a class="dropdown-item" @click="selectBoundary('GMUs')">GMUs</a>
+          <a
+            class="dropdown-item"
+            :class="{
+              'is-disabled':
+                selectedBoundary === 'Off' || selectedBoundary === null,
+            }"
+            @click="selectBoundary('Off')"
+            >Off</a
+          >
+          <a
+            class="dropdown-item"
+            :class="{ 'is-disabled': selectedBoundary === 'GMUs' }"
+            @click="selectBoundary('GMUs')"
+            >GMUs</a
+          >
         </div>
       </div>
     </div>
@@ -149,7 +162,7 @@ export default {
           visible: false,
           router: this.$router,
         });
-        // Force map to refresh layers
+
         this.$root.$emit("refresh-map-layers");
       }
     },
@@ -242,10 +255,17 @@ hr {
     color: #363636;
     padding: 0.5rem 1rem;
     font-size: 1.25rem;
+    cursor: pointer;
 
-    &:hover {
+    &:hover:not(.is-disabled) {
       background-color: #f5f5f5;
       color: #363636;
+    }
+
+    &.is-disabled {
+      color: #b5b5b5;
+      cursor: not-allowed;
+      pointer-events: none;
     }
   }
 }
