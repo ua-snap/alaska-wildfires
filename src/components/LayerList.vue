@@ -3,12 +3,14 @@
     <div class="dropdown" :class="{ 'is-active': isDropdownActive }">
       <div class="dropdown-trigger">
         <button
-          class="button"
+          class="button is-fullwidth has-text-left"
           aria-haspopup="true"
           aria-controls="dropdown-menu"
           @click="toggleDropdown"
         >
-          <span>{{ selectedBoundary || "Choose a boundary" }}</span>
+          <span class="dropdown-text">{{
+            selectedBoundary || "Choose a boundary"
+          }}</span>
           <span class="icon is-small">
             <i class="fas fa-angle-down" aria-hidden="true"></i>
           </span>
@@ -119,6 +121,16 @@ export default {
       this.isDropdownActive = !this.isDropdownActive;
     },
     selectBoundary(boundary) {
+      // Prevents the dropdown from causing an error when selecting the same option
+      // since we are attempting to remove a layer's numericId that is not currently visible
+      if (
+        boundary === this.selectedBoundary ||
+        (boundary === "Off" && this.selectedBoundary === null)
+      ) {
+        this.isDropdownActive = false;
+        return;
+      }
+
       this.selectedBoundary = boundary;
       this.isDropdownActive = false;
 
@@ -183,5 +195,58 @@ hr {
 }
 .dropdown {
   margin-bottom: 1rem;
+
+  .button {
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    color: #363636;
+    padding: 0.5rem 1rem;
+    height: auto;
+    font-size: 1.25rem;
+    transition: border-color 0.15s ease-in-out;
+
+    &:hover {
+      border-color: #b5b5b5;
+    }
+
+    &:focus {
+      border-color: #485fc7;
+      box-shadow: 0 0 0 0.125em rgba(72, 95, 199, 0.25);
+    }
+  }
+
+  .dropdown-text {
+    margin-right: 0.5rem;
+  }
+
+  .icon {
+    color: #7a7a7a;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &.is-active {
+    .icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .dropdown-menu {
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
+    padding: 0.5rem 0;
+  }
+
+  .dropdown-item {
+    color: #363636;
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+
+    &:hover {
+      background-color: #f5f5f5;
+      color: #363636;
+    }
+  }
 }
 </style>
