@@ -198,6 +198,10 @@ export default {
         styles: layer.styles ? layer.styles : "",
         time: layer.time ? layer.time : "",
         id: layer.id,
+
+        // alfresco_relative_flammability_30yr dimensions
+        dim_model: layer.dim_model != null ? layer.dim_model : "",
+        dim_scenario: layer.dim_scenario != null ? layer.dim_scenario : "",
       });
 
       // Remove old layers if present
@@ -207,8 +211,12 @@ export default {
         );
       }
 
+      let wmsServer = layer.rasdaman
+        ? process.env.VUE_APP_RASDAMAN_URL
+        : process.env.VUE_APP_GEOSERVER_WMS_URL;
+
       this.$options.leaflet.layers[layer.id] = this.$L.tileLayer.wms(
-        process.env.VUE_APP_GEOSERVER_WMS_URL,
+        wmsServer,
         layerConfiguration,
       );
     },
