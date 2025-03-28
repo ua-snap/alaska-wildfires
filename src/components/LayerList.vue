@@ -63,7 +63,7 @@
       </li>
       <li>
         <map-layer
-          id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2010_2099"
+          id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099"
         ></map-layer>
       </li>
     </ul>
