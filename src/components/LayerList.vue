@@ -1,38 +1,39 @@
 <template>
   <div>
-    <div class="dropdown" :class="{ 'is-active': isDropdownActive }">
-      <div class="dropdown-trigger">
-        <button
-          class="button is-fullwidth has-text-left"
-          aria-haspopup="true"
-          aria-controls="dropdown-menu"
-          @click="toggleDropdown"
-        >
-          <span class="dropdown-text">{{
-            selectedBoundary || "Choose a boundary"
-          }}</span>
-          <span class="icon is-small">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </button>
-      </div>
-      <div class="dropdown-menu" id="dropdown-menu" role="menu">
-        <div class="dropdown-content">
-          <a
-            class="dropdown-item"
-            :class="{
-              'is-disabled':
-                selectedBoundary === 'Off' || selectedBoundary === null,
-            }"
-            @click="selectBoundary('Off')"
-            >Off</a
+    <div class="boundary-selector">
+      <div class="boundary-label">Choose a boundary</div>
+      <div class="dropdown" :class="{ 'is-active': isDropdownActive }">
+        <div class="dropdown-trigger">
+          <button
+            class="button is-fullwidth has-text-left"
+            aria-haspopup="true"
+            aria-controls="dropdown-menu"
+            @click="toggleDropdown"
           >
-          <a
-            class="dropdown-item"
-            :class="{ 'is-disabled': selectedBoundary === 'GMUs' }"
-            @click="selectBoundary('GMUs')"
-            >GMUs</a
-          >
+            <span class="dropdown-text">{{ selectedBoundary || "Off" }}</span>
+            <span class="icon is-small">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+          <div class="dropdown-content">
+            <a
+              class="dropdown-item"
+              :class="{
+                'is-disabled':
+                  selectedBoundary === 'Off' || selectedBoundary === null,
+              }"
+              @click="selectBoundary('Off')"
+              >Off</a
+            >
+            <a
+              class="dropdown-item"
+              :class="{ 'is-disabled': selectedBoundary === 'GMUs' }"
+              @click="selectBoundary('GMUs')"
+              >GMUs</a
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -206,8 +207,19 @@ h3.is-4 {
 hr {
   margin: 0.75rem 0 0.5rem;
 }
+.boundary-selector {
+  margin-bottom: 1.5rem;
+}
+
+.boundary-label {
+  font-size: 1.25rem;
+  color: #363636;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
 .dropdown {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 
   .button {
     background-color: #fff;
