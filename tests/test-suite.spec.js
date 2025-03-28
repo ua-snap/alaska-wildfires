@@ -400,11 +400,11 @@ test('Projected flammability', async ({ page }) => {
   // Disable current wildfires layer.
   await page.click('#fires a')
 
-  await page.click('#alfresco_relative_flammability_NCAR-CCSM4_rcp85_2010_2099 a')
+  await page.click('#alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099 a')
 
-  // Check that the most recently added map tiles contain "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2010_2099" in the URL of their src attribute.
+  // Check that the most recently added map tiles contain "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099" in the URL of their src attribute.
   let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
-  expect(src).toContain('alfresco_relative_flammability_NCAR-CCSM4_rcp85_2010_2099')
+  expect(src).toContain('alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099')
 
   let legend = page.locator('.legend--item:has(h4:has-text("Projected flammability"))')
   expect(legend).toBeVisible()
