@@ -177,7 +177,7 @@ export default {
         transparent: true,
         srs: "EPSG:3338",
         format: "image/png",
-        version: "1.3",
+        version: "1.3.0",
         continuousWorld: true, // needed for non-3857 projs
       },
       layers: mapLayers,

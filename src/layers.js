@@ -10,6 +10,8 @@ const aqiAbstract = `
 <p>The predicted air quality can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
 <p><a href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
 <p>The data used in this layer have been provided by the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the <a href="https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php">online data portal in the NASA Center for Climate Simulation</a>.</p>
+<p>The model used is the GEOS AGCM (Atmospheric General Circulation Model), operated within the GEOS FP (Forward Processing) data assimilation system. The GEOS FP system is run in near-real-time by NASA's Global Modeling and Assimilation Office (GMAO) to provide global weather forecasts and reanalysis data. Output is provided at approximately 12 km horizontal resolution.
+For additional information, see the <a href="https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf">project documentation</a>.</p>
 
 `;
 
@@ -233,15 +235,17 @@ export default [
     </table>`,
   },
   {
+    rasdaman: true,
     abstract: `
-          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. These modeled data for the previous century (1900&ndash;1999) allow for comparison between that century and this one, but do not necessarily match historical fire perimeters.</p>
+          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. These modeled data for 1950&ndash;2008 allow for comparison with projected data but do not necessarily match historical fire perimeters.</p>
           <p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
-    id: "alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem",
+    id: "alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem",
     numericId: 13,
-    wmsLayerName:
-      "alaska_wildfires:alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem",
+    wmsLayerName: 'alfresco_relative_flammability_30yr',
+    dim_model: 0,
+    dim_scenario: 0,
     zindex: 5,
-    styles: "flammability",
+    styles: "alaska_wildfire_explorer_historical",
     title: "Historical modeled flammability",
     legend: `<table class="table alaska-wildfires-legend flammability">
       <tr><td><div class="rf-1"></div></td><td>Less likely to burn</td></tr>
@@ -252,14 +256,16 @@ export default [
     </table>`,
   },
   {
+    rasdaman: true,
     abstract: `
-          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2000&ndash;2099 using the <a href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can't predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
-    id: "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
+          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2070&ndash;2099 using the <a href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can’t predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
+    id: "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099",
     numericId: 14,
-    wmsLayerName:
-      "alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099",
+    wmsLayerName: 'alfresco_relative_flammability_30yr',
+    dim_model: 6,
+    dim_scenario: 3,
     zindex: 5,
-    styles: "flammability",
+    styles: "alaska_wildfire_explorer_projected",
     title: "Projected flammability",
     legend: `<table class="table alaska-wildfires-legend flammability">
       <tr><td><div class="rf-1"></div></td><td>Less likely to burn</td></tr>
