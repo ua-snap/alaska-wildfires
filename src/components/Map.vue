@@ -61,6 +61,11 @@ export default {
 
     this.addLayers();
 
+    // Add event listener for layer refresh
+    this.$root.$on("refresh-map-layers", () => {
+      this.refreshLayers();
+    });
+
     // Add land mask to map to handle shift-click events
     this.$L
       .geoJSON(mask, {
@@ -81,7 +86,9 @@ export default {
     }, 0);
 
     // Set visibility of layers based on query params
-    let numericIds = this.$route.query.layers ? this.$route.query.layers.split(',') : [];
+    let numericIds = this.$route.query.layers
+      ? this.$route.query.layers.split(",")
+      : [];
     if (numericIds.length > 0) {
       this.$store.commit("hideAllLayers");
       numericIds.forEach((numericId) => {
@@ -114,7 +121,7 @@ export default {
       } else if (this.selected == undefined) {
         // Reset the map back to the default view
         this.$options.leaflet.map.setView([65, -152.5], 1);
-}
+      }
     },
   },
   methods: {

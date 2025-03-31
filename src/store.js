@@ -122,7 +122,7 @@ export default new Vuex.Store({
       let visibleLayers = state.layers
         .map((layer) => (layer.visible ? layer.numericId : null))
         .filter((index) => index !== null);
-  
+
       // Update the URL with the visible layers
       if (payload.router) {
         payload.router.replace({
@@ -138,12 +138,14 @@ export default new Vuex.Store({
         layer.visible = false;
       });
     },
-    setLayerVisibility(state, { id, numericId, visible }) {
+    setLayerVisibility(state, { id, numericId, visible, router }) {
       let layer_id;
       if (id) {
         layer_id = id;
       } else if (numericId >= 0) {
-        let foundLayer = state.layers.find((layer) => layer.numericId === parseInt(numericId))
+        let foundLayer = state.layers.find(
+          (layer) => layer.numericId === parseInt(numericId),
+        );
         layer_id = foundLayer.id;
       } else {
         console.error("No layer id or index provided to setLayerVisibility");
@@ -151,6 +153,20 @@ export default new Vuex.Store({
       const layer = state.layers.find((layer) => layer.id === layer_id);
       layer.visible = visible;
       Vue.set(state.layers);
+
+      if (router) {
+        let visibleLayers = state.layers
+          .map((layer) => (layer.visible ? layer.numericId : null))
+          .filter((index) => index !== null);
+
+        router.replace({
+          query: {
+            ...router.query,
+            layers:
+              visibleLayers.length > 0 ? visibleLayers.join(",") : undefined,
+          },
+        });
+      }
     },
     /*
 
@@ -287,7 +303,11 @@ export default new Vuex.Store({
       let community = payload.community;
       // Get API data
       let queryUrl =
-        apiUrl + "/fire/point/" + community.latitude + "/" + community.longitude;
+        apiUrl +
+        "/fire/point/" +
+        community.latitude +
+        "/" +
+        community.longitude;
       let returnedData = await axios.get(queryUrl).catch(() => {
         // If the API call fails, redirect to the home page
         payload.router.push("/");

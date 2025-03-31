@@ -98,7 +98,7 @@ export default [
               <tr><td><div class="lc-gte45"></div></td><td>45+</td></tr>
             </table>`,
     abstract: `
-            <p>Average of detected lightning strikes for Alaska’s wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p><p>Detailed information about this dataset can be found in <a href="https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml">this academic paper</a>, and <a href="https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548">the dataset can be downloaded here</a>.`,
+            <p>Average of detected lightning strikes for Alaska's wildfire season (May&ndash;August). Calculated by averaging all strikes within a 20&times;20 km area for each month across 30 years (1986&ndash;2015). This layer looks blocky because each square is showing the average for that area.</p><p>Detailed information about this dataset can be found in <a href="https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml">this academic paper</a>, and <a href="https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548">the dataset can be downloaded here</a>.`,
   },
   {
     id: "aqi_forecast_6_hrs",
@@ -292,5 +292,11 @@ export default [
     zindex: 20,
     legend: aqiTable,
     legendClassOverride: "is-one-third",
+  },
+  {
+    id: "gmu",
+    numericId: 16,
+    wmsLayerName: "alaska_wildfires:gmu",
+    zindex: 100,
   },
 ];
