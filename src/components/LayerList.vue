@@ -110,6 +110,7 @@
 <script>
 import MapLayer from "./MapLayer";
 import { mapGetters } from "vuex";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 export default {
   name: "LayerList",
@@ -246,13 +247,6 @@ hr {
 
   .icon {
     color: #7a7a7a;
-    transition: transform 0.2s ease-in-out;
-  }
-
-  &.is-active {
-    .icon {
-      transform: rotate(180deg);
-    }
   }
 
   .dropdown-menu {
