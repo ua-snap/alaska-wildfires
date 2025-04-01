@@ -80,6 +80,7 @@ export default [
         name: `alaska_wildfires:lightning-monthly-climatology`,
         time: `2015-${params.month}-01T00:00:00Z`,
         title: `Historical lightning strikes in ${monthName}`,
+        yearLabel: `Years: 1986–2015`,
       };
     },
     controls: "months",
@@ -167,6 +168,7 @@ export default [
     numericId: 10,
     wmsLayerName: "alaska_wildfires:alaska_landcover_2015",
     title: "Land cover types",
+    yearLabel: "Year: 2015",
     zindex: 3,
     legendClassOverride: "is-one-third",
     legend: `<table class="table alaska-wildfires-legend alaska-landcover-2015">
@@ -196,6 +198,7 @@ export default [
     zindex: 10,
     styles: "historical_fire_polygon_buckets",
     title: "Historical fire perimeters",
+    yearLabel: "Years: 1940-2023",
     legend: `<table class="table alaska-wildfires-legend historical-fire-perimeters">
             <tr><td><div class="h-40-69"></div></td><td>1940&mdash;1969</td></tr>
             <tr><td><div class="h-70-99"></div></td><td>1970&mdash;1999</td></tr>
@@ -247,6 +250,7 @@ export default [
     zindex: 5,
     styles: "alaska_wildfire_explorer_historical",
     title: "Historical modeled flammability",
+    yearLabel: "Years: 1950–2008",
     legend: `<table class="table alaska-wildfires-legend flammability">
       <tr><td><div class="rf-1"></div></td><td>Less likely to burn</td></tr>
       <tr><td><div class="rf-2"></div></td><td></td></tr>
@@ -267,6 +271,7 @@ export default [
     zindex: 5,
     styles: "alaska_wildfire_explorer_projected",
     title: "Projected flammability",
+    yearLabel: "Years: 2070–2099",
     legend: `<table class="table alaska-wildfires-legend flammability">
       <tr><td><div class="rf-1"></div></td><td>Less likely to burn</td></tr>
       <tr><td><div class="rf-2"></div></td><td></td></tr>

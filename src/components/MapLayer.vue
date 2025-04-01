@@ -20,6 +20,10 @@
           }"
         >
         </span>
+        <span v-if="layer.yearLabel">
+          <br />
+          <span v-html="layer.yearLabel" class="is-size-6 has-text-grey" />
+        </span>
       </a>
     </span>
 
@@ -116,7 +120,8 @@ a:hover {
 }
 
 .layer {
-  margin: 5px 0;
+  margin: 10px 0;
+  line-height: 1.25;
   cursor: pointer;
 }
 

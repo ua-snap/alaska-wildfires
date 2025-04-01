@@ -14,6 +14,7 @@ var setWmsProperties = (state, layer, properties) => {
     Vue.set(layer, "wms", layer.wmsLayerName(properties).name);
     Vue.set(layer, "time", layer.wmsLayerName(properties).time);
     Vue.set(layer, "title", layer.wmsLayerName(properties).title);
+    Vue.set(layer, "yearLabel", layer.wmsLayerName(properties).yearLabel);
   } else {
     // Don't need to ensure deep watchers see this change -- static layer name
     layer.wms = layer.wmsLayerName;
