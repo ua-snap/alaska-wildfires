@@ -33,7 +33,7 @@ test('Place selector autocomplete', async ({ page }) => {
   // Wait a bit for autocomplete options to load.
   await page.waitForTimeout(3000)
 
-  await expect(page.locator('.dropdown-menu .dropdown-item')).toHaveCount(1)
+  await expect(page.locator('.dropdown-content .search-item')).toHaveCount(1)
 })
 
 test('Current conditions', async ({ page }) => {
