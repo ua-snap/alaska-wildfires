@@ -21,7 +21,7 @@ To install and run this project locally, follow these steps:
 3. Install the required dependencies:
 
    ```
-   npm install
+   npm install --force # Force resolution of Vue 2 / Playwright incompatibilities
    ```
 
 4. Start the application:
@@ -46,13 +46,13 @@ To set the app into "winter mode", export this env var:
 
 ### Playwright tests
 
-To run the Playwright tests for this webapp, first run the webapp:
+To run the Playwright tests for this webapp, set any necesary environment variables, then run the webapp:
 
 ```
 npm run dev
 ```
 
-Then, in another terminal window, run the following
+Make sure the local webapp is running as expected. Then, in another terminal window, run the following
 
 ```
 npx playwright install # Install Playwright browsers
