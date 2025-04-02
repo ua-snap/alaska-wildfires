@@ -61,6 +61,20 @@ test('Current conditions', async ({ page }) => {
   }
 })
 
+
+test('Boundary layer', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  await page.click('.boundary-selector button')
+  await page.click('.dropdown-item:text-is("GMUs")')
+  await page.waitForTimeout(3000)
+
+  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('gmu')
+
+})
+
 test('Active wildfires layer', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
@@ -380,9 +394,10 @@ test('Historical modeled flammability', async ({ page }) => {
 
   await page.click('#alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem a')
 
-  // Check that the most recently added map tiles contain "alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem" in the URL of their src attribute.
+  // Check that the most recently added map tiles contain expected substrings in the URL of their src attribute.
   let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
-  expect(src).toContain('alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem')
+  expect(src).toContain('alfresco_relative_flammability_30yr')
+  expect(src).toContain('alaska_wildfire_explorer_historical')
 
   let legend = page.locator('.legend--item:has(h4:text-is("Historical modeled flammability"))')
   expect(legend).toBeVisible()
@@ -400,9 +415,10 @@ test('Projected flammability', async ({ page }) => {
 
   await page.click('#alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099 a')
 
-  // Check that the most recently added map tiles contain "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099" in the URL of their src attribute.
+  // Check that the most recently added map tiles contain expected substrings in the URL of their src attribute.
   let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
-  expect(src).toContain('alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099')
+  expect(src).toContain('alfresco_relative_flammability_30yr')
+  expect(src).toContain('alaska_wildfire_explorer_projected')
 
   let legend = page.locator('.legend--item:has(h4:text-is("Projected flammability"))')
   expect(legend).toBeVisible()
@@ -474,5 +490,53 @@ test('Footer links', async ({ page }) => {
 
   src = await page.locator('.footer a:text-is("Learn more about UA’s notice of web accessibility")').getAttribute('href')
   expect(src).toContain('https://www.alaska.edu/webaccessibility/')
+})
 
+test('Permalinks', async ({ page }) => {
+  let permalinkUrl = url + '/AK124?layers=0,1,2,3'
+  await page.goto(permalinkUrl)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Check to see if community is set to Fairbanks and intro table has loaded.
+  await expect(page.locator('.place-selector input')).toHaveValue('Fairbanks')
+  await expect(page.locator('.intro .title strong')).toHaveText('Fairbanks')
+  await expect(page.locator('.intro table')).toHaveCount(2)
+
+  let legend
+
+  // Check current wildfires layer.
+  await expect.poll(() => page.locator('.leaflet-container .leaflet-marker-icon').count()).toBeGreaterThan(10)
+  legend = page.locator('.legend--item:has(table.active-fires)')
+  expect(legend).toBeVisible()
+
+  // Check hotspots layer.
+  await expect(page.locator('.leaflet-container .leaflet-heatmap-layer')).toBeVisible()
+  legend = page.locator('.legend--item:has(h4:text-is("Hotspots, last 48 hours"))')
+  expect(legend).toBeVisible()
+
+  // Check fire danger ratings and lightning strikes layers.
+  let tiles = page.locator('.leaflet-container .leaflet-layer img')
+  let foundFireDangerRatings = false
+  let foundLightningStrikes = false
+  for (let i = 0; i < await tiles.count(); i++) {
+    let src = await tiles.nth(i).getAttribute('src')
+    if (!foundFireDangerRatings && src.includes('spruceadj_3338')) {
+      foundFireDangerRatings = true
+    }
+    if (!foundLightningStrikes && src.includes('lightning_strikes')) {
+      foundLightningStrikes = true
+    }
+    if (foundFireDangerRatings && foundLightningStrikes) {
+      break
+    }
+  }
+
+  expect(foundFireDangerRatings).toBe(true)
+  expect(foundLightningStrikes).toBe(true)
+
+  legend = page.locator('.legend--item:has(table.lightning)')
+  expect(legend).toBeVisible()
+
+  legend = page.locator('.legend--item:has(table.smokey-bear)')
+  expect(legend).toBeVisible()
 })
