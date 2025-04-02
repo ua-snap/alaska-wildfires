@@ -44,6 +44,21 @@ To set the app into "winter mode", export this env var:
 
 `export VUE_APP_ACTIVE=False`
 
+### Playwright tests
+
+To run the Playwright tests for this webapp, first run the webapp:
+
+```
+npm run dev
+```
+
+Then, in another terminal window, run the following
+
+```
+npx playwright install # Install Playwright browsers
+npx playwright test --ui
+```
+
 ## Building the repository for production
 
 This repository uses AWS CLI tools to pull the latest version of the status.json file from the production version of the application before building the application. This means that the status.json will match the last time data was updated using our Prefect update scripts.
