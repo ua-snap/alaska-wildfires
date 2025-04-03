@@ -311,7 +311,7 @@ export default [
     id: "fire_zones",
     numericId: 18,
     wmsLayerName: "all_boundaries:all_fire_zones",
-    title: "Fire Zones",
+    title: "Fire Management Units",
     zindex: 100,
   },
 ];
