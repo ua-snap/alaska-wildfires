@@ -75,14 +75,9 @@
           </li>
         </ul>
       </li>
-      <hr />
-      <li>
-        <map-layer id="snow_cover_3338"></map-layer>
-      </li>
     </ul>
-
+    <hr />
     <h3 class="title is-4">Past &amp; future</h3>
-
     <ul>
       <li>
         <map-layer id="alaska_landcover_2015"></map-layer>
