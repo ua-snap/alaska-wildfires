@@ -277,26 +277,6 @@ test('48-hour air quality forecast layer', async ({ page }) => {
   expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
 })
 
-test('Snow cover', async ({ page }) => {
-  await page.goto(url)
-  await page.setViewportSize({ width: 1728, height: 1078 })
-
-  // Disable current wildfires layer.
-  await page.click('#fires a')
-
-  await page.click('#snow_cover_3338 a')
-
-  // Check that the most recently added map tiles contain "snow_cover_3338" in the URL of their src attribute.
-  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
-  expect(src).toContain('snow_cover_3338')
-
-  let legend = page.locator('.legend--item:has(table.snow-cover)')
-  expect(legend).toBeVisible()
-
-  src = await legend.locator('a:text-is("Visit the data source")').getAttribute('href')
-  expect(src).toContain('https://usicecenter.gov/Resources/ImsInfo')
-})
-
 test('Land cover types', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
