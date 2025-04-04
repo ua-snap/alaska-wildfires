@@ -624,7 +624,7 @@ export default {
     styleFirePolygons(feature) {
       if (this.isFireActive(feature.properties)) {
         return {
-          color: '#fff',
+          color: "#fff",
           fillColor: this.active_fire_color,
           opacity: 0.8,
           weight: 2,
@@ -633,7 +633,7 @@ export default {
         };
       } else {
         return {
-          color: '#333',
+          color: "#333",
           fillColor: this.inactive_fire_color,
           opacity: 0.8,
           weight: 2,
@@ -839,7 +839,8 @@ div.leaflet-marker-icon span {
   }
 
   &.inactive {
-    background-color: rgba(100, 100, 100, 0.6);
+    background-color: #22535b;
+    opacity: 0.6;
     z-index: 500;
   }
 
@@ -971,8 +972,28 @@ table.alaska-wildfires-legend {
   }
 
   &.active-fires {
-    img {
-      min-width: 3em;
+    tr > td {
+      text-align: center;
+    }
+    td > span {
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+      color: white;
+      font-weight: 600;
+      border-radius: 1em;
+      margin: 1ex;
+      padding: 0.5ex;
+
+      &.active {
+        background-color: #fc8d05;
+      }
+      &.inactive {
+        background-color: #22535b;
+      }
+      &.small {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+      }
     }
   }
 

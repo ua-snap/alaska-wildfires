@@ -23,6 +23,35 @@ const aqiTable = `
     <tr><td><div class="aqi-hazardous"></div></td><td>Hazardous: 301&ndash;500</td></tr>
   </table>`;
 
+const activeFiresLayerTable = `
+  <table class="table alaska-wildfires-legend active-fires">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Active</th>
+      <th scope="col">Inactive/out</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Fires with mapped perimeters</th>
+      <td><img src=" ${require("@/assets/active-perimeter.svg")} "/></td>
+      <td><img src=" ${require("@/assets/inactive-perimeter.svg")} "/></td>
+    </tr>
+    <tr>
+      <th scope="row">Fires &gt;1 acre</th>
+      <td><span class="active">800</span></td>
+      <td><span class="inactive">800</span></td>
+    </tr>
+    <tr>
+      <th scope="row">Fires &lt;1 acre</th>
+      <td><span class="active small"></span></td>
+      <td><span class="inactive small"></span></td>
+    </tr>
+  </tbody>
+  </table>
+`
+
 export default [
   {
     id: "fires",
@@ -32,18 +61,7 @@ export default [
     local: true,
     visible: true,
     legendClassOverride: "is-one-third",
-    legend:
-      `<table class="table alaska-wildfires-legend active-fires">
-      <tr><td><img src="` +
-      require("@/assets/fire-perimeter.png") +
-      `"/></td><td class="fire-text">Active Fire Perimeters</td></tr>
-      <tr><td><img src="` +
-      require("@/assets/large-fire.png") +
-      `"/></td><td class="fire-text">Large Fire</td></tr>
-      <tr><td><img class="small-fire-dot" src="` +
-      require("@/assets/small-fire.png") +
-      `"/></td><td class="fire-text">Small Fires</td></tr>
-      </table>`,
+    legend: activeFiresLayerTable,
     abstract:
       "<p>Active (orange) and inactive (gray) fires for the " +
       currentYear +
