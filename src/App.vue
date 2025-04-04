@@ -53,7 +53,7 @@
               tool.
             </p>
             <p class="intro--legend">
-              <img src="@/assets/fire-perimeter.png" />Active fires with mapped
+              <img src="@/assets/active-perimeter.svg" />Active fires with mapped
               perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
             <ul>
@@ -257,6 +257,7 @@ header {
     vertical-align: middle;
     display: inline-block;
     margin-right: 1rem;
+    height: 75px;
   }
 }
 </style>
