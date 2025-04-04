@@ -76,7 +76,6 @@
         </ul>
       </li>
     </ul>
-    <hr />
     <h3 class="title is-4">Past &amp; future</h3>
     <ul>
       <li>
