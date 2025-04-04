@@ -3,6 +3,7 @@
     <h4 class="title is-4" v-html="title"></h4>
     <div class="columns">
       <div
+        v-if="layer.legend"
         class="column"
         v-bind:class="
           layer.legendClassOverride ? layer.legendClassOverride : 'is-one-fifth'
