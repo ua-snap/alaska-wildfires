@@ -299,6 +299,9 @@ export default [
     wmsLayerName: "all_boundaries:all_gmus",
     title: "Game Management Units",
     zindex: 100,
+    abstract: `
+      <p> The Alaska Department of Fish and Game manages hunting by dividing the state into many Game Management Units (GMUs), each with regulations on species, season, etc. Units are at the sub-unit level. <a href="https://www.adfg.alaska.gov/index.cfm?adfg=huntingmaps.gmuinfo">Learn more about GMUs</a></p>
+      `,
   },
   {
     id: "protected_areas",
@@ -306,6 +309,7 @@ export default [
     wmsLayerName: "all_boundaries:all_protected_areas",
     title: "Protected Areas",
     zindex: 100,
+    abstract: `<p>Protected areas include National Parks, National Forests, Wilderness Areas, National Wildlife Refuges, State Parks.  These are identified by multiple State and Federal agencies, including the National Park Service (NPS), Alaska Department of Fish and Game (ADFG), United States Forest Service (USFS), and more.</p>`,
   },
   {
     id: "fire_zones",
@@ -313,5 +317,14 @@ export default [
     wmsLayerName: "all_boundaries:all_fire_zones",
     title: "Fire Management Units",
     zindex: 100,
+    abstract: `
+      <p>
+        The
+        <a href="https://akfireinfo.com/author/akforestry/">State of Alaska Department of Natural Resources</a>, the US Bureau of Land Management Alaska Fire Service, and the
+        <a href="https://www.fs.usda.gov/managing-land/fire">US Forest Service</a>
+        jointly manage the state to maximize efficient use of
+        fire-related resources.
+      </p>
+      `,
   },
 ];

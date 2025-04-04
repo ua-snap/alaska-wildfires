@@ -67,7 +67,6 @@
         ></map-layer>
       </li>
     </ul>
-    <hr />
     <h3 class="title is-4">Boundaries</h3>
     <ul>
       <li>
