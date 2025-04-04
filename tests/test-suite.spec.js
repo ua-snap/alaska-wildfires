@@ -61,20 +61,6 @@ test('Current conditions', async ({ page }) => {
   }
 })
 
-
-test('Boundary layer', async ({ page }) => {
-  await page.goto(url)
-  await page.setViewportSize({ width: 1728, height: 1078 })
-
-  await page.click('.boundary-selector button')
-  await page.click('.dropdown-item:text-is("GMUs")')
-  await page.waitForTimeout(3000)
-
-  let src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
-  expect(src).toContain('gmu')
-
-})
-
 test('Active wildfires layer', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
@@ -425,6 +411,31 @@ test('Projected flammability', async ({ page }) => {
 
   src = await legend.locator('a:text-is("can be downloaded here")').getAttribute('href')
   expect(src).toContain('https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214')
+})
+
+test('Boundary layers', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  // Disable current wildfires layer.
+  await page.click('#fires a')
+
+  let src
+
+  // Check that the most recently added map tiles contain "all_gmus" in the URL of their src attribute.
+  await page.click('#gmu a')
+  src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('all_gmus')
+
+  // Check that the most recently added map tiles contain "protected_areas" in the URL of their src attribute.
+  await page.click('#protected_areas a')
+  src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('protected_areas')
+
+  // Check that the most recently added map tiles contain "all_fire_zones" in the URL of their src attribute.
+  await page.click('#fire_zones a')
+  src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
+  expect(src).toContain('all_fire_zones')
 })
 
 test('Footer links', async ({ page }) => {
