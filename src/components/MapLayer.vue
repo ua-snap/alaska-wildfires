@@ -89,8 +89,26 @@ export default {
             });
           }
         });
+      } else if (
+        this.id === "gmu" ||
+        this.id === "protected_areas" ||
+        this.id === "fire_zones"
+      ) {
+        // When a boundary layer is toggled, turn off all other boundary layers
+        const boundaryLayers = ["gmu", "protected_areas", "fire_zones"];
+        boundaryLayers.forEach((layerId) => {
+          if (layerId !== this.id) {
+            this.$store.commit("setLayerVisibility", {
+              id: layerId,
+              visible: false,
+            });
+          }
+        });
       }
-      this.$store.commit("toggleLayerVisibility", { id: this.id });
+      this.$store.commit("toggleLayerVisibility", {
+        id: this.id,
+        router: this.$router,
+      });
     },
     handleLayerConfigChange(data) {
       // Update defaults so when
@@ -108,6 +126,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a:hover {
+  text-decoration: none;
+}
+
 .layer {
   margin: 5px 0;
   cursor: pointer;

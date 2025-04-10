@@ -36,7 +36,7 @@
           </div>
 
           <div class="intro content is-size-4 clamp">
-            <p v-if="fireUpdateDate">
+            <p v-if="fireUpdateDate && fireCount">
               <span class="glow"
                 >As of {{ dataDate }}, there are
                 <strong>{{ fireCount }}</strong> active fires, and approximately
@@ -53,7 +53,7 @@
               tool.
             </p>
             <p class="intro--legend">
-              <img src="@/assets/fire-perimeter.png" />Active fires with mapped
+              <img src="@/assets/active-perimeter.svg" />Active fires with mapped
               perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
             <ul>
@@ -257,6 +257,7 @@ header {
     vertical-align: middle;
     display: inline-block;
     margin-right: 1rem;
+    height: 75px;
   }
 }
 </style>
@@ -294,6 +295,16 @@ export default {
     }),
   },
   created() {
+    const path = (/#!(\/.*)$/.exec(this.$route.fullPath) || [])[1];
+    if (path) {
+      this.$router.push({ path: path });
+    }
+
+    // Remove the "layers" GET parameter if it is empty
+    if (this.$route.query.layers === "") {
+      this.$router.push({ query: {} });
+    }
+
     this.fetch();
   },
   methods: {

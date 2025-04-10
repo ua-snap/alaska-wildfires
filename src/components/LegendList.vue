@@ -15,11 +15,14 @@
     <legend-item id="gridded_lightning"></legend-item>
     <legend-item id="historical_fire_perimeters"></legend-item>
     <legend-item
-      id="alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem"
+      id="alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem"
     ></legend-item>
     <legend-item
-      id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"
+      id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099"
     ></legend-item>
+    <legend-item id="gmu"></legend-item>
+    <legend-item id="protected_areas"></legend-item>
+    <legend-item id="fire_zones"></legend-item>
   </div>
 </template>
 

@@ -38,14 +38,8 @@
           </li>
         </ul>
       </li>
-      <hr />
-      <li>
-        <map-layer id="snow_cover_3338"></map-layer>
-      </li>
     </ul>
-
     <h3 class="title is-4">Past &amp; future</h3>
-
     <ul>
       <li>
         <map-layer id="alaska_landcover_2015"></map-layer>
@@ -58,13 +52,25 @@
       </li>
       <li>
         <map-layer
-          id="alfresco_relative_flammability_cru_ts40_historical_1900_1999_iem"
+          id="alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem"
         ></map-layer>
       </li>
       <li>
         <map-layer
-          id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099"
+          id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099"
         ></map-layer>
+      </li>
+    </ul>
+    <h3 class="title is-4">Boundaries</h3>
+    <ul>
+      <li>
+        <map-layer id="gmu"></map-layer>
+      </li>
+      <li>
+        <map-layer id="protected_areas"></map-layer>
+      </li>
+      <li>
+        <map-layer id="fire_zones"></map-layer>
       </li>
     </ul>
   </div>
@@ -73,6 +79,7 @@
 <script>
 import MapLayer from "./MapLayer";
 import { mapGetters } from "vuex";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 export default {
   name: "LayerList",

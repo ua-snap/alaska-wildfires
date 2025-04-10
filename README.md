@@ -21,7 +21,7 @@ To install and run this project locally, follow these steps:
 3. Install the required dependencies:
 
    ```
-   npm install
+   npm install --force # Force resolution of Vue 2 / Playwright incompatibilities
    ```
 
 4. Start the application:
@@ -43,6 +43,31 @@ The file `src/assets/status.json` is intended to be updated by an external proce
 To set the app into "winter mode", export this env var:
 
 `export VUE_APP_ACTIVE=False`
+
+### Playwright tests
+
+To run the Playwright tests for this webapp, set any necesary environment variables, then run the webapp:
+
+```
+npm run dev
+```
+
+Make sure the local webapp is running as expected. Then, in another terminal window, run the following
+
+```
+npx playwright install # Install Playwright browsers
+npx playwright test --ui
+```
+
+## Building the repository for production
+
+This repository uses AWS CLI tools to pull the latest version of the status.json file from the production version of the application before building the application. This means that the status.json will match the last time data was updated using our Prefect update scripts.
+
+To use the build command, be sure you have [AWS CLI Toolkit](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed. Then you can run:
+
+```
+npm run build
+```
 
 ## License
 
