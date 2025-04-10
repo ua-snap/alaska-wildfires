@@ -180,6 +180,8 @@ export default {
         version: "1.3.0",
         continuousWorld: true, // needed for non-3857 projs
       },
+      active_fire_color: "#fc8d05",
+      inactive_fire_color: "#22535b",
       layers: mapLayers,
       fireJson: null,
       viirsJson: null,
@@ -496,28 +498,26 @@ export default {
       </svg>
       `);
       var activeSvgCircle = svgCircleTemplate({
-        stop1: "RGB(207, 38, 47)",
-        stop1opacity: ".05",
-        stop2: "RGB(207, 38, 47)",
-        stop2opacity: ".15",
-        stop3: "RGB(207, 38, 47)",
-        stop3opacity: ".35",
+        stop1: this.active_fire_color,
+        stop1opacity: ".1",
+        stop2: this.active_fire_color,
+        stop2opacity: ".45",
+        stop3: this.active_fire_color,
+        stop3opacity: ".95",
       });
       var inactiveSvgCircle = svgCircleTemplate({
-        stop1: "RGB(80, 63, 63)",
+        stop1: this.inactive_fire_color,
         stop1opacity: ".05",
-        stop2: "RGB(80, 63, 63)",
+        stop2: this.inactive_fire_color,
         stop2opacity: ".15",
-        stop3: "RGB(80, 63, 63)",
+        stop3: this.inactive_fire_color,
         stop3opacity: ".35",
       });
 
-      var activeFireCircle = encodeURI(
-        "data:image/svg+xml," + activeSvgCircle,
-      ).replace("#", "%23");
-      var inactiveFireCircle = encodeURI(
-        "data:image/svg+xml," + inactiveSvgCircle,
-      ).replace("#", "%23");
+      var activeFireCircle =
+        "data:image/svg+xml," + encodeURIComponent(activeSvgCircle);
+      var inactiveFireCircle =
+        "data:image/svg+xml," + encodeURIComponent(inactiveSvgCircle);
 
       // Set up icon markers
       let FireIcon = this.$L.Icon.extend({
@@ -625,19 +625,19 @@ export default {
     styleFirePolygons(feature) {
       if (this.isFireActive(feature.properties)) {
         return {
-          color: "#ff0000",
-          fillColor: "#E83C18",
+          color: "#fff",
+          fillColor: this.active_fire_color,
           opacity: 0.8,
           weight: 2,
-          fillOpacity: 0.3,
+          fillOpacity: 0.8,
           className: "fire-polygon",
         };
       } else {
         return {
-          color: "#888888",
-          fillColor: "#888888",
+          color: "#333",
+          fillColor: this.inactive_fire_color,
           opacity: 0.8,
-          weight: 3,
+          weight: 2,
           fillOpacity: 1,
           className: "fire-polygon",
         };
@@ -850,13 +850,14 @@ div.leaflet-marker-icon span {
   cursor: pointer;
 
   &.active {
-    background-color: rgba(200, 56, 20, 0.55);
+    background-color: #fc8d05;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
     z-index: 10000;
   }
 
   &.inactive {
-    background-color: rgba(100, 100, 100, 0.6);
+    background-color: #22535b;
+    opacity: 0.6;
     z-index: 500;
   }
 
@@ -988,8 +989,28 @@ table.alaska-wildfires-legend {
   }
 
   &.active-fires {
-    img {
-      min-width: 3em;
+    tr > td {
+      text-align: center;
+    }
+    td > span {
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+      color: white;
+      font-weight: 600;
+      border-radius: 1em;
+      margin: 1ex;
+      padding: 0.5ex;
+
+      &.active {
+        background-color: #fc8d05;
+      }
+      &.inactive {
+        background-color: #22535b;
+      }
+      &.small {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+      }
     }
   }
 

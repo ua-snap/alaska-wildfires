@@ -25,6 +25,35 @@ const aqiTable = `
     <tr><td><div class="aqi-hazardous"></div></td><td>Hazardous: 301&ndash;500</td></tr>
   </table>`;
 
+const activeFiresLayerTable = `
+  <table class="table alaska-wildfires-legend active-fires">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Active</th>
+      <th scope="col">Inactive/out</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Fires with mapped perimeters</th>
+      <td><img src=" ${require("@/assets/active-perimeter.svg")} "/></td>
+      <td><img src=" ${require("@/assets/inactive-perimeter.svg")} "/></td>
+    </tr>
+    <tr>
+      <th scope="row">Fires &gt;1 acre</th>
+      <td><span class="active">800</span></td>
+      <td><span class="inactive">800</span></td>
+    </tr>
+    <tr>
+      <th scope="row">Fires &lt;1 acre</th>
+      <td><span class="active small"></span></td>
+      <td><span class="inactive small"></span></td>
+    </tr>
+  </tbody>
+  </table>
+`
+
 export default [
   {
     id: "fires",
@@ -34,20 +63,9 @@ export default [
     local: true,
     visible: true,
     legendClassOverride: "is-one-third",
-    legend:
-      `<table class="table alaska-wildfires-legend active-fires">
-      <tr><td><img src="` +
-      require("@/assets/fire-perimeter.png") +
-      `"/></td><td class="fire-text">Active Fire Perimeters</td></tr>
-      <tr><td><img src="` +
-      require("@/assets/large-fire.png") +
-      `"/></td><td class="fire-text">Large Fire</td></tr>
-      <tr><td><img class="small-fire-dot" src="` +
-      require("@/assets/small-fire.png") +
-      `"/></td><td class="fire-text">Small Fires</td></tr>
-      </table>`,
+    legend: activeFiresLayerTable,
     abstract:
-      "<p>Active (red) and inactive (gray) fires for the " +
+      "<p>Active (orange) and inactive (gray) fires for the " +
       currentYear +
       ' season, using data from the most recent information from the Alaska Interagency Coordination Center.  Small fires (1 acre or less) are shown with a dot. Larger fires and fires with mapped perimeters have a halo to show their relative size.  Recently-discovered fires may not have a mapped perimeter.</p><p>Data are accessed from the Alaska Interagency Coordination Center (AICC) <a href="https://fire.ak.blm.gov/predsvcs/maps.php">data services</a>.</p>',
   },
@@ -241,7 +259,7 @@ export default [
           <p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
     id: "alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem",
     numericId: 13,
-    wmsLayerName: 'alfresco_relative_flammability_30yr',
+    wmsLayerName: "alfresco_relative_flammability_30yr",
     dim_model: 0,
     dim_scenario: 0,
     zindex: 5,
@@ -261,7 +279,7 @@ export default [
           <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2070&ndash;2099 using the <a href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can’t predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
     id: "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099",
     numericId: 14,
-    wmsLayerName: 'alfresco_relative_flammability_30yr',
+    wmsLayerName: "alfresco_relative_flammability_30yr",
     dim_model: 6,
     dim_scenario: 3,
     zindex: 5,
@@ -296,7 +314,35 @@ export default [
   {
     id: "gmu",
     numericId: 16,
-    wmsLayerName: "alaska_wildfires:gmu",
+    wmsLayerName: "all_boundaries:all_gmus",
+    title: "Game Management Units",
     zindex: 100,
+    abstract: `
+      <p> The Alaska Department of Fish and Game manages hunting by dividing the state into many Game Management Units (GMUs), each with regulations on species, season, etc. Units are at the sub-unit level. <a href="https://www.adfg.alaska.gov/index.cfm?adfg=huntingmaps.gmuinfo">Learn more about GMUs</a></p>
+      `,
+  },
+  {
+    id: "protected_areas",
+    numericId: 17,
+    wmsLayerName: "all_boundaries:all_protected_areas",
+    title: "Protected Areas",
+    zindex: 100,
+    abstract: `<p>Protected areas include National Parks, National Forests, Wilderness Areas, National Wildlife Refuges, State Parks.  These are identified by multiple State and Federal agencies, including the National Park Service (NPS), Alaska Department of Fish and Game (ADFG), United States Forest Service (USFS), and more.</p>`,
+  },
+  {
+    id: "fire_zones",
+    numericId: 18,
+    wmsLayerName: "all_boundaries:all_fire_zones",
+    title: "Fire Management Units",
+    zindex: 100,
+    abstract: `
+      <p>
+        The
+        <a href="https://akfireinfo.com/author/akforestry/">State of Alaska Department of Natural Resources</a>, the US Bureau of Land Management Alaska Fire Service, and the
+        <a href="https://www.fs.usda.gov/managing-land/fire">US Forest Service</a>
+        jointly manage the state to maximize efficient use of
+        fire-related resources.
+      </p>
+      `,
   },
 ];
