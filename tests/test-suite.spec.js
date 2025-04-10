@@ -39,12 +39,12 @@ test('Place selector autocomplete', async ({ page }) => {
 test('Current conditions', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
-  await page.fill('.place-selector input', 'Fairbanks')
+  await page.fill('.place-selector input', 'Soldotna')
 
   // Wait a bit for autocomplete options to load.
   await page.waitForTimeout(3000)
 
-  await page.click('.dropdown-menu .dropdown-item:has(div:text-is("Fairbanks"))')
+  await page.click('.dropdown-menu .dropdown-item:has(div:text-is("Soldotna"))')
 
   // Wait a bit for data to load.
   await page.waitForTimeout(3000)
@@ -484,13 +484,13 @@ test('Footer links', async ({ page }) => {
 })
 
 test('Permalinks', async ({ page }) => {
-  let permalinkUrl = url + '/AK124?layers=0,1,2,3'
+  let permalinkUrl = url + '/AK366?layers=0,1,2,3'
   await page.goto(permalinkUrl)
   await page.setViewportSize({ width: 1728, height: 1078 })
 
   // Check to see if community is set to Fairbanks and intro table has loaded.
-  await expect(page.locator('.place-selector input')).toHaveValue('Fairbanks')
-  await expect(page.locator('.intro .title strong')).toHaveText('Fairbanks')
+  await expect(page.locator('.place-selector input')).toHaveValue('Soldotna')
+  await expect(page.locator('.intro .title strong')).toHaveText('Soldotna')
   await expect(page.locator('.intro table')).toHaveCount(2)
 
   let legend
