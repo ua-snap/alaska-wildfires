@@ -34,6 +34,8 @@ import L from "leaflet";
 import p4l from "proj4leaflet"; // eslint-disable-line
 import leaflet_heat from "leaflet.heat"; // eslint-disable-line
 import "leaflet/dist/leaflet.css";
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster";
 import axios from "axios";
 
 Object.defineProperty(Vue.prototype, "$L", { value: L });
@@ -76,6 +78,7 @@ var fireLayerGroup;
 var viirsLayerGroup;
 var purpleAirMarkers;
 var purpleAirLayerGroup;
+var purpleAirClusterGroup;
 
 // Current time zone offset (used in parseDate below).
 var offset = new Date().getTimezoneOffset();
@@ -194,6 +197,14 @@ export default {
     fireLayerGroup = this.$L.layerGroup();
     viirsLayerGroup = this.$L.layerGroup();
     purpleAirLayerGroup = this.$L.layerGroup();
+    purpleAirClusterGroup = this.$L.markerClusterGroup({
+      maxClusterRadius: 50,
+      iconCreateFunction: this.createAQIClusterIcon,
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: true,
+      zoomToBoundsOnClick: true,
+      disableClusteringAtZoom: 6, // At max zoom, shows all of the markers
+    });
 
     // Initialize the layers!
     this.$store.commit("setLayers", this.layers);
@@ -262,12 +273,39 @@ export default {
       return akstDateString;
     },
 
+    createAQIClusterIcon(cluster) {
+      const markers = cluster.getAllChildMarkers();
+      let totalAqi = 0;
+      let count = 0;
+
+      markers.forEach((marker) => {
+        const aqi = parseInt(marker.options.aqi);
+        if (!isNaN(aqi)) {
+          totalAqi += aqi;
+          count++;
+        }
+      });
+
+      // Average the AQI of all Purple Air sensors in the cluster
+      const avgAqi = Math.round(totalAqi / count);
+      const aqiClassInfo = this.getAqiClassInfo(avgAqi);
+
+      return this.$L.divIcon({
+        className: "aqi",
+        html: `<span class="${aqiClassInfo.class}">${avgAqi}</span>`,
+        iconSize: [40, 30],
+      });
+    },
+
     processPurpleAirData(data) {
       // Create markers for PurpleAir data
       purpleAirMarkers = this.getPurpleAirMarkers(data);
 
-      // Add the layer group to the map
-      purpleAirLayerGroup.addLayer(this.$L.layerGroup(purpleAirMarkers));
+      purpleAirClusterGroup.clearLayers();
+      purpleAirClusterGroup.addLayers(purpleAirMarkers);
+
+      // Add the cluster group to the map
+      purpleAirLayerGroup.addLayer(purpleAirClusterGroup);
     },
     getAqiClassInfo(aqi) {
       let classInfo;
@@ -301,17 +339,15 @@ export default {
         var icon = this.$L.divIcon({
           className: "aqi",
           popupAnchor: [15, -5],
-          html:
-            '<span class="' +
-            aqi10minClassInfo.class +
-            '">' +
-            feature.properties.aqi_10m +
-            "</span>",
+          html: `<span class="${aqi10minClassInfo.class}">${feature.properties.aqi_10m}</span>`,
         });
 
         var marker = this.$L.marker(
           [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
-          { icon: icon },
+          {
+            icon: icon,
+            aqi: feature.properties.aqi_10m, // This is used for averaging the AQI of all Purple Air sensors in the cluster
+          },
         );
 
         // Create popup content
