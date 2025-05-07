@@ -45,6 +45,12 @@
         <map-layer id="alaska_landcover_2015"></map-layer>
       </li>
       <li>
+        <map-layer id="viirs_aod"></map-layer>
+      </li>
+      <li>
+        <map-layer id="viirs_adp"></map-layer>
+      </li>
+      <li>
         <map-layer id="gridded_lightning" controls="months"></map-layer>
       </li>
       <li>

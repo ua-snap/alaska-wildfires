@@ -1185,5 +1185,53 @@ table.alaska-wildfires-legend {
       }
     }
   }
+
+  &.viirs-adp {
+    td div {
+      &.adp-1 {
+        background-color: #f0ecf5;
+      }
+
+      &.adp-2 {
+        background-color: #cea5d0;
+      }
+
+      &.adp-3 {
+        background-color: #e0237c;
+      }
+
+      &.adp-4 {
+        background-color: #950041;
+      }
+
+      &.adp-5 {
+        background-color: #67001f;
+      }
+    }
+  }
+
+  &.viirs-aod {
+    td div {
+      &.aod-1 {
+        background-color: #3f64fa;
+      }
+
+      &.aod-2 {
+        background-color: #71febc;
+      }
+
+      &.aod-3 {
+        background-color: #ebca70;
+      }
+
+      &.aod-4 {
+        background-color: #ff2210;
+      }
+
+      &.aod-5 {
+        background-color: #8b0000;
+      }
+    }
+  }
 }
 </style>
