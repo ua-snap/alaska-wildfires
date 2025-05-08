@@ -91,11 +91,10 @@ export default {
         });
       } else if (
         this.id === "gmu" ||
-        this.id === "protected_areas" ||
         this.id === "fire_zones"
       ) {
         // When a boundary layer is toggled, turn off all other boundary layers
-        const boundaryLayers = ["gmu", "protected_areas", "fire_zones"];
+        const boundaryLayers = ["gmu", "fire_zones"];
         boundaryLayers.forEach((layerId) => {
           if (layerId !== this.id) {
             this.$store.commit("setLayerVisibility", {
