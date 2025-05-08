@@ -21,7 +21,6 @@
       id="alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099"
     ></legend-item>
     <legend-item id="gmu"></legend-item>
-    <legend-item id="protected_areas"></legend-item>
     <legend-item id="fire_zones"></legend-item>
   </div>
 </template>

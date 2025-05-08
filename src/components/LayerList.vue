@@ -67,9 +67,6 @@
         <map-layer id="gmu"></map-layer>
       </li>
       <li>
-        <map-layer id="protected_areas"></map-layer>
-      </li>
-      <li>
         <map-layer id="fire_zones"></map-layer>
       </li>
     </ul>

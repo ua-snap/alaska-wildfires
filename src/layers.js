@@ -322,14 +322,6 @@ export default [
       `,
   },
   {
-    id: "protected_areas",
-    numericId: 17,
-    wmsLayerName: "all_boundaries:all_protected_areas",
-    title: "Protected Areas",
-    zindex: 100,
-    abstract: `<p>Protected areas include National Parks, National Forests, Wilderness Areas, National Wildlife Refuges, State Parks.  These are identified by multiple State and Federal agencies, including the National Park Service (NPS), Alaska Department of Fish and Game (ADFG), United States Forest Service (USFS), and more.</p>`,
-  },
-  {
     id: "fire_zones",
     numericId: 18,
     wmsLayerName: "all_boundaries:all_fire_zones",
