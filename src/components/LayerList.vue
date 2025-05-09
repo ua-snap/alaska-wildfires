@@ -76,7 +76,6 @@
 <script>
 import MapLayer from "./MapLayer";
 import { mapGetters } from "vuex";
-import "@fortawesome/fontawesome-free/css/all.css";
 
 export default {
   name: "LayerList",
