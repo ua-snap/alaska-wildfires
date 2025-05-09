@@ -224,26 +224,26 @@ export default {
         throw "Undefined AQI in aqiName";
       }
       if (aqi < 51) {
-        return { name: "Good", bg: "rgb(0, 228, 0)", fg: "#000" };
+        return { name: "Good", bg: "var(--aqi-green)", fg: "#000" };
       }
       if (aqi < 101) {
-        return { name: "Moderate", bg: "rgb(255, 255, 0)", fg: "#000" };
+        return { name: "Moderate", bg: "var(--aqi-yellow", fg: "#000" };
       }
       if (aqi < 151) {
         return {
           name: "Unhealthy for sensitive groups",
-          bg: "rgb(255, 126, 0)",
+          bg: "var(--aqi-orange)",
           fg: "#000",
         };
       }
       if (aqi < 201) {
-        return { name: "Unhealthy", bg: "rgb(255, 0, 0)", fg: "#fff" };
+        return { name: "Unhealthy", bg: "var(--aqi-red)", fg: "#fff" };
       }
       if (aqi < 301) {
-        return { name: "Very Unhealthy", bg: "rgb(143, 63, 151)", fg: "#fff" };
+        return { name: "Very Unhealthy", bg: "var(--aqi-purple)", fg: "#fff" };
       }
       if (aqi >= 301) {
-        return { name: "Hazardous", bg: "rgb(126, 0, 35)", fg: "#fff" };
+        return { name: "Hazardous", bg: "var(--aqi-maroon)", fg: "#fff" };
       }
     },
   },

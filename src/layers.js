@@ -19,7 +19,7 @@ const aqiTable = `
   <table class="table alaska-wildfires-legend aqi-forecast">
     <tr><td><div class="aqi-good"></div></td><td>Good: 0&ndash;50</td></tr>
     <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51&ndash;100</td></tr>
-    <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Senstitive Groups: 101&ndash;150</td></tr>
+    <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Sensitive Groups: 101&ndash;150</td></tr>
     <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151&ndash;200</td></tr>
     <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201&ndash;300</td></tr>
     <tr><td><div class="aqi-hazardous"></div></td><td>Hazardous: 301&ndash;500</td></tr>
@@ -309,7 +309,7 @@ export default [
     blurb: "updated every 10 minutes",
     zindex: 20,
     legend: aqiTable,
-    legendClassOverride: "is-one-third",
+    legendClassOverride: "purple-air is-one-third",
   },
   {
     id: "gmu",
