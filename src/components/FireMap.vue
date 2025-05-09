@@ -322,15 +322,15 @@ export default {
             )}:
             </p>
             <p><span class="sensor-aqi ${aqi10minClassInfo.class}">${
-          feature.properties.aqi_10m
-        } &mdash; ${aqi10minClassInfo.name}</span>
+              feature.properties.aqi_10m
+            } &mdash; ${aqi10minClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqi10minClassInfo.description}</p>
             <p><strong>24-hour average PM2.5 AQI</strong> at this sensor is <span class="sensor-24hr-aqi ${
               aqi24hrClassInfo.class
             }">${feature.properties.aqi_24hr} &mdash; ${
-          aqi24hrClassInfo.name
-        } </span> &nbsp;${aqi24hrClassInfo.description}
+              aqi24hrClassInfo.name
+            } </span> &nbsp;${aqi24hrClassInfo.description}
             </p>
             <p>Data provided by a local <a href="https://www2.purpleair.com/">PurpleAir</a> sensor.</p>
           </div>
@@ -790,6 +790,15 @@ export default {
 // *** Design/content folks: don't edit these please!
 // Not scoped, for editing leaflet styles
 
+:root {
+  --aqi-green: lch(81% 132 141);
+  --aqi-yellow: lch(100% 132 88);
+  --aqi-orange: lch(75% 125 65);
+  --aqi-red: lch(57% 132 39);
+  --aqi-purple: lch(32% 132 320);
+  --aqi-maroon: lch(18% 102 2);
+}
+
 .leaflet-popup-content {
   z-index: 1000;
 
@@ -879,27 +888,27 @@ div.leaflet-marker-icon span {
     padding: 0.25rem 0.5rem;
 
     &.aqi-green {
-      background-color: #67e142;
+      background-color: var(--aqi-green);
       color: #000;
     }
     &.aqi-yellow {
-      background-color: #ffff00;
+      background-color: var(--aqi-yellow);
       color: #000;
     }
     &.aqi-orange {
-      background-color: #ff7e00;
+      background-color: var(--aqi-orange);
       color: #000;
     }
     &.aqi-red {
-      background-color: #ff0000;
+      background-color: var(--aqi-red);
       color: #fff;
     }
     &.aqi-purple {
-      background-color: #8f3f97;
+      background-color: var(--aqi-purple);
       color: #fff;
     }
     &.aqi-maroon {
-      background-color: #7e0122;
+      background-color: var(--aqi-maroon);
       color: #fff;
     }
   }
@@ -909,27 +918,27 @@ div.leaflet-marker-icon span {
     padding: 0.25rem 0.25rem;
 
     &.aqi-green {
-      background-color: #67e142;
+      background-color: var(--aqi-green);
       color: #000;
     }
     &.aqi-yellow {
-      background-color: #ffff00;
+      background-color: var(--aqi-yellow);
       color: #000;
     }
     &.aqi-orange {
-      background-color: #ff7e00;
+      background-color: var(--aqi-orange);
       color: #000;
     }
     &.aqi-red {
-      background-color: #ff0000;
+      background-color: var(--aqi-red);
       color: #fff;
     }
     &.aqi-purple {
-      background-color: #8f3f97;
+      background-color: var(--aqi-purple);
       color: #fff;
     }
     &.aqi-maroon {
-      background-color: #7e0122;
+      background-color: var(--aqi-maroon);
       color: #fff;
     }
   }
@@ -941,7 +950,7 @@ div.leaflet-marker-icon.aqi {
   span {
     display: inline-block;
     border-radius: 0;
-    opacity: 0.75;
+    opacity: 0.85;
     min-width: 1rem;
     text-align: center;
     padding-left: 0.5rem;
@@ -949,27 +958,27 @@ div.leaflet-marker-icon.aqi {
     font-weight: 600;
 
     &.aqi-green {
-      background-color: #67e142;
+      background-color: var(--aqi-green);
       color: #000;
     }
     &.aqi-yellow {
-      background-color: #ffff00;
+      background-color: var(--aqi-yellow);
       color: #000;
     }
     &.aqi-orange {
-      background-color: #ff7e00;
+      background-color: var(--aqi-orange);
       color: #000;
     }
     &.aqi-red {
-      background-color: #ff0000;
+      background-color: var(--aqi-red);
       color: #fff;
     }
     &.aqi-purple {
-      background-color: #8f3f97;
+      background-color: var(--aqi-purple);
       color: #fff;
     }
     &.aqi-maroon {
-      background-color: #7e0122;
+      background-color: var(--aqi-maroon);
       color: #fff;
     }
   }
@@ -1061,25 +1070,28 @@ table.alaska-wildfires-legend {
     }
   }
 
+  // See the rule below with `purple-air`, there is a one-off rule to get
+  // a solid green box for the PurpleAir legend (but everything else
+  // is reused)
   &.aqi-forecast {
     td div {
       &.aqi-good {
-        border: 2px solid rgb(0, 228, 0);
+        border: 2px solid var(--aqi-green);
       }
       &.aqi-moderate {
-        background-color: rgb(255, 255, 0);
+        background-color: var(--aqi-yellow);
       }
       &.aqi-unhealthy-sg {
-        background-color: rgb(255, 126, 0);
+        background-color: var(--aqi-orange);
       }
       &.aqi-unhealthy {
-        background-color: rgb(255, 0, 0);
+        background-color: var(--aqi-red);
       }
       &.aqi-very-unhealthy {
-        background-color: rgb(143, 63, 151);
+        background-color: var(--aqi-purple);
       }
       &.aqi-hazardous {
-        background-color: rgb(126, 0, 35);
+        background-color: var(--aqi-maroon);
       }
     }
   }
@@ -1185,5 +1197,9 @@ table.alaska-wildfires-legend {
       }
     }
   }
+}
+
+.purple-air .aqi-good {
+  background-color: var(--aqi-green);
 }
 </style>
