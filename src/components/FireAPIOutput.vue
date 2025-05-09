@@ -227,7 +227,7 @@ export default {
         return { name: "Good", bg: "var(--aqi-green)", fg: "#000" };
       }
       if (aqi < 101) {
-        return { name: "Moderate", bg: "var(--aqi-yellow", fg: "#000" };
+        return { name: "Moderate", bg: "var(--aqi-yellow)", fg: "#000" };
       }
       if (aqi < 151) {
         return {
