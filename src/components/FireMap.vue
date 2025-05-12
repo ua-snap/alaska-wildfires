@@ -984,6 +984,7 @@ div.leaflet-marker-icon.aqi {
   span {
     display: inline-block;
     border-radius: 0;
+    border: 1px solid #888;
     opacity: 0.85;
     min-width: 1rem;
     text-align: center;
@@ -1022,7 +1023,7 @@ div.leaflet-marker-icon.aqi-dec {
   span {
     display: inline-block;
     border-radius: 50%;
-    border: 1px solid #333;
+    border: 1px solid #888;
     opacity: 0.85;
     min-width: 1.5rem;
     min-height: 1rem;
