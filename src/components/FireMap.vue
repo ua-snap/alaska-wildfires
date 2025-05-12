@@ -1093,6 +1093,7 @@ table.alaska-wildfires-legend {
   // is reused)
   &.aqi-forecast {
     td div {
+      display: inline-block;
       &.aqi-good {
         border: 2px solid var(--aqi-green);
       }
@@ -1110,6 +1111,9 @@ table.alaska-wildfires-legend {
       }
       &.aqi-hazardous {
         background-color: var(--aqi-maroon);
+      }
+      &.dec {
+        display: none;
       }
     }
   }
@@ -1217,7 +1221,17 @@ table.alaska-wildfires-legend {
   }
 }
 
-.purple-air .aqi-good {
-  background-color: var(--aqi-green);
+.purple-air {
+  .dec {
+    display: inline-block !important;
+    border: 2px solid rgba(50, 50, 50, 0.3) !important;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .aqi-good {
+    background-color: var(--aqi-green);
+  }
 }
 </style>

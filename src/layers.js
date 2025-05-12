@@ -17,12 +17,12 @@ For additional information, see the <a href="https://gmao.gsfc.nasa.gov/pubs/doc
 
 const aqiTable = `
   <table class="table alaska-wildfires-legend aqi-forecast">
-    <tr><td><div class="aqi-good"></div></td><td>Good: 0&ndash;50</td></tr>
-    <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51&ndash;100</td></tr>
-    <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Sensitive Groups: 101&ndash;150</td></tr>
-    <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151&ndash;200</td></tr>
-    <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201&ndash;300</td></tr>
-    <tr><td><div class="aqi-hazardous"></div></td><td>Hazardous: 301&ndash;500</td></tr>
+    <tr><td><div class="aqi-good"></div></td><td><div class="aqi-good dec"></div></td><td>Good: 0&ndash;50</td></tr>
+    <tr><td><div class="aqi-moderate"></div></td><td><div class="aqi-moderate dec"></div></td><td>Moderate: 51&ndash;100</td></tr>
+    <tr><td><div class="aqi-unhealthy-sg"></div></td><td><div class="aqi-unhealthy-sg dec"></div></td><td>Unhealthy for Sensitive Groups: 101&ndash;150</td></tr>
+    <tr><td><div class="aqi-unhealthy"></div></td><td><div class="aqi-unhealthy dec"></div></td><td>Unhealthy: 151&ndash;200</td></tr>
+    <tr><td><div class="aqi-very-unhealthy"></div></td><td><div class="aqi-very-unhealthy dec"></div></td><td>Very Unhealthy: 201&ndash;300</td></tr>
+    <tr><td><div class="aqi-hazardous"></div></td><td><div class="aqi-hazardous dec"></div></td><td>Hazardous: 301&ndash;500</td></tr>
   </table>`;
 
 const activeFiresLayerTable = `
@@ -52,7 +52,7 @@ const activeFiresLayerTable = `
     </tr>
   </tbody>
   </table>
-`
+`;
 
 export default [
   {
@@ -276,7 +276,7 @@ export default [
   {
     rasdaman: true,
     abstract: `
-          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2070&ndash;2099 using the <a href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can’t predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
+          <p>This layer shows output from ALFRESCO, a computer model that simulates the responses of Northern vegetation to climate change. Darker colors mean a greater chance of a region burning. Model projections are for 2070&ndash;2099 using the <a href="https://www.cesm.ucar.edu/models/ccsm">NCAR CCSM4</a> model under the RCP 8.5 emission scenario. These projections can be useful for planning, particularly when compared to historical flammability and historical fires, but they can't predict which specific places will burn.</p><p>Source data, including additional models and scenarios, <a href="https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214">can be downloaded here</a>.</p>`,
     id: "alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099",
     numericId: 14,
     wmsLayerName: "alfresco_relative_flammability_30yr",
@@ -296,10 +296,11 @@ export default [
   {
     abstract: `
     <p>This layer shows sensor values for the <a href="https://www.airnow.gov/aqi/aqi-basics/">Air Quality Index (AQI)</a>, an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read more here</a>.</p>
-    <p>The layer shows the average AQI over the last 10 minutes at each sensor location. The 24-hour average AQI can be seen if you click on a specific sensor. These data are measured using Purple Air sensors that are hosted by communities and made public.</p>
+    <p>The layer shows the average AQI over the last 10 minutes at each sensor location with a rectangular icon. The 24-hour average AQI can be seen if you click on a specific sensor. These data are measured using Purple Air sensors that are hosted by communities and made public.</p>
+    <p>Placeholder for more information about the DEC sensors.</p>
     <p>The air quality shown on these sensors can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
     <p><a href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
-    <p>Data are provided by <a href="https://www2.purpleair.com/">PurpleAir</a>.</p>
+    <p>Data are provided by <a href="https://www2.purpleair.com/">PurpleAir</a> and the <a href="https://dec.alaska.gov/">Department of Environmental Conservation</a>.</p>
     `,
     id: "purple_air",
     numericId: 4,
