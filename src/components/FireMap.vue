@@ -307,23 +307,13 @@ export default {
           icon = this.$L.divIcon({
             className: "aqi-dec",
             popupAnchor: [15, -5],
-            html:
-              '<span class="' +
-              aqi1hrClassInfo.class +
-              '" data-value="' +
-              feature.properties.aqi_1hr +
-              '"></span>',
+            html: `<span class="${aqi1hrClassInfo.class}">${feature.properties.aqi_1hr}</span>`,
           });
         } else {
           icon = this.$L.divIcon({
             className: "aqi",
             popupAnchor: [15, -5],
-            html:
-              '<span class="' +
-              aqi10minClassInfo.class +
-              '">' +
-              feature.properties.aqi_10m +
-              "</span>",
+            html: `<span class="${aqi10minClassInfo.class}">${feature.properties.aqi_10m}</span>`,
           });
         }
 
@@ -920,37 +910,14 @@ div.leaflet-marker-icon span {
     font-size: 1.5rem;
     font-weight: 700;
     padding: 0.25rem 0.5rem;
-
-    &.aqi-green {
-      background-color: var(--aqi-green);
-      color: #000;
-    }
-    &.aqi-yellow {
-      background-color: var(--aqi-yellow);
-      color: #000;
-    }
-    &.aqi-orange {
-      background-color: var(--aqi-orange);
-      color: #000;
-    }
-    &.aqi-red {
-      background-color: var(--aqi-red);
-      color: #fff;
-    }
-    &.aqi-purple {
-      background-color: var(--aqi-purple);
-      color: #fff;
-    }
-    &.aqi-maroon {
-      background-color: var(--aqi-maroon);
-      color: #fff;
-    }
   }
 
   span.sensor-24hr-aqi {
     font-size: 1rem;
     padding: 0.25rem 0.25rem;
+  }
 
+  span {
     &.aqi-green {
       background-color: var(--aqi-green);
       color: #000;
@@ -980,62 +947,31 @@ div.leaflet-marker-icon span {
 
 // Override / change some things from above
 // for the AQI popups vs. the fire info popups
-div.leaflet-marker-icon.aqi {
-  span {
+div.leaflet-marker-icon {
+  &.aqi span {
     display: inline-block;
     border-radius: 0;
-    border: 1px solid #888;
     opacity: 0.85;
     min-width: 1rem;
     text-align: center;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     font-weight: 600;
-
-    &.aqi-green {
-      background-color: var(--aqi-green);
-      color: #000;
-    }
-    &.aqi-yellow {
-      background-color: var(--aqi-yellow);
-      color: #000;
-    }
-    &.aqi-orange {
-      background-color: var(--aqi-orange);
-      color: #000;
-    }
-    &.aqi-red {
-      background-color: var(--aqi-red);
-      color: #fff;
-    }
-    &.aqi-purple {
-      background-color: var(--aqi-purple);
-      color: #fff;
-    }
-    &.aqi-maroon {
-      background-color: var(--aqi-maroon);
-      color: #fff;
-    }
   }
-}
 
-div.leaflet-marker-icon.aqi-dec {
-  span {
+  &.aqi-dec span {
     display: inline-block;
     border-radius: 50%;
-    border: 1px solid #888;
+    border: 2px solid rgba(50, 50, 50, 0.3);
     opacity: 0.85;
     min-width: 1.5rem;
     min-height: 1rem;
     text-align: center;
     line-height: 1rem;
     font-weight: 600;
+  }
 
-    &::before {
-      content: attr(data-value);
-      display: inline-block;
-    }
-
+  span {
     &.aqi-green {
       background-color: var(--aqi-green);
       color: #000;
