@@ -1022,14 +1022,13 @@ div.leaflet-marker-icon.aqi-dec {
   span {
     display: inline-block;
     border-radius: 50%;
-    border: 2px solid #000;
-    opacity: 0.75;
-    min-width: 2rem;
-    min-height: 1.5rem;
+    border: 1px solid #333;
+    opacity: 0.85;
+    min-width: 1.5rem;
+    min-height: 1rem;
     text-align: center;
-    line-height: 1.5rem;
+    line-height: 1rem;
     font-weight: 600;
-    margin: 0.75rem;
 
     &::before {
       content: attr(data-value);
