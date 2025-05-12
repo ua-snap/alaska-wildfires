@@ -319,7 +319,10 @@ export default {
 
         var marker = this.$L.marker(
           [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
-          { icon: icon },
+          {
+            icon: icon,
+            zIndexOffset: feature.properties.type == "dec" ? 500 : 0,
+          },
         );
 
         // Create popup content
