@@ -1112,8 +1112,20 @@ table.alaska-wildfires-legend {
       &.aqi-hazardous {
         background-color: var(--aqi-maroon);
       }
-      &.dec {
-        display: none;
+    }
+  }
+
+  &.aqi-shapes {
+    td {
+      border-bottom: none;
+
+      div {
+        background-color: var(--aqi-green);
+
+        &.dec {
+          border: 2px solid rgba(50, 50, 50, 0.3) !important;
+          border-radius: 50%;
+        }
       }
     }
   }
@@ -1221,17 +1233,7 @@ table.alaska-wildfires-legend {
   }
 }
 
-.purple-air {
-  .dec {
-    display: inline-block !important;
-    border: 2px solid rgba(50, 50, 50, 0.3) !important;
-    border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-  }
-
-  .aqi-good {
-    background-color: var(--aqi-green);
-  }
+.purple-air .aqi-good {
+  background-color: var(--aqi-green);
 }
 </style>

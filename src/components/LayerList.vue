@@ -19,9 +19,9 @@
       <li>
         <map-layer id="purple_air"></map-layer>
       </li>
-      <li>
+      <li class="mt-2">
         <div class="layer-title">
-          Air quality forecast<br /><span class="when">{{
+          Forecast air quality<br /><span class="when">{{
             aqiUpdateText
           }}</span>
         </div>

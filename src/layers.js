@@ -2,7 +2,7 @@ import moment from "moment";
 
 const currentYear = new Date().getFullYear();
 
-const aqiForecastTitle = "Air quality forecast";
+const aqiForecastTitle = "Forecast air quality";
 
 const aqiAbstract = `
 <p>This layer shows the <strong>predicted</strong> Air Quality Index (AQI), an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read more here</a>.</p>
@@ -16,14 +16,39 @@ For additional information, see the <a href="https://gmao.gsfc.nasa.gov/pubs/doc
 `;
 
 const aqiTable = `
-  <table class="table alaska-wildfires-legend aqi-forecast">
-    <tr><td><div class="aqi-good"></div></td><td><div class="aqi-good dec"></div></td><td>Good: 0&ndash;50</td></tr>
-    <tr><td><div class="aqi-moderate"></div></td><td><div class="aqi-moderate dec"></div></td><td>Moderate: 51&ndash;100</td></tr>
-    <tr><td><div class="aqi-unhealthy-sg"></div></td><td><div class="aqi-unhealthy-sg dec"></div></td><td>Unhealthy for Sensitive Groups: 101&ndash;150</td></tr>
-    <tr><td><div class="aqi-unhealthy"></div></td><td><div class="aqi-unhealthy dec"></div></td><td>Unhealthy: 151&ndash;200</td></tr>
-    <tr><td><div class="aqi-very-unhealthy"></div></td><td><div class="aqi-very-unhealthy dec"></div></td><td>Very Unhealthy: 201&ndash;300</td></tr>
-    <tr><td><div class="aqi-hazardous"></div></td><td><div class="aqi-hazardous dec"></div></td><td>Hazardous: 301&ndash;500</td></tr>
-  </table>`;
+<table class="table alaska-wildfires-legend aqi-forecast">
+  <tr><td><div class="aqi-good"></div></td><td>Good: 0&ndash;50</td></tr>
+  <tr><td><div class="aqi-moderate"></div></td><td>Moderate: 51&ndash;100</td></tr>
+  <tr><td><div class="aqi-unhealthy-sg"></div></td><td>Unhealthy for Sensitive Groups: 101&ndash;150</td></tr>
+  <tr><td><div class="aqi-unhealthy"></div></td><td>Unhealthy: 151&ndash;200</td></tr>
+  <tr><td><div class="aqi-very-unhealthy"></div></td><td>Very Unhealthy: 201&ndash;300</td></tr>
+  <tr><td><div class="aqi-hazardous"></div></td><td>Hazardous: 301&ndash;500</td></tr>
+</table>
+`;
+
+const sensorNetworkLayerTable = `
+<table class="table alaska-wildfires-legend aqi-shapes mb-6">
+  <tr>
+    <td>
+      <div class="aqi-hazardous"></div>
+    </td>
+    <td>
+      <strong>Squares</strong> are the PurpleAir sensor network, 10 minute average AQI.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="aqi-hazardous dec"></div>
+    </td>
+    <td>
+      <strong>Circles</strong> show data from the Alaska Department of Environmental Conservation, 1 hour average AQI.
+    </td>
+  </tr>
+</table>
+<div class="purple-air">
+  ${aqiTable}
+</div>
+`
 
 const activeFiresLayerTable = `
   <table class="table alaska-wildfires-legend active-fires">
@@ -296,8 +321,7 @@ export default [
   {
     abstract: `
     <p>This layer shows sensor values for the <a href="https://www.airnow.gov/aqi/aqi-basics/">Air Quality Index (AQI)</a>, an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read more here</a>.</p>
-    <p>The layer shows the average AQI over the last 10 minutes at each sensor location with a rectangular icon. The 24-hour average AQI can be seen if you click on a specific sensor. These data are measured using Purple Air sensors that are hosted by communities and made public.</p>
-    <p>Placeholder for more information about the DEC sensors.</p>
+    <p>The layer shows the average AQI over the last 10 minutes at each sensor location with a rectangular icon. The 24-hour average AQI can be seen if you click on a specific sensor. These data are measured from two sources:  Purple Air sensors that are hosted by communities and made public, and the Alaska Department of Environmental Conservation (DEC).</p>
     <p>The air quality shown on these sensors can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
     <p><a href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
     <p>Data are provided by <a href="https://www2.purpleair.com/">PurpleAir</a> and the <a href="https://dec.alaska.gov/">Department of Environmental Conservation</a>.</p>
@@ -306,10 +330,10 @@ export default [
     numericId: 4,
     wmsLayerName: "purple_air",
     local: true,
-    title: "Air quality sensor network",
+    title: "Current air quality",
     blurb: "updated every 10 minutes",
     zindex: 20,
-    legend: aqiTable,
+    legend: sensorNetworkLayerTable,
     legendClassOverride: "purple-air is-one-third",
   },
   {
