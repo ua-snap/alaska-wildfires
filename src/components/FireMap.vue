@@ -221,7 +221,7 @@ export default {
         service: "WFS",
         version: "1.1.0",
         request: "GetFeature",
-        typeName: "alaska_wildfires:purple_air_pm25_10min",
+        typeName: "alaska_wildfires:purple_air_dec",
         outputFormat: "json",
       };
 
@@ -290,51 +290,78 @@ export default {
         const aqi24hrClassInfo = this.getAqiClassInfo(
           feature.properties.aqi_24hr,
         );
+        const aqi1hrClassInfo = this.getAqiClassInfo(
+          feature.properties.aqi_1hr,
+        );
 
         if (
           _.isUndefined(aqi10minClassInfo) ||
-          _.isUndefined(aqi24hrClassInfo)
+          _.isUndefined(aqi24hrClassInfo) ||
+          _.isUndefined(aqi1hrClassInfo)
         ) {
           return false;
         }
 
-        var icon = this.$L.divIcon({
-          className: "aqi",
-          popupAnchor: [15, -5],
-          html:
-            '<span class="' +
-            aqi10minClassInfo.class +
-            '">' +
-            feature.properties.aqi_10m +
-            "</span>",
-        });
+        var icon;
+        if (feature.properties.type == "dec") {
+          icon = this.$L.divIcon({
+            className: "aqi-dec",
+            popupAnchor: [15, -5],
+            html: `<span class="${aqi1hrClassInfo.class}">${feature.properties.aqi_1hr}</span>`,
+          });
+        } else {
+          icon = this.$L.divIcon({
+            className: "aqi",
+            popupAnchor: [15, -5],
+            html: `<span class="${aqi10minClassInfo.class}">${feature.properties.aqi_10m}</span>`,
+          });
+        }
 
         var marker = this.$L.marker(
           [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
-          { icon: icon },
+          {
+            icon: icon,
+            zIndexOffset: feature.properties.type == "dec" ? 500 : 0,
+          },
         );
 
         // Create popup content
-        var popupContent = `
+        var popupContent;
+        if (feature.properties.type == "dec") {
+          popupContent = `<div class="${aqi24hrClassInfo.class} sensor-detail">
+            <p><strong>1-hour average PM2.5 AQI</strong> at this sensor on ${this.convertToAKST(
+              feature.properties.lastupdate,
+            )}:
+            </p>
+            <p><span class="sensor-aqi ${aqi1hrClassInfo.class}">${
+            feature.properties.aqi_1hr
+          } &mdash; ${aqi1hrClassInfo.name}</span>
+            </p>
+            <p class="aqi-explain">${aqi1hrClassInfo.description}</p>
+            <p>Data provided by a <a href="https://dec.alaska.gov/">Department of Environmental Conservation</a> sensor.</p>
+          </div>`;
+        } else {
+          popupContent = `
         <div class="${aqi24hrClassInfo.class} sensor-detail">
             <p><strong>10-minute average PM2.5 AQI</strong> at this sensor on ${this.convertToAKST(
               feature.properties.lastupdate,
             )}:
             </p>
             <p><span class="sensor-aqi ${aqi10minClassInfo.class}">${
-              feature.properties.aqi_10m
-            } &mdash; ${aqi10minClassInfo.name}</span>
+            feature.properties.aqi_10m
+          } &mdash; ${aqi10minClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqi10minClassInfo.description}</p>
             <p><strong>24-hour average PM2.5 AQI</strong> at this sensor is <span class="sensor-24hr-aqi ${
               aqi24hrClassInfo.class
             }">${feature.properties.aqi_24hr} &mdash; ${
-              aqi24hrClassInfo.name
-            } </span> &nbsp;${aqi24hrClassInfo.description}
+            aqi24hrClassInfo.name
+          } </span> &nbsp;${aqi24hrClassInfo.description}
             </p>
             <p>Data provided by a local <a href="https://www2.purpleair.com/">PurpleAir</a> sensor.</p>
           </div>
 `;
+        }
 
         // Bind popup to marker
         marker.bindPopup(popupContent);
@@ -886,37 +913,14 @@ div.leaflet-marker-icon span {
     font-size: 1.5rem;
     font-weight: 700;
     padding: 0.25rem 0.5rem;
-
-    &.aqi-green {
-      background-color: var(--aqi-green);
-      color: #000;
-    }
-    &.aqi-yellow {
-      background-color: var(--aqi-yellow);
-      color: #000;
-    }
-    &.aqi-orange {
-      background-color: var(--aqi-orange);
-      color: #000;
-    }
-    &.aqi-red {
-      background-color: var(--aqi-red);
-      color: #fff;
-    }
-    &.aqi-purple {
-      background-color: var(--aqi-purple);
-      color: #fff;
-    }
-    &.aqi-maroon {
-      background-color: var(--aqi-maroon);
-      color: #fff;
-    }
   }
 
   span.sensor-24hr-aqi {
     font-size: 1rem;
     padding: 0.25rem 0.25rem;
+  }
 
+  span {
     &.aqi-green {
       background-color: var(--aqi-green);
       color: #000;
@@ -946,8 +950,8 @@ div.leaflet-marker-icon span {
 
 // Override / change some things from above
 // for the AQI popups vs. the fire info popups
-div.leaflet-marker-icon.aqi {
-  span {
+div.leaflet-marker-icon {
+  &.aqi span {
     display: inline-block;
     border-radius: 0;
     opacity: 0.85;
@@ -956,7 +960,21 @@ div.leaflet-marker-icon.aqi {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     font-weight: 600;
+  }
 
+  &.aqi-dec span {
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid rgba(50, 50, 50, 0.3);
+    opacity: 0.85;
+    min-width: 1.5rem;
+    min-height: 1rem;
+    text-align: center;
+    line-height: 1rem;
+    font-weight: 600;
+  }
+
+  span {
     &.aqi-green {
       background-color: var(--aqi-green);
       color: #000;
@@ -1075,6 +1093,7 @@ table.alaska-wildfires-legend {
   // is reused)
   &.aqi-forecast {
     td div {
+      display: inline-block;
       &.aqi-good {
         border: 2px solid var(--aqi-green);
       }
@@ -1092,6 +1111,21 @@ table.alaska-wildfires-legend {
       }
       &.aqi-hazardous {
         background-color: var(--aqi-maroon);
+      }
+    }
+  }
+
+  &.aqi-shapes {
+    td {
+      border-bottom: none;
+
+      div {
+        background-color: var(--aqi-green);
+
+        &.dec {
+          border: 2px solid rgba(50, 50, 50, 0.3) !important;
+          border-radius: 50%;
+        }
       }
     }
   }

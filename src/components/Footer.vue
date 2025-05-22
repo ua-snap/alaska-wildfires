@@ -13,9 +13,12 @@
           <a href="https://gmao.gsfc.nasa.gov/"
             >Global Modeling and Assimilation Office (GMAO)</a
           >
-          at NASA Goddard Space Flight Center and local air quality sensor data
-          feeds are provided through
-          <a href="https://www2.purpleair.com/">PurpleAir</a>.
+          at NASA Goddard Space Flight Center. Local air quality sensor data
+          feeds are provided through the
+          <a href="https://dec.alaska.gov/"
+            >Alaska Department of Environmental Conservation</a
+          >
+          and <a href="https://www2.purpleair.com/">PurpleAir</a>.
         </p>
         <p>
           VIIRS Active Fire Detections are provided by the
@@ -78,9 +81,9 @@
           reserved.
         </p>
         <p>
-          The <a href="https://www.alaska.edu/">University of Alaska</a> is an Equal
-          Opportunity/Equal Access Employer and Educational Institution. The
-          University is committed to a
+          The <a href="https://www.alaska.edu/">University of Alaska</a> is an
+          Equal Opportunity/Equal Access Employer and Educational Institution.
+          The University is committed to a
           <a href="https://www.alaska.edu/nondiscrimination/"
             >policy of non-discrimination</a
           >
