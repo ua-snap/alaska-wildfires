@@ -1235,23 +1235,27 @@ table.alaska-wildfires-legend {
   &.viirs-adp {
     td div {
       &.adp-1 {
-        background-color: #f0ecf5;
+        background-color: #d0e5f8;
       }
 
       &.adp-2 {
-        background-color: #cea5d0;
+        background-color: #aac4db;
       }
 
       &.adp-3 {
-        background-color: #e0237c;
+        background-color: #85a4be;
       }
 
       &.adp-4 {
-        background-color: #950041;
+        background-color: #6086a2;
       }
 
       &.adp-5 {
-        background-color: #67001f;
+        background-color: #396887;
+      }
+
+      &.adp-6 {
+        background-color: #004c6d;
       }
     }
   }

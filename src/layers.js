@@ -385,7 +385,7 @@ export default [
     id: "viirs_adp",
     numericId: 20,
     wmsLayerName: "alaska_wildfires:viirs_adp",
-    title: "VIIRS aerosol detection product",
+    title: "Current smoke plumes",
     zindex: 5,
     abstract: `
       <p>
@@ -393,11 +393,12 @@ export default [
       </p>
       `,
     legend: `<table class="table alaska-wildfires-legend viirs-adp">
-      <tr><td><div class="adp-1"></div></td><td>Thin smoke</td></tr>
-      <tr><td><div class="adp-2"></div></td><td>Light smoke</td></tr>
-      <tr><td><div class="adp-3"></div></td><td>Medium smoke</td></tr>
-      <tr><td><div class="adp-4"></div></td><td>Heavy smoke</td></tr>
-      <tr><td><div class="adp-5"></div></td><td>Very heavy smoke</td></tr>
+      <tr><td><div class="adp-1"></div></td><td>Thin</td></tr>
+      <tr><td><div class="adp-2"></div></td><td></td></tr>
+      <tr><td><div class="adp-3"></div></td><td></td></tr>
+      <tr><td><div class="adp-4"></div></td><td></td></tr>
+      <tr><td><div class="adp-5"></div></td><td></td></tr>
+      <tr><td><div class="adp-6"></div></td><td>Thick</td></tr>
     </table>`,
   },
 ];

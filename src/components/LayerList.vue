@@ -15,7 +15,10 @@
         <map-layer id="spruceadj_3338"></map-layer>
       </li>
       <hr />
-      <h3 class="title is-4 top">Air Quality Index (AQI)</h3>
+      <h3 class="title is-4 top">Smoke and Air Quality Index (AQI)</h3>
+      <li>
+        <map-layer id="viirs_adp"></map-layer>
+      </li>
       <li>
         <map-layer id="purple_air"></map-layer>
       </li>
@@ -40,9 +43,6 @@
       </li>
       <li>
         <map-layer id="viirs_aod"></map-layer>
-      </li>
-      <li>
-        <map-layer id="viirs_adp"></map-layer>
       </li>
     </ul>
     <h3 class="title is-4">Past &amp; future</h3>
