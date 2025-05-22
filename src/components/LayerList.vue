@@ -38,17 +38,17 @@
           </li>
         </ul>
       </li>
-    </ul>
-    <h3 class="title is-4">Past &amp; future</h3>
-    <ul>
-      <li>
-        <map-layer id="alaska_landcover_2015"></map-layer>
-      </li>
       <li>
         <map-layer id="viirs_aod"></map-layer>
       </li>
       <li>
         <map-layer id="viirs_adp"></map-layer>
+      </li>
+    </ul>
+    <h3 class="title is-4">Past &amp; future</h3>
+    <ul>
+      <li>
+        <map-layer id="alaska_landcover_2015"></map-layer>
       </li>
       <li>
         <map-layer id="gridded_lightning" controls="months"></map-layer>
