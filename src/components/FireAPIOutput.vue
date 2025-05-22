@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-6">
     <!-- Display the spinner when loading fire API output -->
     <div v-if="loadingData" class="spinner">
       <div></div>
@@ -21,7 +21,7 @@
       </h5>
     </div>
     <div class="container" v-if="!loadingData && selected">
-      <h5 class="title is-5">
+      <h2 class="title is-2">
         Current conditions for
         <strong
           >{{ selected.name }}
@@ -29,7 +29,7 @@
             ({{ selected.alt_name }})
           </span></strong
         >
-      </h5>
+      </h2>
       <div class="content is-size-4">
         <p v-if="dangerRatingPresent">
           <a
