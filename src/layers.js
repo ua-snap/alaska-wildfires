@@ -370,8 +370,11 @@ export default [
     zindex: 5,
     abstract: `
       <p>
-        [PLACEHOLDER TEXT FOR ABSTRACT] 
+        The VIIRS aerosol optical depth (AOD) layer is a quantitative indicator of aerosol loading in the atmosphere. It is a unitless value that ranges from 0 to 1, with higher values of AOD indicating higher concentrations of aerosols. These aerosols can include smoke, blowing dust, and other fine particulates. This product can help operational users who provide warnings, watches and advisories for dust, smoke, and haze related to visibility and air quality.
       </p>
+      <p>This layer is updated every day.</p>
+      <p>Data provided by the <a href="https://www.star.nesdis.noaa.gov/atmospheric-composition-training/index.php">NOAA Aerosols and Atmospheric Composition Science Team</a>.</p>
+      <p>Read a <a href="https://www.star.nesdis.noaa.gov/atmospheric-composition-training/documents/VIIRS_Aerosol_Optical_Depth_Quick_Guide.pdf">fact sheet about this layer</a>.</p>
       `,
     legend: `<table class="table alaska-wildfires-legend viirs-aod">
       <tr><td><div class="aod-1"></div></td><td>&lt; 0.2 Clean Air</td></tr>
@@ -391,8 +394,8 @@ export default [
       <p>Current smoke plumes are provided by the VIIRS Aerosol Detection Product, also called the Smoke/Dust Mask.  This is a qualitative indicator of the presence and relative thickness of smoke and blowing dust aerosols in the atmosphere. This product can help operational users who provide warnings, watches and advisories for dust, smoke, and haze related to visibility and air quality.
       </p>
       <p>This layer is updated every day.</p>
-      <p>Data provided by the <a href="https://www.noaa.gov/">NOAA</a>.  Read a <a href="https://www.star.nesdis.noaa.gov/atmospheric-composition-training/documents/VIIRS_Aerosol_Detection_Product_Quick_Guide.pdf">fact sheet about this layer</a>.
-      </p>
+      <p>Data provided by the <a href="https://www.star.nesdis.noaa.gov/atmospheric-composition-training/index.php">NOAA Aerosols and Atmospheric Composition Science Team</a>.</p>
+      <p>Read a <a href="https://www.star.nesdis.noaa.gov/atmospheric-composition-training/documents/VIIRS_Aerosol_Detection_Product_Quick_Guide.pdf">fact sheet about this layer</a>.</p>
     `,
     legend: `<table class="table alaska-wildfires-legend viirs-adp">
       <tr><td><div class="adp-1"></div></td><td>Thin</td></tr>
