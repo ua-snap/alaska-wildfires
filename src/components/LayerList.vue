@@ -15,7 +15,7 @@
         <map-layer id="spruceadj_3338"></map-layer>
       </li>
       <hr />
-      <h3 class="title is-4 top">Smoke and Air Quality Index (AQI)</h3>
+      <h3 class="title is-4 top">Smoke and Air Quality</h3>
       <li>
         <map-layer id="viirs_adp"></map-layer>
       </li>

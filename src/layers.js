@@ -388,10 +388,12 @@ export default [
     title: "Current smoke plumes",
     zindex: 5,
     abstract: `
-      <p>
-        [PLACEHOLDER TEXT FOR ABSTRACT]
+      <p>Current smoke plumes are provided by the VIIRS Aerosol Detection Product, also called the Smoke/Dust Mask.  This is a qualitative indicator of the presence and relative thickness of smoke and blowing dust aerosols in the atmosphere. This product can help operational users who provide warnings, watches and advisories for dust, smoke, and haze related to visibility and air quality.
       </p>
-      `,
+      <p>This layer is updated every day.</p>
+      <p>Data provided by the <a href="https://www.noaa.gov/">NOAA</a>.  Read a <a href="https://www.star.nesdis.noaa.gov/atmospheric-composition-training/documents/VIIRS_Aerosol_Detection_Product_Quick_Guide.pdf">fact sheet about this layer</a>.
+      </p>
+    `,
     legend: `<table class="table alaska-wildfires-legend viirs-adp">
       <tr><td><div class="adp-1"></div></td><td>Thin</td></tr>
       <tr><td><div class="adp-2"></div></td><td></td></tr>
