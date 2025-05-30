@@ -8,11 +8,9 @@ const aqiAbstract = `
 <p>This layer shows the <strong>predicted</strong> Air Quality Index (AQI), an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read more here</a>.</p>
 <p>&lsquo;Good&rsquo; air quality (AQI &le;50) is shown as transparent on the map.</p>
 <p>The predicted air quality can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
-<p><a href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
-<p>The data used in this layer have been provided by the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the <a href="https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php">online data portal in the NASA Center for Climate Simulation</a>.</p>
-<p>The model used is the GEOS AGCM (Atmospheric General Circulation Model), operated within the GEOS FP (Forward Processing) data assimilation system. The GEOS FP system is run in near-real-time by NASA's Global Modeling and Assimilation Office (GMAO) to provide global weather forecasts and reanalysis data. Output is provided at approximately 12 km horizontal resolution.
-For additional information, see the <a href="https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf">project documentation</a>.</p>
-
+<p><a href="https://uaf-snap.org/project/epa-star-wfe">Learn more about how to use the Alaska Wildfire Explorer tool to protect yourself and your family from wildfire smoke.</a></p>
+<p class="is-size-6">The data in this layer are sourced from the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the <a href="https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php">online data portal in the NASA Center for Climate Simulation</a>.</p>
+<p class="is-size-6">The model used is the GEOS AGCM (Atmospheric General Circulation Model), operated within the GEOS FP (Forward Processing) data assimilation system. The GEOS FP system is run in near-real-time to provide global weather forecasts and reanalysis data. Output is provided at approximately 12 km horizontal resolution. For additional information, see the <a href="https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf">project documnetation</a>.</p>
 `;
 
 const aqiTable = `
@@ -321,10 +319,10 @@ export default [
   {
     abstract: `
     <p>This layer shows sensor values for the <a href="https://www.airnow.gov/aqi/aqi-basics/">Air Quality Index (AQI)</a>, an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read more here</a>.</p>
-    <p>The layer shows the average AQI over the last 10 minutes at each sensor location with a rectangular icon. The 24-hour average AQI can be seen if you click on a specific sensor. These data are measured from two sources:  Purple Air sensors that are hosted by communities and made public, and the Alaska Department of Environmental Conservation (DEC).</p>
+    <p>The layer shows the average AQI over the last 10 minutes or 1 hour at each sensor location. The 24-hour average AQI can be seen if you click on any of the sensors with a square icon.</p>
     <p>The air quality shown on these sensors can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
-    <p><a href="https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf">Learn more about how to protect yourself and your family</a> from wildfire smoke from the Alaska Division of Public Health.</p>
-    <p>Data are provided by <a href="https://www2.purpleair.com/">PurpleAir</a> and the <a href="https://dec.alaska.gov/">Department of Environmental Conservation</a>.</p>
+    <p><a href="https://uaf-snap.org/project/epa-star-wfe">Learn more about how to use the Alaska Wildfire Explorer tool to protect yourself and your family from wildfire smoke.</a> If you would like to add your sensor network to this map, please contact the <a href="mailto:uaf-snap-data-tools@alaska.edu">SNAP team.</a></p>
+    <p class="is-size-6">The data in this layer are measured using air quality sensors. These include <a href="https://map.purpleair.com/air-quality-standards-us-epa-aqi?opt=%2F1%2Flp%2Fa10%2Fp604800%2FcC0#1/11.5/-30">PurpleAir sensors</a> that are hosted by communities and made public, and sensors run by the <a href="https://dec.alaska.gov/air/air-monitoring/">Alaska Department of Environmental Conservation</a>, including regulatory monitors and Quant MODULAIR pods provided to their Community-Based Air Monitoring Network.</p>
     `,
     id: "purple_air",
     numericId: 4,
