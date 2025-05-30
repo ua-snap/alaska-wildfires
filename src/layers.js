@@ -242,7 +242,7 @@ export default [
     legend: `<table class="table alaska-wildfires-legend historical-fire-perimeters">
             <tr><td><div class="h-40-69"></div></td><td>1940&mdash;1969</td></tr>
             <tr><td><div class="h-70-99"></div></td><td>1970&mdash;1999</td></tr>
-            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2023</td></tr>
+            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2024</td></tr>
           </table>`,
   },
   {
