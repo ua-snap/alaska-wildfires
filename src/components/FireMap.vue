@@ -828,11 +828,13 @@ export default {
 
 .leaflet-popup-content {
   z-index: 1000;
+  min-width: 200px;
+  max-width: 400px;
 
   .fire-summary {
-    width: 30vh;
-    max-height: 30vh;
-    overflow-y: scroll;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
     white-space: pre-wrap;
   }
 
