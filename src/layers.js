@@ -363,28 +363,6 @@ export default [
       `,
   },
   {
-    id: "viirs_aod",
-    numericId: 19,
-    wmsLayerName: "alaska_wildfires:viirs_aod",
-    title: "VIIRS aerosol optical depth",
-    zindex: 5,
-    abstract: `
-      <p>
-        The VIIRS aerosol optical depth (AOD) layer is a quantitative indicator of aerosol loading in the atmosphere. It is a unitless value that ranges from 0 to 1, with higher values of AOD indicating higher concentrations of aerosols. These aerosols can include smoke, blowing dust, and other fine particulates. This product can help operational users who provide warnings, watches and advisories for dust, smoke, and haze related to visibility and air quality.
-      </p>
-      <p>This layer is updated every day.</p>
-      <p>Data provided by the <a href="https://www.star.nesdis.noaa.gov/atmospheric-composition-training/index.php">NOAA Aerosols and Atmospheric Composition Science Team</a>.</p>
-      <p>Read a <a href="https://www.star.nesdis.noaa.gov/atmospheric-composition-training/documents/VIIRS_Aerosol_Optical_Depth_Quick_Guide.pdf">fact sheet about this layer</a>.</p>
-      `,
-    legend: `<table class="table alaska-wildfires-legend viirs-aod">
-      <tr><td><div class="aod-1"></div></td><td>&lt; 0.2 Clean Air</td></tr>
-      <tr><td><div class="aod-2"></div></td><td>0.2 &ndash; 0.4 Light aerosol loading</td></tr>
-      <tr><td><div class="aod-3"></div></td><td>0.4 &ndash; 0.6 Moderate aerosol loading</td></tr>
-      <tr><td><div class="aod-4"></div></td><td>0.6 &ndash; 0.8 High aerosol loading</td></tr>
-      <tr><td><div class="aod-5"></div></td><td>&gt; 0.8 Very high aerosol loading</td></tr>
-    </table>`,
-  },
-  {
     id: "viirs_adp",
     numericId: 20,
     wmsLayerName: "alaska_wildfires:viirs_adp",

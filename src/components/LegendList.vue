@@ -11,7 +11,6 @@
     <legend-item id="aqi_forecast_12_hrs"></legend-item>
     <legend-item id="aqi_forecast_24_hrs"></legend-item>
     <legend-item id="aqi_forecast_48_hrs"></legend-item>
-    <legend-item id="viirs_aod"></legend-item>
     <legend-item id="snow_cover_3338"></legend-item>
     <legend-item id="alaska_landcover_2015"></legend-item>
     <legend-item id="gridded_lightning"></legend-item>
