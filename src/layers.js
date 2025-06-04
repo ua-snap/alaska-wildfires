@@ -343,23 +343,18 @@ export default [
     title: "Game Management Units",
     zindex: 100,
     abstract: `
-      <p> The Alaska Department of Fish and Game manages hunting by dividing the state into many Game Management Units (GMUs), each with regulations on species, season, etc. Units are at the sub-unit level. <a href="https://www.adfg.alaska.gov/index.cfm?adfg=huntingmaps.gmuinfo">Learn more about GMUs</a></p>
+      <p>To manage wildlife and hunting effectively, the Alaska Department of Fish and Game divides the state into Game Management Units (GMUs). Each unit, and its sub-units shown on this map, has specific regulations for different species, hunting seasons, and harvest limits. <a href="https://www.adfg.alaska.gov/index.cfm?adfg=huntingmaps.gmuinfo">Read more here</a>.</p>
       `,
   },
   {
     id: "fire_zones",
     numericId: 18,
     wmsLayerName: "all_boundaries:all_fire_zones",
-    title: "Fire Management Units",
+    title: "Fire Management Zones",
     zindex: 100,
     abstract: `
       <p>
-        The
-        <a href="https://akfireinfo.com/author/akforestry/">State of Alaska Department of Natural Resources</a>, the US Bureau of Land Management Alaska Fire Service, and the
-        <a href="https://www.fs.usda.gov/managing-land/fire">US Forest Service</a>
-        jointly manage the state to maximize efficient use of
-        fire-related resources.
-      </p>
+        Alaska is divided into fire management zones to coordinate wildfire response across the state&apos;s vast and varied landscapes. Fire management in Alaska is a cooperative effort between the State of Alaska Division of Forestry & Fire Protection, the U.S. Bureau of Land Management Alaska Fire Service, and the U.S. Forest Service. Together, they manage zones to ensure efficient use of firefighting resources, reduce duplication of effort, and respond effectively to wildfires across jurisdictional boundaries. <a href="https://www.blm.gov/programs/fire-and-aviation-/state-information/alaska-fire-service/fire-management">Read more here</a>.
       `,
   },
   {
