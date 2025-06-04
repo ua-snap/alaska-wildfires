@@ -391,12 +391,12 @@ export default [
     title: "Current smoke plumes",
     zindex: 5,
     abstract: `
-      <p>This layer shows where smoke was detected in the air yesterday. When you look at the map, you will see areas marked as <strong>"thin smoke"</strong> or <strong>"thick smoke."</strong></p>
+      <p>This layer shows where smoke was detected in the air yesterday. When you look at the map, you will see areas marked as <strong>thin smoke</strong> or <strong>thick smoke</strong>.</p>
       <ul>
         <li><strong>Thin smoke</strong> means some smoke particles are present high up in the air, but they are more spread out.</li>
         <li><strong>Thick smoke</strong> means that the smoke particles high up in the air are more concentrated.</li>
       </ul>
-      <p>It is important to remember that this layer shows smoke overhead, but it does not measure what&apos;s happening at ground level. It can help track where smoke is traveling, gauge visibility, and anticipate air quality concerns, but it does not tell us directly whether the air is healthy to breathe at the surface. Smoke that is underneath clouds cannot be detected so this layer may not show the full extent of the plume.</p>
+      <p>It is important to remember that this layer shows smoke overhead, but it does not measure what&rsquo;s happening at ground level. It can help track where smoke is traveling, gauge visibility, and anticipate air quality concerns, but it does not tell us directly whether the air is healthy to breathe at the surface. Smoke that is underneath clouds cannot be detected so this layer may not show the full extent of the plume.</p>
       <p>The data shown in this layer is from the <a href="https://www.star.nesdis.noaa.gov/atmospheric-composition-training/documents/VIIRS_Aerosol_Detection_Product_Quick_Guide.pdf">VIIRS Aerosol Detection Product</a>. These daily snapshots are sourced from the <a href="https://www.star.nesdis.noaa.gov/atmospheric-composition-training/index.php">NOAA Aerosols and Atmospheric Composition Science Team</a>.</p>
     `,
     legend: `<table class="table alaska-wildfires-legend viirs-adp">
