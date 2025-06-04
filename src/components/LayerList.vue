@@ -41,9 +41,6 @@
           </li>
         </ul>
       </li>
-      <li>
-        <map-layer id="viirs_aod"></map-layer>
-      </li>
     </ul>
     <h3 class="title is-4">Past &amp; future</h3>
     <ul>
