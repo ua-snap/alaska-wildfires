@@ -62,7 +62,7 @@
                 Legends are shown below the map, scroll down to see details.
               </li>
               <li>
-                Learn more about how to use this tool to
+                <strong>Learn more</strong> about how to use this tool to
                 <a href="https://uaf-snap.org/project/epa-star-wfe"
                   >protect yourself and your family from wildfire smoke</a
                 >.
