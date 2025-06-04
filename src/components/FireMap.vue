@@ -338,7 +338,7 @@ export default {
           } &mdash; ${aqi1hrClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqi1hrClassInfo.description}</p>
-            <p>Data provided by a <a href="https://dec.alaska.gov/">Department of Environmental Conservation</a> sensor.</p>
+            <p>Data provided by a <a href="https://dec.alaska.gov/air/air-monitoring/">Department of Environmental Conservation</a> sensor.</p>
           </div>`;
         } else {
           popupContent = `

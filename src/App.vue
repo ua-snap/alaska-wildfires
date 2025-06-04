@@ -53,13 +53,19 @@
               tool.
             </p>
             <p class="intro--legend">
-              <img src="@/assets/active-perimeter.svg" />Active fires with mapped
-              perimeters have a &lsquo;halo&rsquo; to show relative size.
+              <img src="@/assets/active-perimeter.svg" />Active fires with
+              mapped perimeters have a &lsquo;halo&rsquo; to show relative size.
             </p>
             <ul>
               <li>Click one or more map layer names to activate.</li>
               <li>
                 Legends are shown below the map, scroll down to see details.
+              </li>
+              <li>
+                <strong>Learn more</strong> about how to use this tool to
+                <a href="https://uaf-snap.org/project/epa-star-wfe"
+                  >protect yourself and your family from wildfire smoke</a
+                >.
               </li>
             </ul>
           </div>
