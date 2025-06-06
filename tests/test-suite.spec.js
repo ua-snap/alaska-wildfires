@@ -6,6 +6,26 @@ const url = 'http://127.0.0.1:8080'
 const communityId = 'AK146'
 const communityName = 'Healy'
 
+async function checkForLayers(tiles, expectedWmsLayers) {
+  let layersPresent = {}
+  for (let layer of expectedWmsLayers) {
+    layersPresent[layer] = false
+  }
+  for (let layer of expectedWmsLayers) {
+    for (let i = 0; i < await tiles.count(); i++) {
+      let src = await tiles.nth(i).getAttribute('src')
+      if (!layersPresent[layer] && src.includes(layer)) {
+        layersPresent[layer] = true
+      }
+      // Return true as soon as all layers are found.
+      if (Object.values(layersPresent).every(value => value === true)) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
 test('Intro text', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
@@ -154,7 +174,28 @@ test('Fire danger layer', async ({ page }) => {
   expect(src).toContain('https://akff.mesowest.org')
 })
 
-test('Air quality sensor network layer', async ({ page }) => {
+
+test('Current smoke plumes', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  await page.click('#viirs_adp a')
+  let tiles = page.locator('.leaflet-container .leaflet-layer img')
+  let expectedWmsLayers = ['viirs_adp']
+  let allLayersFound = await checkForLayers(tiles, expectedWmsLayers)
+  expect(allLayersFound).toBe(true)
+
+  let legend = page.locator('.legend--item:has(table.viirs-adp)').nth(0)
+  expect(legend).toBeVisible()
+
+  let src = await legend.locator('a:text-is("VIIRS Aerosol Detection Product")').getAttribute('href')
+  expect(src).toContain('https://www.star.nesdis.noaa.gov/atmospheric-composition-training/documents/VIIRS_Aerosol_Detection_Product_Quick_Guide.pdf')
+
+  src = await legend.locator('a:text-is("NOAA Aerosols and Atmospheric Composition Science Team")').getAttribute('href')
+  expect(src).toContain('https://www.star.nesdis.noaa.gov/atmospheric-composition-training/index.php')
+})
+
+test('Current air quality', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
 
@@ -497,23 +538,9 @@ test('Permalinks', async ({ page }) => {
 
   // Check fire danger ratings and lightning strikes layers.
   let tiles = page.locator('.leaflet-container .leaflet-layer img')
-  let foundFireDangerRatings = false
-  let foundLightningStrikes = false
-  for (let i = 0; i < await tiles.count(); i++) {
-    let src = await tiles.nth(i).getAttribute('src')
-    if (!foundFireDangerRatings && src.includes('spruceadj_3338')) {
-      foundFireDangerRatings = true
-    }
-    if (!foundLightningStrikes && src.includes('lightning_strikes')) {
-      foundLightningStrikes = true
-    }
-    if (foundFireDangerRatings && foundLightningStrikes) {
-      break
-    }
-  }
-
-  expect(foundFireDangerRatings).toBe(true)
-  expect(foundLightningStrikes).toBe(true)
+  let expectedWmsLayers = ['spruceadj_3338', 'lightning_strikes']
+  let allLayersFound = await checkForLayers(tiles, expectedWmsLayers)
+  expect(allLayersFound).toBe(true)
 
   legend = page.locator('.legend--item:has(table.lightning)')
   expect(legend).toBeVisible()
