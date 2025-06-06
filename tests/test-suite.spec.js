@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test'
 
-const url = 'http://localhost:8080'
+const url = 'http://127.0.0.1:8080'
+
+// Set this to a community name that has active wildfires near it.
+const communityId = 'AK146'
+const communityName = 'Healy'
 
 test('Intro text', async ({ page }) => {
   await page.goto(url)
@@ -21,8 +25,14 @@ test('Intro text', async ({ page }) => {
   expect(fireCount).toMatch(/^[0-9,]+$/)
   expect(acresBurned).toMatch(/^[0-9,]+$/)
 
+  src = await page.locator('.intro a:text-is("Alaska Interagency Coordination Center")').getAttribute('href')
+  expect(src).toContain('https://fire.ak.blm.gov/')
+
   src = await page.locator('.intro a:text-is("Fire Tally")').getAttribute('href')
   expect(src).toContain('https://snap.uaf.edu/tools/daily-fire-tally')
+
+  src = await page.locator('a:text-is("protect yourself and your family from wildfire smoke")').getAttribute('href')
+  expect(src).toContain('https://uaf-snap.org/project/epa-star-wfe')
 })
 
 test('Place selector autocomplete', async ({ page }) => {
@@ -39,12 +49,12 @@ test('Place selector autocomplete', async ({ page }) => {
 test('Current conditions', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
-  await page.fill('.place-selector input', 'Soldotna')
+  await page.fill('.place-selector input', communityName)
 
   // Wait a bit for autocomplete options to load.
   await page.waitForTimeout(3000)
 
-  await page.click('.dropdown-menu .dropdown-item:has(div:text-is("Soldotna"))')
+  await page.click('.dropdown-menu .dropdown-item:has(div:text-is("' + communityName + '"))')
 
   // Wait a bit for data to load.
   await page.waitForTimeout(3000)
@@ -163,11 +173,8 @@ test('Air quality sensor network layer', async ({ page }) => {
   src = await legend.locator('a:text-is("Read more here")').getAttribute('href')
   expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
 
-  src = await legend.locator('a:text-is("Learn more about how to protect yourself and your family")').getAttribute('href')
-  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
-
-  src = await legend.locator('a:text-is("PurpleAir")').getAttribute('href')
-  expect(src).toContain('https://www2.purpleair.com/')
+  src = await legend.locator('a:text-is("PurpleAir sensors")').getAttribute('href')
+  expect(src).toContain('https://map.purpleair.com/air-quality-standards-us-epa-aqi?opt=%2F1%2Flp%2Fa10%2Fp604800%2FcC0#1/11.5/-30')
 })
 
 test('6-hour air quality forecast layer', async ({ page }) => {
@@ -190,9 +197,6 @@ test('6-hour air quality forecast layer', async ({ page }) => {
 
   src = await legend.locator('a:text-is("Read more here")').getAttribute('href')
   expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
-
-  src = await legend.locator('a:text-is("Learn more about how to protect yourself and your family")').getAttribute('href')
-  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
 
   src = await legend.locator('a:text-is("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
   expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
@@ -218,9 +222,6 @@ test('12-hour air quality forecast layer', async ({ page }) => {
   src = await legend.locator('a:text-is("Read more here")').getAttribute('href')
   expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
 
-  src = await legend.locator('a:text-is("Learn more about how to protect yourself and your family")').getAttribute('href')
-  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
-
   src = await legend.locator('a:text-is("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
   expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
 })
@@ -244,9 +245,6 @@ test('24-hour air quality forecast layer', async ({ page }) => {
   src = await legend.locator('a:text-is("Read more here")').getAttribute('href')
   expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
 
-  src = await legend.locator('a:text-is("Learn more about how to protect yourself and your family")').getAttribute('href')
-  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
-
   src = await legend.locator('a:text-is("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
   expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
 })
@@ -269,9 +267,6 @@ test('48-hour air quality forecast layer', async ({ page }) => {
 
   src = await legend.locator('a:text-is("Read more here")').getAttribute('href')
   expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
-
-  src = await legend.locator('a:text-is("Learn more about how to protect yourself and your family")').getAttribute('href')
-  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
 
   src = await legend.locator('a:text-is("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
   expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
@@ -407,11 +402,6 @@ test('Boundary layers', async ({ page }) => {
   src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
   expect(src).toContain('all_gmus')
 
-  // Check that the most recently added map tiles contain "protected_areas" in the URL of their src attribute.
-  await page.click('#protected_areas a')
-  src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
-  expect(src).toContain('protected_areas')
-
   // Check that the most recently added map tiles contain "all_fire_zones" in the URL of their src attribute.
   await page.click('#fire_zones a')
   src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
@@ -484,13 +474,13 @@ test('Footer links', async ({ page }) => {
 })
 
 test('Permalinks', async ({ page }) => {
-  let permalinkUrl = url + '/AK366?layers=0,1,2,3'
+  let permalinkUrl = url + '/' + communityId + '?layers=0,1,2,3'
   await page.goto(permalinkUrl)
   await page.setViewportSize({ width: 1728, height: 1078 })
 
-  // Check to see if community is set to Fairbanks and intro table has loaded.
-  await expect(page.locator('.place-selector input')).toHaveValue('Soldotna')
-  await expect(page.locator('.intro .title strong')).toHaveText('Soldotna')
+  // Check to see if community is set to communityName and intro table has loaded.
+  await expect(page.locator('.place-selector input')).toHaveValue(communityName)
+  await expect(page.locator('.intro .title strong')).toHaveText(communityName)
   await expect(page.locator('.intro table')).toHaveCount(2)
 
   let legend
