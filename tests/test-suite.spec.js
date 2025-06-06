@@ -14,7 +14,8 @@ async function checkForLayers(tiles, expectedWmsLayers) {
     layersPresent[layer] = false
   }
   for (let layer of expectedWmsLayers) {
-    for (let i = 0; i < await tiles.count(); i++) {
+    const tileCount = await tiles.count();
+    for (let i = 0; i < tileCount; i++) {
       let src = await tiles.nth(i).getAttribute('src')
       if (!layersPresent[layer] && src.includes(layer)) {
         layersPresent[layer] = true
