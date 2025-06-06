@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-const url = 'http://127.0.0.1:8080'
+const url = 'http://localhost:8080'
 
 // Set this to a community ID/name that has active wildfires near it currently.
 // A community's alternate name needs to be included in communityName, so it's
