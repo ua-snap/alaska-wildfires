@@ -125,6 +125,13 @@ const aqiColorRanges = [
   },
 ];
 
+const decTypes = [
+  "dec",
+  "conocophillips",
+  "blm",
+  "louden_tribe"
+];
+
 export default {
   name: "AK_Fires",
   components: {
@@ -301,13 +308,6 @@ export default {
         ) {
           return false;
         }
-
-        const decTypes = [
-          "dec",
-          "conocophillips",
-          "blm",
-          "louden_tribe"
-        ];
 
         var icon;
         if (decTypes.includes(feature.properties.type)) {
