@@ -2,6 +2,33 @@ import { test, expect } from '@playwright/test'
 
 const url = 'http://localhost:8080'
 
+// Set this to a community ID/name that has active wildfires near it currently.
+// A community's alternate name needs to be included in communityName, so it's
+// easier to pick a community that does not have an alternate name.
+const communityId = 'AK146'
+const communityName = 'Healy'
+
+async function checkForLayers(tiles, expectedWmsLayers) {
+  let layersPresent = {}
+  for (let layer of expectedWmsLayers) {
+    layersPresent[layer] = false
+  }
+  for (let layer of expectedWmsLayers) {
+    const tileCount = await tiles.count();
+    for (let i = 0; i < tileCount; i++) {
+      let src = await tiles.nth(i).getAttribute('src')
+      if (!layersPresent[layer] && src.includes(layer)) {
+        layersPresent[layer] = true
+      }
+      // Return true as soon as all layers are found.
+      if (Object.values(layersPresent).every(value => value === true)) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
 test('Intro text', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
@@ -21,8 +48,14 @@ test('Intro text', async ({ page }) => {
   expect(fireCount).toMatch(/^[0-9,]+$/)
   expect(acresBurned).toMatch(/^[0-9,]+$/)
 
+  src = await page.locator('.intro a:text-is("Alaska Interagency Coordination Center")').getAttribute('href')
+  expect(src).toContain('https://fire.ak.blm.gov/')
+
   src = await page.locator('.intro a:text-is("Fire Tally")').getAttribute('href')
   expect(src).toContain('https://snap.uaf.edu/tools/daily-fire-tally')
+
+  src = await page.locator('a:text-is("protect yourself and your family from wildfire smoke")').getAttribute('href')
+  expect(src).toContain('https://uaf-snap.org/project/epa-star-wfe')
 })
 
 test('Place selector autocomplete', async ({ page }) => {
@@ -39,12 +72,12 @@ test('Place selector autocomplete', async ({ page }) => {
 test('Current conditions', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
-  await page.fill('.place-selector input', 'Soldotna')
+  await page.fill('.place-selector input', communityName)
 
   // Wait a bit for autocomplete options to load.
   await page.waitForTimeout(3000)
 
-  await page.click('.dropdown-menu .dropdown-item:has(div:text-is("Soldotna"))')
+  await page.click('.dropdown-menu .dropdown-item:has(div:text-is("' + communityName + '"))')
 
   // Wait a bit for data to load.
   await page.waitForTimeout(3000)
@@ -144,7 +177,28 @@ test('Fire danger layer', async ({ page }) => {
   expect(src).toContain('https://akff.mesowest.org')
 })
 
-test('Air quality sensor network layer', async ({ page }) => {
+
+test('Current smoke plumes', async ({ page }) => {
+  await page.goto(url)
+  await page.setViewportSize({ width: 1728, height: 1078 })
+
+  await page.click('#viirs_adp a')
+  let tiles = page.locator('.leaflet-container .leaflet-layer img')
+  let expectedWmsLayers = ['viirs_adp']
+  let allLayersFound = await checkForLayers(tiles, expectedWmsLayers)
+  expect(allLayersFound).toBe(true)
+
+  let legend = page.locator('.legend--item:has(table.viirs-adp)').nth(0)
+  expect(legend).toBeVisible()
+
+  let src = await legend.locator('a:text-is("VIIRS Aerosol Detection Product")').getAttribute('href')
+  expect(src).toContain('https://www.star.nesdis.noaa.gov/atmospheric-composition-training/documents/VIIRS_Aerosol_Detection_Product_Quick_Guide.pdf')
+
+  src = await legend.locator('a:text-is("NOAA Aerosols and Atmospheric Composition Science Team")').getAttribute('href')
+  expect(src).toContain('https://www.star.nesdis.noaa.gov/atmospheric-composition-training/index.php')
+})
+
+test('Current air quality', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
 
@@ -163,11 +217,8 @@ test('Air quality sensor network layer', async ({ page }) => {
   src = await legend.locator('a:text-is("Read more here")').getAttribute('href')
   expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
 
-  src = await legend.locator('a:text-is("Learn more about how to protect yourself and your family")').getAttribute('href')
-  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
-
-  src = await legend.locator('a:text-is("PurpleAir")').getAttribute('href')
-  expect(src).toContain('https://www2.purpleair.com/')
+  src = await legend.locator('a:text-is("PurpleAir sensors")').getAttribute('href')
+  expect(src).toContain('https://map.purpleair.com/air-quality-standards-us-epa-aqi?opt=%2F1%2Flp%2Fa10%2Fp604800%2FcC0#1/11.5/-30')
 })
 
 test('6-hour air quality forecast layer', async ({ page }) => {
@@ -190,9 +241,6 @@ test('6-hour air quality forecast layer', async ({ page }) => {
 
   src = await legend.locator('a:text-is("Read more here")').getAttribute('href')
   expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
-
-  src = await legend.locator('a:text-is("Learn more about how to protect yourself and your family")').getAttribute('href')
-  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
 
   src = await legend.locator('a:text-is("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
   expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
@@ -218,9 +266,6 @@ test('12-hour air quality forecast layer', async ({ page }) => {
   src = await legend.locator('a:text-is("Read more here")').getAttribute('href')
   expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
 
-  src = await legend.locator('a:text-is("Learn more about how to protect yourself and your family")').getAttribute('href')
-  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
-
   src = await legend.locator('a:text-is("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
   expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
 })
@@ -244,9 +289,6 @@ test('24-hour air quality forecast layer', async ({ page }) => {
   src = await legend.locator('a:text-is("Read more here")').getAttribute('href')
   expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
 
-  src = await legend.locator('a:text-is("Learn more about how to protect yourself and your family")').getAttribute('href')
-  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
-
   src = await legend.locator('a:text-is("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
   expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
 })
@@ -269,9 +311,6 @@ test('48-hour air quality forecast layer', async ({ page }) => {
 
   src = await legend.locator('a:text-is("Read more here")').getAttribute('href')
   expect(src).toContain('https://www.epa.gov/pm-pollution/particulate-matter-pm-basics')
-
-  src = await legend.locator('a:text-is("Learn more about how to protect yourself and your family")').getAttribute('href')
-  expect(src).toContain('https://health.alaska.gov/dph/Epi/eph/Documents/airquality/FAQ-Wildfire-Smoke-and-Your-Health.pdf')
 
   src = await legend.locator('a:text-is("online data portal in the NASA Center for Climate Simulation")').getAttribute('href')
   expect(src).toContain('https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php')
@@ -407,11 +446,6 @@ test('Boundary layers', async ({ page }) => {
   src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
   expect(src).toContain('all_gmus')
 
-  // Check that the most recently added map tiles contain "protected_areas" in the URL of their src attribute.
-  await page.click('#protected_areas a')
-  src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
-  expect(src).toContain('protected_areas')
-
   // Check that the most recently added map tiles contain "all_fire_zones" in the URL of their src attribute.
   await page.click('#fire_zones a')
   src = await page.locator('.leaflet-container .leaflet-layer img').last().getAttribute('src')
@@ -484,13 +518,13 @@ test('Footer links', async ({ page }) => {
 })
 
 test('Permalinks', async ({ page }) => {
-  let permalinkUrl = url + '/AK366?layers=0,1,2,3'
+  let permalinkUrl = url + '/' + communityId + '?layers=0,1,2,3'
   await page.goto(permalinkUrl)
   await page.setViewportSize({ width: 1728, height: 1078 })
 
-  // Check to see if community is set to Fairbanks and intro table has loaded.
-  await expect(page.locator('.place-selector input')).toHaveValue('Soldotna')
-  await expect(page.locator('.intro .title strong')).toHaveText('Soldotna')
+  // Check to see if community is set to communityName and intro table has loaded.
+  await expect(page.locator('.place-selector input')).toHaveValue(communityName)
+  await expect(page.locator('.intro .title strong')).toHaveText(communityName)
   await expect(page.locator('.intro table')).toHaveCount(2)
 
   let legend
@@ -507,23 +541,9 @@ test('Permalinks', async ({ page }) => {
 
   // Check fire danger ratings and lightning strikes layers.
   let tiles = page.locator('.leaflet-container .leaflet-layer img')
-  let foundFireDangerRatings = false
-  let foundLightningStrikes = false
-  for (let i = 0; i < await tiles.count(); i++) {
-    let src = await tiles.nth(i).getAttribute('src')
-    if (!foundFireDangerRatings && src.includes('spruceadj_3338')) {
-      foundFireDangerRatings = true
-    }
-    if (!foundLightningStrikes && src.includes('lightning_strikes')) {
-      foundLightningStrikes = true
-    }
-    if (foundFireDangerRatings && foundLightningStrikes) {
-      break
-    }
-  }
-
-  expect(foundFireDangerRatings).toBe(true)
-  expect(foundLightningStrikes).toBe(true)
+  let expectedWmsLayers = ['spruceadj_3338', 'lightning_strikes']
+  let allLayersFound = await checkForLayers(tiles, expectedWmsLayers)
+  expect(allLayersFound).toBe(true)
 
   legend = page.locator('.legend--item:has(table.lightning)')
   expect(legend).toBeVisible()
