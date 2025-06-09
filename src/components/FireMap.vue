@@ -302,8 +302,15 @@ export default {
           return false;
         }
 
+        const decTypes = [
+          "dec",
+          "conocophillips",
+          "blm",
+          "louden_tribe"
+        ];
+
         var icon;
-        if (feature.properties.type == "dec") {
+        if (decTypes.includes(feature.properties.type)) {
           icon = this.$L.divIcon({
             className: "aqi-dec",
             popupAnchor: [15, -5],
@@ -327,7 +334,17 @@ export default {
 
         // Create popup content
         var popupContent;
-        if (feature.properties.type == "dec") {
+        if (decTypes.includes(feature.properties.type)) {
+          var dataProvider;
+          if (feature.properties.type == "conocophillips") {
+            dataProvider = `<a href="https://www.conocophillips.com/">ConocoPhillips</a>`;
+          } else if (feature.properties.type == "blm") {
+            dataProvider = `<a href="https://www.blm.gov/">Bureau of Land Management</a>`;
+          } else if (feature.properties.type == "louden_tribe") {
+            dataProvider = `<a href="https://www.loudentribe.org/">Louden Tribe</a>`;
+          } else {
+            dataProvider = `<a href="https://dec.alaska.gov/air/air-monitoring/instruments-sites/community-based-monitoring/">Department of Environmental Conservation</a>`;
+          }
           popupContent = `<div class="${aqi24hrClassInfo.class} sensor-detail">
             <p><strong>1-hour average PM2.5 AQI</strong> at this sensor on ${this.convertToAKST(
               feature.properties.lastupdate,
@@ -338,7 +355,7 @@ export default {
           } &mdash; ${aqi1hrClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqi1hrClassInfo.description}</p>
-            <p>Data provided by a <a href="https://dec.alaska.gov/air/air-monitoring/">Department of Environmental Conservation</a> sensor.</p>
+            <p>Data provided by a ${dataProvider} sensor.</p>
           </div>`;
         } else {
           popupContent = `
