@@ -320,7 +320,11 @@ export default [
     <p>This layer shows sensor values for the <a href="https://www.airnow.gov/aqi/aqi-basics/">Air Quality Index (AQI)</a>, an indicator of how polluted the air is. The AQI is based on the local concentration of particulate matter that is 2.5 micrometers or smaller (PM<sub>2.5</sub>). These tiny particles can be inhaled and cause serious health problems. <a href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">Read more here</a>.</p>
     <p>The layer shows the average AQI over the last 10 minutes or 1 hour at each sensor location. The 24-hour average AQI can be seen if you click on any of the sensors with a square icon.</p>
     <p>The air quality shown on these sensors can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
-    <p>The data in this layer are measured using air quality sensors. These include <a href="https://map.purpleair.com/air-quality-standards-us-epa-aqi?opt=%2F1%2Flp%2Fa10%2Fp604800%2FcC0#1/11.5/-30">PurpleAir sensors</a> that are hosted by communities and made public, and sensors hosted by the <a href="https://dec.alaska.gov/air/air-monitoring/instruments-sites/community-based-monitoring/">Alaska Department of Environmental Conservation</a>, including regulatory monitors and Quant MODULAIR pods provided to their Community-Based Air Monitoring Network.</p>
+    <p>The data in this layer are measured using air quality sensors. These include:</p>
+    <ul>
+      <li><a href="https://map.purpleair.com/air-quality-standards-us-epa-aqi?opt=%2F1%2Flp%2Fa10%2Fp604800%2FcC0#1/11.5/-30">PurpleAir sensors</a> that are hosted by communities and made public</li>
+      <li>sensors hosted by the <a href="https://dec.alaska.gov/air/air-monitoring/instruments-sites/community-based-monitoring/">Alaska Department of Environmental Conservation</a>, including Quant MODULAIR pods provided to their Community-Based Air Monitoring Network.  <strong>Note:</strong> the QuantAQ sensor&rsquo;s data quality does not meet rigorous regulatory requirements and should not be compared to regulatory instruments or health-based standards.  For questions or to request sensor data, email <a href="mailto:amqa-data-request@alaska.gov">amqa-data-request@alaska.gov</a>.</li>
+    </ul>
     <p>If you would like to add your sensor network to this map, please contact the <a href="mailto:uaf-snap-data-tools@alaska.edu">SNAP team.</a></p>
     `,
     id: "purple_air",
