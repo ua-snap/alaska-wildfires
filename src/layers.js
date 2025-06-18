@@ -9,7 +9,7 @@ const aqiAbstract = `
 <p>&lsquo;Good&rsquo; air quality (AQI &le;50) is shown as transparent on the map.</p>
 <p>The predicted air quality can be affected by a variety of pollution sources. Smoke from wildfires is a major source of air pollution in Alaska, but PM<sub>2.5</sub> can also come from industry, cars, or wood stoves.</p>
 <p>The data in this layer are sourced from the Global Modeling and Assimilation Office (GMAO) at NASA Goddard Space Flight Center through the <a href="https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php">online data portal in the NASA Center for Climate Simulation</a>.</p>
-<p>The model used is the GEOS AGCM (Atmospheric General Circulation Model), operated within the GEOS FP (Forward Processing) data assimilation system. The GEOS FP system is run in near-real-time to provide global weather forecasts and reanalysis data. Output is provided at approximately 12 km horizontal resolution. For additional information, see the <a href="https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf">project documnetation</a>.</p>
+<p>The model used is the GEOS AGCM (Atmospheric General Circulation Model), operated within the GEOS FP (Forward Processing) data assimilation system. The GEOS FP system is run in near-real-time to provide global weather forecasts and reanalysis data. Output is provided at approximately 12 km horizontal resolution. For additional information, see the <a href="https://gmao.gsfc.nasa.gov/pubs/docs/Lucchesi1203.pdf">project documentation</a>.</p>
 `;
 
 const aqiTable = `
