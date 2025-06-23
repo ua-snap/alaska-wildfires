@@ -65,7 +65,7 @@
             >Anchorage Health Department Environmental Health Program</a
           >, and the 
           <a href="https://health.alaska.gov/en/division-of-public-health/epidemiology/environmental-public-health/"
-            >Alaska Department of Health Environmental Public health Program</a
+            >Alaska Department of Health Environmental Public Health Program</a
           >. Development was partially funded by
           <a
             href="https://cfpub.epa.gov/ncer_abstracts/index.cfm/fuseaction/display.abstractDetail/abstract_id/11349"
