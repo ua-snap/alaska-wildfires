@@ -51,9 +51,6 @@ test('Intro text', async ({ page }) => {
   src = await page.locator('.intro a:text-is("Alaska Interagency Coordination Center")').getAttribute('href')
   expect(src).toContain('https://fire.ak.blm.gov/')
 
-  src = await page.locator('.intro a:text-is("Fire Tally")').getAttribute('href')
-  expect(src).toContain('https://snap.uaf.edu/tools/daily-fire-tally')
-
   src = await page.locator('a:text-is("protect yourself and your family from wildfire smoke")').getAttribute('href')
   expect(src).toContain('https://uaf-snap.org/project/epa-star-wfe')
 })

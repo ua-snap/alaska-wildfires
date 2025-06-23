@@ -44,14 +44,6 @@
                 season.</span
               >
             </p>
-            <p>
-              To compare the current fire year to high fire years since 2004,
-              visit the
-              <a href="https://snap.uaf.edu/tools/daily-fire-tally"
-                >Fire Tally</a
-              >
-              tool.
-            </p>
             <p class="intro--legend">
               <img src="@/assets/active-perimeter.svg" />Active fires with
               mapped perimeters have a &lsquo;halo&rsquo; to show relative size.
@@ -154,14 +146,6 @@
                     Northern Climate Reports
                   </a>
                   tool.
-                </li>
-                <li>
-                  Our
-                  <a href="https://snap.uaf.edu/tools/daily-fire-tally"
-                    >Fire Tally tool</a
-                  >, developed in partnership with the Alaska Interagency
-                  Coordination Center, displays historical acres burned for
-                  different wildfire seasons across different areas in Alaska.
                 </li>
                 <li>
                   Our
