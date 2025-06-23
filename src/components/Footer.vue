@@ -53,7 +53,7 @@
           >, the University of Washington
           <a href="https://cdrc.uw.edu"
             >Center for Disaster Resilient Communities</a
-          >, Louden Tribe, the Native Village of Gakona, Igiugig Village Council, 
+          >, <a href="https://www.loudentribe.org/">Louden Tribe</a>, the <a href="https://nvgakona.com/">Native Village of Gakona</a>, <a href="https://www.igiugig.com/tribal-government">Igiugig Village Council</a>, 
           <a href="https://crnative.org/">Copper River Native Association</a
             >, 
           <a href="https://www.anthc.org/what-we-do/climate-initiatives/center-for-climate-and-health/">ANTHC</a
