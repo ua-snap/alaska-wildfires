@@ -3,7 +3,7 @@
     <div class="content">
       <div>
         <b-field
-          label="Type a community name below to show current conditions at that place:"
+          label="Type a community name below to show current conditions near that place:"
         >
           <b-autocomplete
             v-model="placeNameFragment"
@@ -101,8 +101,8 @@ export default {
           region: community.region,
         });
         if (community.id !== this.$route.params.communityId) {
-          let routeParams = { path: '/' + community.id }
-          routeParams.query = { layers: this.$route.query.layers }
+          let routeParams = { path: "/" + community.id };
+          routeParams.query = { layers: this.$route.query.layers };
           this.$router.push(routeParams);
         }
       }
@@ -121,14 +121,14 @@ export default {
     handleCommunity(communityId) {
       if (communityId) {
         const community = this.places.data.find(
-          (place) => place.id == communityId
+          (place) => place.id == communityId,
         );
         if (community) {
           this.placeNameFragment = community.name;
           this.$store.commit("setSelected", community);
           this.fetchFireAPI({
             community,
-            router: this.$router
+            router: this.$router,
           });
         }
       }
@@ -138,10 +138,10 @@ export default {
     },
     clearSelection() {
       this.$store.commit("clearSelected");
-      this.placeNameFragment = '';
+      this.placeNameFragment = "";
 
-      let routeParams = { path: '/' }
-      routeParams.query = { layers: this.$route.query.layers }
+      let routeParams = { path: "/" };
+      routeParams.query = { layers: this.$route.query.layers };
       this.$router.push(routeParams);
     },
   },

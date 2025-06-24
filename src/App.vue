@@ -6,10 +6,7 @@
     <header>
       <img src="@/assets/ak_shadowed.png" alt="" />
       <h1>Alaska Wildfire Explorer</h1>
-      <h2>
-        See active fire locations and sizes compared to smoke conditions,
-        hotspots, lightning, and more.
-      </h2>
+      <h2>Active fire and smoke information in context</h2>
     </header>
 
     <div v-if="active">
@@ -17,18 +14,16 @@
         <div class="container">
           <div class="intro content clamp is-size-3">
             <p>
-              This site shows data that aids understanding of Alaska&rsquo;s
-              wildfire landscape.
+              The map below shows current fire conditions, air quality, and
+              other useful data for your community &mdash; all in the context of
+              fire history and climate futures.
             </p>
           </div>
           <div class="intro content clamp is-size-4">
             <p>
-              Use the map below to see where fires are burning, air quality
-              conditions across the state of Alaska, and more data layers
-              produced by scientists in the fire research community.
               <strong
-                >It is not designed for fire management decision-making</strong
-              >. For the most current information, visit the
+                >For fire management decision-making information visit the
+              </strong>
               <a href="https://fire.ak.blm.gov/"
                 >Alaska Interagency Coordination Center</a
               >.
@@ -54,7 +49,11 @@
                 Legends are shown below the map, scroll down to see details.
               </li>
               <li>
-                <strong>Learn more</strong> about how to use this tool to
+                <strong>Learn more</strong> about
+                <a href="https://www.youtube.com/watch?v=zLnuxLskBlQ"
+                  >how to use this tool</a
+                >
+                and how to
                 <a href="https://uaf-snap.org/project/epa-star-wfe"
                   >protect yourself and your family from wildfire smoke</a
                 >.
