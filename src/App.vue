@@ -7,28 +7,22 @@
       <img src="@/assets/ak_shadowed.png" alt="" />
       <h1>Alaska Wildfire Explorer</h1>
       <h2>
-        See active fire locations and sizes compared to smoke conditions,
-        hotspots, lightning, and more.
+        Map active fires, smoke, lightning and air quality across the Alaska
+        landscape.
       </h2>
     </header>
 
     <div v-if="active">
       <section class="section">
         <div class="container">
-          <div class="intro content clamp is-size-3">
-            <p>
-              This site shows data that aids understanding of Alaska&rsquo;s
-              wildfire landscape.
-            </p>
-          </div>
-          <div class="intro content clamp is-size-4">
-            <p>
-              Use the map below to see where fires are burning, air quality
-              conditions across the state of Alaska, and more data layers
-              produced by scientists in the fire research community.
-              <strong
-                >It is not designed for fire management decision-making</strong
-              >. For the most current information, visit the
+          <div class="content clamp is-size-4">
+            <h3 class="introblurb">
+              The map below shows current fire conditions, air quality, and
+              other useful data for your community&mdash;all in the context of
+              fire history and climate futures.
+            </h3>
+            <p class="my-6">
+              For fire management decision-making information visit the
               <a href="https://fire.ak.blm.gov/"
                 >Alaska Interagency Coordination Center</a
               >.
@@ -230,6 +224,11 @@ header {
     font-weight: 400;
     font-size: 1.75rem;
   }
+}
+
+h3.introblurb {
+  font-weight: 500;
+  font-size: 1.5rem;
 }
 
 .clamp {
