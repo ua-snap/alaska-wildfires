@@ -82,6 +82,9 @@ export default new Vuex.Store({
     // which is refreshed by an external process that will
     // update the S3 bucket in production.
     updateStatus: undefined,
+
+    // Trigger for refreshing local layers when a new place is selected
+    reloadLocalLayers: false,
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -191,6 +194,10 @@ export default new Vuex.Store({
     },
     setSelected(state, selected) {
       state.selected = selected;
+      state.reloadLocalLayers = true;
+    },
+    clearReloadLocalLayers(state) {
+      state.reloadLocalLayers = false;
     },
     setApiOutput(state, apiOutput) {
       state.apiOutput = apiOutput;

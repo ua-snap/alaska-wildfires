@@ -125,12 +125,7 @@ const aqiColorRanges = [
   },
 ];
 
-const decTypes = [
-  "dec",
-  "conocophillips",
-  "blm",
-  "louden_tribe"
-];
+const decTypes = ["dec", "conocophillips", "blm", "louden_tribe"];
 
 export default {
   name: "AK_Fires",
@@ -170,6 +165,9 @@ export default {
         purple_air: purpleAirLayerGroup,
       };
     },
+    reloadLocalLayers() {
+      return this.$store.state.reloadLocalLayers;
+    },
   },
   data() {
     return {
@@ -207,12 +205,18 @@ export default {
     this.$store.commit("clearSelected");
   },
   mounted() {
-    this.fetchFireData();
-    this.fetchViirsData();
-    this.fetchPurpleAirData();
+    this.loadLocalLayers();
 
     // Remove any stray localStorage.
     localStorage.clear();
+  },
+  watch: {
+    reloadLocalLayers(bool) {
+      if (bool) {
+        this.loadLocalLayers();
+        this.$store.commit("clearReloadLocalLayers");
+      }
+    },
   },
   methods: {
     // Helper function to format incoming UNIX timestamps
@@ -220,6 +224,12 @@ export default {
     // object for formatting relevant in context.
     parseDate(t) {
       return this.$moment(parseInt(t)).utcOffset(offset);
+    },
+
+    loadLocalLayers() {
+      this.fetchFireData();
+      this.fetchViirsData();
+      this.fetchPurpleAirData();
     },
 
     fetchPurpleAirData() {
