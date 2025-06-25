@@ -7,7 +7,7 @@
       <img src="@/assets/ak_shadowed.png" alt="" />
       <h1>Alaska Wildfire Explorer</h1>
       <h2>
-        Map active fires, smoke, lightning and air quality across the Alaska
+        See fires, smoke, lightning and air quality across the Alaska
         landscape.
       </h2>
     </header>
@@ -17,21 +17,19 @@
         <div class="container">
           <div class="content clamp is-size-4">
             <h3 class="introblurb">
-              The map below shows current fire conditions, air quality, and
-              other useful data for your community&mdash;all in the context of
-              fire history and climate futures.
+              Use the map below to explore current forest fire conditions and air quality near your community.  Explore fire science data visualized in the context of history and climate.
             </h3>
-            <p class="my-6">
-              For fire management decision-making information visit the
-              <a href="https://fire.ak.blm.gov/"
-                >Alaska Interagency Coordination Center</a
-              >.
+            <p class="mt-6 mb-3">
+              For emergency information and fire management decision-making information visit the
+              <a href="https://akfireinfo.com/"
+                >Alaska Wildland Fire Information</a
+              > page.
             </p>
           </div>
 
-          <div class="intro content is-size-4 clamp">
+          <div class="intro content is-size-4 clamp mt-3">
             <p v-if="fireUpdateDate && fireCount">
-              <span class="glow"
+              <span class="glow mb-6"
                 >As of {{ dataDate }}, there are
                 <strong>{{ fireCount }}</strong> active fires, and approximately
                 <strong>{{ acresBurned }}</strong> acres have burned this fire
@@ -228,7 +226,7 @@ header {
 
 h3.introblurb {
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 .clamp {
