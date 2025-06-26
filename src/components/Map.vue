@@ -122,6 +122,7 @@ export default {
         // Reset the map back to the default view
         this.$options.leaflet.map.setView([65, -152.5], 1);
       }
+      this.refreshLayers(this.layers);
     },
   },
   methods: {
