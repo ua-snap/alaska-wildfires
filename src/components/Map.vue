@@ -257,8 +257,24 @@ export default {
       // Refresh map layer contents and visibility
       // TODO it'd be nice to get rid of all this complexity.
       _.each(layers, (layer) => {
-        if (_.isFunction(layer.wmsLayerName)) {
-          // Update layer parameters
+        if (
+          layer.visible &&
+          !layer.wasVisible &&
+          layer.wmsLayerName &&
+          !layer.local
+        ) {
+          // Generate new cacheBuster to force a reload of the layer
+          layer.cacheBuster = Math.random().toString(36).substr(2, 9);
+          let layerObj = this.findLayerById(layer.id);
+          if (layerObj) {
+            let newParams = {
+              layers: layer.wms,
+              _: layer.cacheBuster,
+            };
+
+            layerObj.setParams(newParams);
+          }
+        } else if (_.isFunction(layer.wmsLayerName)) {
           let layerObj = this.findLayerById(layer.id);
           if (layerObj) {
             let newParams = {
@@ -278,6 +294,10 @@ export default {
             layerObj.setParams(newParams);
           }
         }
+
+        // Track previous visibility for next layer toggle to prevent
+        // unnecessary reloads of the layers.
+        layer.wasVisible = layer.visible;
 
         // Explicitly order the list by specified z-index
         this.$options.leaflet.layers[layer.id].setZIndex(layer.zindex);
