@@ -1048,6 +1048,10 @@ table.alaska-wildfires-legend {
     tr > td {
       text-align: center;
     }
+    td > img {
+      // ensure both active/inactive symbols are the same size
+      max-width: 3.5rem;
+    }
     td > span {
       text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
       color: white;

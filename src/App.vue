@@ -6,38 +6,33 @@
     <header>
       <img src="@/assets/ak_shadowed.png" alt="" />
       <h1>Alaska Wildfire Explorer</h1>
-      <h2>
-        See active fire locations and sizes compared to smoke conditions,
-        hotspots, lightning, and more.
+      <h2 class="tagline">
+        See fires, smoke, lightning and air quality across the Alaska landscape.
       </h2>
     </header>
 
     <div v-if="active">
       <section class="section">
         <div class="container">
-          <div class="intro content clamp is-size-3">
-            <p>
-              This site shows data that aids understanding of Alaska&rsquo;s
-              wildfire landscape.
-            </p>
-          </div>
-          <div class="intro content clamp is-size-4">
-            <p>
-              Use the map below to see where fires are burning, air quality
-              conditions across the state of Alaska, and more data layers
-              produced by scientists in the fire research community.
-              <strong
-                >It is not designed for fire management decision-making</strong
-              >. For the most current information, visit the
-              <a href="https://fire.ak.blm.gov/"
-                >Alaska Interagency Coordination Center</a
-              >.
+          <div class="content clamp is-size-4">
+            <h3 class="powergraph">
+              Use the map below to explore current forest fire conditions and
+              air quality near your community. Explore fire science data
+              visualized in the context of history and climate.
+            </h3>
+            <p class="mt-6 mb-3">
+              For emergency information and fire management decision-making
+              information visit the
+              <a href="https://akfireinfo.com/"
+                >Alaska Wildland Fire Information</a
+              >
+              page.
             </p>
           </div>
 
-          <div class="intro content is-size-4 clamp">
+          <div class="intro content is-size-4 clamp mt-3">
             <p v-if="fireUpdateDate && fireCount">
-              <span class="glow"
+              <span class="glow mb-6"
                 >As of {{ dataDate }}, there are
                 <strong>{{ fireCount }}</strong> active fires, and approximately
                 <strong>{{ acresBurned }}</strong> acres have burned this fire
@@ -54,7 +49,7 @@
                 Legends are shown below the map, scroll down to see details.
               </li>
               <li>
-                <strong>Learn more</strong> about how to use this tool to
+                <strong><a href="https://www.youtube.com/watch?v=zLnuxLskBlQ">Watch a video</a></strong> or <strong><a href="https://uaf-snap.org/wp-content/uploads/2025/06/akwet-comic-print.pdf">read a comic book user guide</a></strong> about how to use this tool and how to
                 <a href="https://uaf-snap.org/project/epa-star-wfe"
                   >protect yourself and your family from wildfire smoke</a
                 >.
@@ -222,13 +217,26 @@ header {
       font-size: 6.5rem;
     }
   }
-  h2 {
+  h2.tagline {
     border-top: 0.25rem solid white;
     background-color: rgb(39, 41, 26);
     padding: 0.5rem 0 0.75rem;
     color: white;
     font-weight: 400;
     font-size: 1.75rem;
+
+    @media (max-width: 458px) {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+h3.powergraph {
+  font-weight: 500;
+  font-size: 1.6rem;
+  @media (max-width: 458px) {
+    line-height: 1.4;
+    font-size: 1.25rem;
   }
 }
 
@@ -247,7 +255,7 @@ header {
     vertical-align: middle;
     display: inline-block;
     margin-right: 1rem;
-    height: 75px;
+    height: 3rem;
   }
 }
 </style>
