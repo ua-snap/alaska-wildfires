@@ -6,9 +6,8 @@
     <header>
       <img src="@/assets/ak_shadowed.png" alt="" />
       <h1>Alaska Wildfire Explorer</h1>
-      <h2>
-        See fires, smoke, lightning and air quality across the Alaska
-        landscape.
+      <h2 class="tagline">
+        See fires, smoke, lightning and air quality across the Alaska landscape.
       </h2>
     </header>
 
@@ -16,14 +15,18 @@
       <section class="section">
         <div class="container">
           <div class="content clamp is-size-4">
-            <h3 class="introblurb">
-              Use the map below to explore current forest fire conditions and air quality near your community.  Explore fire science data visualized in the context of history and climate.
+            <h3 class="powergraph">
+              Use the map below to explore current forest fire conditions and
+              air quality near your community. Explore fire science data
+              visualized in the context of history and climate.
             </h3>
             <p class="mt-6 mb-3">
-              For emergency information and fire management decision-making information visit the
+              For emergency information and fire management decision-making
+              information visit the
               <a href="https://akfireinfo.com/"
                 >Alaska Wildland Fire Information</a
-              > page.
+              >
+              page.
             </p>
           </div>
 
@@ -46,7 +49,7 @@
                 Legends are shown below the map, scroll down to see details.
               </li>
               <li>
-                <strong>Learn more</strong> about how to use this tool to
+                <strong><a href="https://www.youtube.com/watch?v=zLnuxLskBlQ">Watch a video</a></strong> or <strong><a href="https://uaf-snap.org/wp-content/uploads/2025/06/akwet-comic-print.pdf">read a comic book user guide</a></strong> about how to use this tool and how to
                 <a href="https://uaf-snap.org/project/epa-star-wfe"
                   >protect yourself and your family from wildfire smoke</a
                 >.
@@ -214,19 +217,27 @@ header {
       font-size: 6.5rem;
     }
   }
-  h2 {
+  h2.tagline {
     border-top: 0.25rem solid white;
     background-color: rgb(39, 41, 26);
     padding: 0.5rem 0 0.75rem;
     color: white;
     font-weight: 400;
     font-size: 1.75rem;
+
+    @media (max-width: 458px) {
+      font-size: 1.25rem;
+    }
   }
 }
 
-h3.introblurb {
+h3.powergraph {
   font-weight: 500;
   font-size: 1.6rem;
+  @media (max-width: 458px) {
+    line-height: 1.4;
+    font-size: 1.25rem;
+  }
 }
 
 .clamp {
@@ -244,7 +255,7 @@ h3.introblurb {
     vertical-align: middle;
     display: inline-block;
     margin-right: 1rem;
-    height: 75px;
+    height: 3rem;
   }
 }
 </style>
