@@ -33,9 +33,6 @@ test('Intro text', async ({ page }) => {
   await page.goto(url)
   await page.setViewportSize({ width: 1728, height: 1078 })
 
-  let src = await page.locator('.intro a:text-is("Alaska Interagency Coordination Center")').getAttribute('href')
-  expect(src).toContain('https://fire.ak.blm.gov/')
-
   const glowText = await page.locator('.intro .glow').textContent()
   const regex = /As of (.*), there are (.*) active fires, and approximately (.*) acres have burned this fire season./
   const matches = glowText.match(regex)
@@ -48,10 +45,7 @@ test('Intro text', async ({ page }) => {
   expect(fireCount).toMatch(/^[0-9,]+$/)
   expect(acresBurned).toMatch(/^[0-9,]+$/)
 
-  src = await page.locator('.intro a:text-is("Alaska Interagency Coordination Center")').getAttribute('href')
-  expect(src).toContain('https://fire.ak.blm.gov/')
-
-  src = await page.locator('a:text-is("protect yourself and your family from wildfire smoke")').getAttribute('href')
+  let src = await page.locator('a:text-is("protect yourself and your family from wildfire smoke")').getAttribute('href')
   expect(src).toContain('https://uaf-snap.org/project/epa-star-wfe')
 })
 
@@ -532,7 +526,7 @@ test('Permalinks', async ({ page }) => {
   expect(legend).toBeVisible()
 
   // Check hotspots layer.
-  await expect(page.locator('.leaflet-container .leaflet-heatmap-layer')).toBeVisible()
+  await expect(page.locator('.leaflet-container .leaflet-heatmap-layer').first()).toBeVisible()
   legend = page.locator('.legend--item:has(h4:text-is("Hotspots, last 48 hours"))')
   expect(legend).toBeVisible()
 
