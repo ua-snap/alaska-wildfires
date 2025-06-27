@@ -30,7 +30,7 @@ const sensorNetworkLayerTable = `
       <div class="aqi-hazardous"></div>
     </td>
     <td>
-      <strong>Squares</strong> are the PurpleAir sensor network, 10 minute average AQI.
+      <strong>Squares</strong> show the PurpleAir sensor network, 10 minute average AQI.
     </td>
   </tr>
   <tr>
@@ -38,7 +38,7 @@ const sensorNetworkLayerTable = `
       <div class="aqi-hazardous dec"></div>
     </td>
     <td>
-      <strong>Circles</strong> show data hosted by the Alaska Department of Environmental Conservation, 1 hour average AQI.
+      <strong>Circles</strong> show sensors hosted by the Alaska Department of Environmental Conservation, 1 hour average AQI.
     </td>
   </tr>
 </table>
