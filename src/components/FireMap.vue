@@ -526,6 +526,7 @@ export default {
             updated: feature.properties.updated,
             outdate: feature.properties.OUTDATE,
             discovered: feature.properties.discovered,
+            summary: feature.properties.SUMMARY,
           }),
         );
       };
