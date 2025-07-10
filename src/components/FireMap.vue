@@ -9,7 +9,6 @@
           ref="map"
           :base-layer-options="baseLayerOptions"
           :base-layer="baseLayer"
-          :crs="crs"
           :map-options="mapOptions"
           :local-layers="localLayers"
         ></mv-map>
@@ -151,12 +150,19 @@ export default {
       );
     },
     baseLayer() {
-      return new this.$L.tileLayer.wms(
-        process.env.VUE_APP_GEOSERVER_WMS_URL,
-        _.extend(this.baseLayerOptions, {
-          layers: "atlas_mapproxy:alaska_osm_retina",
-        }),
+      return new this.$L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        },
       );
+      // return new this.$L.tileLayer.wms(
+      //   process.env.VUE_APP_GEOSERVER_WMS_URL,
+      //   _.extend(this.baseLayerOptions, {
+      //     layers: "atlas_mapproxy:alaska_osm_retina",
+      //   }),
+      // );
     },
     localLayers() {
       return {
@@ -172,10 +178,10 @@ export default {
   data() {
     return {
       mapOptions: {
-        zoom: 1,
-        minZoom: 1,
-        maxZoom: 6,
-        zoomSnap: 0.5,
+        zoom: 5,
+        minZoom: 4,
+        maxZoom: 15,
+        zoomSnap: 1,
         center: [65, -152.5],
       },
       baseLayerOptions: {
@@ -361,8 +367,8 @@ export default {
             )}:
             </p>
             <p><span class="sensor-aqi ${aqi1hrClassInfo.class}">${
-            feature.properties.aqi_1hr
-          } &mdash; ${aqi1hrClassInfo.name}</span>
+              feature.properties.aqi_1hr
+            } &mdash; ${aqi1hrClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqi1hrClassInfo.description}</p>
             <p>Data provided by a ${dataProvider} sensor.</p>
@@ -375,15 +381,15 @@ export default {
             )}:
             </p>
             <p><span class="sensor-aqi ${aqi10minClassInfo.class}">${
-            feature.properties.aqi_10m
-          } &mdash; ${aqi10minClassInfo.name}</span>
+              feature.properties.aqi_10m
+            } &mdash; ${aqi10minClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqi10minClassInfo.description}</p>
             <p><strong>24-hour average PM2.5 AQI</strong> at this sensor is <span class="sensor-24hr-aqi ${
               aqi24hrClassInfo.class
             }">${feature.properties.aqi_24hr} &mdash; ${
-            aqi24hrClassInfo.name
-          } </span> &nbsp;${aqi24hrClassInfo.description}
+              aqi24hrClassInfo.name
+            } </span> &nbsp;${aqi24hrClassInfo.description}
             </p>
             <p>Data provided by a local <a href="https://www2.purpleair.com/">PurpleAir</a> sensor.</p>
           </div>

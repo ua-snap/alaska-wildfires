@@ -298,15 +298,21 @@ export default {
       // the Leaflet layers (breaks map)
       var baseLayer = _.cloneDeep(this.baseLayer);
 
+      // User interaction with the map depends on if it's a touch device, 
+      // or desktop interface.
+      // On desktop, we want to use the scroll wheel & double-click to zoom.
+      // On mobile, we don't want the scroll wheel (it will "trap" you in the map
+      // as you scroll).  We don't want to allow the messy "scroll-zoom" motion
+      // which happens when pinching/scrolling the map.  
       var defaultMapProperties = _.extend(
         {
-          crs: this.crs,
+          // crs: this.crs,
           boxZoom: false,
           zoomControl: false,
-          scrollWheelZoom: false,
+          scrollWheelZoom: true,
           attributionControl: false,
-          doubleClickZoom: false,
-          dragging: !this.$L.Browser.mobile,
+          doubleClickZoom: true,
+          dragging: true,
         },
         this.mapOptions,
       );

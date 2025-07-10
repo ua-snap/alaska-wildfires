@@ -5,7 +5,7 @@
     </div>
     <header>
       <img src="@/assets/ak_shadowed.png" alt="" />
-      <h1>Alaska Wildfire Explorer</h1>
+      <h1>Alaska Wildfire Explorerererer</h1>
       <h2 class="tagline">
         See fires, smoke, lightning and air quality across the Alaska landscape.
       </h2>
