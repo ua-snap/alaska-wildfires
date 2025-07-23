@@ -127,6 +127,13 @@ const aqiColorRanges = [
 
 const decTypes = ["dec", "conocophillips", "blm", "louden_tribe"];
 
+// Check the user agent to determine if the user is on a mobile device.
+function isMobile() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent,
+  );
+}
+
 export default {
   name: "AK_Fires",
   components: {
@@ -136,27 +143,37 @@ export default {
   },
   computed: {
     crs() {
-      return new this.$L.Proj.CRS(
-        "EPSG:3338",
-        "+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs",
-        {
-          resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
-
-          // Origin should be lower-left coordinate
-          // in projected space.  Use GeoServer to
-          // find this:
-          // TileSet > Gridset Bounds > compute from maximum extent of SRS
-          origin: [-4648005.934316417, 444809.882955059],
-        },
-      );
+      if (isMobile()) {
+        return this.$L.CRS.EPSG3857;
+      } else {
+        // Alaska Albers Equal Area
+        return new this.$L.Proj.CRS(
+          "EPSG:3338",
+          "+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs",
+          {
+            resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
+            origin: [-4648005.934316417, 444809.882955059],
+          },
+        );
+      }
     },
     baseLayer() {
-      return new this.$L.tileLayer.wms(
-        process.env.VUE_APP_GEOSERVER_WMS_URL,
-        _.extend(this.baseLayerOptions, {
-          layers: "atlas_mapproxy:alaska_osm_retina",
-        }),
-      );
+      if (isMobile()) {
+        return new this.$L.tileLayer(
+          "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+          {
+            attribution:
+              '&copy; <a href="https://carto.com/attributions">CARTO</a>',
+          },
+        );
+      } else {
+        return new this.$L.tileLayer.wms(
+          process.env.VUE_APP_GEOSERVER_WMS_URL,
+          _.extend(this.baseLayerOptions, {
+            layers: "atlas_mapproxy:alaska_osm_retina",
+          }),
+        );
+      }
     },
     localLayers() {
       return {
@@ -170,21 +187,7 @@ export default {
     },
   },
   data() {
-    return {
-      mapOptions: {
-        zoom: 1,
-        minZoom: 1,
-        maxZoom: 6,
-        zoomSnap: 0.5,
-        center: [65, -152.5],
-      },
-      baseLayerOptions: {
-        transparent: true,
-        srs: "EPSG:3338",
-        format: "image/png",
-        version: "1.3.0",
-        continuousWorld: true, // needed for non-3857 projs
-      },
+    const layerOptions = {
       active_fire_color: "#fc8d05",
       inactive_fire_color: "#22535b",
       layers: mapLayers,
@@ -193,6 +196,42 @@ export default {
       purpleAirJson: null,
       map: undefined,
     };
+    if (isMobile()) {
+      return {
+        ...layerOptions,
+        mapOptions: {
+          zoom: 4,
+          minZoom: 4,
+          maxZoom: 10,
+          center: [65, -152.5],
+        },
+        baseLayerOptions: {
+          transparent: true,
+          srs: "EPSG:3857",
+          format: "image/png",
+          version: "1.3.0",
+          continuousWorld: true,
+        },
+      };
+    } else {
+      return {
+        ...layerOptions,
+        mapOptions: {
+          zoom: 1,
+          minZoom: 1,
+          maxZoom: 6,
+          zoomSnap: 0.5,
+          center: [65, -152.5],
+        },
+        baseLayerOptions: {
+          transparent: true,
+          srs: "EPSG:3338",
+          format: "image/png",
+          version: "1.3.0",
+          continuousWorld: true,
+        },
+      };
+    }
   },
   created() {
     // This will be the container for the fire markers & popups.
