@@ -307,7 +307,7 @@ export default new Vuex.Store({
       context.commit("setPlaces", returnedData);
     },
     async fetchFireAPI(context, payload) {
-      let community = payload.community;
+      let community = payload.community || payload;
       // Get API data
       let queryUrl =
         apiUrl +
@@ -317,10 +317,10 @@ export default new Vuex.Store({
         community.longitude;
       let returnedData = await axios.get(queryUrl).catch(() => {
         // If the API call fails, redirect to the home page
-        payload.router.push("/");
+        payload.router?.push("/");
 
         // Reload the front page to clear the app state
-        payload.router.go(0);
+        payload.router?.go(0);
       });
 
       if (returnedData) {

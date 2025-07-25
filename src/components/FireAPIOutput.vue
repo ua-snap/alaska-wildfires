@@ -247,6 +247,24 @@ export default {
       }
     },
   },
+  watch: {
+    "$route.params": {
+      handler(newParams) {
+        if (newParams[0] && newParams[1]) {
+          const lat = parseFloat(newParams[0]);
+          const lon = parseFloat(newParams[1]);
+          const selected = {
+            name: `${lat}, ${lon}`,
+            latitude: lat,
+            longitude: lon,
+          };
+          this.$store.commit("setSelected", selected);
+          this.fetchFireAPI(selected);
+        }
+      },
+      immediate: true,
+    },
+  },
 };
 </script>
 

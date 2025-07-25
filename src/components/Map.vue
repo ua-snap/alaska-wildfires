@@ -141,6 +141,14 @@ export default {
       if (e.originalEvent.shiftKey) {
         const lat = e.latlng.lat.toFixed(2);
         const lng = e.latlng.lng.toFixed(2);
+
+        // Update the URL with lat/lon in path format
+        this.$router.push({
+          path: `/${lat}/${lng}`,
+          query: { layers: this.$route.query.layers },
+        });
+
+        // Fetch data for the selected lat/lon
         this.fetchLocationData(lat, lng);
       }
     },
