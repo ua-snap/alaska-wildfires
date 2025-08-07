@@ -250,20 +250,34 @@ export default {
   watch: {
     "$route.params": {
       handler(newParams) {
-        if (newParams[0] && newParams[1]) {
-          const lat = parseFloat(newParams[0]);
-          const lon = parseFloat(newParams[1]);
+        if (newParams.lat && newParams.lon) {
+          const lat = parseFloat(newParams.lat);
+          const lon = parseFloat(newParams.lon);
           const selected = {
             name: `${lat}, ${lon}`,
             latitude: lat,
             longitude: lon,
           };
           this.$store.commit("setSelected", selected);
-          this.fetchFireAPI(selected);
+          this.$store.dispatch("fetchFireAPI", selected);
         }
       },
       immediate: true,
     },
+  },
+  mounted() {
+    const { lat, lon } = this.$route.params;
+    if (lat && lon) {
+      const latNum = parseFloat(lat);
+      const lonNum = parseFloat(lon);
+      const selected = {
+        name: `${latNum}, ${lonNum}`,
+        latitude: latNum,
+        longitude: lonNum,
+      };
+      this.$store.commit("setSelected", selected);
+      this.$store.dispatch("fetchFireAPI", selected);
+    }
   },
 };
 </script>
