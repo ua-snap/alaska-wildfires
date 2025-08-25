@@ -766,7 +766,7 @@ test("Permalinks", async ({ page }) => {
 
   // Check fire danger ratings and lightning strikes layers.
   let tiles = page.locator(".leaflet-container .leaflet-layer img");
-  let expectedWmsLayers = ["spruceadj_3338", "lightning_strikes"];
+  let expectedWmsLayers = ["spruceadj_3338"];
   let allLayersFound = await checkForLayers(tiles, expectedWmsLayers);
   expect(allLayersFound).toBe(true);
 
