@@ -49,7 +49,7 @@
                 Legends are shown below the map, scroll down to see details.
               </li>
               <li>
-                <strong><a href="https://www.youtube.com/watch?v=zLnuxLskBlQ">Watch a video</a></strong> or <strong><a href="https://uaf-snap.org/wp-content/uploads/2025/06/akwet-comic-print.pdf">read a comic book user guide</a></strong> about how to use this tool and how to
+                <strong><a href="https://www.youtube.com/watch?v=zLnuxLskBlQ">Watch a video</a></strong> or <strong><a href="https://uaf-snap.org/wp-content/uploads/2025/08/wfe_comic_print_full_20250828.pdf">read a comic book user guide</a></strong> about how to use this tool and how to
                 <a href="https://uaf-snap.org/project/epa-star-wfe"
                   >protect yourself and your family from wildfire smoke</a
                 >.
