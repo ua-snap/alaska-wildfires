@@ -49,7 +49,19 @@
                 Legends are shown below the map, scroll down to see details.
               </li>
               <li>
-                <strong><a href="https://www.youtube.com/watch?v=zLnuxLskBlQ">Watch a video</a></strong> or <strong><a href="https://uaf-snap.org/wp-content/uploads/2025/08/wfe_comic_print_full_20250828.pdf">read a comic book user guide</a></strong> about how to use this tool and how to
+                <strong
+                  ><a href="https://www.youtube.com/watch?v=zLnuxLskBlQ"
+                    >Watch a video</a
+                  ></strong
+                >
+                or
+                <strong
+                  ><a
+                    href="https://uaf-snap.org/wp-content/uploads/2025/08/wfe_comic_print_full_20250828.pdf"
+                    >read a comic book user guide</a
+                  ></strong
+                >
+                about how to use this tool and how to
                 <a href="https://uaf-snap.org/project/epa-star-wfe"
                   >protect yourself and your family from wildfire smoke</a
                 >.
@@ -70,7 +82,7 @@
           <div class="clamp">
             <h2 class="is-2 title">❄️ This tool is offline for the winter.</h2>
             <h3 class="is-2 subtitle">
-              It will come back online in April 2025.
+              It will come back online in April 2026.
             </h3>
             <div class="content is-size-4">
               <p>
