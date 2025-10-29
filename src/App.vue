@@ -101,14 +101,21 @@
                 </li>
                 <li>
                   Academic data layers for research, including lightning
-                  frequency, projected flammability, historical fire scars and
-                  terrain classification
+                  frequency,
+                  <a
+                    href="https://arcticdatascience.org/item/alfresco-flammability"
+                    >projected flammability</a
+                  >, historical fire scars and
+                  <a
+                    href="https://arcticdatascience.org/item/alfresco-vegetation"
+                    >terrain classification</a
+                  >
                 </li>
               </ul>
 
               <p>
-                The real-time data feeds stop during the winter, so we take the
-                map tool offline. Email us at
+                The real-time data stops functioning during the winter, so we
+                take the map offline. Email us at
                 <a href="mailto:uaf-snap-data-tools@alaska.edu"
                   >uaf-snap-data-tools@alaska.edu</a
                 >
@@ -137,6 +144,12 @@
                   >
                   is another great place for resources on fire management in
                   Alaska.
+                </li>
+                <li>
+                  Learn how to prepare for the wildfire season and
+                  <a href="https://uaf-snap.org/project/epa-star-wfe/"
+                    >protect your family from smoke.</a
+                  >
                 </li>
               </ul>
             </div>
