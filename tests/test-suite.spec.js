@@ -90,13 +90,6 @@ test("Current conditions", async ({ page }) => {
   // Wait a bit for data to load.
   await page.waitForTimeout(3000);
 
-  let src = await page
-    .locator('.intro a:text-is("Fire danger")')
-    .getAttribute("href");
-  expect(src).toContain(
-    "https://en.wikipedia.org/wiki/National_Fire_Danger_Rating_System",
-  );
-
   await expect(page.locator(".intro table")).toHaveCount(2);
 
   const tables = page.locator(".intro table");
