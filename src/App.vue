@@ -105,7 +105,7 @@
                   <a
                     href="https://arcticdatascience.org/item/alfresco-flammability"
                     >projected flammability</a
-                  >, historical fire scars and
+                  >, historical fire scars, and
                   <a
                     href="https://arcticdatascience.org/item/alfresco-vegetation"
                     >terrain classification</a
@@ -124,7 +124,7 @@
             </div>
 
             <h3 class="title is-3">
-              Interested in general information about wildfires?
+              Interested in general information about wildfires and smoke?
             </h3>
             <div class="content is-size-4">
               <ul>
@@ -134,14 +134,14 @@
                     href="https://courses.edx.org/videos/block-v1:AlaskaX+IARC100+2T2024+type@video+block@460e8ddddab04171bcaafba0919c7d86"
                   >
                     SNAP Director and wildfire ecologist Dr. Scott Rupp in this
-                    video on EdX </a
+                    video on EdX</a
                   >.
                 </li>
                 <li>
-                  Our partner research unit the
+                  Our partner research unit, the
                   <a href="https://www.frames.gov/afsc/home"
                     >Alaska Fire Science Consortium</a
-                  >
+                  >,
                   is another great place for resources on fire management in
                   Alaska.
                 </li>
@@ -180,7 +180,7 @@
                   the
                   <a href="https://fire.ak.blm.gov"
                     >Alaska Interagency Coordination Center</a
-                  >
+                  >,
                   where data and reports for current and past fire seasons are
                   often available.
                 </li>
