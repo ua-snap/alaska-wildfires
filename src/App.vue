@@ -141,8 +141,7 @@
                   Our partner research unit, the
                   <a href="https://www.frames.gov/afsc/home"
                     >Alaska Fire Science Consortium</a
-                  >,
-                  is another great place for resources on fire management in
+                  >, is another great place for resources on fire management in
                   Alaska.
                 </li>
                 <li>
@@ -180,9 +179,8 @@
                   the
                   <a href="https://fire.ak.blm.gov"
                     >Alaska Interagency Coordination Center</a
-                  >,
-                  where data and reports for current and past fire seasons are
-                  often available.
+                  >, where data and reports for current and past fire seasons
+                  are often available.
                 </li>
               </ul>
               <p>Looking forward to seeing you here next year!</p>
@@ -291,16 +289,6 @@ import FireMap from "@/components/FireMap.vue";
 import PlaceSelector from "@/components/PlaceSelector.vue";
 import FireAPIOutput from "@/components/FireAPIOutput";
 import Footer from "@/components/Footer";
-
-// When the app renders, it's possible the user's browser blocks our Umami script.
-// If that's true, ensure there is a stub to prevent the app breaking.
-if (!window.umami || !window.umami.track) {
-  window.umami = {
-    track: () => {
-      return; // no-op
-    },
-  };
-}
 
 export default {
   name: "App",
