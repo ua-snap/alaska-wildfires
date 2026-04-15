@@ -399,8 +399,8 @@ export default {
             )}:
             </p>
             <p><span class="sensor-aqi ${aqi1hrClassInfo.class}">${
-            feature.properties.aqi_1hr
-          } &mdash; ${aqi1hrClassInfo.name}</span>
+              feature.properties.aqi_1hr
+            } &mdash; ${aqi1hrClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqi1hrClassInfo.description}</p>
             <p>Data provided by a ${dataProvider} sensor.</p>
@@ -413,15 +413,15 @@ export default {
             )}:
             </p>
             <p><span class="sensor-aqi ${aqi10minClassInfo.class}">${
-            feature.properties.aqi_10m
-          } &mdash; ${aqi10minClassInfo.name}</span>
+              feature.properties.aqi_10m
+            } &mdash; ${aqi10minClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqi10minClassInfo.description}</p>
             <p><strong>24-hour average PM2.5 AQI</strong> at this sensor is <span class="sensor-24hr-aqi ${
               aqi24hrClassInfo.class
             }">${feature.properties.aqi_24hr} &mdash; ${
-            aqi24hrClassInfo.name
-          } </span> &nbsp;${aqi24hrClassInfo.description}
+              aqi24hrClassInfo.name
+            } </span> &nbsp;${aqi24hrClassInfo.description}
             </p>
             <p>Data provided by a local <a href="https://www2.purpleair.com/">PurpleAir</a> sensor.</p>
           </div>
@@ -433,7 +433,7 @@ export default {
 
         // Attach analytics
         marker.on("click", () => {
-          window.umami.track("aqi-marker-click");
+          window.trackUmamiEvent("aqi-marker-click");
         });
 
         // Push the marker to the markers array
@@ -698,7 +698,7 @@ export default {
                 ),
               )
               .on("click", () => {
-                window.umami.track("fire-marker-click");
+                window.trackUmamiEvent("fire-marker-click");
               }),
           );
         }
@@ -791,7 +791,7 @@ export default {
         )
         .on("click", () => {
           // Attach analytics
-          window.umami.track("fire-marker-click");
+          window.trackUmamiEvent("fire-marker-click");
         });
     },
     // For this method, fireInfo must contain properties

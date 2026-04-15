@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     toggleLayer() {
-      window.umami.track("toggle-layer", { id: this.id });
+      window.trackUmamiEvent("toggle-layer", { id: this.id });
       if (this.id.includes("aqi_forecast")) {
         this.sublayers.forEach((layer) => {
           // When an AQI forecast layer is toggled, turn off all other AQI forecast layers.
@@ -89,10 +89,7 @@ export default {
             });
           }
         });
-      } else if (
-        this.id === "gmu" ||
-        this.id === "fire_zones"
-      ) {
+      } else if (this.id === "gmu" || this.id === "fire_zones") {
         // When a boundary layer is toggled, turn off all other boundary layers
         const boundaryLayers = ["gmu", "fire_zones"];
         boundaryLayers.forEach((layerId) => {
@@ -145,7 +142,9 @@ a:hover {
 
 .visible {
   font-weight: 900;
-  text-shadow: #f4d609 1px 1px 7px, #f4d609 -1px -1px 7px;
+  text-shadow:
+    #f4d609 1px 1px 7px,
+    #f4d609 -1px -1px 7px;
 }
 
 .layer-title {
