@@ -292,6 +292,16 @@ import PlaceSelector from "@/components/PlaceSelector.vue";
 import FireAPIOutput from "@/components/FireAPIOutput";
 import Footer from "@/components/Footer";
 
+// When the app renders, it's possible the user's browser blocks our Umami script.
+// If that's true, ensure there is a stub to prevent the app breaking.
+if (!window.umami || !window.umami.track) {
+  window.umami = {
+    track: () => {
+      return; // no-op
+    },
+  };
+}
+
 export default {
   name: "App",
   components: { FireMap, PlaceSelector, FireAPIOutput, Footer },
