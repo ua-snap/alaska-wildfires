@@ -2,10 +2,12 @@
   <div class="place-selector mb-6">
     <div class="content">
       <div>
-        <b-field
-          label="Type a community name below to show current conditions at that place:"
-        >
+        <label for="place-search-input" class="label">
+          Type a community name below to show current conditions at that place:
+        </label>
+        <b-field>
           <b-autocomplete
+            id="place-search-input"
             v-model="placeNameFragment"
             :data="filteredDataObj"
             keep-first
@@ -138,10 +140,10 @@ export default {
     },
     clearSelection() {
       this.$store.commit("clearSelected");
-      this.placeNameFragment = '';
+      this.placeNameFragment = "";
 
-      let routeParams = { path: '/' }
-      routeParams.query = { layers: this.$route.query.layers }
+      let routeParams = { path: "/" };
+      routeParams.query = { layers: this.$route.query.layers };
       this.$router.push(routeParams);
     },
   },
