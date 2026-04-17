@@ -7,8 +7,6 @@
       small: small,
     }"
   >
-    <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
-
     <!-- Layer title! -->
     <span class="layer-title">
       <span @click="toggleLayer(id)">
