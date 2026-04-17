@@ -30,6 +30,7 @@ import moment from "moment";
 
 import store from "../store";
 import mapLayers from "../layers";
+import { geoserverWfsUrl, geoserverWmsUrl } from "@/geoserver";
 import L from "leaflet";
 import p4l from "proj4leaflet"; // eslint-disable-line
 import leaflet_heat from "leaflet.heat"; // eslint-disable-line
@@ -167,7 +168,7 @@ export default {
         );
       } else {
         return new this.$L.tileLayer.wms(
-          process.env.VUE_APP_GEOSERVER_WMS_URL,
+          geoserverWmsUrl,
           _.extend(this.baseLayerOptions, {
             layers: "atlas_mapproxy:alaska_osm_retina",
           }),
@@ -282,7 +283,7 @@ export default {
 
       return new Promise((resolve) => {
         this.$axios
-          .get(process.env.VUE_APP_GEOSERVER_WFS_URL, { params })
+          .get(geoserverWfsUrl, { params })
           .then((response) => {
             if (response.data) {
               // Process the WFS data
@@ -455,7 +456,7 @@ export default {
 
       return new Promise((resolve) => {
         this.$axios
-          .get(process.env.VUE_APP_GEOSERVER_WFS_URL, { params })
+          .get(geoserverWfsUrl, { params })
           .then((response) => {
             if (response.data) {
               // Process the WFS data
@@ -514,10 +515,10 @@ export default {
       };
 
       return Promise.all([
-        this.$axios.get(process.env.VUE_APP_GEOSERVER_WFS_URL, {
+        this.$axios.get(geoserverWfsUrl, {
           params: pointParams,
         }),
-        this.$axios.get(process.env.VUE_APP_GEOSERVER_WFS_URL, {
+        this.$axios.get(geoserverWfsUrl, {
           params: polygonParams,
         }),
       ])
