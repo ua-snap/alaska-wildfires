@@ -167,7 +167,7 @@ export default {
         );
       } else {
         return new this.$L.tileLayer.wms(
-          process.env.VUE_APP_GEOSERVER_WMS_URL,
+          process.env.VUE_APP_GEOSERVER_URL + "/wms",
           _.extend(this.baseLayerOptions, {
             layers: "atlas_mapproxy:alaska_osm_retina",
           }),
@@ -282,7 +282,7 @@ export default {
 
       return new Promise((resolve) => {
         this.$axios
-          .get(process.env.VUE_APP_GEOSERVER_WFS_URL, { params })
+          .get(process.env.VUE_APP_GEOSERVER_URL + "/wfs", { params })
           .then((response) => {
             if (response.data) {
               // Process the WFS data
@@ -399,8 +399,8 @@ export default {
             )}:
             </p>
             <p><span class="sensor-aqi ${aqi1hrClassInfo.class}">${
-              feature.properties.aqi_1hr
-            } &mdash; ${aqi1hrClassInfo.name}</span>
+            feature.properties.aqi_1hr
+          } &mdash; ${aqi1hrClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqi1hrClassInfo.description}</p>
             <p>Data provided by a ${dataProvider} sensor.</p>
@@ -413,15 +413,15 @@ export default {
             )}:
             </p>
             <p><span class="sensor-aqi ${aqi10minClassInfo.class}">${
-              feature.properties.aqi_10m
-            } &mdash; ${aqi10minClassInfo.name}</span>
+            feature.properties.aqi_10m
+          } &mdash; ${aqi10minClassInfo.name}</span>
             </p>
             <p class="aqi-explain">${aqi10minClassInfo.description}</p>
             <p><strong>24-hour average PM2.5 AQI</strong> at this sensor is <span class="sensor-24hr-aqi ${
               aqi24hrClassInfo.class
             }">${feature.properties.aqi_24hr} &mdash; ${
-              aqi24hrClassInfo.name
-            } </span> &nbsp;${aqi24hrClassInfo.description}
+            aqi24hrClassInfo.name
+          } </span> &nbsp;${aqi24hrClassInfo.description}
             </p>
             <p>Data provided by a local <a href="https://www2.purpleair.com/">PurpleAir</a> sensor.</p>
           </div>
@@ -455,7 +455,7 @@ export default {
 
       return new Promise((resolve) => {
         this.$axios
-          .get(process.env.VUE_APP_GEOSERVER_WFS_URL, { params })
+          .get(process.env.VUE_APP_GEOSERVER_URL + "/wfs", { params })
           .then((response) => {
             if (response.data) {
               // Process the WFS data
@@ -514,10 +514,10 @@ export default {
       };
 
       return Promise.all([
-        this.$axios.get(process.env.VUE_APP_GEOSERVER_WFS_URL, {
+        this.$axios.get(process.env.VUE_APP_GEOSERVER_URL + "/wfs", {
           params: pointParams,
         }),
-        this.$axios.get(process.env.VUE_APP_GEOSERVER_WFS_URL, {
+        this.$axios.get(process.env.VUE_APP_GEOSERVER_URL + "/wfs", {
           params: polygonParams,
         }),
       ])
