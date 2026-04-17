@@ -220,7 +220,7 @@ export default {
 
       let wmsServer = layer.rasdaman
         ? process.env.VUE_APP_RASDAMAN_URL
-        : process.env.VUE_APP_GEOSERVER_WMS_URL;
+        : process.env.VUE_APP_GEOSERVER_URL + "/wms";
 
       this.$options.leaflet.layers[layer.id] = this.$L.tileLayer.wms(
         wmsServer,
