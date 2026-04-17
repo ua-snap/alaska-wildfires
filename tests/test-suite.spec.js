@@ -33,11 +33,14 @@ test("Intro text", async ({ page }) => {
   await page.goto(url);
   await page.setViewportSize({ width: 1728, height: 1078 });
 
+  await page.waitForSelector(".intro .glow", { timeout: 10000 });
+
   const glowText = await page.locator(".intro .glow").textContent();
   const regex =
     /As of (.*), there are (.*) active fires, and approximately (.*) acres have burned this fire season./;
   const matches = glowText.match(regex);
 
+  expect(matches).toBeTruthy();
   const dataDate = matches[1];
   const fireCount = matches[2];
   const acresBurned = matches[3];
@@ -90,7 +93,11 @@ test("Current conditions", async ({ page }) => {
   // Wait a bit for data to load.
   await page.waitForTimeout(3000);
 
-  await expect(page.locator(".intro table")).toHaveCount(2);
+  // At least one table should be present (AQI forecast), 2nd table (nearby fires) is conditional
+  // on the fire season having started and there being any fires near Fairbanks
+  await expect(
+    page.locator(".intro table").count(),
+  ).resolves.toBeGreaterThanOrEqual(1);
 
   const tables = page.locator(".intro table");
   const tableCount = await tables.count();
@@ -102,9 +109,10 @@ test("Current conditions", async ({ page }) => {
 test("Active wildfires layer", async ({ page }) => {
   await page.goto(url);
   await page.setViewportSize({ width: 1728, height: 1078 });
+  // This will still only work if there are fires during this season
   await expect
     .poll(() => page.locator(".leaflet-container .leaflet-marker-icon").count())
-    .toBeGreaterThan(10);
+    .toBeGreaterThan(0);
 
   let legend = page.locator(".legend--item:has(table.active-fires)");
   expect(legend).toBeVisible();
@@ -740,14 +748,18 @@ test("Permalinks", async ({ page }) => {
     communityName,
   );
   await expect(page.locator(".intro .title strong")).toHaveText(communityName);
-  await expect(page.locator(".intro table")).toHaveCount(2);
+  // This again expects to find the AQI table, but the nearby fires is dependent on
+  // the fire season since early in the fire season this will fail looking
+  // for two tables.
+  await expect(
+    page.locator(".intro table").count(),
+  ).resolves.toBeGreaterThanOrEqual(1);
 
   let legend;
 
-  // Check current wildfires layer.
   await expect
     .poll(() => page.locator(".leaflet-container .leaflet-marker-icon").count())
-    .toBeGreaterThan(10);
+    .toBeGreaterThan(0);
   legend = page.locator(".legend--item:has(table.active-fires)");
   expect(legend).toBeVisible();
 

@@ -11,6 +11,7 @@
 import _ from "lodash";
 import { mapGetters } from "vuex";
 import mask from "@/mask.json";
+import { geoserverWmsUrl } from "@/geoserver";
 
 export default {
   name: "mv-map",
@@ -220,7 +221,7 @@ export default {
 
       let wmsServer = layer.rasdaman
         ? process.env.VUE_APP_RASDAMAN_URL
-        : process.env.VUE_APP_GEOSERVER_URL + "/wms";
+        : geoserverWmsUrl;
 
       this.$options.leaflet.layers[layer.id] = this.$L.tileLayer.wms(
         wmsServer,

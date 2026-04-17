@@ -18,13 +18,20 @@ To install and run this project locally, follow these steps:
    cd alaska-wildfires
    ```
 
-3. Install the required dependencies:
+3. Set Node to 16.20.2
+
+   ```
+   nvm install 16.20.2
+   nvm use 16.20.2
+   ```
+
+4. Install the required dependencies:
 
    ```
    npm install --force # Force resolution of Vue 2 / Playwright incompatibilities
    ```
 
-4. Start the application:
+5. Start the application:
 
    ```
    npm run dev
