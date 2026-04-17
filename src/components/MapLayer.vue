@@ -9,7 +9,7 @@
   >
     <!-- Layer title! -->
     <span class="layer-title">
-      <span @click="toggleLayer(id)">
+      <span @click="toggleLayer()" role="button">
         <span v-if="layer.visible">&#10003;&nbsp;</span>
         <span
           v-html="layer.title"
