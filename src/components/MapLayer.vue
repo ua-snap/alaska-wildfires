@@ -11,7 +11,7 @@
 
     <!-- Layer title! -->
     <span class="layer-title">
-      <a @click.prevent="toggleLayer(id)">
+      <span @click="toggleLayer(id)">
         <span v-if="layer.visible">&#10003;&nbsp;</span>
         <span
           v-html="layer.title"
@@ -20,7 +20,7 @@
           }"
         >
         </span>
-      </a>
+      </span>
     </span>
 
     <!-- Blurb for extra info if activated -->
@@ -122,10 +122,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-a:hover {
-  text-decoration: none;
-}
-
 .layer {
   margin: 5px 0;
   cursor: pointer;
@@ -142,9 +138,7 @@ a:hover {
 
 .visible {
   font-weight: 900;
-  text-shadow:
-    #f4d609 1px 1px 7px,
-    #f4d609 -1px -1px 7px;
+  text-shadow: #f4d609 1px 1px 7px, #f4d609 -1px -1px 7px;
 }
 
 .layer-title {
