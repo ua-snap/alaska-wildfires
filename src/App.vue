@@ -40,8 +40,11 @@
               >
             </p>
             <p class="intro--legend">
-              <img src="@/assets/active-perimeter.svg" />Active fires with
-              mapped perimeters have a &lsquo;halo&rsquo; to show relative size.
+              <img
+                alt="Active fire perimeter"
+                src="@/assets/active-perimeter.svg"
+              />Active fires with mapped perimeters have a &lsquo;halo&rsquo; to
+              show relative size.
             </p>
             <ul>
               <li>Click one or more map layer names to activate.</li>

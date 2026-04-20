@@ -48,23 +48,31 @@
           <a href="https://akcasc.org"
             >Alaska Climate Adaptation Science Center</a
           >, the University of Alaska Anchorage
-          <a href="https://www.uaa.alaska.edu/academics/college-of-health/departments/population-health-sciences/institute-for-circumpolar-health-studies"
+          <a
+            href="https://www.uaa.alaska.edu/academics/college-of-health/departments/population-health-sciences/institute-for-circumpolar-health-studies"
             >Institute for Circumpolar Health Studies</a
           >, the University of Washington
           <a href="https://cdrc.uw.edu"
             >Center for Disaster Resilient Communities</a
-          >, <a href="https://www.loudentribe.org/">Louden Tribe</a>, the <a href="https://nvgakona.com/">Native Village of Gakona</a>, <a href="https://www.igiugig.com/tribal-government">Igiugig Village Council</a>, 
-          <a href="https://crnative.org/">Copper River Native Association</a
-            >, 
-          <a href="https://www.anthc.org/what-we-do/climate-initiatives/center-for-climate-and-health/">ANTHC</a
-            >, the 
+          >, <a href="https://www.loudentribe.org/">Louden Tribe</a>, the
+          <a href="https://nvgakona.com/">Native Village of Gakona</a>,
+          <a href="https://www.igiugig.com/tribal-government"
+            >Igiugig Village Council</a
+          >,
+          <a href="https://crnative.org/">Copper River Native Association</a>,
+          <a
+            href="https://www.anthc.org/what-we-do/climate-initiatives/center-for-climate-and-health/"
+            >ANTHC</a
+          >, the
           <a href="https://www.frames.gov/afsc/home"
             >Alaska Fire Science Consortium</a
-          >, the 
-          <a href="https://www.muni.org/Departments/health/Admin/environment/pages/default.aspx"
+          >, the
+          <a
+            href="https://www.muni.org/Departments/health/Admin/environment/pages/default.aspx"
             >Anchorage Health Department Environmental Health Program</a
-          >, and the 
-          <a href="https://health.alaska.gov/en/division-of-public-health/epidemiology/environmental-public-health/"
+          >, and the
+          <a
+            href="https://health.alaska.gov/en/division-of-public-health/epidemiology/environmental-public-health/"
             >Alaska Department of Health Environmental Public Health Program</a
           >. Development was partially funded by
           <a
@@ -110,7 +118,7 @@
         </p>
         <div class="logo mt-6">
           <a href="https://uaf.edu/uaf/">
-            <img src="@/assets/UAF.svg" alt="UAF Logo" />
+            <img alt="UAF Logo" src="@/assets/UAF.svg" />
           </a>
         </div>
       </div>
