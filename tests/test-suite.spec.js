@@ -50,18 +50,18 @@ test("Intro text", async ({ page }) => {
   expect(acresBurned).toMatch(/^[0-9,]+$/);
 
   await expect(page.locator("section")).toContainText(
-    "Use the map below to explore current forest fire conditions and air quality near your community. Explore fire science data visualized in the context of history and climate.",
+    "Use the map below to explore current forest fire conditions and air quality near your community. Explore fire science data visualized in the context of history and climate."
   );
   await expect(page.locator("section")).toContainText(
-    "For emergency information and fire management decision-making information visit the Alaska Wildland Fire Information page.",
+    "For emergency information and fire management decision-making information visit the Alaska Wildland Fire Information page."
   );
   await expect(page.locator("section")).toContainText(
-    "Watch a video or read a comic book user guide about how to use this tool and how to protect yourself and your family from wildfire smoke.",
+    "Watch a video or read a comic book user guide about how to use this tool and how to protect yourself and your family from wildfire smoke."
   );
 
   let src = await page
     .locator(
-      'a:text-is("protect yourself and your family from wildfire smoke")',
+      'a:text-is("protect yourself and your family from wildfire smoke")'
     )
     .getAttribute("href");
   expect(src).toContain("https://uaf-snap.org/project/epa-star-wfe");
@@ -87,7 +87,7 @@ test("Current conditions", async ({ page }) => {
   await page.waitForTimeout(3000);
 
   await page.click(
-    '.dropdown-menu .dropdown-item:has(div:text-is("' + communityName + '"))',
+    '.dropdown-menu .dropdown-item:has(div:text-is("' + communityName + '"))'
   );
 
   // Wait a bit for data to load.
@@ -96,7 +96,7 @@ test("Current conditions", async ({ page }) => {
   // At least one table should be present (AQI forecast), 2nd table (nearby fires) is conditional
   // on the fire season having started and there being any fires near Fairbanks
   await expect(
-    page.locator(".intro table").count(),
+    page.locator(".intro table").count()
   ).resolves.toBeGreaterThanOrEqual(1);
 
   const tables = page.locator(".intro table");
@@ -125,7 +125,7 @@ test("Active wildfires layer", async ({ page }) => {
   // Test disabling of wildfires layer.
   await page.click("#fires a");
   await expect(
-    page.locator(".leaflet-container .leaflet-marker-icon"),
+    page.locator(".leaflet-container .leaflet-marker-icon")
   ).toHaveCount(0);
 });
 
@@ -139,11 +139,11 @@ test("Hotspots layer", async ({ page }) => {
   await page.click("#viirs a");
 
   await expect(
-    page.locator(".leaflet-container .leaflet-heatmap-layer"),
+    page.locator(".leaflet-container .leaflet-heatmap-layer")
   ).toBeVisible();
 
   let legend = page.locator(
-    '.legend--item:has(h4:text-is("Hotspots, last 48 hours"))',
+    '.legend--item:has(h4:text-is("Hotspots, last 48 hours"))'
   );
   expect(legend).toBeVisible();
 
@@ -162,7 +162,7 @@ test("Hotspots layer", async ({ page }) => {
     .locator('a:text-is("VIIRS Active Fire Detection")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://gina.alaska.edu/wp-content/uploads/2022/05/VIIRS_ActiveFiresAlgorithm_Quick_Guide.pdf",
+    "https://gina.alaska.edu/wp-content/uploads/2022/05/VIIRS_ActiveFiresAlgorithm_Quick_Guide.pdf"
   );
 });
 
@@ -210,7 +210,7 @@ test("Fire danger layer", async ({ page }) => {
 
   src = await legend
     .locator(
-      'a:text-is("layers provided by MesoWest Alaska Fires & Fuels website")',
+      'a:text-is("layers provided by MesoWest Alaska Fires & Fuels website")'
     )
     .getAttribute("href");
   expect(src).toContain("https://akff.mesowest.org");
@@ -233,16 +233,16 @@ test("Current smoke plumes", async ({ page }) => {
     .locator('a:text-is("VIIRS Aerosol Detection Product")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://www.star.nesdis.noaa.gov/atmospheric-composition-training/documents/VIIRS_Aerosol_Detection_Product_Quick_Guide.pdf",
+    "https://www.star.nesdis.noaa.gov/atmospheric-composition-training/documents/VIIRS_Aerosol_Detection_Product_Quick_Guide.pdf"
   );
 
   src = await legend
     .locator(
-      'a:text-is("NOAA Aerosols and Atmospheric Composition Science Team")',
+      'a:text-is("NOAA Aerosols and Atmospheric Composition Science Team")'
     )
     .getAttribute("href");
   expect(src).toContain(
-    "https://www.star.nesdis.noaa.gov/atmospheric-composition-training/index.php",
+    "https://www.star.nesdis.noaa.gov/atmospheric-composition-training/index.php"
   );
 });
 
@@ -256,7 +256,7 @@ test("Current air quality", async ({ page }) => {
   await page.click("#purple_air a");
   await expect
     .poll(() =>
-      page.locator(".leaflet-container .leaflet-marker-icon.aqi").count(),
+      page.locator(".leaflet-container .leaflet-marker-icon.aqi").count()
     )
     .toBeGreaterThan(10);
 
@@ -272,14 +272,14 @@ test("Current air quality", async ({ page }) => {
     .locator('a:text-is("Read more here")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://www.epa.gov/pm-pollution/particulate-matter-pm-basics",
+    "https://www.epa.gov/pm-pollution/particulate-matter-pm-basics"
   );
 
   src = await legend
     .locator('a:text-is("PurpleAir sensors")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://map.purpleair.com/air-quality-standards-us-epa-aqi?opt=%2F1%2Flp%2Fa10%2Fp604800%2FcC0#1/11.5/-30",
+    "https://map.purpleair.com/air-quality-standards-us-epa-aqi?opt=%2F1%2Flp%2Fa10%2Fp604800%2FcC0#1/11.5/-30"
   );
 });
 
@@ -308,16 +308,16 @@ test("6-hour air quality forecast layer", async ({ page }) => {
     .locator('a:text-is("Read more here")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://www.epa.gov/pm-pollution/particulate-matter-pm-basics",
+    "https://www.epa.gov/pm-pollution/particulate-matter-pm-basics"
   );
 
   src = await legend
     .locator(
-      'a:text-is("online data portal in the NASA Center for Climate Simulation")',
+      'a:text-is("online data portal in the NASA Center for Climate Simulation")'
     )
     .getAttribute("href");
   expect(src).toContain(
-    "https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php",
+    "https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php"
   );
 });
 
@@ -344,16 +344,16 @@ test("12-hour air quality forecast layer", async ({ page }) => {
     .locator('a:text-is("Read more here")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://www.epa.gov/pm-pollution/particulate-matter-pm-basics",
+    "https://www.epa.gov/pm-pollution/particulate-matter-pm-basics"
   );
 
   src = await legend
     .locator(
-      'a:text-is("online data portal in the NASA Center for Climate Simulation")',
+      'a:text-is("online data portal in the NASA Center for Climate Simulation")'
     )
     .getAttribute("href");
   expect(src).toContain(
-    "https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php",
+    "https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php"
   );
 });
 
@@ -380,16 +380,16 @@ test("24-hour air quality forecast layer", async ({ page }) => {
     .locator('a:text-is("Read more here")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://www.epa.gov/pm-pollution/particulate-matter-pm-basics",
+    "https://www.epa.gov/pm-pollution/particulate-matter-pm-basics"
   );
 
   src = await legend
     .locator(
-      'a:text-is("online data portal in the NASA Center for Climate Simulation")',
+      'a:text-is("online data portal in the NASA Center for Climate Simulation")'
     )
     .getAttribute("href");
   expect(src).toContain(
-    "https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php",
+    "https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php"
   );
 });
 
@@ -416,16 +416,16 @@ test("48-hour air quality forecast layer", async ({ page }) => {
     .locator('a:text-is("Read more here")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://www.epa.gov/pm-pollution/particulate-matter-pm-basics",
+    "https://www.epa.gov/pm-pollution/particulate-matter-pm-basics"
   );
 
   src = await legend
     .locator(
-      'a:text-is("online data portal in the NASA Center for Climate Simulation")',
+      'a:text-is("online data portal in the NASA Center for Climate Simulation")'
     )
     .getAttribute("href");
   expect(src).toContain(
-    "https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php",
+    "https://gmao.gsfc.nasa.gov/GMAO_products/NRT_products.php"
   );
 });
 
@@ -452,7 +452,7 @@ test("Land cover types", async ({ page }) => {
     .locator('a:text-is("North American Land Change Monitoring System, 2015")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://eros.usgs.gov/doi-remote-sensing-activities/2019/usgs/nalcms-release-new-land-cover-north-america",
+    "https://eros.usgs.gov/doi-remote-sensing-activities/2019/usgs/nalcms-release-new-land-cover-north-america"
   );
 });
 
@@ -493,14 +493,14 @@ test("Historical lightning strikes", async ({ page }) => {
     .locator('a:text-is("this academic paper")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml",
+    "https://journals.ametsoc.org/view/journals/apme/59/6/JAMC-D-19-0209.1.xml"
   );
 
   src = await legend
     .locator('a:text-is("the dataset can be downloaded here")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548",
+    "https://search.dataone.org/view/10.24431_rw1k45z_2020_7_23_23548"
   );
 });
 
@@ -521,7 +521,7 @@ test("Historical fire perimeters", async ({ page }) => {
   expect(src).toContain("historical_fire_perimeters");
 
   let legend = page.locator(
-    ".legend--item:has(table.historical-fire-perimeters)",
+    ".legend--item:has(table.historical-fire-perimeters)"
   );
   expect(legend).toBeVisible();
 
@@ -537,7 +537,7 @@ test("Historical modeled flammability", async ({ page }) => {
   await page.click("#fires a");
 
   await page.click(
-    "#alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem a",
+    "#alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem a"
   );
 
   // Check that the most recently added map tiles contain expected substrings in the URL of their src attribute.
@@ -549,7 +549,7 @@ test("Historical modeled flammability", async ({ page }) => {
   expect(src).toContain("alaska_wildfire_explorer_historical");
 
   let legend = page.locator(
-    '.legend--item:has(h4:text-is("Historical modeled flammability"))',
+    '.legend--item:has(h4:text-is("Historical modeled flammability"))'
   );
   expect(legend).toBeVisible();
 
@@ -557,7 +557,7 @@ test("Historical modeled flammability", async ({ page }) => {
     .locator('a:text-is("can be downloaded here")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214",
+    "https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214"
   );
 });
 
@@ -569,7 +569,7 @@ test("Projected flammability", async ({ page }) => {
   await page.click("#fires a");
 
   await page.click(
-    "#alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099 a",
+    "#alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099 a"
   );
 
   // Check that the most recently added map tiles contain expected substrings in the URL of their src attribute.
@@ -581,7 +581,7 @@ test("Projected flammability", async ({ page }) => {
   expect(src).toContain("alaska_wildfire_explorer_projected");
 
   let legend = page.locator(
-    '.legend--item:has(h4:text-is("Projected flammability"))',
+    '.legend--item:has(h4:text-is("Projected flammability"))'
   );
   expect(legend).toBeVisible();
 
@@ -589,7 +589,7 @@ test("Projected flammability", async ({ page }) => {
     .locator('a:text-is("can be downloaded here")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214",
+    "https://catalog.snap.uaf.edu/geonetwork/srv/eng/catalog.search#/metadata/eeaaca2c-0280-4226-b126-fda42a2b6214"
   );
 });
 
@@ -636,7 +636,7 @@ test("Footer links", async ({ page }) => {
 
   src = await page
     .locator(
-      '.footer a:text-is("Global Modeling and Assimilation Office (GMAO)")',
+      '.footer a:text-is("Global Modeling and Assimilation Office (GMAO)")'
     )
     .getAttribute("href");
   expect(src).toContain("https://gmao.gsfc.nasa.gov/");
@@ -653,14 +653,14 @@ test("Footer links", async ({ page }) => {
 
   src = await page.locator('.footer a:text-is("NOAA")').getAttribute("href");
   expect(src).toContain(
-    "https://www.nesdis.noaa.gov/about/our-offices/office-of-low-earth-orbit-observations",
+    "https://www.nesdis.noaa.gov/about/our-offices/office-of-low-earth-orbit-observations"
   );
 
   src = await page
     .locator('.footer a:text-is("Alaska Fire Service")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://www.blm.gov/programs/fire-and-aviation/regional-info/alaska-fire-service",
+    "https://www.blm.gov/programs/fire-and-aviation/regional-info/alaska-fire-service"
   );
 
   src = await page
@@ -671,7 +671,7 @@ test("Footer links", async ({ page }) => {
 
   src = await page
     .locator(
-      '.footer a:text-is("Scenarios Network for Alaska and Arctic Planning")',
+      '.footer a:text-is("Scenarios Network for Alaska and Arctic Planning")'
     )
     .getAttribute("href");
   expect(src).toContain("https://www.snap.uaf.edu/");
@@ -685,7 +685,7 @@ test("Footer links", async ({ page }) => {
     .locator('.footer a:text-is("Institute for Circumpolar Health Studies")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://www.uaa.alaska.edu/academics/college-of-health/departments/population-health-sciences/institute-for-circumpolar-health-studies",
+    "https://www.uaa.alaska.edu/academics/college-of-health/departments/population-health-sciences/institute-for-circumpolar-health-studies"
   );
 
   src = await page
@@ -697,7 +697,7 @@ test("Footer links", async ({ page }) => {
     .locator('.footer a:text-is("EPA Grant Number R840479")')
     .getAttribute("href");
   expect(src).toContain(
-    "https://cfpub.epa.gov/ncer_abstracts/index.cfm/fuseaction/display.abstractDetail/abstract_id/11349",
+    "https://cfpub.epa.gov/ncer_abstracts/index.cfm/fuseaction/display.abstractDetail/abstract_id/11349"
   );
 
   src = await page
@@ -732,7 +732,7 @@ test("Footer links", async ({ page }) => {
 
   src = await page
     .locator(
-      '.footer a:text-is("Learn more about UA’s notice of web accessibility")',
+      '.footer a:text-is("Learn more about UA’s notice of web accessibility")'
     )
     .getAttribute("href");
   expect(src).toContain("https://www.alaska.edu/webaccessibility/");
@@ -745,14 +745,14 @@ test("Permalinks", async ({ page }) => {
 
   // Check to see if community is set to communityName and intro table has loaded.
   await expect(page.locator(".place-selector input")).toHaveValue(
-    communityName,
+    communityName
   );
   await expect(page.locator(".intro .title strong")).toHaveText(communityName);
   // This again expects to find the AQI table, but the nearby fires is dependent on
   // the fire season since early in the fire season this will fail looking
   // for two tables.
   await expect(
-    page.locator(".intro table").count(),
+    page.locator(".intro table").count()
   ).resolves.toBeGreaterThanOrEqual(1);
 
   let legend;
@@ -765,7 +765,7 @@ test("Permalinks", async ({ page }) => {
 
   // Check hotspots layer.
   legend = page.locator(
-    '.legend--item:has(h4:text-is("Hotspots, last 48 hours"))',
+    '.legend--item:has(h4:text-is("Hotspots, last 48 hours"))'
   );
   expect(legend).toBeVisible();
 

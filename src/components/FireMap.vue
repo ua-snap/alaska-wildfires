@@ -50,7 +50,7 @@ Vue.prototype.$axios.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  },
+  }
 );
 
 // Add a response interceptor
@@ -61,7 +61,7 @@ Vue.prototype.$axios.interceptors.response.use(
   },
   function (error) {
     return Promise.reject(error);
-  },
+  }
 );
 
 import MvMap from "./Map";
@@ -131,7 +131,7 @@ const decTypes = ["dec", "conocophillips", "blm", "louden_tribe"];
 // Check the user agent to determine if the user is on a mobile device.
 function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent,
+    navigator.userAgent
   );
 }
 
@@ -153,7 +153,7 @@ export default {
           {
             resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
             origin: [-4648005.934316417, 444809.882955059],
-          },
+          }
         );
       }
     },
@@ -164,14 +164,14 @@ export default {
           {
             attribution:
               '&copy; <a href="https://carto.com/attributions">CARTO</a>',
-          },
+          }
         );
       } else {
         return new this.$L.tileLayer.wms(
           geoserverWmsUrl,
           _.extend(this.baseLayerOptions, {
             layers: "atlas_mapproxy:alaska_osm_retina",
-          }),
+          })
         );
       }
     },
@@ -341,13 +341,13 @@ export default {
 
       geoJson.features.forEach((feature) => {
         const aqi10minClassInfo = this.getAqiClassInfo(
-          feature.properties.aqi_10m,
+          feature.properties.aqi_10m
         );
         const aqi24hrClassInfo = this.getAqiClassInfo(
-          feature.properties.aqi_24hr,
+          feature.properties.aqi_24hr
         );
         const aqi1hrClassInfo = this.getAqiClassInfo(
-          feature.properties.aqi_1hr,
+          feature.properties.aqi_1hr
         );
 
         if (
@@ -378,7 +378,7 @@ export default {
           {
             icon: icon,
             zIndexOffset: feature.properties.type == "dec" ? 500 : 0,
-          },
+          }
         );
 
         // Create popup content
@@ -396,7 +396,7 @@ export default {
           }
           popupContent = `<div class="${aqi24hrClassInfo.class} sensor-detail">
             <p><strong>1-hour average PM2.5 AQI</strong> at this sensor on ${this.convertToAKST(
-              feature.properties.lastupdate,
+              feature.properties.lastupdate
             )}:
             </p>
             <p><span class="sensor-aqi ${aqi1hrClassInfo.class}">${
@@ -410,7 +410,7 @@ export default {
           popupContent = `
         <div class="${aqi24hrClassInfo.class} sensor-detail">
             <p><strong>10-minute average PM2.5 AQI</strong> at this sensor on ${this.convertToAKST(
-              feature.properties.lastupdate,
+              feature.properties.lastupdate
             )}:
             </p>
             <p><span class="sensor-aqi ${aqi10minClassInfo.class}">${
@@ -566,7 +566,7 @@ export default {
             outdate: feature.properties.OUTDATE,
             discovered: feature.properties.discovered,
             summary: feature.properties.SUMMARY,
-          }),
+          })
         );
       };
       firePolygons = this.getGeoJsonLayer(data, featureHandler);
@@ -695,12 +695,12 @@ export default {
                     discovered: feature.properties.discovered,
                     summary: feature.properties.SUMMARY,
                   },
-                  popupOptions,
-                ),
+                  popupOptions
+                )
               )
               .on("click", () => {
                 window.trackUmamiEvent("fire-marker-click");
-              }),
+              })
           );
         }
       });
@@ -787,8 +787,8 @@ export default {
               discovered: geoJson.properties.discovered,
               summary: geoJson.properties.SUMMARY,
             },
-            popupOptions,
-          ),
+            popupOptions
+          )
         )
         .on("click", () => {
           // Attach analytics

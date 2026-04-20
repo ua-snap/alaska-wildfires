@@ -36,7 +36,7 @@ export default {
           format: "image/png",
           version: "1.3.0",
         },
-        this.baseLayerOptions,
+        this.baseLayerOptions
       );
     },
     map() {
@@ -50,7 +50,7 @@ export default {
     // Instantiate map objects
     this.$options.leaflet.map = this.$L.map(
       "map--leaflet-map",
-      this.getBaseMapAndLayers(),
+      this.getBaseMapAndLayers()
     );
 
     // Add zoom controls
@@ -117,7 +117,7 @@ export default {
       if (this.selected) {
         this.$options.leaflet.map.setView(
           [this.selected.latitude, this.selected.longitude],
-          3.5,
+          3.5
         );
       } else if (this.selected == undefined) {
         // Reset the map back to the default view
@@ -215,7 +215,7 @@ export default {
       // Remove old layers if present
       if (this.$options.leaflet.layers[layer.id]) {
         this.$options.leaflet.map.removeLayer(
-          this.$options.leaflet.layers[layer.id],
+          this.$options.leaflet.layers[layer.id]
         );
       }
 
@@ -225,7 +225,7 @@ export default {
 
       this.$options.leaflet.layers[layer.id] = this.$L.tileLayer.wms(
         wmsServer,
-        layerConfiguration,
+        layerConfiguration
       );
     },
     // Triggered when a configurable layer has changed, and
@@ -290,7 +290,7 @@ export default {
         toggleLayerVisibility(
           layerVisibility,
           this.$options.leaflet.map,
-          this.$options.leaflet.layers[layer.id],
+          this.$options.leaflet.layers[layer.id]
         );
       });
     },
@@ -309,7 +309,7 @@ export default {
           doubleClickZoom: false,
           dragging: !this.$L.Browser.mobile,
         },
-        this.mapOptions,
+        this.mapOptions
       );
 
       // Mix together some defaults with map-specific configuration.
