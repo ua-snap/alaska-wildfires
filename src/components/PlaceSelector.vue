@@ -122,7 +122,7 @@ export default {
     handleCommunity(communityId) {
       if (communityId) {
         const community = this.places.data.find(
-          (place) => place.id == communityId,
+          (place) => place.id == communityId
         );
         if (community) {
           this.placeNameFragment = community.name;

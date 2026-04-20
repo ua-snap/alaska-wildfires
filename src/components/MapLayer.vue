@@ -54,7 +54,7 @@ export default {
       // Helper to return a layer from the ordered array of layers.
       let targetLayerIndex = _.findIndex(
         this.$store.state.layers,
-        (layer) => layer.id === this.id,
+        (layer) => layer.id === this.id
       );
       return this.$store.state.layers[targetLayerIndex];
     },
@@ -70,7 +70,7 @@ export default {
     sublayers() {
       // Helper to return all sublayers
       return this.$store.state.layers.filter((layer) =>
-        layer.id.includes("aqi_forecast"),
+        layer.id.includes("aqi_forecast")
       );
     },
   },
