@@ -45,12 +45,11 @@
   z-index: 10000;
   position: relative;
 }
-::v-deep .field {
-  label.label {
-    font-size: 1.25rem;
-    color: hsl(0deg, 0%, 29%);
-    font-weight: 600;
-  }
+
+label.label {
+  font-size: 1.25rem;
+  color: hsl(0deg, 0%, 29%);
+  font-weight: 600;
 }
 </style>
 
