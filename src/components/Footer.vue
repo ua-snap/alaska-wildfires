@@ -61,7 +61,7 @@
           >,
           <a href="https://crnative.org/">Copper River Native Association</a>,
           <a
-            href="https://www.anthc.org/what-we-do/climate-initiatives/center-for-climate-and-health/"
+            href="https://anthc.org/environmental-health-engineering/community-environmental-health/"
             >ANTHC</a
           >, the
           <a href="https://www.frames.gov/afsc/home"
