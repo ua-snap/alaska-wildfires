@@ -60,9 +60,7 @@
             >Igiugig Village Council</a
           >,
           <a href="https://crnative.org/">Copper River Native Association</a>,
-          <a
-            href="https://anthc.org/environmental-health-engineering/community-environmental-health/"
-            >ANTHC</a
+          <a href="https://anthc.org">Alaska Native Tribal Health Consortium</a
           >, the
           <a href="https://www.frames.gov/afsc/home"
             >Alaska Fire Science Consortium</a
