@@ -31,7 +31,7 @@
           </div>
 
           <div class="intro content is-size-4 clamp mt-3">
-            <p v-if="fireUpdateDate && fireCount">
+            <p v-if="fireUpdateDate && (fireCount > 0 || acresBurned > 0)">
               <span class="glow mb-6"
                 >As of {{ dataDate }}, there are
                 <strong>{{ fireCount }}</strong> active fires, and approximately
@@ -40,8 +40,11 @@
               >
             </p>
             <p class="intro--legend">
-              <img src="@/assets/active-perimeter.svg" />Active fires with
-              mapped perimeters have a &lsquo;halo&rsquo; to show relative size.
+              <img
+                alt="Active fire perimeter"
+                src="@/assets/active-perimeter.svg"
+              />Active fires with mapped perimeters have a &lsquo;halo&rsquo; to
+              show relative size.
             </p>
             <ul>
               <li>Click one or more map layer names to activate.</li>
@@ -141,8 +144,7 @@
                   Our partner research unit, the
                   <a href="https://www.frames.gov/afsc/home"
                     >Alaska Fire Science Consortium</a
-                  >,
-                  is another great place for resources on fire management in
+                  >, is another great place for resources on fire management in
                   Alaska.
                 </li>
                 <li>
@@ -180,9 +182,8 @@
                   the
                   <a href="https://fire.ak.blm.gov"
                     >Alaska Interagency Coordination Center</a
-                  >,
-                  where data and reports for current and past fire seasons are
-                  often available.
+                  >, where data and reports for current and past fire seasons
+                  are often available.
                 </li>
               </ul>
               <p>Looking forward to seeing you here next year!</p>

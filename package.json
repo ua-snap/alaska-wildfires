@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "aws s3 cp s3://alaskawildfires.org/status.json ./public/ && vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui"
   },
   "dependencies": {
     "axios": "^0.21.4",

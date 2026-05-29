@@ -27,7 +27,7 @@ var swapVisibility = (
   targetLayer,
   targetLayerIndex,
   propName,
-  value,
+  value
 ) => {
   // If we're explicitly setting the value, do so.
   if (value === true || value === false) {
@@ -119,7 +119,7 @@ export default new Vuex.Store({
         state.layers[targetLayerIndex],
         targetLayerIndex,
         "visible",
-        payload.setTo,
+        payload.setTo
       );
       // Add numeric IDs of all visible layers to the URL as GET parameters
       let visibleLayers = state.layers
@@ -147,7 +147,7 @@ export default new Vuex.Store({
         layer_id = id;
       } else if (numericId >= 0) {
         let foundLayer = state.layers.find(
-          (layer) => layer.numericId === parseInt(numericId),
+          (layer) => layer.numericId === parseInt(numericId)
         );
         layer_id = foundLayer.id;
       } else {
@@ -239,7 +239,7 @@ export default new Vuex.Store({
       if (state.updateStatus) {
         return moment(
           state.updateStatus.layers.aqi_forecast.updated,
-          "YYYYMMDDHH",
+          "YYYYMMDDHH"
         ).format("ha, MMMM D");
       }
     },

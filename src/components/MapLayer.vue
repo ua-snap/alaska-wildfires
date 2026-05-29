@@ -7,11 +7,9 @@
       small: small,
     }"
   >
-    <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
-
     <!-- Layer title! -->
     <span class="layer-title">
-      <a @click.prevent="toggleLayer(id)">
+      <span @click="toggleLayer()" role="button">
         <span v-if="layer.visible">&#10003;&nbsp;</span>
         <span
           v-html="layer.title"
@@ -20,7 +18,7 @@
           }"
         >
         </span>
-      </a>
+      </span>
     </span>
 
     <!-- Blurb for extra info if activated -->
@@ -56,7 +54,7 @@ export default {
       // Helper to return a layer from the ordered array of layers.
       let targetLayerIndex = _.findIndex(
         this.$store.state.layers,
-        (layer) => layer.id === this.id,
+        (layer) => layer.id === this.id
       );
       return this.$store.state.layers[targetLayerIndex];
     },
@@ -72,13 +70,13 @@ export default {
     sublayers() {
       // Helper to return all sublayers
       return this.$store.state.layers.filter((layer) =>
-        layer.id.includes("aqi_forecast"),
+        layer.id.includes("aqi_forecast")
       );
     },
   },
   methods: {
     toggleLayer() {
-      window.umami.track("toggle-layer", { id: this.id });
+      window.trackUmamiEvent("toggle-layer", { id: this.id });
       if (this.id.includes("aqi_forecast")) {
         this.sublayers.forEach((layer) => {
           // When an AQI forecast layer is toggled, turn off all other AQI forecast layers.
@@ -89,10 +87,7 @@ export default {
             });
           }
         });
-      } else if (
-        this.id === "gmu" ||
-        this.id === "fire_zones"
-      ) {
+      } else if (this.id === "gmu" || this.id === "fire_zones") {
         // When a boundary layer is toggled, turn off all other boundary layers
         const boundaryLayers = ["gmu", "fire_zones"];
         boundaryLayers.forEach((layerId) => {
@@ -125,10 +120,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-a:hover {
-  text-decoration: none;
-}
-
 .layer {
   margin: 5px 0;
   cursor: pointer;

@@ -29,7 +29,7 @@ export default {
       // Helper to return a layer from the ordered array of layers.
       let targetLayerIndex = _.findIndex(
         this.$store.state.layers,
-        (layer) => layer.id === this.id,
+        (layer) => layer.id === this.id
       );
       return this.$store.state.layers[targetLayerIndex];
     },

@@ -59,8 +59,8 @@ const activeFiresLayerTable = `
   <tbody>
     <tr>
       <th scope="row">Fires with mapped perimeters</th>
-      <td><img src=" ${require("@/assets/active-perimeter.svg")} "/></td>
-      <td><img src=" ${require("@/assets/inactive-perimeter.svg")} "/></td>
+      <td><img alt="Active fire perimeter" src=" ${require("@/assets/active-perimeter.svg")} "/></td>
+      <td><img alt="Inactive fire perimeter" src=" ${require("@/assets/inactive-perimeter.svg")} "/></td>
     </tr>
     <tr>
       <th scope="row">Fires &gt;1 acre</th>
@@ -99,10 +99,10 @@ export default [
     layerName: "alaska_wildfires:lightning_strikes",
     legend:
       `<table class="table alaska-wildfires-legend lightning">
-              <tr><td><div class="positive"><img src="` +
+              <tr><td><div class="positive"><img alt="Positive lightning strike" src="` +
       require("@/assets/lightning-positive.svg") +
       `"/></div></td><td>Positive</td></tr>
-              <tr><td><div class="negative"><img src="` +
+              <tr><td><div class="negative"><img alt="Negative lightning strike" src="` +
       require("@/assets/lightning-negative.svg") +
       `"/></div></td><td>Negative</td></tr>
               <tr><td><div class="cloud2cloud">•</div></td><td>Cloud to cloud</td></tr>
@@ -192,7 +192,10 @@ export default [
     title: "Hotspots, last 48 hours",
     layerName: "alaska_wildfires:viirs_hotspots",
     local: true,
-    legend: `<img src="` + require("@/assets/hotspot-legend.png") + `"/>`,
+    legend:
+      `<img alt="Hotspot" src="` +
+      require("@/assets/hotspot-legend.png") +
+      `"/>`,
     zindex: 100,
     abstract: `<p>&ldquo;Hotspots&rdquo; are places where temperatures are higher than expected. Scientific instruments on satellites can detect hotspots, which helps fire managers discover new wildfires. Individual hotspots are compiled into smooth gradients, where darker colors indicate greater densities of hotspots. Note that the instrument can also detect other hotspots unrelated to wildfire, such as flare stacks at oil drilling facilities on the North Slope of Alaska or even ship exhaust in the ocean.</p>
 
