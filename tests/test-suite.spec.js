@@ -123,7 +123,7 @@ test("Active wildfires layer", async ({ page }) => {
   expect(src).toContain("https://fire.ak.blm.gov/predsvcs/maps.php");
 
   // Test disabling of wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
   await expect(
     page.locator(".leaflet-container .leaflet-marker-icon")
   ).toHaveCount(0);
@@ -134,9 +134,9 @@ test("Hotspots layer", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
-  await page.click("#viirs a");
+  await page.click("#viirs span");
 
   await expect(
     page.locator(".leaflet-container .leaflet-heatmap-layer")
@@ -171,9 +171,9 @@ test("Lightning strikes layer", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
-  await page.click("#lightning_strikes a");
+  await page.click("#lightning_strikes span");
 
   // Check that the most recently added map tiles contain "lightning_strikes" in the URL of their src attribute.
   let src = await page
@@ -193,10 +193,10 @@ test("Lightning strikes layer", async ({ page }) => {
 //   await page.goto(url);
 //   await page.setViewportSize({ width: 1728, height: 1078 });
 
-//   // Disable current wildfires layer.
-//   await page.click("#fires a");
+  // Disable current wildfires layer.
+//   await page.click("#fires span");
 
-//   await page.click("#spruceadj_3338 a");
+//   await page.click("#spruceadj_3338 span");
 
 //   // Check that the most recently added map tiles contain "spruceadj_3338" in the URL of their src attribute.
 //   let src = await page
@@ -220,7 +220,7 @@ test("Current smoke plumes", async ({ page }) => {
   await page.goto(url);
   await page.setViewportSize({ width: 1728, height: 1078 });
 
-  await page.click("#viirs_adp a");
+  await page.click("#viirs_adp span");
   let tiles = page.locator(".leaflet-container .leaflet-layer img");
   let expectedWmsLayers = ["viirs_adp"];
   let allLayersFound = await checkForLayers(tiles, expectedWmsLayers);
@@ -251,9 +251,9 @@ test("Current air quality", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
-  await page.click("#purple_air a");
+  await page.click("#purple_air span");
   await expect
     .poll(() =>
       page.locator(".leaflet-container .leaflet-marker-icon.aqi").count()
@@ -288,9 +288,9 @@ test("6-hour air quality forecast layer", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
-  await page.click("#aqi_forecast_6_hrs a");
+  await page.click("#aqi_forecast_6_hrs span");
 
   await page.waitForTimeout(3000);
 
@@ -326,9 +326,9 @@ test("12-hour air quality forecast layer", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
-  await page.click("#aqi_forecast_12_hrs a");
+  await page.click("#aqi_forecast_12_hrs span");
 
   // Check that the most recently added map tiles contain "aqi_forecast_12_hrs" in the URL of their src attribute.
   let src = await page
@@ -362,9 +362,9 @@ test("24-hour air quality forecast layer", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
-  await page.click("#aqi_forecast_24_hrs a");
+  await page.click("#aqi_forecast_24_hrs span");
 
   // Check that the most recently added map tiles contain "aqi_forecast_24_hrs" in the URL of their src attribute.
   let src = await page
@@ -398,9 +398,9 @@ test("48-hour air quality forecast layer", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
-  await page.click("#aqi_forecast_48_hrs a");
+  await page.click("#aqi_forecast_48_hrs span");
 
   // Check that the most recently added map tiles contain "aqi_forecast_48_hrs" in the URL of their src attribute.
   let src = await page
@@ -434,9 +434,9 @@ test("Land cover types", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
-  await page.click("#alaska_landcover_2015 a");
+  await page.click("#alaska_landcover_2015 span");
 
   // Check that the most recently added map tiles contain "wildfires" in the URL of their src attribute.
   let src = await page
@@ -461,9 +461,9 @@ test("Historical lightning strikes", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
-  await page.click("#gridded_lightning a");
+  await page.click("#gridded_lightning span");
 
   // Check that the most recently added map tiles contain "lightning-monthly-climatology" in the URL of their src attribute.
   // Also check that the layer loaded is for the month of May.
@@ -509,9 +509,9 @@ test("Historical fire perimeters", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
-  await page.click("#historical_fire_perimeters a");
+  await page.click("#historical_fire_perimeters span");
 
   // Check that the most recently added map tiles contain "lightning-monthly-climatology" in the URL of their src attribute.
   let src = await page
@@ -534,10 +534,10 @@ test("Historical modeled flammability", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
   await page.click(
-    "#alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem a"
+    "#alfresco_relative_flammability_cru_ts40_historical_1950_2008_iem span"
   );
 
   // Check that the most recently added map tiles contain expected substrings in the URL of their src attribute.
@@ -566,10 +566,10 @@ test("Projected flammability", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
   await page.click(
-    "#alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099 a"
+    "#alfresco_relative_flammability_NCAR-CCSM4_rcp85_2070_2099 span"
   );
 
   // Check that the most recently added map tiles contain expected substrings in the URL of their src attribute.
@@ -598,12 +598,12 @@ test("Boundary layers", async ({ page }) => {
   await page.setViewportSize({ width: 1728, height: 1078 });
 
   // Disable current wildfires layer.
-  await page.click("#fires a");
+  await page.click("#fires span");
 
   let src;
 
   // Check that the most recently added map tiles contain "all_gmus" in the URL of their src attribute.
-  await page.click("#gmu a");
+  await page.click("#gmu span");
   src = await page
     .locator(".leaflet-container .leaflet-layer img")
     .last()
@@ -611,7 +611,7 @@ test("Boundary layers", async ({ page }) => {
   expect(src).toContain("all_gmus");
 
   // Check that the most recently added map tiles contain "all_fire_zones" in the URL of their src attribute.
-  await page.click("#fire_zones a");
+  await page.click("#fire_zones span");
   src = await page
     .locator(".leaflet-container .leaflet-layer img")
     .last()
