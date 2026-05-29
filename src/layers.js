@@ -256,24 +256,24 @@ export default [
             <tr><td><div class="sc-snow"></div></td><td>Snow</td></tr>
           </table>`,
   },
-  {
-    abstract: `
-    <p>This is the same information shown on the &ldquo;Smokey the Bear&rdquo; signs!  Fire managers use these ratings to understand the environment that is developing over time. Ratings are used to assess the risk of wildfires for areas of Alaska based on factors such as recent precipitation and buildup of vegetation in an area.  Data are derived from <a href="https://akff.mesowest.org">layers provided by MesoWest Alaska Fires &amp; Fuels website</a>.</p>
-    `,
-    id: "spruceadj_3338",
-    numericId: 3,
-    wmsLayerName: "alaska_wildfires:spruceadj_3338",
-    styles: "alaska_wildfires:spruce_adjective",
-    zindex: 10,
-    title: "Today&rsquo;s Fire Danger Ratings",
-    legend: `<table class="table alaska-wildfires-legend smokey-bear">
-      <tr><td><div class="sa-1"></div></td><td>Low</td></tr>
-      <tr><td><div class="sa-2"></div></td><td>Medium</td></tr>
-      <tr><td><div class="sa-3"></div></td><td>High</td></tr>
-      <tr><td><div class="sa-4"></div></td><td>Very High</td></tr>
-      <tr><td><div class="sa-5"></div></td><td>Extreme</td></tr>
-    </table>`,
-  },
+  // {
+  //   abstract: `
+  //   <p>This is the same information shown on the &ldquo;Smokey the Bear&rdquo; signs!  Fire managers use these ratings to understand the environment that is developing over time. Ratings are used to assess the risk of wildfires for areas of Alaska based on factors such as recent precipitation and buildup of vegetation in an area.  Data are derived from <a href="https://akff.mesowest.org">layers provided by MesoWest Alaska Fires &amp; Fuels website</a>.</p>
+  //   `,
+  //   id: "spruceadj_3338",
+  //   numericId: 3,
+  //   wmsLayerName: "alaska_wildfires:spruceadj_3338",
+  //   styles: "alaska_wildfires:spruce_adjective",
+  //   zindex: 10,
+  //   title: "Today&rsquo;s Fire Danger Ratings",
+  //   legend: `<table class="table alaska-wildfires-legend smokey-bear">
+  //     <tr><td><div class="sa-1"></div></td><td>Low</td></tr>
+  //     <tr><td><div class="sa-2"></div></td><td>Medium</td></tr>
+  //     <tr><td><div class="sa-3"></div></td><td>High</td></tr>
+  //     <tr><td><div class="sa-4"></div></td><td>Very High</td></tr>
+  //     <tr><td><div class="sa-5"></div></td><td>Extreme</td></tr>
+  //   </table>`,
+  // },
   {
     rasdaman: true,
     abstract: `

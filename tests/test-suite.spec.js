@@ -181,32 +181,32 @@ test("Lightning strikes layer", async ({ page }) => {
   expect(src).toContain("https://fire.ak.blm.gov/predsvcs/maps.php");
 });
 
-test("Fire danger layer", async ({ page }) => {
-  await page.goto(url);
-  await page.setViewportSize({ width: 1728, height: 1078 });
+// test("Fire danger layer", async ({ page }) => {
+//   await page.goto(url);
+//   await page.setViewportSize({ width: 1728, height: 1078 });
 
-  // Disable current wildfires layer.
-  await page.click("#fires a");
+//   // Disable current wildfires layer.
+//   await page.click("#fires a");
 
-  await page.click("#spruceadj_3338 a");
+//   await page.click("#spruceadj_3338 a");
 
-  // Check that the most recently added map tiles contain "spruceadj_3338" in the URL of their src attribute.
-  let src = await page
-    .locator(".leaflet-container .leaflet-layer img")
-    .last()
-    .getAttribute("src");
-  expect(src).toContain("spruceadj_3338");
+//   // Check that the most recently added map tiles contain "spruceadj_3338" in the URL of their src attribute.
+//   let src = await page
+//     .locator(".leaflet-container .leaflet-layer img")
+//     .last()
+//     .getAttribute("src");
+//   expect(src).toContain("spruceadj_3338");
 
-  let legend = page.locator(".legend--item:has(table.smokey-bear)");
-  expect(legend).toBeVisible();
+//   let legend = page.locator(".legend--item:has(table.smokey-bear)");
+//   expect(legend).toBeVisible();
 
-  src = await legend
-    .locator(
-      'a:text-is("layers provided by MesoWest Alaska Fires & Fuels website")',
-    )
-    .getAttribute("href");
-  expect(src).toContain("https://akff.mesowest.org");
-});
+//   src = await legend
+//     .locator(
+//       'a:text-is("layers provided by MesoWest Alaska Fires & Fuels website")',
+//     )
+//     .getAttribute("href");
+//   expect(src).toContain("https://akff.mesowest.org");
+// });
 
 test("Current smoke plumes", async ({ page }) => {
   await page.goto(url);
@@ -757,15 +757,15 @@ test("Permalinks", async ({ page }) => {
   );
   expect(legend).toBeVisible();
 
-  // Check fire danger ratings and lightning strikes layers.
-  let tiles = page.locator(".leaflet-container .leaflet-layer img");
-  let expectedWmsLayers = ["spruceadj_3338"];
-  let allLayersFound = await checkForLayers(tiles, expectedWmsLayers);
-  expect(allLayersFound).toBe(true);
+  // // Check fire danger ratings and lightning strikes layers.
+  // let tiles = page.locator(".leaflet-container .leaflet-layer img");
+  // let expectedWmsLayers = ["spruceadj_3338"];
+  // let allLayersFound = await checkForLayers(tiles, expectedWmsLayers);
+  // expect(allLayersFound).toBe(true);
 
   legend = page.locator(".legend--item:has(table.lightning)");
   expect(legend).toBeVisible();
 
-  legend = page.locator(".legend--item:has(table.smokey-bear)");
-  expect(legend).toBeVisible();
+  // legend = page.locator(".legend--item:has(table.smokey-bear)");
+  // expect(legend).toBeVisible();
 });
