@@ -136,15 +136,6 @@ export default {
         e.stopPropagation();
       }
     },
-    // Handle map click event
-    onMapClick(e) {
-      // Only fetch data if shift key is pressed
-      if (e.originalEvent.shiftKey) {
-        const lat = e.latlng.lat.toFixed(2);
-        const lng = e.latlng.lng.toFixed(2);
-        this.fetchLocationData(lat, lng);
-      }
-    },
     updateCursorStyle(e) {
       // Checks for shift key press to change cursor style
       if (e.key === "Shift") {
@@ -164,19 +155,6 @@ export default {
     removeKeyboardListeners() {
       document.removeEventListener("keydown", this.updateCursorStyle);
       document.removeEventListener("keyup", this.updateCursorStyle);
-    },
-    async fetchLocationData(lat, lng) {
-      try {
-        const selected = {
-          name: lat + ", " + lng,
-          latitude: lat,
-          longitude: lng,
-        };
-        this.$store.commit("setSelected", selected);
-        this.fetchFireAPI(selected);
-      } catch (error) {
-        console.error("Error fetching location data:", error);
-      }
     },
     async fetchFireAPI(selected) {
       await this.$store.dispatch("fetchFireAPI", selected);
@@ -302,11 +280,9 @@ export default {
       var defaultMapProperties = _.extend(
         {
           crs: this.crs,
-          boxZoom: false,
           zoomControl: false,
           scrollWheelZoom: false,
           attributionControl: false,
-          doubleClickZoom: false,
           dragging: !this.$L.Browser.mobile,
         },
         this.mapOptions
