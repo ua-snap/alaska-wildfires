@@ -10,7 +10,6 @@
 <script>
 import _ from "lodash";
 import { mapGetters } from "vuex";
-import mask from "@/mask.json";
 import { geoserverWmsUrl } from "@/geoserver";
 
 export default {
@@ -66,21 +65,6 @@ export default {
     this.$root.$on("refresh-map-layers", () => {
       this.refreshLayers();
     });
-
-    // Add land mask to map to handle shift-click events
-    this.$L
-      .geoJSON(mask, {
-        onEachFeature: (feature, layer) => {
-          layer.on("click", this.onMapClick.bind(this));
-          layer.on("mouseover", this.addKeyboardListeners.bind(this));
-          layer.on("mouseout", this.removeKeyboardListeners.bind(this));
-        },
-        style: {
-          opacity: 0.0,
-          fillOpacity: 0.0,
-        },
-      })
-      .addTo(this.$options.leaflet.map);
 
     setTimeout(() => {
       this.$options.leaflet.map.invalidateSize();
@@ -147,14 +131,6 @@ export default {
             .style.removeProperty("cursor");
         }
       }
-    },
-    addKeyboardListeners() {
-      document.addEventListener("keydown", this.updateCursorStyle);
-      document.addEventListener("keyup", this.updateCursorStyle);
-    },
-    removeKeyboardListeners() {
-      document.removeEventListener("keydown", this.updateCursorStyle);
-      document.removeEventListener("keyup", this.updateCursorStyle);
     },
     async fetchFireAPI(selected) {
       await this.$store.dispatch("fetchFireAPI", selected);
