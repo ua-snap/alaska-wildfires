@@ -10,7 +10,6 @@
 <script>
 import _ from "lodash";
 import { mapGetters } from "vuex";
-import mask from "@/mask.json";
 import { geoserverWmsUrl } from "@/geoserver";
 
 export default {
@@ -67,21 +66,6 @@ export default {
       this.refreshLayers();
     });
 
-    // Add land mask to map to handle shift-click events
-    this.$L
-      .geoJSON(mask, {
-        onEachFeature: (feature, layer) => {
-          layer.on("click", this.onMapClick.bind(this));
-          layer.on("mouseover", this.addKeyboardListeners.bind(this));
-          layer.on("mouseout", this.removeKeyboardListeners.bind(this));
-        },
-        style: {
-          opacity: 0.0,
-          fillOpacity: 0.0,
-        },
-      })
-      .addTo(this.$options.leaflet.map);
-
     setTimeout(() => {
       this.$options.leaflet.map.invalidateSize();
     }, 0);
@@ -136,15 +120,6 @@ export default {
         e.stopPropagation();
       }
     },
-    // Handle map click event
-    onMapClick(e) {
-      // Only fetch data if shift key is pressed
-      if (e.originalEvent.shiftKey) {
-        const lat = e.latlng.lat.toFixed(2);
-        const lng = e.latlng.lng.toFixed(2);
-        this.fetchLocationData(lat, lng);
-      }
-    },
     updateCursorStyle(e) {
       // Checks for shift key press to change cursor style
       if (e.key === "Shift") {
@@ -155,27 +130,6 @@ export default {
             .getContainer()
             .style.removeProperty("cursor");
         }
-      }
-    },
-    addKeyboardListeners() {
-      document.addEventListener("keydown", this.updateCursorStyle);
-      document.addEventListener("keyup", this.updateCursorStyle);
-    },
-    removeKeyboardListeners() {
-      document.removeEventListener("keydown", this.updateCursorStyle);
-      document.removeEventListener("keyup", this.updateCursorStyle);
-    },
-    async fetchLocationData(lat, lng) {
-      try {
-        const selected = {
-          name: lat + ", " + lng,
-          latitude: lat,
-          longitude: lng,
-        };
-        this.$store.commit("setSelected", selected);
-        this.fetchFireAPI(selected);
-      } catch (error) {
-        console.error("Error fetching location data:", error);
       }
     },
     async fetchFireAPI(selected) {
@@ -302,11 +256,9 @@ export default {
       var defaultMapProperties = _.extend(
         {
           crs: this.crs,
-          boxZoom: false,
           zoomControl: false,
           scrollWheelZoom: false,
           attributionControl: false,
-          doubleClickZoom: false,
           dragging: !this.$L.Browser.mobile,
         },
         this.mapOptions
