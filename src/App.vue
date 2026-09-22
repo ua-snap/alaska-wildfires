@@ -85,7 +85,7 @@
           <div class="clamp">
             <h2 class="is-2 title">❄️ This tool is offline for the winter.</h2>
             <h3 class="is-2 subtitle">
-              It will come back online in April 2026.
+              It will come back online in April 2027.
             </h3>
             <div class="content is-size-4">
               <p>
